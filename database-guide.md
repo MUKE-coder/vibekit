@@ -11,7 +11,7 @@
 4. [Writing Your First Schema](#writing-your-first-schema)
 5. [Common Schema Patterns](#common-schema-patterns)
 6. [Migrations — What They Are and How to Run Them](#migrations)
-7. [Querying Data (What to Tell Lovable)](#querying-data)
+7. [Querying Data (What to Tell Claude Code)](#querying-data)
 8. [Neon Branching — Dev vs Production](#neon-branching)
 9. [Troubleshooting Common Database Errors](#troubleshooting)
 
@@ -26,7 +26,7 @@ A database is where your app permanently stores all its data — users, posts, o
 - **Serverless** — scales automatically, no server to manage
 - **Postgres** — the world's most reliable open-source database
 - **Branches** — create dev/staging/production copies instantly, like Git branches for your data
-- **Works with Lovable** — Lovable knows how to connect Next.js apps to Neon
+- **Works with Claude Code** — Claude Code knows how to connect Next.js apps to Neon
 
 ---
 
@@ -147,7 +147,7 @@ enum Role {
 
 ## Common Schema Patterns
 
-Use these as starting points for your own schemas. Tell Lovable to use or modify these patterns.
+Use these as starting points for your own schemas. Tell Claude Code to use or modify these patterns.
 
 ### SaaS App with Subscriptions
 
@@ -278,9 +278,9 @@ model Class {
 
 A migration is a record of a change to your database structure. Every time you update `schema.prisma`, you need to run a migration to apply those changes to the actual database.
 
-### How to Tell Lovable to Run Migrations
+### How to Tell Claude Code to Run Migrations
 
-In Lovable, after changing the schema, say:
+In Claude Code, after changing the schema, say:
 
 ```
 The Prisma schema has been updated. Now run:
@@ -325,9 +325,9 @@ prisma generate && prisma migrate deploy && next build
 
 ## Querying Data
 
-When telling Lovable to fetch or write data, use these patterns as reference. Lovable will write the actual code — you just need to know what to ask for.
+When telling Claude Code to fetch or write data, use these patterns as reference. Claude Code will write the actual code — you just need to know what to ask for.
 
-### What to Say to Lovable
+### What to Say to Claude Code
 
 **Get all records:**
 ```

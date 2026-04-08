@@ -18,19 +18,19 @@
 
 ## Why AI Design Looks the Same
 
-Lovable, V0, and every other AI coding tool was trained on millions of websites. The most common patterns in that training data — purple gradients, blue primary buttons, gray cards with subtle shadows, rounded corners everywhere — become the AI's default preferences.
+Claude Code, V0, and every other AI coding tool was trained on millions of websites. The most common patterns in that training data — purple gradients, blue primary buttons, gray cards with subtle shadows, rounded corners everywhere — become the AI's default preferences.
 
-When you ask Lovable to "build a beautiful dashboard", it defaults to what it has seen most. The result: an app that looks like every other AI-built app.
+When you ask Claude Code to "build a beautiful dashboard", it defaults to what it has seen most. The result: an app that looks like every other AI-built app.
 
 The fix is simple: **tell AI exactly what it should build before it makes any decisions.**
 
-A design system prompt locks every visual decision — colors, typography, spacing, component style — before AI writes a single line of CSS. Lovable then applies those decisions consistently, producing a unique app that reflects your choices instead of its defaults.
+A design system prompt locks every visual decision — colors, typography, spacing, component style — before AI writes a single line of CSS. Claude Code then applies those decisions consistently, producing a unique app that reflects your choices instead of its defaults.
 
 ---
 
 ## The Design System Prompt
 
-This is the most important prompt in your entire build. **Paste this at the start of every new Lovable session.**
+This is the most important prompt in your entire build. **Paste this at the start of every new Claude Code session.**
 
 ### Template
 
@@ -175,11 +175,11 @@ Best for: high-end services, portfolio, agencies
 
 Every well-designed app uses two fonts: a **display font** (headings, brand moments) and a **body font** (all readable text). Using only one font is fine, but using two creates visual hierarchy.
 
-**Safe single-font choices for Lovable (already available via Tailwind):**
+**Safe single-font choices for Claude Code (already available via Tailwind):**
 - `Inter` — clean, modern, highly readable. Best for dashboards and data-heavy apps
 - `system-ui` — uses the device's native font. Fastest to load, feels native
 
-**Adding a custom font in Lovable:**
+**Adding a custom font in Claude Code:**
 ```
 Add the Google Font [font name] to the project.
 Import it in the root layout.
@@ -202,7 +202,7 @@ Caption:       text-xs text-slate-500
 
 ## Component Style Patterns
 
-Copy-paste these into your design system prompt or your Lovable prompts for specific components.
+Copy-paste these into your design system prompt or your Claude Code prompts for specific components.
 
 ### Sidebar Navigation
 
@@ -322,14 +322,14 @@ CTA buttons: large, rounded-xl, py-4 px-8
 
 ## Using V0 for Design Work
 
-V0 is better than Lovable for visual iteration. Use it when you need to try multiple design options quickly.
+V0 is better than Claude Code for visual iteration. Use it when you need to try multiple design options quickly.
 
-### The V0 → Lovable Workflow
+### The V0 → Claude Code Workflow
 
 1. **Design in V0**: describe what you want visually
 2. **Iterate in V0**: regenerate 3–4 times until the design is right
 3. **Copy V0 output**: the React component code
-4. **Handoff to Lovable**: paste with this prompt:
+4. **Handoff to Claude Code**: paste with this prompt:
 
 ```
 I designed this component in V0. Here is the code: [PASTE]

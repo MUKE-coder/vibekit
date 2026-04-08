@@ -1,6 +1,6 @@
 # Prompt Engineering for Vibe Coders
 
-> The difference between a $200 Lovable bill and a $20 one is not the complexity of your app — it is the quality of your prompts.
+> The difference between a messy, broken build and a clean production app is not the complexity — it is the quality of your prompts.
 
 ---
 
@@ -8,12 +8,12 @@
 
 1. [What Is Prompt Engineering?](#what-is-prompt-engineering)
 2. [The Token Economy — Why Your Wallet Depends on This](#the-token-economy)
-3. [How Lovable & V0 Actually Read Your Prompts](#how-lovable-reads-prompts)
+3. [How Claude Code & V0 Actually Read Your Prompts](#how-lovable-reads-prompts)
 4. [The 5-Part Pro Prompt Formula](#the-5-part-pro-prompt-formula)
 5. [Context Loading — The Most Powerful Technique](#context-loading)
 6. [The PRD Method — Guide AI Through an Entire Project](#the-prd-method)
 7. [Prompt Templates by Situation](#prompt-templates-by-situation)
-8. [The Lovable vs V0 Decision Framework](#lovable-vs-v0-decision-framework)
+8. [The Claude Code vs V0 Decision Framework](#lovable-vs-v0-decision-framework)
 9. [Anti-Patterns — What Never to Do](#anti-patterns)
 10. [Advanced Techniques](#advanced-techniques)
 11. [The Rescue System — When AI Gets Stuck](#the-rescue-system)
@@ -24,14 +24,14 @@
 
 Prompt engineering is the practice of writing instructions for AI tools in a way that produces the result you actually want — efficiently, on the first try, without wasting tokens or triggering loops.
 
-For vibe coders using Lovable and V0, prompt engineering is the single most important skill. It determines:
+For vibe coders using Claude Code, prompt engineering is the single most important skill. It determines:
 
 - **How much you spend** — bad prompts burn 3–5x more tokens than good ones
 - **How fast you build** — good prompts produce working code on the first attempt
 - **How stuck you get** — vague prompts create vague code that breaks in unpredictable ways
 - **How consistent your app looks** — unfocused prompts produce inconsistent UI
 
-The mental model: **think of Lovable as a very capable contractor who charges by the hour and has no memory between sessions.** The clearer and more complete your brief, the less time they waste rereading, clarifying, and redoing work.
+The mental model: **think of Claude Code as a very capable contractor who charges by the hour.** The clearer and more complete your brief, the less time it wastes rereading, clarifying, and redoing work.
 
 ---
 
@@ -41,7 +41,7 @@ Understanding tokens is understanding money.
 
 ### What Is a Token?
 
-A token is roughly 4 characters of text, or about ¾ of a word. When you write a prompt to Lovable, every word costs tokens. When Lovable reads your existing codebase to understand context, every line of code costs tokens. When Lovable writes new code back, every line it generates costs tokens.
+A token is roughly 4 characters of text, or about ¾ of a word. When you write a prompt to Claude Code, every word costs tokens. When Claude Code reads your existing codebase to understand context, every line of code costs tokens. When Claude Code writes new code back, every line it generates costs tokens.
 
 **Tokens = Money. The more tokens, the higher your bill.**
 
@@ -56,7 +56,7 @@ A token is roughly 4 characters of text, or about ¾ of a word. When you write a
 
 ### The Pre-Built Component Advantage
 
-When you ask Lovable to "add authentication", without a pre-built component it must:
+When you ask Claude Code to "add authentication", without a pre-built component it must:
 
 1. Design the auth pages
 2. Write the login form
@@ -69,7 +69,7 @@ When you ask Lovable to "add authentication", without a pre-built component it m
 
 That is roughly **800–1,200 lines of code written from scratch**, costing 3,000–5,000 tokens in generation alone.
 
-When you install `Better Auth UI` first and then tell Lovable to use it, Lovable only needs to:
+When you install `Better Auth UI` first and then tell Claude Code to use it, Claude Code only needs to:
 
 1. Read the existing component (~300 tokens to understand)
 2. Wire it to your database (~100 tokens)
@@ -80,9 +80,9 @@ Multiply this across auth, data tables, forms, payments, and file uploads — an
 
 ---
 
-## How Lovable Reads Your Prompts
+## How Claude Code Reads Your Prompts
 
-Lovable processes your prompt in this order:
+Claude Code processes your prompt in this order:
 
 1. **Reads your entire codebase** (existing files) for context
 2. **Reads your prompt** top to bottom
@@ -92,7 +92,7 @@ Lovable processes your prompt in this order:
 This means:
 
 - **What comes first in your prompt matters most** — put the most important constraint at the top
-- **Lovable will try to be helpful beyond what you asked** — be explicit about what NOT to do
+- **Claude Code will try to be helpful beyond what you asked** — be explicit about what NOT to do
 - **Long codebases = expensive reads** — the more existing code, the more tokens spent just reading
 - **Multiple small prompts beat one giant prompt** — each prompt is focused, cheaper, and easier to undo if wrong
 
@@ -118,7 +118,7 @@ Do not build any other pages yet.
 
 ## The 5-Part Pro Prompt Formula
 
-Every effective Lovable prompt has five parts. You do not need to label them — but you need all five.
+Every effective Claude Code prompt has five parts. You do not need to label them — but you need all five.
 
 ```
 [1. CONTEXT]   What project is this, what phase are we in, what already exists
@@ -172,13 +172,13 @@ This prompt costs more tokens to write — but produces a working result on the 
 
 ## Context Loading
 
-Context loading is the practice of **telling Lovable everything it needs to know at the start of each session** before asking it to do anything.
+Context loading is the practice of **telling Claude Code everything it needs to know at the start of each session** before asking it to do anything.
 
-Because Lovable has no memory between sessions, every new chat starts cold. If you jump straight to "add a payment page", Lovable will guess what your app looks like, how your auth works, and what your database looks like — and it will guess wrong.
+Because Claude Code has no memory between sessions, every new chat starts cold. If you jump straight to "add a payment page", Claude Code will guess what your app looks like, how your auth works, and what your database looks like — and it will guess wrong.
 
 ### The Context Loading Template
 
-Paste this at the start of every new Lovable session:
+Paste this at the start of every new Claude Code session:
 
 ```
 PROJECT CONTEXT — read this before doing anything.
@@ -219,7 +219,7 @@ Rules for this session:
 
 ### Why This Works
 
-- Lovable spends fewer tokens guessing context
+- Claude Code spends fewer tokens guessing context
 - Every change respects the existing architecture
 - The design system is locked from the first message
 - The single-task rule keeps the session focused and cheap
@@ -228,9 +228,9 @@ Rules for this session:
 
 ## The PRD Method
 
-A PRD (Product Requirements Document) is a detailed written description of your entire app that you paste as your **very first message** in a new Lovable project.
+A PRD (Product Requirements Document) is a detailed written description of your entire app that you paste as your **very first message** in a new Claude Code project.
 
-Instead of building feature by feature with no plan, the PRD gives Lovable a complete picture of what you are building, so every individual prompt later is just an execution step — not a new discovery.
+Instead of building feature by feature with no plan, the PRD gives Claude Code a complete picture of what you are building, so every individual prompt later is just an execution step — not a new discovery.
 
 ### PRD Template
 
@@ -295,15 +295,15 @@ TECH STACK
 ### How to Use the PRD
 
 1. Fill in the PRD template for your app
-2. On your first Lovable message in Phase 1, paste the full PRD before any other instruction
-3. Tell Lovable: *"Read this PRD. We will build in phases. In this first session, only do Phase 1: install Better Auth UI, connect Neon, and set up the base layout. Do not build any other features yet."*
+2. On your first Claude Code message in Phase 1, paste the full PRD before any other instruction
+3. Tell Claude Code: *"Read this PRD. We will build in phases. In this first session, only do Phase 1: install Better Auth UI, connect Neon, and set up the base layout. Do not build any other features yet."*
 4. For each subsequent session, refer back to the PRD: *"Referring to the PRD I shared at the start, now let's build the [feature]."*
 
 ---
 
 ## Prompt Templates by Situation
 
-Copy, fill in the brackets, and paste directly into Lovable or V0.
+Copy, fill in the brackets, and paste directly into Claude Code or V0.
 
 ### Starting a New Project
 
@@ -429,24 +429,24 @@ Output only the React component code. No explanation needed.
 
 ---
 
-## Lovable vs V0 Decision Framework
+## Claude Code vs V0 Decision Framework
 
 | Situation | Use | Reasoning |
 |---|---|---|
-| Building a landing page | V0 first, then Lovable | V0 is faster for visual design |
-| Building a dashboard layout | V0 first, then Lovable | Layout is visual work |
-| Connecting a page to a database | Lovable | V0 cannot write backend logic |
-| Adding an API route | Lovable | V0 is frontend-only |
-| Creating a form with validation | Lovable | Form logic needs server-side handling |
+| Building a landing page | V0 first, then Claude Code | V0 is faster for visual design |
+| Building a dashboard layout | V0 first, then Claude Code | Layout is visual work |
+| Connecting a page to a database | Claude Code | V0 cannot write backend logic |
+| Adding an API route | Claude Code | V0 is frontend-only |
+| Creating a form with validation | Claude Code | Form logic needs server-side handling |
 | Designing a card component | V0 | Pure UI, iterate visually |
-| Setting up authentication | Lovable | Requires backend, database, env vars |
+| Setting up authentication | Claude Code | Requires backend, database, env vars |
 | Making a page look unique | V0 first | Visual iteration is V0's strength |
-| Fixing a logic bug | Lovable | Logic work, not visual |
+| Fixing a logic bug | Claude Code | Logic work, not visual |
 | Trying 3 different layouts | V0 | Visual comparison is instant |
 
-### The V0 → Lovable Handoff Prompt
+### The V0 → Claude Code Handoff Prompt
 
-After designing in V0, use this to integrate it into Lovable without breaking the design:
+After designing in V0, use this to integrate it into Claude Code without breaking the design:
 
 ```
 I designed a component in V0. Here is the code:
@@ -476,7 +476,7 @@ Build me a full SaaS app with auth, dashboard, user management, billing, email,
 file uploads, and deploy it to Vercel with a custom domain.
 ```
 
-**Why it fails:** Lovable will make dozens of decisions without your input, get halfway through, run out of context, and produce something neither you nor it can fully understand.
+**Why it fails:** Claude Code will make dozens of decisions without your input, get halfway through, run out of context, and produce something neither you nor it can fully understand.
 
 **Fix:** One phase at a time. One feature at a time.
 
@@ -488,7 +488,7 @@ file uploads, and deploy it to Vercel with a custom domain.
 Make the dashboard look better.
 ```
 
-**Why it fails:** "Better" means nothing. Lovable will guess — and guess wrong.
+**Why it fails:** "Better" means nothing. Claude Code will guess — and guess wrong.
 
 **Fix:** 
 ```
@@ -505,7 +505,7 @@ Do not change anything else.
 Something is wrong with the login page. Can you rewrite it?
 ```
 
-**Why it fails:** "Rewrite" means Lovable scraps working code and starts over — losing fixes you made and introducing new bugs.
+**Why it fails:** "Rewrite" means Claude Code scraps working code and starts over — losing fixes you made and introducing new bugs.
 
 **Fix:**
 ```
@@ -522,7 +522,7 @@ Here is the current code: [paste it].
 Add a users table to the admin dashboard.
 ```
 
-**Why it fails:** Lovable might decide to change the navigation, update the layout, rename files, or modify the authentication setup as "helpful" side effects.
+**Why it fails:** Claude Code might decide to change the navigation, update the layout, rename files, or modify the authentication setup as "helpful" side effects.
 
 **Fix:** Always end with constraints:
 ```
@@ -534,7 +534,7 @@ Only create: the /dashboard/admin/users page and its API route.
 
 ### ❌ Debugging by Redoing
 
-When something breaks, the natural instinct is to ask Lovable to "fix the auth" or "redo the database connection." This almost always makes things worse.
+When something breaks, the natural instinct is to ask Claude Code to "fix the auth" or "redo the database connection." This almost always makes things worse.
 
 **Fix:** See the Rescue System below.
 
@@ -544,7 +544,7 @@ When something breaks, the natural instinct is to ask Lovable to "fix the auth" 
 
 ### The Checkpoint Commit
 
-Before starting any new phase in Lovable, download your project or note the commit state. This gives you a safe point to return to if the next phase introduces problems. Treat each phase like a savepoint in a game.
+Before starting any new phase in Claude Code, download your project or note the commit state. This gives you a safe point to return to if the next phase introduces problems. Treat each phase like a savepoint in a game.
 
 ### The Minimal Scope Test
 
@@ -554,7 +554,7 @@ For example, instead of building a complete user management system, first build:
 
 ### The Schema First Rule
 
-Before building any UI that involves data, tell Lovable to update the Prisma schema and run the migration first — in a separate prompt, before any UI work.
+Before building any UI that involves data, tell Claude Code to update the Prisma schema and run the migration first — in a separate prompt, before any UI work.
 
 ```
 Before we build any UI, update the Prisma schema to add these models:
@@ -569,7 +569,7 @@ Only after confirming the schema works do you move to the UI prompt.
 
 ### Component Reading Before Building
 
-Always tell Lovable to read a JB component before using it. This single instruction saves hundreds of tokens because Lovable reads the existing patterns instead of inventing new ones.
+Always tell Claude Code to read a JB component before using it. This single instruction saves hundreds of tokens because Claude Code reads the existing patterns instead of inventing new ones.
 
 ```
 First, install and read this component:
@@ -587,7 +587,7 @@ When AI gets stuck, the worst thing you can do is keep prompting in the same con
 
 ### Technique 1 — The Hard Reset
 
-Close the current Lovable conversation. Open a new one. Paste your Context Loading template with the specific error situation:
+Close the current Claude Code conversation. Open a new one. Paste your Context Loading template with the specific error situation:
 
 ```
 PROJECT CONTEXT: [paste context]
@@ -614,14 +614,14 @@ Four small prompts will always beat one big prompt when the big prompt is failin
 
 ### Technique 3 — The V0 Bypass
 
-If Lovable cannot produce a correct UI component, design it in V0 and import the result:
+If Claude Code cannot produce a correct UI component, design it in V0 and import the result:
 
 1. Build the visual component in V0 (design only, no logic)
 2. Copy the V0 output
-3. In a new Lovable session, paste it with the V0 Handoff Prompt
-4. Ask Lovable to wire the functionality — not redesign it
+3. In a new Claude Code session, paste it with the V0 Handoff Prompt
+4. Ask Claude Code to wire the functionality — not redesign it
 
-This separates the visual problem (V0 solves it) from the logic problem (Lovable solves it) and prevents the two from interfering with each other.
+This separates the visual problem (V0 solves it) from the logic problem (Claude Code solves it) and prevents the two from interfering with each other.
 
 ---
 

@@ -85,7 +85,7 @@ Add a second price to the same product:
 - Amount: $190.00 (saves 2 months = 17% discount)
 - Billing period: Yearly
 
-### Prompt for Lovable
+### Prompt for Claude Code
 
 ```
 Add these Stripe Price IDs to the project configuration:
@@ -110,7 +110,7 @@ pnpm dlx shadcn@latest init
 
 Then follow the Stripe UI setup guide included in the component.
 
-Alternatively, use Lovable with this prompt:
+Alternatively, use Claude Code with this prompt:
 
 ```
 Install the Stripe package: pnpm add stripe @stripe/stripe-js @stripe/react-stripe-js
@@ -172,7 +172,7 @@ Steps 4–5 happen entirely outside the browser. If step 4 never reaches your ap
    - `invoice.payment_failed` — when a renewal fails
 4. Copy the Signing Secret and add to Vercel env vars
 
-### Prompt for Lovable
+### Prompt for Claude Code
 
 ```
 Create a Stripe webhook handler at app/api/webhooks/stripe/route.ts that:
@@ -284,7 +284,7 @@ In the POST /api/projects route, before creating a new project:
 
 Every paying user needs a way to manage their subscription — upgrade, downgrade, cancel, and view invoices.
 
-### Prompt for Lovable
+### Prompt for Claude Code
 
 ```
 Create a billing management page at /dashboard/billing.

@@ -22,12 +22,12 @@
 ## AI Is Stuck in a Loop {#ai-stuck}
 
 ### Symptom
-Lovable keeps trying the same fix over and over. The error changes slightly each time but the problem persists. You have been in the same conversation for 30+ minutes.
+Claude Code keeps trying the same fix over and over. The error changes slightly each time but the problem persists. You have been in the same conversation for 30+ minutes.
 
 ### Fix — The Hard Reset Protocol
 
 1. **Stop.** Do not send another message in the current conversation.
-2. Open a **brand new** Lovable conversation.
+2. Open a **brand new** Claude Code conversation.
 3. Paste this rescue prompt:
 
 ```
@@ -55,7 +55,7 @@ Rules:
 
 ### Why This Works
 
-Each new conversation starts fresh — Lovable does not carry over its failed assumptions from the previous session. You are giving it a clean slate with complete context instead of a confused history.
+Each new conversation starts fresh — Claude Code does not carry over its failed assumptions from the previous session. You are giving it a clean slate with complete context instead of a confused history.
 
 ---
 
@@ -63,18 +63,18 @@ Each new conversation starts fresh — Lovable does not carry over its failed as
 
 ### Strategy — Isolate the Change
 
-1. Identify exactly which Lovable prompt caused the breakage
+1. Identify exactly which Claude Code prompt caused the breakage
 2. In your new prompt, say:
    ```
    The last change broke the app. The specific symptom is: [describe].
    Revert ONLY the changes from the last prompt.
    Do not make any new changes.
    ```
-3. If Lovable cannot revert cleanly, download the project and manually restore the broken file from your previous working version
+3. If Claude Code cannot revert cleanly, download the project and manually restore the broken file from your previous working version
 
 ### Prevention
 
-Before each new phase or significant change, download your project from Lovable as a ZIP. This gives you a manual rollback point.
+Before each new phase or significant change, download your project from Claude Code as a ZIP. This gives you a manual rollback point.
 
 ---
 
@@ -324,7 +324,7 @@ Do not change any other pages.
 
 ### Symptom: AI changed the design after a code update
 
-**Cause:** Lovable made "helpful" style changes while updating functionality.
+**Cause:** Claude Code made "helpful" style changes while updating functionality.
 
 **Fix:**
 ```
@@ -358,13 +358,13 @@ Use Tailwind responsive prefixes: sm:, md:, lg:
 
 If you have tried everything above and are still stuck:
 
-1. **Export your project** from Lovable as a ZIP
-2. **Open a new Lovable project** and import the ZIP (fresh start, same code)
+1. **Export your project** from Claude Code as a ZIP
+2. **Open a new Claude Code project** and import the ZIP (fresh start, same code)
 3. **Describe only the one specific problem** in your first message
-4. **Do not mention the history** of failed attempts — let Lovable approach it fresh
+4. **Do not mention the history** of failed attempts — let Claude Code approach it fresh
 
 If the problem is truly blocking:
-- Post in the Lovable Discord community
+- Post in the Claude Code Discord community
 - Post in the VibeKit GitHub Discussions with your error and context
 - Tag `@jbwebdeveloper` on YouTube with your question
 

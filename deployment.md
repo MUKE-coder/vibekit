@@ -1,6 +1,6 @@
 # Deployment Guide
 
-> Your app is not real until it is live. This guide takes you from finished Lovable project to a custom domain with SSL, working emails, and everything verified in production.
+> Your app is not real until it is live. This guide takes you from finished Claude Code project to a custom domain with SSL, working emails, and everything verified in production.
 
 ---
 
@@ -28,7 +28,7 @@ Complete every item before deploying. Skipping these causes the most common post
 - [ ] A `.env.example` file exists listing all required variables (with descriptions, no real values)
 - [ ] All Prisma migrations are committed to the repository
 - [ ] The `prisma generate` command runs without errors
-- [ ] `next build` completes without errors (test in Lovable's build tool or ask Lovable to verify)
+- [ ] `next build` completes without errors (test in Claude Code's build tool or ask Claude Code to verify)
 - [ ] All API routes return proper HTTP status codes (200, 400, 401, 404, 500)
 - [ ] No `console.log` statements with sensitive data (API keys, passwords, tokens)
 
@@ -54,16 +54,16 @@ Complete every item before deploying. Skipping these causes the most common post
 
 ## Vercel Deployment
 
-Vercel is the recommended deployment platform for Next.js apps built with Lovable. It requires zero configuration and deploys in under 2 minutes.
+Vercel is the recommended deployment platform for Next.js apps built with Claude Code. It requires zero configuration and deploys in under 2 minutes.
 
 ### Step 1 — Push Your Code to GitHub
 
-In Lovable, download your project. Then:
+In Claude Code, download your project. Then:
 
 1. Create a new repository on [github.com](https://github.com)
 2. Push your code to the repository
 
-Alternatively, Lovable has a built-in GitHub sync — use that if available.
+Alternatively, Claude Code has a built-in GitHub sync — use that if available.
 
 ### Step 2 — Import Project to Vercel
 
