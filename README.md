@@ -1,6 +1,6 @@
 # VibeKit — Build Production Apps with Claude Code
 
-> A structured framework for building production-grade Next.js apps with Claude Code — without burning tokens, shipping broken code, or getting stuck.
+> A structured framework for building production-grade Next.js apps with Claude Code/Any agent — without burning tokens, shipping broken code, or getting stuck.
 
 **By JB (Muke Johnbaptist) · [jb.desishub.com](https://jb.desishub.com) · Desishub Technologies**
 
@@ -8,7 +8,7 @@
 
 ## What Is VibeKit?
 
-VibeKit is a **planning + building system** for vibe coders who use Claude Code to build real Next.js applications. It gives you:
+VibeKit is a **planning + building system** for vibe coders who use Claude Code/any agent to build real Next.js applications. It gives you:
 
 - A **master prompt** that makes Claude Code write production-quality code (not AI slop)
 - A **planning workflow** that generates 3 project files from your app idea
@@ -21,30 +21,31 @@ VibeKit is a **planning + building system** for vibe coders who use Claude Code 
 
 Every project built with this framework uses this stack. Do not deviate unless the user has a specific reason.
 
-| Layer | Technology | Why |
-|---|---|---|
-| Framework | Next.js 16 (App Router) | Latest App Router with React 19 |
-| Language | TypeScript 5.9 | Type safety, better DX |
-| Database | Neon — Serverless Postgres | Free tier, instant setup, serverless scale |
-| ORM | Prisma v7 | Type-safe, AI reads schema easily |
-| Authentication | Better Auth | Secure, extensible, Prisma-compatible |
-| Data Fetching | React Query + Fetch API | Caching, refetching, loading states built-in |
-| API Layer | API Routes (Route Handlers) | Server-side logic via Next.js App Router |
-| Validation | Zod + React Hook Form | Type-safe validation on client and server |
-| PDF Generation | @react-pdf/renderer | React components to PDF, full styling control |
-| Excel Export | xlsx | Read/write Excel files, lightweight and reliable |
-| File Storage | Cloudflare R2 or UploadThing | R2 for S3-compatible storage, UploadThing for simple uploads |
-| Email | Resend + React Email | Best DX, great deliverability |
-| Payments | Stripe | Industry standard, webhook-driven |
-| Styling | Tailwind CSS v4 + shadcn/ui | AI knows these patterns well |
-| Deployment | Vercel | One-click, preview URLs, zero config |
-| Domain & DNS | Cloudflare | Free SSL, fast DNS, easy management |
-| Components | JB Component Registry | Production-ready shadcn components |
+| Layer          | Technology                   | Why                                                          |
+| -------------- | ---------------------------- | ------------------------------------------------------------ |
+| Framework      | Next.js 16 (App Router)      | Latest App Router with React 19                              |
+| Language       | TypeScript 5.9               | Type safety, better DX                                       |
+| Database       | Neon — Serverless Postgres   | Free tier, instant setup, serverless scale                   |
+| ORM            | Prisma v7                    | Type-safe, AI reads schema easily                            |
+| Authentication | Better Auth                  | Secure, extensible, Prisma-compatible                        |
+| Data Fetching  | React Query + Fetch API      | Caching, refetching, loading states built-in                 |
+| API Layer      | API Routes (Route Handlers)  | Server-side logic via Next.js App Router                     |
+| Validation     | Zod + React Hook Form        | Type-safe validation on client and server                    |
+| PDF Generation | @react-pdf/renderer          | React components to PDF, full styling control                |
+| Excel Export   | xlsx                         | Read/write Excel files, lightweight and reliable             |
+| File Storage   | Cloudflare R2 or UploadThing | R2 for S3-compatible storage, UploadThing for simple uploads |
+| Email          | Resend + React Email         | Best DX, great deliverability                                |
+| Payments       | Stripe                       | Industry standard, webhook-driven                            |
+| Styling        | Tailwind CSS v4 + shadcn/ui  | AI knows these patterns well                                 |
+| Deployment     | Vercel                       | One-click, preview URLs, zero config                         |
+| Domain & DNS   | Cloudflare                   | Free SSL, fast DNS, easy management                          |
+| Components     | JB Component Registry        | Production-ready shadcn components                           |
 
 > **File Uploads — R2 vs UploadThing:**
+>
 > - **Cloudflare R2 / AWS S3** — Full control, large files, S3-compatible workflows.
 > - **UploadThing** — Simpler setup, great for image uploads. Follow the [UploadThing setup guide](https://jb.desishub.com/blog/image-upload-with-uploadthing).
-> Choose based on your project needs.
+>   Choose based on your project needs.
 
 ---
 
@@ -77,12 +78,12 @@ Claude will ask you 6–10 questions about your project. Answer honestly and com
 
 Claude will generate:
 
-| File | Purpose |
-|---|---|
-| `project-description.md` | Complete description of your app — features, data model, pages, integrations |
-| `project-phases.md` | Build blueprint with phases, tasks, and install commands |
-| `design-style-guide.md` | Fully customized visual design system (colors, typography, spacing, components) |
-| `prompt.md` | The prompt you paste into Claude Code to start building |
+| File                     | Purpose                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| `project-description.md` | Complete description of your app — features, data model, pages, integrations    |
+| `project-phases.md`      | Build blueprint with phases, tasks, and install commands                        |
+| `design-style-guide.md`  | Fully customized visual design system (colors, typography, spacing, components) |
+| `prompt.md`              | The prompt you paste into Claude Code to start building                         |
 
 Save all 4 files into your project root folder.
 
@@ -135,10 +136,10 @@ vibekit/
 
 When starting a new project, copy these from the VibeKit repo into your project root:
 
-| File | Purpose |
-|---|---|
+| File               | Purpose                                                  |
+| ------------------ | -------------------------------------------------------- |
 | `master_prompt.md` | Claude Code reads this first — tech stack + coding rules |
-| `jb-components.md` | Reference for when to install which JB component |
+| `jb-components.md` | Reference for when to install which JB component         |
 
 Claude (in the planning step) will generate `project-description.md`, `project-phases.md`, `design-style-guide.md`, and `prompt.md` for you.
 
@@ -166,4 +167,4 @@ MIT — use freely, build boldly.
 
 ---
 
-*VibeKit — Built by [JB (Muke Johnbaptist)](https://jb.desishub.com) · [Desishub Technologies](https://desishub.com)*
+_VibeKit — Built by [JB (Muke Johnbaptist)](https://jb.desishub.com) · [Desishub Technologies](https://desishub.com)_
