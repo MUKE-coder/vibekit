@@ -73,30 +73,35 @@ track attendance, and parents can log in to see their child's progress and pay s
 
 Claude will ask you 6–10 questions about your project. Answer honestly and completely.
 
-### Step 5 — Get your 3 project files
+### Step 5 — Get your 4 project files
 
 Claude will generate:
 
 | File | Purpose |
 |---|---|
-| `project-description.md` | Complete description of your app — features, data model, pages, design direction |
-| `project-phases.md` | Build blueprint with phases, tasks, and dependencies |
+| `project-description.md` | Complete description of your app — features, data model, pages, integrations |
+| `project-phases.md` | Build blueprint with phases, tasks, and install commands |
+| `design-style-guide.md` | Fully customized visual design system (colors, typography, spacing, components) |
 | `prompt.md` | The prompt you paste into Claude Code to start building |
 
-Save all 3 files into your project root folder.
+Save all 4 files into your project root folder.
 
-### Step 6 — Copy the master prompt
+### Step 6 — Copy the framework files
 
-Copy [`master_prompt.md`](./master_prompt.md) from this repository into your project root. This is the coding standard Claude Code will follow.
+Copy these 2 files from this repository into your project root:
+
+- [`master_prompt.md`](./master_prompt.md) — Tech stack rules, Prisma v7 patterns, coding standards
+- [`jb-components.md`](./jb-components.md) — JB component registry reference (when to use each)
 
 ### Step 7 — Start building with Claude Code
 
 Open Claude Code in your project directory and paste the contents of `prompt.md`. Claude Code will:
 
-1. Read your master prompt, project description, and build phases
+1. Read `master_prompt.md`, `design-style-guide.md`, `jb-components.md`, `project-description.md`, and `project-phases.md`
 2. Start with Phase 1 (Foundation)
-3. Stop after each phase for your confirmation
-4. Follow the design system and coding standards exactly
+3. Install JB components before writing from scratch
+4. Stop after each phase for your confirmation
+5. Follow the design system and coding standards exactly
 
 ---
 
@@ -106,7 +111,10 @@ Open Claude Code in your project directory and paste the contents of `prompt.md`
 vibekit/
 ├── README.md                    ← You are here
 ├── CLAUDE_PROMPT.md             ← Paste this into Claude to plan your project
+│
 ├── master_prompt.md             ← Coding standards for Claude Code (copy to your project)
+├── design-style-guide.md        ← Design style guide template (Claude customizes per project)
+├── jb-components.md             ← JB component registry reference (copy to your project)
 │
 ├── prompt-engineering.md        ← Token economy, prompt formula, rescue system
 ├── deployment.md                ← Vercel, Netlify, VPS, Cloudflare, SSL
@@ -123,13 +131,26 @@ vibekit/
     └── prd-school.md
 ```
 
+### Files to copy into your project
+
+When starting a new project, copy these from the VibeKit repo into your project root:
+
+| File | Purpose |
+|---|---|
+| `master_prompt.md` | Claude Code reads this first — tech stack + coding rules |
+| `jb-components.md` | Reference for when to install which JB component |
+
+Claude (in the planning step) will generate `project-description.md`, `project-phases.md`, `design-style-guide.md`, and `prompt.md` for you.
+
 ---
 
 ## JB Component Registry
 
 **Registry Reference:** [jb.desishub.com/blog/jb-component-registry-complete-reference](https://jb.desishub.com/blog/jb-component-registry-complete-reference)
 
-Production-ready shadcn components for auth, data tables, forms, file uploads, e-commerce, and more. The master prompt instructs Claude Code to use these when applicable.
+**Framework Reference:** [`jb-components.md`](./jb-components.md) — Detailed guide with install commands, env vars, prerequisites, and when-to-use for each major component.
+
+Production-ready shadcn components for auth, data tables, forms, file uploads, e-commerce, and more. Claude Code checks `jb-components.md` before building features from scratch.
 
 ---
 
