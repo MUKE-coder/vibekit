@@ -1,4 +1,4 @@
-# VibeKit — Build Production Apps with Claude Code
+# VibeKit Framework — Build Production Apps with Claude Code
 
 > A structured framework for building production-grade Next.js apps with Claude Code/Any agent — without burning tokens, shipping broken code, or getting stuck.
 
