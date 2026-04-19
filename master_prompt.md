@@ -27,6 +27,90 @@ ABSOLUTE RULES
 7. NEVER use Prisma v6 patterns. Follow the Prisma v7 rules below EXACTLY.
 8. CHECK jb-components.md BEFORE writing auth, file upload, data table, checkout, blog, or API docs from scratch.
 9. FOLLOW design-style-guide.md EXACTLY for all visual decisions. Its tokens override the generic design system below.
+10. ALWAYS create BOTH .env.example AND .env.local with every env var the project needs (see ENV FILE RULES below). Do this in Phase 1.
+11. WHEN installing a JB component that creates overlapping files (e.g. home page, layout, dashboard), EDIT the existing files to merge the component into the project — do NOT wholesale replace working files or scaffold duplicates.
+12. DARK MODE: check project-description.md → "Dark mode: Yes/No". If No, skip ThemeProvider, skip next-themes, hardcode the light palette, and do not generate a dark mode toggle.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ENV FILE RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+In Phase 1, create TWO files at the project root:
+
+1. .env.example — committed to git, contains every env var with placeholder values and a one-line comment describing what each is.
+2. .env.local — gitignored, contains the same keys with empty values (or dev values where obvious, like BETTER_AUTH_URL="http://localhost:3000").
+
+Include EVERY env var required by the project's integrations. Read project-description.md → "Integrations" section and jb-components.md → "Environment variables" for each installed component. Minimum:
+
+# Database
+DATABASE_URL="postgres://user:password@host:5432/dbname"
+
+# Better Auth (always required)
+BETTER_AUTH_SECRET=""                  # 32+ char random string
+BETTER_AUTH_URL="http://localhost:3000"
+
+# If Google OAuth is in project-description:
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+# If GitHub OAuth:
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+
+# If emails are needed (Resend):
+RESEND_API_KEY=""
+RESEND_FROM_EMAIL=""
+
+# If Stripe:
+STRIPE_SECRET_KEY=""
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
+STRIPE_WEBHOOK_SECRET=""
+
+# If file storage = R2:
+CLOUDFLARE_R2_ACCESS_KEY_ID=""
+CLOUDFLARE_R2_SECRET_ACCESS_KEY=""
+CLOUDFLARE_R2_ENDPOINT=""
+CLOUDFLARE_R2_BUCKET_NAME=""
+CLOUDFLARE_R2_PUBLIC_DEV_URL=""
+
+# If file storage = S3:
+AWS_S3_REGION=""
+AWS_S3_BUCKET_NAME=""
+AWS_S3_ACCESS_KEY_ID=""
+AWS_S3_SECRET_ACCESS_KEY=""
+
+# If file storage = UploadThing:
+UPLOADTHING_TOKEN=""
+
+# If DGateway (Mobile Money):
+DGATEWAY_API_URL=""
+DGATEWAY_API_KEY=""
+
+# App
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+Also add .env.local to .gitignore if not already present.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT INTEGRATION RULES (EDIT, DON'T REPLACE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When installing a JB component (e.g. Website UI, Better Auth UI, MDX Blog) that creates files which overlap with files that already exist in the project:
+
+DO:
+- Read the existing file FIRST (e.g. src/app/page.tsx, src/app/layout.tsx, src/app/globals.css)
+- Read the newly-installed component file
+- MERGE them: keep the project's existing content, integrate the component's new sections inline, and adapt copy/branding to match the project
+- Example: Website UI installs a generic landing page. If the project already has a page.tsx, EDIT it — don't overwrite. Pull in Website UI's navbar/footer/hero structure, but rewrite the copy to match this project's positioning from project-description.md.
+- Preserve any custom imports, providers, or layout wrappers already wired up (ThemeProvider, QueryClientProvider, fonts)
+
+DO NOT:
+- Delete a working page.tsx/layout.tsx and start over
+- Scaffold parallel routes (e.g. /home and / both existing)
+- Overwrite globals.css — append the component's styles instead
+- Lose project-specific branding, copy, or config when integrating a new component
+
+If a file conflict is unavoidable, tell the user the choice and wait for confirmation.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CONVERSATION FLOW

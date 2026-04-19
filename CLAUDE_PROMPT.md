@@ -69,8 +69,9 @@ A comprehensive project description document. This is the single source of truth
 - **Auth:** Better Auth + [Google OAuth / GitHub OAuth / Email only]
 - **Email:** [Resend / None]
 - **Payments:** [Stripe / DGateway / None]
-- **File uploads:** [Cloudflare R2 / UploadThing / None]
+- **File uploads:** [Cloudflare R2 / AWS S3 / UploadThing / None]
 - **AI features:** [Vercel AI SDK / None]
+- **Dark mode:** [Yes / No] — if No, skip ThemeProvider and next-themes entirely
 
 ## JB Components to Install
 [List only the JB components relevant to this project, in install order:]
@@ -92,23 +93,26 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 # [App Name] — Build Phases
 
 ## Phase 1 — Foundation
-**Goal:** Project scaffolded, design system applied, database connected, auth working.
+**Goal:** Project scaffolded, design system applied, env files created, database connected, auth working.
 
 ### Tasks
 - [ ] Initialize Next.js 16 project with TypeScript, Tailwind v4, shadcn/ui
+- [ ] Create `.env.example` (committed) and `.env.local` (gitignored) with EVERY env var this project needs (Database, Better Auth, OAuth, Resend, Stripe, file storage — whichever apply). Each var commented with what it is and where to get it.
+- [ ] Add `.env.local` to `.gitignore`
 - [ ] Set up Prisma v7 with Neon PostgreSQL (schema, config, db client)
 - [ ] Apply design-style-guide.md tokens to globals.css
-- [ ] Create root layout with correct font, ThemeProvider, QueryClientProvider
-- [ ] Build sidebar layout (collapsible, nav items, user section, dark mode toggle)
+- [ ] Create root layout with correct font, QueryClientProvider, [if dark mode = Yes: ThemeProvider + next-themes; if No: skip]
+- [ ] Build sidebar layout (collapsible, nav items, user section[, dark mode toggle if enabled])
 - [ ] Build page header component (breadcrumb + title + actions)
 - [ ] Install JB Better Auth UI: `pnpm dlx shadcn@latest add https://better-auth-ui.desishub.com/r/auth-components.json`
-- [ ] Configure Better Auth env vars (BETTER_AUTH_SECRET, BETTER_AUTH_URL, OAuth keys)
+- [ ] **Integrate installed auth files into existing routes — do NOT overwrite existing `page.tsx` or `layout.tsx`. Edit and merge.**
+- [ ] Configure Better Auth env vars (BETTER_AUTH_SECRET, BETTER_AUTH_URL, OAuth keys if in scope)
 - [ ] Create protected route middleware
 - [ ] Build custom 404, error, and loading pages
-- [ ] Verify: login, signup, OAuth, protected routes all work
+- [ ] Verify: login, signup, OAuth (if configured), protected routes all work
 
 ### Dependencies
-- Neon database created, DATABASE_URL set in .env
+- Neon database created, DATABASE_URL set in .env.local
 - Resend account created, RESEND_API_KEY set (for auth emails)
 
 ---
@@ -220,6 +224,7 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 - Landing page guidance (tailored to their type of product)
 - PDF template notes (only if they need PDFs)
 - Email template notes (only if they need emails)
+- **Dark mode section:** if user said No to dark mode, REMOVE all dark mode references (no `.dark` classes, no dark palette, no toggle). Add a note at the top: "Dark mode: NOT supported in this project."
 
 Output the **full customized file** as File 3. Keep sections 1–16 intact, but rewrite content to match the project. Do NOT leave placeholders.
 
@@ -279,6 +284,7 @@ Ask me questions to fill in the 4 files above. Follow these rules:
     - Aesthetic feel (3 words — e.g. "premium, minimal, trustworthy")
     - Inspiration (apps they admire visually)
     - Anything to avoid visually
+    - **Dark mode support: Yes or No?** (if No, skip dark mode entirely — no toggle, no dark palette)
   - Timeline / scope v1
 - Minimum 7 questions, maximum 12
 - Stop when you have enough detail to generate all 4 files completely
