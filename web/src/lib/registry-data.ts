@@ -47,71 +47,410 @@ const registryComponents: RegistryComponent[] = [
     title: "Kanban Board",
     description:
       "Drag-and-drop Kanban board with column management, card creation, and swimlane support.",
-    dependencies: ["@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities"],
-    registryDependencies: ["button", "card", "badge", "input"],
+    dependencies: ["@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities", "class-variance-authority"],
+    registryDependencies: ["button", "card", "badge", "input", "dialog", "textarea", "label"],
     files: [
       {
         path: "kanban-board.tsx",
         type: "registry:component",
-        content: `"use client"
+        content: `
+"use client"
 
 import * as React from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  DndContext,
+  DragOverlay,
+  closestCorners,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragStartEvent,
+  type DragEndEvent,
+  type UniqueIdentifier,
+} from "@dnd-kit/core"
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { GripVertical, Plus, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-// VibeKit Kanban Board — Component Registry Placeholder
-// Full implementation will include @dnd-kit drag-and-drop,
-// column management, card CRUD, and swimlane support.
-
-export interface KanbanCard {
+export interface KanbanCardData {
   id: string
   title: string
   description?: string
   label?: string
 }
 
-export interface KanbanColumn {
+export interface KanbanColumnData {
   id: string
   title: string
-  cards: KanbanCard[]
+  cards: KanbanCardData[]
 }
 
 interface KanbanBoardProps {
-  columns: KanbanColumn[]
-  onCardMove?: (cardId: string, fromColumn: string, toColumn: string) => void
+  columns: KanbanColumnData[]
+  onColumnsChange?: (columns: KanbanColumnData[]) => void
+  onAddColumn?: (title: string) => void
 }
 
-export function KanbanBoard({ columns, onCardMove }: KanbanBoardProps) {
+function SortableCard({ card, isDragOverlay = false }: { card: KanbanCardData; isDragOverlay?: boolean }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: card.id,
+    data: { type: "card", card },
+  })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
   return (
-    <div className="grid auto-cols-[280px] grid-flow-col gap-4 overflow-x-auto pb-4">
-      {columns.map((column) => (
-        <div key={column.id} className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-sm">{column.title}</h3>
-            <Badge variant="secondary">{column.cards.length}</Badge>
-          </div>
-          <div className="flex flex-col gap-2 rounded-lg bg-muted/50 p-3 min-h-[200px]">
-            {column.cards.map((card) => (
-              <Card key={card.id} className="cursor-grab">
-                <CardHeader className="p-3 pb-1">
-                  <CardTitle className="text-sm">{card.title}</CardTitle>
-                </CardHeader>
-                {card.description && (
-                  <CardContent className="p-3 pt-0">
-                    <p className="text-xs text-muted-foreground">
-                      {card.description}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
-            ))}
-            <Button variant="ghost" size="sm" className="mt-1">
-              + Add Card
-            </Button>
-          </div>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className={cn(
+        "group rounded-lg border bg-card p-3 text-card-foreground shadow-sm transition-shadow hover:shadow-md",
+        isDragging && "opacity-50",
+        isDragOverlay && "shadow-lg rotate-2",
+      )}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-sm font-medium">{card.title}</p>
+        <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+      {card.description && (
+        <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{card.description}</p>
+      )}
+      {card.label && (
+        <Badge variant="secondary" className="mt-2 text-[10px] leading-none">
+          {card.label}
+        </Badge>
+      )}
+    </div>
+  )
+}
+
+function Column({
+  column,
+  cards,
+  onAddCard,
+  onDeleteColumn,
+  isOver,
+}: {
+  column: KanbanColumnData
+  cards: KanbanCardData[]
+  onAddCard: (columnId: string) => void
+  onDeleteColumn: (columnId: string) => void
+  isOver: boolean
+}) {
+  const cardsIds = cards.map((c) => c.id)
+
+  return (
+    <div
+      className={cn(
+        "flex w-[280px] shrink-0 flex-col rounded-xl border transition-colors",
+        isOver && "border-accent bg-accent/5",
+      )}
+    >
+      <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center gap-2">
+          <h3 className="font-semibold text-sm">{column.title}</h3>
+          <Badge variant="secondary" className="text-[10px]">
+            {cards.length}
+          </Badge>
         </div>
-      ))}
+        <button
+          onClick={() => onDeleteColumn(column.id)}
+          className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      </div>
+      <div className={cn("flex flex-col gap-2 px-3 pb-3 min-h-[80px] flex-1")}>
+        <SortableContext items={cardsIds} strategy={verticalListSortingStrategy}>
+          {cards.map((card) => (
+            <SortableCard key={card.id} card={card} />
+          ))}
+        </SortableContext>
+        {cards.length === 0 && (
+          <div className="flex flex-1 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/20 p-4">
+            <p className="text-xs text-muted-foreground">Drop cards here</p>
+          </div>
+        )}
+      </div>
+      <div className="px-3 pb-3">
+        <Button variant="ghost" size="sm" className="w-full" onClick={() => onAddCard(column.id)}>
+          <Plus className="mr-1 h-3 w-3" />
+          Add Card
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function AddCardDialog({
+  open,
+  onOpenChange,
+  onAdd,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onAdd: (data: { title: string; description?: string; label?: string }) => void
+}) {
+  const [title, setTitle] = React.useState("")
+  const [description, setDescription] = React.useState("")
+  const [label, setLabel] = React.useState("")
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!title.trim()) return
+    onAdd({
+      title: title.trim(),
+      description: description.trim() || undefined,
+      label: label.trim() || undefined,
+    })
+    setTitle("")
+    setDescription("")
+    setLabel("")
+    onOpenChange(false)
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <form onSubmit={handleSubmit}>
+          <DialogHeader>
+            <DialogTitle>Add Card</DialogTitle>
+            <DialogDescription>Create a new card in this column.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Card title"
+                autoFocus
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Add a description..."
+                rows={3}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="label">Label</Label>
+              <Input
+                id="label"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                placeholder="e.g. Bug, Feature, Design"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={!title.trim()}>
+              Add Card
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function findColumnByCardId(columns: KanbanColumnData[], cardId: string): string | null {
+  for (const col of columns) {
+    if (col.cards.some((c) => c.id === cardId)) return col.id
+  }
+  return null
+}
+
+export function KanbanBoard({ columns, onColumnsChange, onAddColumn }: KanbanBoardProps) {
+  const [activeCard, setActiveCard] = React.useState<KanbanCardData | null>(null)
+  const [overColumnId, setOverColumnId] = React.useState<string | null>(null)
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [dialogColumnId, setDialogColumnId] = React.useState<string | null>(null)
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor),
+  )
+
+  function handleDragStart(event: DragStartEvent) {
+    const { active } = event
+    const card = columns.flatMap((c) => c.cards).find((c) => c.id === active.id)
+    if (card) setActiveCard(card)
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event
+    setActiveCard(null)
+    setOverColumnId(null)
+
+    if (!over || !columns) return
+
+    const activeColId = findColumnByCardId(columns, active.id as string)
+    if (!activeColId) return
+
+    let targetColId: string | null = null
+
+    const overCard = columns.flatMap((c) => c.cards).find((c) => c.id === over.id)
+    if (overCard) {
+      targetColId = findColumnByCardId(columns, over.id as string)
+    } else {
+      const colExists = columns.some((c) => c.id === over.id)
+      if (colExists) targetColId = over.id as string
+    }
+
+    if (!targetColId || activeColId === targetColId) return
+
+    const updated = columns.map((col) => {
+      if (col.id === activeColId) {
+        return { ...col, cards: col.cards.filter((c) => c.id !== active.id) }
+      }
+      if (col.id === targetColId) {
+        const movedCard = columns.flatMap((c) => c.cards).find((c) => c.id === active.id)
+        if (!movedCard) return col
+        return { ...col, cards: [...col.cards, movedCard] }
+      }
+      return col
+    })
+
+    onColumnsChange?.(updated)
+  }
+
+  function handleDragOver(event: { active: UniqueIdentifier; over?: UniqueIdentifier | null }) {
+    const { active, over } = event
+    if (!over) {
+      setOverColumnId(null)
+      return
+    }
+
+    const overCard = columns.flatMap((c) => c.cards).find((c) => c.id === over)
+    if (overCard) {
+      const colId = findColumnByCardId(columns, over)
+      setOverColumnId(colId)
+    } else {
+      const colExists = columns.some((c) => c.id === over)
+      setOverColumnId(colExists ? (over as string) : null)
+    }
+  }
+
+  function handleAddCard(data: { title: string; description?: string; label?: string }) {
+    if (!dialogColumnId) return
+    const newCard: KanbanCardData = {
+      id: \`card-\${Date.now()}-\${Math.random().toString(36).slice(2, 7)}\`,
+      ...data,
+    }
+    const updated = columns.map((col) => {
+      if (col.id === dialogColumnId) {
+        return { ...col, cards: [...col.cards, newCard] }
+      }
+      return col
+    })
+    onColumnsChange?.(updated)
+  }
+
+  function handleDeleteColumn(columnId: string) {
+    const updated = columns.filter((col) => col.id !== columnId)
+    onColumnsChange?.(updated)
+  }
+
+  function handleAddColumnClick() {
+    if (!onAddColumn) return
+    const title = window.prompt("Column name")
+    if (title?.trim()) onAddColumn(title.trim())
+  }
+
+  const allCardIds = columns.flatMap((c) => c.cards.map((card) => card.id))
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div />
+        <div className="flex items-center gap-2">
+          {onAddColumn && (
+            <Button variant="outline" size="sm" onClick={handleAddColumnClick}>
+              <Plus className="mr-1 h-3 w-3" />
+              Add Column
+            </Button>
+          )}
+        </div>
+      </div>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragOver={handleDragOver}
+      >
+        <div className="flex gap-4 overflow-x-auto pb-4">
+          {columns.map((column) => (
+            <div key={column.id} className="flex">
+              <Column
+                column={column}
+                cards={column.cards}
+                onAddCard={(colId) => {
+                  setDialogColumnId(colId)
+                  setDialogOpen(true)
+                }}
+                onDeleteColumn={handleDeleteColumn}
+                isOver={overColumnId === column.id}
+              />
+            </div>
+          ))}
+        </div>
+        <DragOverlay>
+          {activeCard ? <SortableCard card={activeCard} isDragOverlay /> : null}
+        </DragOverlay>
+      </DndContext>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <AddCardDialog
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          onAdd={handleAddCard}
+        />
+      </Dialog>
     </div>
   )
 }
