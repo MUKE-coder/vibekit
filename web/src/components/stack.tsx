@@ -19,7 +19,7 @@ const rows = [
   { layer: "Styling", tech: "Tailwind CSS v4 + shadcn/ui", why: "AI knows these patterns well" },
   { layer: "Deployment", tech: "Vercel", why: "One-click, preview URLs, zero config" },
   { layer: "Domain & DNS", tech: "Cloudflare", why: "Free SSL, fast DNS" },
-  { layer: "Components", tech: "JB Component Registry", why: "Production-ready shadcn components" },
+  { layer: "Components", tech: "JB + VibeKit Registry", why: "Production-ready shadcn components (auth, payments, kanban, charts, org UI...)" },
 ];
 
 export function Stack() {

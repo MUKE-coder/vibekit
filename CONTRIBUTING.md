@@ -107,7 +107,7 @@ All component metadata lives in one file: `web/src/lib/components-data.ts`. Appe
   slug: "my-component",
   name: "My Component",
   tagline: "One sentence — what it does, who it's for.",
-  category: "data", // auth | marketing | data | commerce | files | content | api | forms
+  category: "data", // auth | marketing | data | commerce | files | content | api | forms | hero | saas | productivity | team | documents
   categoryLabel: "Data",
   install: "pnpm dlx shadcn@latest add https://your-registry.com/r/my-component.json",
   blogUrl: "https://your-domain.com/blog/my-component",
@@ -149,7 +149,7 @@ All component metadata lives in one file: `web/src/lib/components-data.ts`. Appe
 | `slug` | URL-safe identifier. Becomes `/components/<slug>`. Lowercase, hyphens, no spaces. |
 | `name` | Display name. Title case. Brief — "JB Better Auth UI" beats "The JB Better Auth UI Component System". |
 | `tagline` | One sentence under 100 characters. What it does + who it's for. |
-| `category` | One of: `auth` \| `marketing` \| `data` \| `commerce` \| `files` \| `content` \| `api` \| `forms`. Propose a new one in the PR if none fit. |
+| `category` | One of: `auth` \| `marketing` \| `data` \| `commerce` \| `files` \| `content` \| `api` \| `forms` \| `hero` \| `saas` \| `productivity` \| `team` \| `documents`. Propose a new one in the PR if none fit. |
 | `categoryLabel` | Display label for the category. |
 | `install` | The exact command users run. Must be tested on a fresh Next.js 16 project. |
 | `blogUrl` | URL to a doc page explaining usage. |

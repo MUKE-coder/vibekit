@@ -7,6 +7,7 @@ const cols = [
     links: [
       { name: "Tutorial — TaskFlow course", href: "/tutorial" },
       { name: "Quickstart", href: "/docs/quickstart" },
+      { name: "Components", href: "/components" },
       { name: "GitHub", href: SITE.github },
       { name: "CLAUDE_PROMPT.md", href: `${SITE.github}/blob/main/CLAUDE_PROMPT.md` },
       { name: "Pre-deploy review", href: `${SITE.github}/blob/main/pre-deploy-review.md` },

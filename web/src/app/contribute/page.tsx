@@ -21,7 +21,7 @@ const componentTemplate = `{
   slug: "my-component",
   name: "My Component",
   tagline: "One sentence — what it does, who it's for.",
-  category: "data", // auth | marketing | data | commerce | files | content | api | forms
+  category: "data", // auth | marketing | data | commerce | files | content | api | forms | hero | saas | productivity | team | documents
   categoryLabel: "Data",
   install: "pnpm dlx shadcn@latest add https://your-registry.com/r/my-component.json",
   blogUrl: "https://your-domain.com/blog/my-component",

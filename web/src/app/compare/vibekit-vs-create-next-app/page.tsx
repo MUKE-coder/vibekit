@@ -28,7 +28,7 @@ const rows: Row[] = [
   { feature: "Database + ORM configured", cna: false, vibekit: "Neon + Prisma v7 in Phase 1" },
   { feature: "Design system applied", cna: false, vibekit: "Customized design-style-guide.md per project" },
   { feature: "Phase-by-phase build plan", cna: false, vibekit: true },
-  { feature: "Pre-built components for common needs", cna: false, vibekit: "JB Component Registry (auth, files, Stripe, tables)" },
+  { feature: "Pre-built components for common needs", cna: false, vibekit: "30+ in the JB + VibeKit registry (auth, files, Stripe, tables, kanban, charts, org UI, command palette)" },
   { feature: "Pre-deploy security audit", cna: false, vibekit: true },
   { feature: "Works with any AI coding agent", cna: "Yes, but agent has to figure out everything", vibekit: "Yes, with framework rules locked in" },
   { feature: "Time to first feature", cna: "Hours of setup before you can build", vibekit: "Phase 1 done in ~1–2 hours" },

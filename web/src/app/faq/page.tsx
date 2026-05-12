@@ -25,7 +25,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "How is VibeKit different from create-next-app?",
-    a: "create-next-app gives you a blank Next.js project. VibeKit gives you a planned project: a customized design system, a phase-by-phase build plan, a coding constitution for the agent, a registry of pre-built components (auth, payments, file uploads, data tables), and a pre-deploy security audit prompt. You start from a brief, not from boilerplate.",
+    a: "create-next-app gives you a blank Next.js project. VibeKit gives you a planned project: a customized design system, a phase-by-phase build plan, a coding constitution for the agent, a registry of 30+ pre-built components (auth, payments, file uploads, data tables, kanban, charts, org UI, multi-step forms, command palette, and more), and a pre-deploy security audit prompt. You start from a brief, not from boilerplate.",
   },
   {
     q: "Is VibeKit free?",
@@ -44,8 +44,8 @@ const faqs: { q: string; a: string }[] = [
     a: "Before deploying, you paste pre-deploy-review.md into your coding agent. It performs a senior-level audit covering: high CPU tasks, performance bottlenecks (N+1 queries, missing pagination, memory leaks), background tasks (webhook idempotency, retry logic, distributed locks), and security (unauthenticated routes, SQL injection, missing rate limiting, exposed secrets). It writes findings as Critical / High / Medium to pre-deploy-review-report.md. You address Critical issues before going live.",
   },
   {
-    q: "What's the JB Component Registry?",
-    a: "A collection of production-ready shadcn components for the most common app primitives: authentication (Better Auth UI), file uploads (S3/R2), Stripe checkout, data tables, MDX blogs, marketing sites, e-commerce carts, searchable selects, API documentation, and Mobile Money payments. Your coding agent installs them with one command instead of writing auth or file uploads from scratch — saving 60–80% of tokens per feature.",
+    q: "What's the component registry?",
+    a: "A two-part registry of production-ready shadcn components: (1) the JB registry — Better Auth UI, File Storage UI (S3/R2), Stripe UI, Data Table, MDX Blog, Website UI, Zustand Cart, Searchable Select, Scalar API Docs, DGateway Shop (Mobile Money); and (2) the VibeKit in-house registry hosted at vibekit.desishub.com/r — Kanban Board, Rich Text Editor, Organization & Team UI, Charts & Dashboard Grid, Multi-Step Form, Command Palette, Notification Center, Advanced Form Elements, File Manager, Printable Templates, Ecommerce Product Grid, SaaS Subscription/Billing/Management. Your coding agent installs them with one command instead of writing from scratch — saving 60–80% of tokens per feature. Browse the full list at vibekit.desishub.com/components.",
   },
   {
     q: "Do I need to be a developer to use VibeKit?",

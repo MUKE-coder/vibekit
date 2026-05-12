@@ -1,54 +1,64 @@
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { Section } from "./section";
 import { Button } from "./ui/button";
+import { components } from "@/lib/components-data";
 
-const components = [
-  { name: "Better Auth UI", desc: "Sign-in, sign-up, OAuth, password reset, OTP — full auth stack." },
-  { name: "Website UI", desc: "10 marketing pages, navbar, footer, dark mode, i18n, full SEO." },
-  { name: "Stripe UI", desc: "Embedded Payment Element, checkout flow, orders, webhooks." },
-  { name: "Data Table", desc: "Search, sort, pagination, column visibility, row selection." },
-  { name: "File Storage UI", desc: "S3/R2 drag-drop upload, preview, progress, file management." },
-  { name: "MDX Blog", desc: "File-based blog with syntax highlighting and full SEO metadata." },
-  { name: "DGateway Shop", desc: "Mobile Money + Stripe checkout for African markets." },
-  { name: "Zustand Cart", desc: "Client-side cart with localStorage persistence." },
-  { name: "Searchable Select", desc: "Filterable dropdown with search and clear." },
-  { name: "Scalar API Docs", desc: "Interactive API docs with OpenAPI 3.0 spec." },
-];
+// Curated featured set — the most commonly installed JB + in-house components.
+// The full list lives at /components.
+const featuredSlugs = [
+  "better-auth-ui",
+  "website-ui",
+  "stripe-ui",
+  "data-table",
+  "file-storage",
+  "mdx-blog",
+  "kanban-board",
+  "charts-grid",
+  "org-team-ui",
+  "command-palette",
+  "multi-step-form",
+  "rich-text-editor",
+] as const;
+
+const featured = featuredSlugs
+  .map((slug) => components.find((c) => c.slug === slug))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
 export function JBRegistry() {
   return (
     <Section
       id="features"
-      eyebrow="JB component registry"
+      eyebrow={`Component registry · ${components.length} components`}
       title={<>Don't write what already exists. <em className="not-italic gradient-text">Install it.</em></>}
-      description="Production-ready shadcn components for every primitive — auth, tables, forms, file uploads, e-commerce. Claude Code checks the registry before writing from scratch, saving 60–80% of tokens."
+      description="Production-ready shadcn components for every primitive — auth, tables, forms, file uploads, e-commerce, kanban, charts, org/team UI. Claude Code (and Cursor, Cline, Codex) checks the registry before writing from scratch, saving 60–80% of tokens."
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {components.map((c) => (
-          <div
-            key={c.name}
-            className="reveal group flex items-start justify-between gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition-all hover:border-[color:var(--border-strong)]"
+        {featured.map((c) => (
+          <Link
+            key={c.slug}
+            href={`/components/${c.slug}`}
+            className="reveal group flex items-start justify-between gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
           >
             <div>
-              <h3 className="font-display text-[18px] leading-tight text-[color:var(--text-primary)]">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
+                {c.categoryLabel}
+              </div>
+              <h3 className="mt-1.5 font-display text-[18px] leading-tight text-[color:var(--text-primary)]">
                 {c.name}
               </h3>
               <p className="mt-1.5 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                {c.desc}
+                {c.tagline}
               </p>
             </div>
-          </div>
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+          </Link>
         ))}
       </div>
 
-      <div className="reveal mt-10 flex justify-center">
-        <Button
-          href="https://jb.desishub.com/blog/jb-component-registry-complete-reference"
-          variant="outline"
-          size="md"
-        >
-          Browse the full registry
-          <ExternalLink className="h-4 w-4" />
+      <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
+        <Button href="/components" variant="accent" size="md">
+          Browse all {components.length} components
         </Button>
       </div>
     </Section>

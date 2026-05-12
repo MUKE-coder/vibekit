@@ -65,7 +65,7 @@ Every project built with this framework uses this stack. Do not deviate unless t
 | Styling        | Tailwind CSS v4 + shadcn/ui  | AI knows these patterns well                                 |
 | Deployment     | Vercel                       | One-click, preview URLs, zero config                         |
 | Domain & DNS   | Cloudflare                   | Free SSL, fast DNS, easy management                          |
-| Components     | JB Component Registry        | Production-ready shadcn components                           |
+| Components     | JB + VibeKit In-House Registry | Production-ready shadcn components — auth, payments, data tables, kanban, charts, org UI, etc. |
 
 > **File Uploads — R2 vs UploadThing:**
 >
@@ -215,13 +215,15 @@ Claude Code writes the findings to `pre-deploy-review-report.md`. Address every 
 
 ---
 
-## JB Component Registry
+## Component Registry — JB + VibeKit In-House
 
-**Registry Reference:** [jb.desishub.com/blog/jb-component-registry-complete-reference](https://jb.desishub.com/blog/jb-component-registry-complete-reference)
+**JB Registry Reference:** [jb.desishub.com/blog/jb-component-registry-complete-reference](https://jb.desishub.com/blog/jb-component-registry-complete-reference)
 
-**Framework Reference:** [`jb-components.md`](./jb-components.md) — Detailed guide with install commands, env vars, prerequisites, and when-to-use for each major component.
+**VibeKit In-House Registry:** [vibekit.desishub.com/components](https://vibekit.desishub.com/components) — Components built and maintained as part of the framework. Hosted at `vibekit.desishub.com/r/{slug}.json`.
 
-Production-ready shadcn components for auth, data tables, forms, file uploads, e-commerce, and more. Claude Code checks `jb-components.md` before building features from scratch.
+**Framework Reference:** [`jb-components.md`](./jb-components.md) — Detailed guide with install commands, env vars, prerequisites, and when-to-use for every component (JB + in-house).
+
+Production-ready shadcn components for auth, data tables, forms, file uploads, e-commerce, Stripe checkout, MDX blogs, API docs, kanban boards, org/team UI, charts dashboards, multi-step wizards, rich text editors, command palettes, notification centers, file managers, printable templates, and SaaS pricing/billing/subscription/token UIs. Claude Code (and Cursor, Cline, Codex) checks `jb-components.md` before building features from scratch.
 
 ---
 

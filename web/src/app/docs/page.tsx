@@ -9,7 +9,7 @@ import { SITE } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Documentation — VibeKit framework guides",
   description:
-    "Documentation for the VibeKit framework: getting started, the master prompt, the JB component registry, deployment, troubleshooting, and the pre-deploy review.",
+    "Documentation for the VibeKit framework: getting started, the master prompt, the JB + VibeKit component registry, deployment, troubleshooting, and the pre-deploy review.",
   alternates: { canonical: "/docs" },
   openGraph: { url: `${SITE.url}/docs`, images: ["/og.png"] },
 };
@@ -29,6 +29,8 @@ const guides = [
 
 const externalGuides = [
   { name: "Master prompt", href: `${SITE.github}/blob/main/master_prompt.md`, blurb: "The coding constitution Claude Code follows on every build." },
+  { name: "JB + VibeKit components", href: `${SITE.github}/blob/main/jb-components.md`, blurb: "The component registry reference — when to install which component." },
+  { name: "Design style guide", href: `${SITE.github}/blob/main/design-style-guide.md`, blurb: "Tailwind v4 tokens + visual rules customized per project." },
   { name: "Database guide", href: `${SITE.github}/blob/main/database-guide.md`, blurb: "Neon + Prisma v7: schema, migrations, query patterns." },
   { name: "Deployment", href: `${SITE.github}/blob/main/deployment.md`, blurb: "Vercel + Cloudflare DNS + SSL + email domain verification." },
   { name: "Environment variables", href: `${SITE.github}/blob/main/environment-variables.md`, blurb: "Step-by-step setup for every secret per integration." },
