@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/USER/.claude/skills/create-remotion-geist/**)",
+      "Read(//c/Users/USER/.agents/skills/create-remotion-geist/**)",
+      "Edit(~/.claude/skills/vibekit/**)"
+    ],
+    "additionalDirectories": [
+      "D:\\Projects\\VIBE CODING FRAMEWORK\\__TRACKED_VAR__\\.claude\\skills"
+    ]
+  }
+}

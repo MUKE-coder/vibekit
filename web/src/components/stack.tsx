@@ -4,13 +4,15 @@ const rows = [
   { layer: "Framework", tech: "Next.js 16 (App Router)", why: "Latest App Router with React 19" },
   { layer: "Language", tech: "TypeScript 5.9", why: "Type safety, better DX" },
   { layer: "Database", tech: "Neon — Serverless Postgres", why: "Free tier, instant setup, serverless scale" },
+  { layer: "Cache", tech: "Upstash Redis", why: "API-layer query caching, rate limiting, session store" },
   { layer: "ORM", tech: "Prisma v7", why: "Type-safe, AI reads schema easily" },
   { layer: "Authentication", tech: "Better Auth", why: "Secure, extensible, Prisma-compatible" },
-  { layer: "Data Fetching", tech: "React Query + Fetch API", why: "Caching, refetching, loading states built-in" },
+  { layer: "Data Fetching", tech: "React Query + Redis + Fetch", why: "Client cache (React Query) + Server cache (Redis) = dual layer" },
+  { layer: "Animation", tech: "Framer Motion", why: "State + entrance animations — single library, ~35KB" },
   { layer: "API Layer", tech: "API Routes (Route Handlers)", why: "Server-side logic via Next.js App Router" },
   { layer: "Validation", tech: "Zod + React Hook Form", why: "Type-safe validation on client and server" },
-  { layer: "PDF Generation", tech: "@react-pdf/renderer", why: "React components to PDF" },
-  { layer: "Excel Export", tech: "xlsx", why: "Read/write Excel, lightweight" },
+  { layer: "PDF Generation", tech: "@react-pdf/renderer", why: "React components to PDF (lazy-loaded)" },
+  { layer: "Excel Export", tech: "xlsx", why: "Read/write Excel, lightweight (lazy-loaded)" },
   { layer: "File Storage", tech: "Cloudflare R2 or UploadThing", why: "R2 for S3-compat, UploadThing for simple uploads" },
   { layer: "Email", tech: "Resend + React Email", why: "Best DX, great deliverability" },
   { layer: "Payments", tech: "Stripe", why: "Industry standard, webhook-driven" },
@@ -59,8 +61,8 @@ export function Stack() {
           </table>
         </div>
       </div>
-      <p className="reveal mt-6 text-center text-[13px] text-[color:var(--text-tertiary)]">
-        File uploads — choose between <span className="font-mono text-[color:var(--text-secondary)]">Cloudflare R2</span> for full S3-compatible control, or <span className="font-mono text-[color:var(--text-secondary)]">UploadThing</span> for the simplest path to image uploads.
+      <p className="reveal mt-6 text-center text-[13px] text-[color:var(--text-secondary)]">
+        GD only — GSAP for marketing scroll. Dashboard apps skip GSAP entirely (saves 40KB). All heavy libs (PDF, Excel, charts) use <span className="font-mono">next/dynamic</span> — never load what the current page doesn't need.
       </p>
     </Section>
   );

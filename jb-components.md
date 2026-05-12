@@ -394,10 +394,45 @@ pnpm dlx shadcn@latest add https://jb.desishub.com/r/zustand-cart.json
 
 ---
 
+---
+
+## VibeKit In-House Registry (vibekit.desishub.com)
+
+> Components built and maintained as part of the VibeKit framework, hosted on the VibeKit landing site at `vibekit.desishub.com/r/{component}.json`.
+
+These are **in-house VibeKit components** — built when no JB or community component covers the use case, or when the use case is so cross-cutting (Kanban, org UI, charts) that every app rebuilt from scratch would need it.
+
+**Registry base:** `https://vibekit.desishub.com/r/{component}.json`
+**Index:** `https://vibekit.desishub.com/r` (returns JSON array of all available components)
+**Install pattern:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/{component}.json`
+
+### Planned Components (Build Order)
+
+| Priority | Component | Use Case Coverage |
+|----------|-----------|-------------------|
+| 1 | **Kanban Board** | CRM pipelines, project management, hiring boards, content calendars |
+| 2 | **Organization & Team UI** | Multi-tenant SaaS, team management, role-based access, billing |
+| 3 | **Charts & Dashboard Grid** | Analytics dashboards, reporting, metrics visualization |
+| 4 | **Multi-Step Form / Wizard** | Onboarding flows, checkout, surveys, setup wizards |
+| 5 | **Rich Text Editor** | Notes, content creation, messaging, documentation |
+| 6 | **Command Palette** | ⌘K navigation, quick actions, search across app |
+| 7 | **Notification Center** | Bell dropdown, real-time alerts, preferences |
+| 8 | **Advanced Form Elements** | Tags input, phone input, color picker, date range, autosave |
+| 9 | **File Manager / Media Library** | Asset management, folder navigation, file preview |
+| 10 | **Printable Templates** | Invoice, receipt, report layouts with print CSS |
+
+### Rules
+
+1. **Check JB components first** — the JB registry (this file) is the primary source. Only fall back to the in-house registry if no JB component exists for the need.
+2. **Install order:** In-house components are self-contained unless noted. No cross-component install order requirements.
+3. **File targets:** In-house components install to `components/{component-name}.tsx` by default.
+4. **Design tokens:** In-house components use shadcn/ui primitives and respect Tailwind v4 `@theme` tokens from `design-style-guide.md`.
+
 ## Rules for Claude Code
 
-1. **Always check this file before building auth, file upload, checkout, data table, blog, or API docs from scratch.**
-2. **Install the component first.** Run the install command and read the installed files before writing any new code.
-3. **Respect the install order.** Stripe UI needs Better Auth + Zustand Cart first. Don't skip prerequisites.
-4. **Match environment variables exactly.** Copy the env var names from this file into `.env.local` and `.env.example`.
-5. **Don't reinvent.** If a component exists, use it — do not write a parallel implementation.
+1. **Always check this file before building auth, file upload, checkout, data table, blog, API docs, Kanban, org UI, charts, forms, or rich text from scratch.**
+2. **Check JB components first, then in-house VibeKit components.** Both registries are documented above.
+3. **Install the component first.** Run the install command and read the installed files before writing any new code.
+4. **Respect the install order.** Stripe UI needs Better Auth + Zustand Cart first. Don't skip prerequisites.
+5. **Match environment variables exactly.** Copy the env var names from this file into `.env.local` and `.env.example`.
+6. **Don't reinvent.** If a component exists, use it — do not write a parallel implementation.

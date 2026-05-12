@@ -44,10 +44,12 @@ You are building a production-grade Next.js application following the VibeKit fr
 - **Framework:** Next.js 16 (App Router), TypeScript 5.9
 - **Styling:** Tailwind CSS v4 + shadcn/ui
 - **Database:** Neon PostgreSQL + Prisma v7 (NOT v6 — follow master_prompt.md patterns exactly)
+- **Caching:** Upstash Redis (API-layer cache on top of React Query client cache). See master_prompt.md → REDIS CACHING.
 - **Auth:** JB Better Auth UI (install the component, don't write from scratch)
 - **Data Fetching:** React Query (`@tanstack/react-query`) + Fetch API. NEVER `useEffect` for data.
 - **Forms:** React Hook Form + Zod. Always.
 - **API:** API Routes (Route Handlers). All server-side logic goes through API routes.
+- **Animation:** Framer Motion ONLY (default). GSAP only for complex scroll-driven marketing sites. Never install both unless explicitly needed.
 - **PDF:** `@react-pdf/renderer`. NEVER jsPDF.
 - **Excel:** `xlsx`. NEVER alternatives.
 - **File uploads:** Check `project-description.md` — R2/S3 (use JB File Storage UI) or UploadThing.
@@ -68,8 +70,11 @@ Before building from scratch, check `jb-components.md`:
 | Blog with MDX | MDX Blog |
 | API documentation | Scalar API Docs |
 | Mobile Money payments | DGateway Shop |
+| Kanban board, org UI, charts, wizard, editor (in-house) | VibeKit In-House Registry (`vibekit.desishub.com/r/{component}.json`) |
 
 Install with the exact `pnpm dlx shadcn@latest add ...` command from `jb-components.md`. Read the installed files before writing new code on top of them.
+
+**Two registries:** JB components (primary) at `jb.desishub.com` / `better-auth-ui.desishub.com` etc. VibeKit in-house components (fallback) at `vibekit.desishub.com/r/{component}.json`. Check JB first, then in-house.
 
 ### Build Process
 1. Work through **ONE phase at a time** from `project-phases.md`
@@ -106,7 +111,7 @@ Before declaring any form or list page "done", run the self-check from master_pr
 Use `await req.text()` for the body, never `req.json()`. Pass the raw string to `stripe.webhooks.constructEvent`. Webhook handlers must be idempotent — store processed event IDs.
 
 ### Dependency Blocklist
-Never install: moment, axios, next-auth, classnames, jspdf, redux, material-ui, chakra-ui, styled-components, react-toastify. See master_prompt.md for the full list and approved alternatives.
+Never install: moment, axios, next-auth, classnames, jspdf, redux, material-ui, chakra-ui, styled-components, react-toastify. For dashboard/internal apps: NEVER install GSAP. See master_prompt.md for the full list and approved alternatives.
 
 ### Pre-Deploy Review
 The final task in Phase 6 is to run the pre-deploy review. The prompt lives in the VibeKit repo at `pre-deploy-review.md`. Tell the user to paste it into the agent as the LAST step before deploying. Address every Critical finding before going live.
@@ -182,16 +187,29 @@ WHERE TO GET illustrations:
 
 The canonical 3D-looking SVG pattern (gradient + soft highlight + drop shadow) is in master_prompt.md → IMAGE-FIRST RULE → custom 3D SVG section. Build once, reuse with different colors per card.
 
-### Motion Rules (GSAP for scroll/entrance, Framer Motion for state)
-- **GSAP + ScrollTrigger** for: hero entrance, scroll-triggered section reveals, list staggers, multi-step entrance timelines, parallax. Use `useGSAP({ scope: ref })` from `@gsap/react`.
-- **Framer Motion** for: modal open/close, tab switching, accordion expand, toast slide, drag, layout animations (`<motion.div layout>`).
+### Motion Rules (Framer Motion default, GSAP only for complex marketing scroll)
+- **Default: Framer Motion ONLY** for ALL animations. Use `whileInView` + `viewport` for entrance/scroll reveals. Use `motion.div` + `AnimatePresence` for state animations. See master_prompt.md → FRAMER MOTION for patterns.
+- **GSAP** is ONLY for marketing-heavy projects with multi-pin scroll sequences. Dashboard/internal apps should NEVER install GSAP.
+- **GPU compositing:** ALWAYS animate with `transform` and `opacity` only. NEVER `top`/`left`/`width`/`height`. Add `will-change` on heavy animated elements.
 - Timing: 150ms hover, 200ms modal enter, 600–800ms section reveal, 80–120ms list stagger.
-- Easing: `power3.out` (GSAP entrances), `[0.16, 1, 0.3, 1]` (Framer Motion).
-- ALWAYS respect `prefers-reduced-motion` — gate GSAP timelines with `window.matchMedia` check, use Framer's `useReducedMotion()` hook.
-- Every interactive element has hover state + focus-visible ring + 150ms transition. A button with no hover and no focus ring is a sign the agent gave up.
+- Easing: `[0.16, 1, 0.3, 1]` (Framer Motion bezier for ALL animations).
+- ALWAYS respect `prefers-reduced-motion` — use `useReducedMotion()` hook and `motion-safe:` Tailwind variant.
+- Every interactive element has hover state + focus-visible ring + 150ms transition.
 
-### CRITICAL motion bug to avoid
-NEVER apply `gsap.from()` with `opacity: 0` to interactive elements (buttons, links, form inputs). If ScrollTrigger doesn't fire (mid-page reload, hash navigation), the element stays at opacity 0 forever. For CTAs and important UI: render statically OR use `gsap.fromTo()` with explicit values, OR animate parent containers.
+### Performance — Hard Rules
+- Every import over 15KB gzipped MUST use `next/dynamic` (`@react-pdf/renderer`, `xlsx`, chart libs, editors, Stripe). See master_prompt.md → LAZY LOADING.
+- Every data-fetching page section MUST be wrapped in a `<Suspense>` boundary with a skeleton. Never block the whole page.
+- Every major page block MUST have an `<ErrorBoundary>`. See master_prompt.md → ERROR BOUNDARIES.
+- All API route GET handlers MUST use Redis caching (`getCachedOrFetch`). POST/PATCH/DELETE MUST call `invalidateTag()`.
+- Never animate `top`/`left`/`width`/`height` — use `transform` and `opacity`. Add `will-change` on heavy elements.
+- Every image MUST have `aspect-ratio` and explicit dimensions to prevent CLS.
+- Fonts: `next/font/google` with `display: swap`, hero font `preload: true`.
+- Pre-deploy: run `ANALYZE=true next build`, flag chunks >50KB.
+
+### Redis Caching
+- Add `@upstash/redis`. Create `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING).
+- Cache TTL: 30-60s dashboard data, 300s reference data. Never cache sessions or raw files.
+- Invalidate cache tag on every POST/PATCH/DELETE.
 
 ### Code Quality
 - Every API route must support server-side pagination

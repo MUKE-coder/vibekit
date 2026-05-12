@@ -15,10 +15,10 @@ Read these files in full before responding:
 3. **JB Component Registry reference:** https://raw.githubusercontent.com/MUKE-coder/vibekit/main/jb-components.md
 
 The framework contains:
-- The standard tech stack (Next.js 16 + Neon + Prisma v7 + Better Auth + React Query + Zod + API Routes + Resend + Stripe + @react-pdf/renderer + xlsx + Vercel + Cloudflare)
-- The master prompt that Claude Code will follow when building
-- The phase-based build structure
-- The design style guide template (you will customize this per project)
+- The standard tech stack (Next.js 16 + Neon + Prisma v7 + Upstash Redis + Better Auth + React Query + Zod + Framer Motion + API Routes + Resend + Stripe + @react-pdf/renderer + xlsx + Vercel + Cloudflare)
+- The master prompt (CLAUDE.md) that Claude Code follows when building — includes Redis caching, performance budget, next/dynamic, Suspense/Error boundaries, single animation library, responsive rules, and skeleton spec
+- The phase-based build structure with Redis setup, seed data, and bundle analysis tasks
+- The design style guide template with Tailwind v4 CSS-first config
 - The JB Component Registry reference (use these components when applicable)
 
 ## What You Must Generate
@@ -93,26 +93,28 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 # [App Name] — Build Phases
 
 ## Phase 1 — Foundation
-**Goal:** Project scaffolded, design system applied, env files created, database connected, auth working.
+**Goal:** Project scaffolded, design system applied, env files created, database connected, Redis cache configured, auth working.
 
 ### Tasks
 - [ ] Initialize Next.js 16 project with TypeScript, Tailwind v4, shadcn/ui
-- [ ] Create `.env.example` (committed) and `.env.local` (gitignored) with EVERY env var this project needs (Database, Better Auth, OAuth, Resend, Stripe, file storage — whichever apply). Each var commented with what it is and where to get it.
+- [ ] Create `.env.example` (committed) and `.env.local` (gitignored) with EVERY env var this project needs (Database, Redis, Better Auth, OAuth, Resend, Stripe, file storage — whichever apply). Each var commented with what it is and where to get it.
 - [ ] Add `.env.local` to `.gitignore`
 - [ ] Set up Prisma v7 with Neon PostgreSQL (schema, config, db client)
-- [ ] Apply design-style-guide.md tokens to globals.css
+- [ ] Set up Upstash Redis cache client in `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` wrappers. Add `@upstash/redis` to dependencies.
+- [ ] Apply design-style-guide.md tokens to globals.css (Tailwind v4 CSS-first config — @theme directive, no tailwind.config.ts)
 - [ ] Create root layout with correct font, QueryClientProvider, [if dark mode = Yes: ThemeProvider + next-themes; if No: skip]
 - [ ] Build sidebar layout (collapsible, nav items, user section[, dark mode toggle if enabled])
 - [ ] Build page header component (breadcrumb + title + actions)
 - [ ] Install JB Better Auth UI: `pnpm dlx shadcn@latest add https://better-auth-ui.desishub.com/r/auth-components.json`
 - [ ] **Integrate installed auth files into existing routes — do NOT overwrite existing `page.tsx` or `layout.tsx`. Edit and merge.**
 - [ ] Configure Better Auth env vars (BETTER_AUTH_SECRET, BETTER_AUTH_URL, OAuth keys if in scope)
-- [ ] Create protected route middleware
+- [ ] Create protected route middleware (middleware.ts — edge-level auth check before dashboard renders)
 - [ ] Build custom 404, error, and loading pages
 - [ ] Verify: login, signup, OAuth (if configured), protected routes all work
 
 ### Dependencies
 - Neon database created, DATABASE_URL set in .env.local
+- Upstash Redis database created, UPSTASH_REDIS_URL and UPSTASH_REDIS_TOKEN set in .env.local
 - Resend account created, RESEND_API_KEY set (for auth emails)
 
 ---
@@ -123,14 +125,17 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 ### Tasks
 - [ ] Define Prisma schema for: [list ALL models specific to this project]
 - [ ] Run database migration: `pnpm db:push && pnpm db:generate`
+- [ ] Create `prisma/seed.ts` with 50+ realistic records (edge cases included). Add `"db:seed": "tsx prisma/seed.ts"` to scripts.
+- [ ] Run seed: `pnpm db:seed`
 - [ ] Install JB Data Table: `pnpm dlx shadcn@latest add https://jb.desishub.com/r/data-table.json`
-- [ ] Build API routes (Route Handlers) with server-side pagination for: [list endpoints]
+- [ ] Build API routes (Route Handlers) with Redis caching (`getCachedOrFetch` + `invalidateTag`) and server-side pagination for: [list endpoints]
 - [ ] Build list pages with Data Table (search, filters, pagination, Excel + PDF export)
 - [ ] Build detail/view pages for: [list entities]
-- [ ] Build create/edit forms (React Hook Form + Zod validation)
+- [ ] Build create/edit forms (React Hook Form + Zod validation) — every form wrapped in Suspense + ErrorBoundary
 - [ ] Build stat cards for dashboard overview
 - [ ] Add empty states and loading skeletons for all pages
 - [ ] Ensure all pages respect auth state
+- [ ] Verify: every GET route caches via Redis, every mutation invalidates the cache
 
 ### Dependencies
 - Phase 1 must be complete (auth + layout working)
@@ -255,11 +260,13 @@ Read the following files in order before doing anything:
 - After completing each phase, stop and confirm with me before proceeding.
 - Follow design-style-guide.md tokens exactly (colors, typography, spacing, radius).
 - Use Prisma v7 patterns (NOT v6). See master_prompt.md for the exact setup.
-- Use React Query for all data fetching. Never useEffect for data.
+- **Use React Query for all client data fetching + Redis for API-layer caching** (getCachedOrFetch + invalidateTag from src/lib/cache.ts). Never useEffect for data.
 - Use React Hook Form + Zod for all forms.
 - Use API Routes (Route Handlers) for all server-side logic.
+- Use Framer Motion for animation (default). GSAP only if explicitly requested for complex marketing scroll.
 - Use @react-pdf/renderer for PDF generation. Never jsPDF.
 - Use xlsx for Excel export.
+- **Follow performance budget:** next/dynamic for heavy imports, Suspense boundaries on every data-fetching section, ErrorBoundary on major page blocks, aspect-ratio on all images, animate transform/opacity only.
 - **Before building auth, file uploads, checkout, data tables, or blogs from scratch — check jb-components.md and install the relevant component first.**
 
 ## Start

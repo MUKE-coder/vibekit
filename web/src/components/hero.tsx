@@ -12,11 +12,11 @@ import { SITE } from "@/lib/utils";
 const stackChips = [
   "Next.js 16",
   "Prisma v7",
+  "Upstash Redis",
   "Better Auth",
   "React Query",
+  "Framer Motion",
   "Tailwind v4",
-  "Resend",
-  "Stripe",
 ];
 
 export function Hero() {

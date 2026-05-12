@@ -29,10 +29,12 @@ Build production-grade Next.js applications following the VibeKit framework stan
 - **Framework:** Next.js 16 (App Router), TypeScript 5.9
 - **Styling:** Tailwind CSS v4 + shadcn/ui
 - **Database:** Neon PostgreSQL + Prisma v7 (NOT v6 — follow master_prompt.md patterns exactly)
+- **Caching:** Upstash Redis (API-layer cache on top of React Query client cache). See REDIS CACHING in master_prompt.md.
 - **Auth:** JB Better Auth UI (install the component, don't write from scratch)
 - **Data Fetching:** React Query (`@tanstack/react-query`) + Fetch API. NEVER `useEffect` for data.
 - **Forms:** React Hook Form + Zod. Always.
 - **API:** API Routes (Route Handlers). All server-side logic goes through API routes.
+- **Animation:** Framer Motion ONLY (default). GSAP only for complex scroll-driven marketing sites. Never install both unless the project explicitly needs it.
 - **PDF:** `@react-pdf/renderer`. NEVER jsPDF.
 - **Excel:** `xlsx`. NEVER alternatives.
 - **File uploads:** Check `project-description.md` — R2/S3 (use JB File Storage UI) or UploadThing.
@@ -79,16 +81,14 @@ WHERE TO GET illustrations:
 
 The canonical 3D-looking SVG pattern (gradient + soft highlight + drop shadow) is in master_prompt.md → IMAGE-FIRST RULE → custom 3D SVG section. Build once, reuse with different colors per card.
 
-### Motion Rules (GSAP for scroll/entrance, Framer Motion for state)
-- **GSAP + ScrollTrigger** for: hero entrance, scroll-triggered section reveals, list staggers, multi-step entrance timelines, parallax. Use `useGSAP({ scope: ref })` from `@gsap/react`.
-- **Framer Motion** for: modal open/close, tab switching, accordion expand, toast slide, drag, layout animations (`<motion.div layout>`).
+### Motion Rules (Framer Motion default, GSAP only for complex marketing scroll)
+- **Default: Framer Motion ONLY** for ALL animations. Use `whileInView` + `viewport` for entrance/scroll reveals (no ScrollTrigger cost). Use `motion.div` + `AnimatePresence` for state animations (modals, tabs, toasts). See master_prompt.md → FRAMER MOTION — THE DEFAULT for patterns.
+- **GSAP** is ONLY for marketing-heavy projects that need multi-pin scroll sequences, complex parallax timelines, or detailed scroll-driven storytelling that Framer Motion can't handle efficiently. Install explicitly: `pnpm add gsap @gsap/react`. Dashboard/internal apps should NEVER install GSAP.
+- **GPU compositing:** ALWAYS animate with `transform` and `opacity` only. NEVER `top`/`left`/`width`/`height`. Add `will-change: transform, opacity` on heavy animated elements (hero sections, full-viewport animations).
 - Timing: 150ms hover, 200ms modal enter, 600–800ms section reveal, 80–120ms list stagger.
-- Easing: `power3.out` (GSAP entrances), `[0.16, 1, 0.3, 1]` (Framer Motion).
-- ALWAYS respect `prefers-reduced-motion` — gate GSAP timelines with `window.matchMedia` check, use Framer's `useReducedMotion()` hook.
+- Easing: `[0.16, 1, 0.3, 1]` (Framer Motion bezier — use for ALL entrance and state animations).
+- ALWAYS respect `prefers-reduced-motion` — use Framer's `useReducedMotion()` hook and the `motion-safe:` Tailwind variant. Never apply entrance opacity to CTAs or interactive elements (if ScrollTrigger/whileInView doesn't fire, they stay invisible).
 - Every interactive element has hover state + focus-visible ring + 150ms transition. A button with no hover and no focus ring is a sign the agent gave up.
-
-### CRITICAL motion bug to avoid
-NEVER apply `gsap.from()` with `opacity: 0` to interactive elements (buttons, links, form inputs). If ScrollTrigger doesn't fire (mid-page reload, hash navigation), the element stays at opacity 0 forever. For CTAs and important UI: render statically OR use `gsap.fromTo()` with explicit values, OR animate parent containers.
 
 ### JB Components — Check First, Build Second
 Before building from scratch, check `jb-components.md`:
@@ -104,8 +104,11 @@ Before building from scratch, check `jb-components.md`:
 | Blog with MDX | MDX Blog |
 | API documentation | Scalar API Docs |
 | Mobile Money payments | DGateway Shop |
+| Kanban board, org UI, charts, wizard, editor (in-house) | VibeKit In-House Registry (`vibekit.desishub.com/r/{component}.json`) |
 
 Install with the exact `pnpm dlx shadcn@latest add ...` command from `jb-components.md`. Read the installed files before writing new code on top of them.
+
+**Two registries:** JB components (primary) at `jb.desishub.com` / `better-auth-ui.desishub.com` etc. VibeKit in-house components (fallback) at `vibekit.desishub.com/r/{component}.json`. Check JB first, then in-house.
 
 ### Build Process
 1. Work through **ONE phase at a time** from `project-phases.md`
@@ -142,7 +145,7 @@ Before declaring any form or list page "done", run the self-check from master_pr
 Use `await req.text()` for the body, never `req.json()`. Pass the raw string to `stripe.webhooks.constructEvent`. Webhook handlers must be idempotent — store processed event IDs.
 
 ### Dependency Blocklist
-Never install: moment, axios, next-auth, classnames, jspdf, redux, material-ui, chakra-ui, styled-components, react-toastify. See master_prompt.md for the full list and approved alternatives.
+Never install: moment, axios, next-auth, classnames, jspdf, redux, material-ui, chakra-ui, styled-components, react-toastify. For dashboard/internal apps: NEVER install GSAP. See master_prompt.md for the full list and approved alternatives.
 
 ### Pre-Deploy Review
 The final task in Phase 6 is to run the pre-deploy review. The prompt lives in the VibeKit repo at `pre-deploy-review.md`. Tell the user to paste it into Claude Code as the LAST step before deploying. Address every Critical finding before going live.
@@ -177,6 +180,21 @@ When a JB component install creates files that overlap with files already in the
 - Lose project-specific branding or config when integrating
 
 If a merge is ambiguous, ask the user before proceeding.
+
+### Performance — Hard Rules
+- Every import over 15KB gzipped MUST use `next/dynamic` (`@react-pdf/renderer`, `xlsx`, chart libs, editors, `@stripe/react-stripe-js`). See master_prompt.md → LAZY LOADING for the full list.
+- Every data-fetching page section MUST be wrapped in a `<Suspense>` boundary with a skeleton fallback. Never block the whole page on one slow query.
+- Every major page block MUST have an `<ErrorBoundary>` to prevent one crash from killing the whole page. See master_prompt.md → ERROR BOUNDARIES for the canonical component.
+- All API route GET handlers MUST use Redis caching (`getCachedOrFetch` from `src/lib/cache.ts`) for hot paths. POST/PATCH/DELETE MUST call `invalidateTag()`.
+- Never animate `top`/`left`/`width`/`height` — use `transform` and `opacity` only. Add `will-change: transform, opacity` on heavy animated elements.
+- Every `<img>` and `next/image` MUST have `aspect-ratio` and explicit `width`/`height` to prevent CLS.
+- Fonts must use `next/font/google` with `display: swap` and hero fonts with `preload: true`.
+- Bundle analysis: before deploying, run `ANALYZE=true next build` and check for chunks >50KB.
+
+### Redis Caching
+- Add `@upstash/redis` to dependencies. Create `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING for the exact pattern).
+- Cache TTL: 30-60s for dashboard/list data, 300s for reference data. Never cache sessions or raw files.
+- Invalidate cache tag on every POST/PATCH/DELETE for the affected entity.
 
 ### Code Quality
 - Every API route must support server-side pagination

@@ -543,48 +543,87 @@ PDFs use `@react-pdf/renderer` with its own `StyleSheet`. Keep PDF styling **clo
 
 ---
 
-## 14. Tailwind Configuration
+## 14. Tailwind Configuration (v4 — CSS-first)
 
-Extend `tailwind.config.ts`:
+Tailwind v4 uses a CSS-first configuration model. ALL custom tokens go in `globals.css` via the `@theme` directive. No `tailwind.config.ts` file is created or needed.
 
-```ts
-theme: {
-  extend: {
-    fontFamily: {
-      sans: ["var(--font-onest)", "system-ui", "sans-serif"],
-    },
-    colors: {
-      primary: {
-        50: "#EEF2FF",
-        100: "#E0E7FF",
-        500: "#6366F1",
-        600: "#4F46E5",
-        700: "#4338CA",
-        900: "#312E81",
-      },
-      // zinc is already in Tailwind — alias as neutral if needed
-    },
-    boxShadow: {
-      xs: "0 1px 2px 0 rgba(24, 24, 27, 0.05)",
-      focus: "0 0 0 3px rgba(79, 70, 229, 0.15)",
-    },
-    borderRadius: {
-      DEFAULT: "0.5rem", // 8px
-    },
-    fontVariantNumeric: {
-      tabular: "tabular-nums",
-    },
-  },
+Add this to your `src/app/globals.css` inside an `@theme` block:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Onest", "Inter", system-ui, sans-serif;
+
+  --color-primary-50: #EEF2FF;
+  --color-primary-100: #E0E7FF;
+  --color-primary-500: #6366F1;
+  --color-primary-600: #4F46E5;
+  --color-primary-700: #4338CA;
+  --color-primary-900: #312E81;
+
+  --color-success-50: #ECFDF5;
+  --color-success-600: #059669;
+  --color-warning-50: #FFFBEB;
+  --color-warning-600: #D97706;
+  --color-error-50: #FEF2F2;
+  --color-error-600: #DC2626;
+  --color-info-50: #EFF6FF;
+  --color-info-600: #2563EB;
+
+  --shadow-xs: 0 1px 2px 0 rgba(24, 24, 27, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.15);
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+/* Custom CSS variables for design tokens that can't live in @theme */
+:root {
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height: 64px;
 }
 ```
 
 For neutrals, use Tailwind's built-in `zinc` scale directly (`text-zinc-700`, `bg-zinc-50`) — it matches exactly.
 
+**IMPORTANT:** Do NOT create a `tailwind.config.ts`. Tailwind v4 ignores it unless you explicitly import it. All configuration is CSS-first. If a shadcn/ui install script creates a `tailwind.config.ts`, delete it — the `@theme` block in `globals.css` replaces it.
+
 ---
 
-## 15. Accessibility
+## 15. Responsive Breakpoints
 
-- Minimum touch target: `40×40px` (desktop), `44×44px` (mobile)
+**Mobile-first — every layout starts as single-column.**
+
+| Breakpoint | Width | Target |
+|---|---|---|
+| Default | 360px+ | Phones, small devices |
+| `sm` | 640px | Large phones |
+| `md` | 768px | Tablets (sidebars collapse, 2-column grids) |
+| `lg` | 1024px | Desktop (sidebar visible, 3-column grids) |
+| `xl` | 1280px | Wide desktop (max content width) |
+| `2xl` | 1536px | Ultrawide (constrained containers) |
+
+**Page-level rules:**
+- Dashboard padding: `px-4 md:px-8`, max-width `1280px`, centered with `mx-auto`
+- Sidebar: hidden below `lg` → Sheet drawer. `lg:flex` + `w-64` when visible.
+- Data tables: on `md` and below, convert each row to a stacked card (border + label:value layout)
+- Marketing section padding: `py-16 sm:py-24 lg:py-32`
+- Hero text: `text-3xl sm:text-4xl md:text-5xl lg:text-6xl` — fluid, never a single size
+- Touch targets: minimum `44×44px` on mobile, `40×40px` on desktop
+- Modals: go full-screen below `sm` (`fixed inset-0 m-0 rounded-none`), centered card above `sm`
+- Grid layouts: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4` — add breakpoints in order
+- Tables: horizontal scroll wrapper below `md` (`overflow-x-auto`) OR card conversion
+
+**Test every page at 375px before considering it done.** The most common responsive bugs (overflow, tiny touch targets, broken nav) all appear at 375px first.
+
+## 16. Accessibility
 - Color contrast: `4.5:1` for body text, `3:1` for large text and UI components
 - Focus rings: visible on all interactive elements (`shadow-focus`), never removed
 - Icons used alone: include `aria-label` or `sr-only` text

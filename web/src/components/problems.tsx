@@ -2,6 +2,16 @@ import { Section } from "./section";
 
 const problems = [
   {
+    pain: "Slow page loads",
+    looks: "API routes hit the database on every request — no cache layer between React Query and Postgres. 1,000 users = 1,000 identical queries.",
+    solution: "Upstash Redis caches hot API queries in memory (sub-5ms). React Query on the client + Redis on the server = dual-layer caching.",
+  },
+  {
+    pain: "Bloated JS bundles",
+    looks: "Heavy libraries (PDF renderer, spreadsheet parser, chart libs) load on every page. Two animation frameworks fight for bandwidth.",
+    solution: "next/dynamic for every import > 15KB. Framer Motion ONLY (single library ~35KB). GSAP only for advanced marketing sites. Bundle analysis in pre-deploy catches bloat before users do.",
+  },
+  {
     pain: "AI slop design",
     looks: "Every app looks the same — purple gradients, generic shadcn defaults, no brand identity.",
     solution: "design-style-guide.md is customized per project (colors, typography, spacing) and Claude Code follows it exactly.",

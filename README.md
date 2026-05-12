@@ -26,10 +26,12 @@ Every vibe coder building with AI hits the same walls. VibeKit is designed to re
 | **AI slop design**                | Every app looks the same — purple gradients, generic shadcn defaults, no brand identity         | `design-style-guide.md` is customized per project (colors, typography, spacing, component specs) and Claude Code follows it exactly       |
 | **Inconsistent UI**               | Buttons, cards, and forms look slightly different on every page                                 | Design tokens defined in one place, enforced by the master prompt across every component                                                  |
 | **Shipping broken auth**          | AI writes insecure login flows, missing password reset, no OAuth, session bugs                  | `jb-components.md` points Claude to install JB Better Auth UI — battle-tested auth in one command                                         |
+| **Slow page loads**               | API routes hit the database on every request — no cache layer between React Query and Postgres  | Upstash Redis caches hot API queries in memory. React Query on the client + Redis on the server = dual-layer caching. See REDIS CACHING. |
+| **Bloated JS bundles**            | Heavy libraries (PDF, charts, editors) load on every page + two animation frameworks = slow paint | `next/dynamic` for all imports over 15KB. Framer Motion ONLY (single lib). GSAP only for advanced marketing. Bundle analysis in pre-deploy. |
 | **Burning tokens**                | $100–$200 per project because AI rewrites boilerplate every time (auth, tables, forms, uploads) | JB Component Registry covers the big primitives — AI installs and wires up instead of writing from scratch (saves 60–80% tokens)          |
 | **Getting stuck in loops**        | AI tries the same broken fix repeatedly, context gets polluted, progress stalls                 | Phase-based build (`project-phases.md`) + rescue prompts in `prompt-engineering.md` + `troubleshooting.md` playbook                       |
 | **No plan, no clarity**           | Starting with "build me a SaaS" and hoping for the best                                         | Claude interviews you first, generates `project-description.md` + `project-phases.md` — a clear blueprint before a single line is written |
-| **Tech stack chaos**              | AI picks a different stack every project — jsPDF here, Drizzle there, useEffect for data        | Master prompt locks the stack: Next.js 16 + Prisma v7 + React Query + Zod + @react-pdf/renderer + xlsx — always                           |
+| **Tech stack chaos**              | AI picks a different stack every project — jsPDF here, Drizzle there, useEffect for data        | Master prompt locks the stack: Next.js 16 + Prisma v7 + Upstash Redis + React Query + Zod + Framer Motion + @react-pdf/renderer + xlsx — always |
 | **Prisma version drift**          | AI mixes Prisma v6 and v7 patterns, breaks the build                                            | Master prompt enforces Prisma v7 patterns exactly (generator, custom output path, adapter-pg)                                             |
 | **Deployment confusion**          | App works locally, breaks in production — env vars, DNS, SSL, email spam                        | `deployment.md` + `environment-variables.md` walk through every step with checklists                                                      |
 | **Vague prompts = vague code**    | "Make it look better" produces unpredictable changes that break other things                    | `prompt-engineering.md` teaches the 5-part formula and context-loading technique                                                          |
@@ -49,10 +51,12 @@ Every project built with this framework uses this stack. Do not deviate unless t
 | Language       | TypeScript 5.9               | Type safety, better DX                                       |
 | Database       | Neon — Serverless Postgres   | Free tier, instant setup, serverless scale                   |
 | ORM            | Prisma v7                    | Type-safe, AI reads schema easily                            |
+| Cache          | Upstash Redis                | API-layer query caching, rate limiting, session store        |
 | Authentication | Better Auth                  | Secure, extensible, Prisma-compatible                        |
-| Data Fetching  | React Query + Fetch API      | Caching, refetching, loading states built-in                 |
+| Data Fetching  | React Query + Redis + Fetch  | Client cache (React Query) + server cache (Redis) = dual layer |
 | API Layer      | API Routes (Route Handlers)  | Server-side logic via Next.js App Router                     |
 | Validation     | Zod + React Hook Form        | Type-safe validation on client and server                    |
+| Animation      | Framer Motion                | State + entrance animations (single lib, ~35KB gzipped)      |
 | PDF Generation | @react-pdf/renderer          | React components to PDF, full styling control                |
 | Excel Export   | xlsx                         | Read/write Excel files, lightweight and reliable             |
 | File Storage   | Cloudflare R2 or UploadThing | R2 for S3-compatible storage, UploadThing for simple uploads |
@@ -129,8 +133,10 @@ Save all 4 files into your project root folder.
 
 Copy these 2 files from this repository into your project root:
 
-- [`master_prompt.md`](./master_prompt.md) — Tech stack rules, Prisma v7 patterns, coding standards
+- [`master_prompt.md`](./master_prompt.md) — Tech stack rules, Prisma v7 patterns, coding standards (rename to `CLAUDE.md` for auto-loading)
 - [`jb-components.md`](./jb-components.md) — JB component registry reference (when to use each)
+
+**Pro tip:** Claude Code auto-loads a `CLAUDE.md` file at the project root. Rename (or symlink) `master_prompt.md` → `CLAUDE.md` so it's loaded automatically every session — no more copy-pasting.
 
 ### Step 7 — Start building with Claude Code
 
@@ -151,10 +157,11 @@ vibekit/
 ├── README.md                    ← You are here
 ├── CLAUDE_PROMPT.md             ← Paste this into Claude to plan your project
 │
-├── master_prompt.md             ← Coding standards for Claude Code (copy to your project)
+├── CLAUDE.md                    ← 🔥 Rename master_prompt.md → CLAUDE.md for auto-loading
+├── master_prompt.md             ← Coding standards for Claude Code (copy to your project + rename to CLAUDE.md for auto-load)
 ├── design-style-guide.md        ← Design style guide template (Claude customizes per project)
 ├── jb-components.md             ← JB component registry reference (copy to your project)
-├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf audit
+├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf/Redis/WebVitals audit
 │
 ├── prompt-engineering.md        ← Token economy, prompt formula, rescue system
 ├── deployment.md                ← Vercel, Netlify, VPS, Cloudflare, SSL
@@ -171,9 +178,9 @@ When starting a new project, copy these from the VibeKit repo into your project 
 
 | File                   | Purpose                                                  |
 | ---------------------- | -------------------------------------------------------- |
-| `master_prompt.md`     | Claude Code reads this first — tech stack + coding rules |
+| `master_prompt.md`     | Claude Code reads this first — tech stack + coding rules (rename to `CLAUDE.md` for auto-load) |
 | `jb-components.md`     | Reference for when to install which JB component         |
-| `pre-deploy-review.md` | Paste into Claude Code before deploying for an audit     |
+| `pre-deploy-review.md` | Paste into Claude Code before deploying for a full audit (perf, Redis, security, Web Vitals) |
 
 Claude (in the planning step) will generate `project-description.md`, `project-phases.md`, `design-style-guide.md`, and `prompt.md` for you.
 

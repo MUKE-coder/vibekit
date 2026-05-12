@@ -40,7 +40,28 @@ ABSOLUTE RULES
 20. NEVER use multi-color gradient buttons (purple→pink→orange = AI slop). NEVER use multi-color gradient backgrounds. ONE accent color per project. Subtle monochromatic gradients (white→cream, brand-50→white) are OK. The design-style-guide.md picks ONE accent — do not invent more.
 21. SELECTED / ACTIVE STATES are LOUD. When a card, radio, tab, filter chip, or option is selected: 2px accent border (not 1px), background tint at 5–10% accent opacity, filled radio/check icon. When unselected: 1px neutral border, no background tint. The contrast between selected and unselected must be obvious at a glance from 2 metres away.
 22. CARDS use SOFT shadows + 1px borders. Default: `border border-[color:var(--border)] shadow-sm rounded-xl p-6`. Hover: border darkens + tiny lift `-translate-y-0.5`. NEVER `shadow-2xl` decoratively, NEVER `border-2` unless selected, NEVER multiple radii inside a single card. See CARD ANATOMY section.
-23. MOTION uses GSAP for scroll/entrance/staggers and FRAMER MOTION for state transitions. Every interactive element has a transition (150–250ms hover/state, 400–800ms entrance with `power3.out`). ALWAYS respect `prefers-reduced-motion`. See MOTION RULES section.
+23. MOTION uses FRAMER MOTION by default (single animation library ~35KB gzipped) for ALL animations — both state transitions and entrance/scroll reveals. GSAP is only installed for advanced marketing sites with multi-pin scroll sequences. Every interactive element has a transition (150–250ms hover/state, 600–800ms entrance with `[0.16, 1, 0.3, 1]` bezier). ALWAYS respect `prefers-reduced-motion`. See MOTION + MICRO-INTERACTIONS RULES section.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE BUDGET (hard constraints, not guidelines)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Every page must meet these thresholds. Measure before declaring done:
+
+| Metric | Target | How |
+|---|---|---|
+| First Load JS | < 100KB per page | `next/dynamic` for heavy imports, no `"use client"` on server components |
+| LCP | < 2.5s | Optimize images (`next/image` + `priority`), preload hero font, avoid client-side hero content |
+| CLS | < 0.1 | Fixed `aspect-ratio` on all media, explicit width/height on images, no layout shifts from dynamic content |
+| TBT (Total Blocking Time) | < 200ms | No heavy JS on main thread, chunk large computations with `requestIdleCallback`, use Web Workers for crypto/PDF |
+| API Response (p95) | < 200ms | Redis cache hot paths, database indexes on all filtered/sorted columns, pagination enforced |
+
+FAILURE PATTERNS (never ship these):
+- A page that imports `@react-pdf/renderer`, a chart library, or a rich text editor eagerly (always `next/dynamic`)
+- A marketing page that fetches from an API route (use Server Components + ISR instead)
+- A list page with no server-side pagination
+- An image without `aspect-ratio` or explicit dimensions
+- A font without `display: swap` and `preload: true`
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ENV FILE RULES
@@ -52,6 +73,10 @@ In Phase 1, create TWO files at the project root:
 2. .env.local — gitignored, contains the same keys with empty values (or dev values where obvious, like BETTER_AUTH_URL="http://localhost:3000").
 
 Include EVERY env var required by the project's integrations. Read project-description.md → "Integrations" section and jb-components.md → "Environment variables" for each installed component. Minimum:
+
+# Cache (always required — Upstash Redis for API-layer caching)
+UPSTASH_REDIS_URL="https://<id>.upstash.io"
+UPSTASH_REDIS_TOKEN=""
 
 # Database
 DATABASE_URL="postgres://user:password@host:5432/dbname"
@@ -92,6 +117,10 @@ AWS_S3_SECRET_ACCESS_KEY=""
 
 # If file storage = UploadThing:
 UPLOADTHING_TOKEN=""
+
+# If Redis caching (always — Upstash):
+UPSTASH_REDIS_URL=""              # From Upstash Console → REST API URL
+UPSTASH_REDIS_TOKEN=""             # From Upstash Console → REST API Token
 
 # If DGateway (Mobile Money):
 DGATEWAY_API_URL=""
@@ -181,10 +210,12 @@ ALWAYS INCLUDE THESE BASE FILES:
     "@hookform/resolvers": "^5.0.0",
     "@tanstack/react-query": "^5.0.0",
     "next-themes": "^0.3.0",
-    "framer-motion": "^11.0.0",
-    "date-fns": "^3.6.0",
+    "framer-motion": "^12.0.0",
+    "date-fns": "^4.0.0",
     "xlsx": "^0.18.5",
-    "@react-pdf/renderer": "^3.4.0"
+    "@react-pdf/renderer": "^4.0.0",
+    "@upstash/redis": "^1.34.0",
+    "sonner": "^2.0.0"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
@@ -192,7 +223,8 @@ ALWAYS INCLUDE THESE BASE FILES:
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "prisma": "^7.6.0",
-    "tsx": "^4.19.0"
+    "tsx": "^4.19.0",
+    "@next/bundle-analyzer": "^16.0.0"
   }
 }
 </file>
@@ -294,17 +326,35 @@ body { font-family: var(--font-sans); background: var(--color-bg-subtle); color:
 ::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
 ::selection { background: var(--color-accent-100); color: var(--color-accent-900); }
-@media (prefers-reduced-motion: reduce) { _ { transition: none !important; animation: none !important; } }
+.motion-safe { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe { transition: var(--transition-base); }
+}
 </file>
 
 <file path="src/lib/utils.ts">
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) { return twMerge(clsx(inputs)); }
-export function formatNumber(value: number): string { return new Intl.NumberFormat().format(value); }
-export function formatCurrency(value: number, currency = "USD"): string { return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(value); }
+
+// Memoized formatters — creating Intl instances on every call creates GC pressure
+const numberFormatter = new Intl.NumberFormat("en-US");
+const currencyFormatterCache = new Map<string, Intl.NumberFormat>();
+function getCurrencyFormatter(currency = "USD") {
+  if (!currencyFormatterCache.has(currency)) {
+    currencyFormatterCache.set(currency, new Intl.NumberFormat("en-US", { style: "currency", currency }));
+  }
+  return currencyFormatterCache.get(currency)!;
+}
+export function formatNumber(value: number): string { return numberFormatter.format(value); }
+export function formatCurrency(value: number, currency = "USD"): string { return getCurrencyFormatter(currency).format(value); }
+export function formatCompact(value: number): string { return Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(value); }
 export function truncate(text: string, length: number): string { return text.length > length ? text.slice(0, length) + "…" : text; }
 export function getInitials(name: string): string { return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2); }
+export function sleep(ms: number): Promise<void> { return new Promise(r => setTimeout(r, ms)); }
 </file>
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -363,6 +413,33 @@ DATABASE_URL="postgres://user:password@host:5432/dbname"
 
 NEVER: use "prisma-client-js", import from "@prisma/client", put url in datasource block, add engine property, use prisma+postgres:// URLs.
 
+SEED DATA — always create a seed file for development:
+<file path="prisma/seed.ts">
+import { PrismaClient } from "../app/generated/prisma/client";
+
+const db = new PrismaClient();
+
+async function main() {
+  // Insert 50+ realistic records matching the project's data model
+  // Use helpers like faker or hardcoded sample data
+  // Always include edge cases: deleted, empty, max-length, and special-character entries
+  console.log("✓ Database seeded");
+}
+
+main()
+  .catch((e) => { console.error(e); process.exit(1); })
+  .finally(() => db.$disconnect());
+</file>
+
+Add to package.json scripts: `"db:seed": "tsx prisma/seed.ts"`
+Add to Phase 2: after migration, run `pnpm db:seed`
+
+ALSO: Add these Prisma scripts to package.json:
+```
+"db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
+"db:studio": "prisma studio"
+```
+
 API routes MUST support server-side pagination AND enforce auth/authorization. NEVER ship an unauthenticated route handler. The canonical pattern:
 
 <file path="src/lib/auth-guard.ts">
@@ -390,53 +467,48 @@ export async function requireRole(role: string | string[]) {
 <file path="src/app/api/contacts/route.ts">
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-guard";
+import { getCachedOrFetch, invalidateTag, tags } from "@/lib/cache";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-const ContactSchema = z.object({
-  name: z.string().min(1).max(120),
-  email: z.string().email(),
-});
+const ContactSchema = z.object({ name: z.string().min(1).max(120), email: z.string().email() });
 
 export async function GET(req: Request) {
   const { session, error } = await requireSession();
   if (error) return error;
 
-  try {
-    const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get("page") ?? "1");
-    const limit = parseInt(searchParams.get("limit") ?? "10");
-    const search = searchParams.get("search") ?? "";
-    const skip = (page - 1) * limit;
+  const { searchParams } = new URL(req.url);
+  const page = Math.max(1, parseInt(searchParams.get("page") ?? "1"));
+  const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") ?? "20")));
+  const search = searchParams.get("search")?.trim() ?? "";
+  const cacheKey = `tag:${tags.contacts}:${session.user.id}:${page}:${limit}:${search}`;
+
+  const result = await getCachedOrFetch(cacheKey, async () => {
     const where = {
       userId: session.user.id,
-      ...(search ? { OR: [{ name: { contains: search, mode: "insensitive" as const } }] } : {}),
+      ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
     };
     const [data, total] = await Promise.all([
-      db.contact.findMany({ where, skip, take: limit, orderBy: { createdAt: "desc" } }),
+      db.contact.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" } }),
       db.contact.count({ where }),
     ]);
-    return NextResponse.json({ data, total, page, limit });
-  } catch (e) {
-    console.error("GET /api/contacts:", e);
-    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
-  }
+    return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
+  }, 60);
+
+  return NextResponse.json(result);
 }
 
 export async function POST(req: Request) {
   const { session, error } = await requireSession();
   if (error) return error;
 
-  try {
-    const body = await req.json();
-    const parsed = ContactSchema.safeParse(body);
-    if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
-    const contact = await db.contact.create({ data: { ...parsed.data, userId: session.user.id } });
-    return NextResponse.json(contact, { status: 201 });
-  } catch (e) {
-    console.error("POST /api/contacts:", e);
-    return NextResponse.json({ error: "Failed to create" }, { status: 500 });
-  }
+  const body = await req.json();
+  const parsed = ContactSchema.safeParse(body);
+  if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+
+  const contact = await db.contact.create({ data: { ...parsed.data, userId: session.user.id } });
+  await invalidateTag(tags.contacts);
+  return NextResponse.json(contact, { status: 201 });
 }
 </file>
 
@@ -446,6 +518,49 @@ RULES:
 - Scope queries to the authenticated user (userId: session.user.id) unless the route is admin-only
 - For admin routes use requireRole("admin")
 - NEVER log session tokens, full request bodies with secrets, or stack traces in production responses
+
+MIDDLEWARE AUTH — protect routes at the edge (avoids 401 round-trips)
+
+Create a `middleware.ts` at the project root to protect dashboard routes BEFORE they render. This saves the round-trip of rendering a page only to redirect:
+
+<file path="middleware.ts">
+import { auth } from "@/lib/auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+const publicPaths = ["/", "/auth/sign-in", "/auth/sign-up", "/auth/forgot-password", "/auth/reset-password", "/auth/verify-email"];
+const apiAuthPrefix = "/api/auth";
+
+export default async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Allow auth API routes (Better Auth handles its own auth)
+  if (pathname.startsWith(apiAuthPrefix)) return NextResponse.next();
+  // Allow public paths
+  if (publicPaths.some(p => pathname.startsWith(p))) return NextResponse.next();
+  // Allow static files and Next.js internals
+  if (pathname.startsWith("/_next") || pathname.startsWith("/favicon") || pathname.startsWith("/images") || pathname.startsWith("/illustrations")) return NextResponse.next();
+
+  const session = await auth.api.getSession({ headers: req.headers });
+  if (!session) {
+    const signInUrl = new URL("/auth/sign-in", req.url);
+    signInUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};
+</file>
+
+RULES:
+- The middleware is a FIRST LINE OF DEFENSE — per-route `requireSession()` is STILL mandatory (defense in depth)
+- Public paths list must match the project's auth structure (add/remove as needed)
+- Redirect param preserves where the user was going so login can redirect back
+- The matcher excludes static files but catches all app routes and API routes
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FORM RULES (NON-NEGOTIABLE — agents forget these constantly)
@@ -1012,6 +1127,235 @@ DATA TABLES
 - Empty state: image (illustration) + message + CTA. NOT a lonely icon.
 
 ──────────────────────────────────────────────────────
+LAZY LOADING — next/dynamic (MANDATORY for heavy imports)
+──────────────────────────────────────────────────────
+
+Every import over 15KB gzipped must use `next/dynamic`. These are the known offenders — NEVER import them eagerly:
+
+| Library | Import weight | Use `next/dynamic` for |
+|---|---|---|
+| `@react-pdf/renderer` | ~85KB | Any page/component that renders PDFs |
+| `xlsx` | ~65KB | Export buttons, import handlers |
+| Framer Motion (`motion.div`, `AnimatePresence`) | ~35KB | Client component wrapper, not page-level |
+| Chart libraries (recharts, chart.js, tremor) | ~40-80KB | Dashboard chart sections |
+| Rich text editors (tiptap, quill, slate) | ~80-150KB | Forms with WYSIWYG |
+| `@stripe/react-stripe-js` | ~25KB | Checkout page |
+| Map libraries (leaflet, mapbox, google-maps) | ~50-200KB | Map sections |
+| Lottie animations | ~30KB | Hero animations |
+
+PATTERN:
+```tsx
+import dynamic from "next/dynamic";
+
+const InvoicePreview = dynamic(() => import("@/components/invoice-preview"), {
+  loading: () => <div className="h-96 animate-pulse rounded-xl bg-bg-subtle" />,
+  ssr: false, // true only if the component needs SSR
+});
+
+const ChartSection = dynamic(() => import("@/components/chart-section"), {
+  loading: () => <SkeletonChart />,
+});
+```
+
+RULE: If you import `@react-pdf/renderer`, `xlsx`, `framer-motion`, or a chart library at the TOP of a file (not behind `dynamic()`), the page is NOT done.
+
+──────────────────────────────────────────────────────
+SUSPENSE BOUNDARIES — stream data, don't block
+──────────────────────────────────────────────────────
+
+Every page with async data fetching must use React Suspense to stream content progressively. NEVER block the entire page on one slow query.
+
+PATTERN (correct — streams independently):
+```tsx
+// app/dashboard/page.tsx — Server Component
+export default function DashboardPage() {
+  return (
+    <div className="space-y-8">
+      <PageHeader title="Dashboard" />
+      <Suspense fallback={<SkeletonStatsGrid />}>
+        <StatsGrid />
+      </Suspense>
+      <Suspense fallback={<SkeletonTable rows={5} />}>
+        <RecentOrders />
+      </Suspense>
+    </div>
+  );
+}
+
+// StatsGrid is a Server Component that awaits its own data
+```
+
+PATTERN (incorrect — BLOCKING):
+```tsx
+// NEVER: fetch everything in the page and pass down
+const stats = await getStats();        // blocks
+const orders = await getRecentOrders(); // blocks after stats
+return <Dashboard stats={stats} orders={orders} />; // nothing renders until both resolve
+```
+
+RULE: If any two data fetches at the page level are sequential (one `await` after another) instead of parallel or behind separate Suspense boundaries, the page is NOT done.
+
+For client components using React Query, wrap data-fetching sections in Suspense with skeletons:
+```tsx
+<Suspense fallback={<SkeletonChart />}>
+  <RevenueChart /> {/* internal useQuery triggers Suspense via suspense: true or manual */}
+</Suspense>
+```
+
+──────────────────────────────────────────────────────
+ERROR BOUNDARIES — never let one crash kill the whole page
+──────────────────────────────────────────────────────
+
+Every major page block that fetches data independently needs an error boundary. The global `app/error.tsx` is NOT enough — it catches too broadly.
+
+PATTERN for reusable error boundary wrapper:
+```tsx
+"use client";
+import { Component, type ReactNode } from "react";
+
+type Props = { fallback?: ReactNode; children: ReactNode };
+type State = { hasError: boolean };
+
+export class ErrorBoundary extends Component<Props, State> {
+  state = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? (
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-danger-border bg-danger-bg p-12 text-center">
+          <p className="text-sm font-medium text-danger-text">Something went wrong</p>
+          <button onClick={() => this.setState({ hasError: false })} className="mt-3 text-sm text-accent hover:underline">
+            Try again
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+```
+
+USE IT:
+```tsx
+<ErrorBoundary fallback={<StatsError />}>
+  <StatsGrid />
+</ErrorBoundary>
+<ErrorBoundary fallback={<OrdersError />}>
+  <RecentOrders />
+</ErrorBoundary>
+```
+
+MANDATORY error boundary placements:
+- Dashboard stat grid (most fragile — multiple queries)
+- Checkout / payment sections (financial operations must never crash the page)
+- Data tables with server-side pagination (network errors mid-pagination)
+- Any section with file upload or PDF generation
+
+──────────────────────────────────────────────────────
+FONT OPTIMIZATION
+──────────────────────────────────────────────────────
+
+Every font loaded via `next/font/google` must use:
+```tsx
+const font = Onest({
+  subsets: ["latin"],
+  variable: "--font-onest",
+  display: "swap",    // REQUIRED — prevents invisible text during load
+  preload: true,       // REQUIRED — critical render path
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
+});
+```
+
+For the hero / above-the-fold font, ALWAYS add `preload: true`. For secondary fonts (mono, display-only), `preload: false` is OK.
+
+Font fallback stack for CSS: `font-family: var(--font-sans), system-ui, -apple-system, sans-serif`. Never just the variable.
+
+┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+RESPONSIVE BREAKPOINTS (mobile-first, always)
+┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+
+Breakpoints (Tailwind v4):
+- Default (unprefixed): 360px+ mobile
+- `sm`: 640px — large phones
+- `md`: 768px — tablets
+- `lg`: 1024px — desktop
+- `xl`: 1280px — wide desktop
+- `2xl`: 1536px — ultrawide
+
+RULES:
+1. Start every layout as single-column. Add `md:grid-cols-2`, `lg:grid-cols-3` etc. Never desktop-first.
+2. Sidebar hides below `lg`, becomes a Sheet drawer triggered by hamburger.
+3. Tables become stacked cards below `md` — each `<tr>` becomes a bordered card with `<dl>` labels.
+4. Forms: single column on mobile, `md:grid-cols-2` for field groups.
+5. Hero typography: `text-3xl sm:text-4xl md:text-5xl lg:text-6xl`. Never a single fixed size.
+6. Touch targets: minimum 44×44px on mobile (not 40px).
+7. Modals go full-screen below `sm` (`fixed inset-0 rounded-none`), sheet popover below `md`.
+8. Marketing sections: `py-16 sm:py-24 lg:py-32`. Mobile whitespace is smaller but still generous.
+9. Test every page at 375px before declaring done.
+
+──────────────────────────────────────────────────────
+SKELETON COMPONENT (canonical — never spinners for page data)
+──────────────────────────────────────────────────────
+
+Define ONE reusable skeleton component and use it everywhere. NEVER use `<Loader2 className="animate-spin" />` for page data loading.
+
+```tsx
+// src/components/ui/skeleton.tsx
+import { cn } from "@/lib/utils";
+
+export function Skeleton({ className }: { className?: string }) {
+  return <div className={cn("animate-pulse rounded-md bg-bg-muted", className)} />;
+}
+
+// Usage: match the real content layout exactly
+export function SkeletonCard() {
+  return (
+    <div className="rounded-xl border border-border bg-bg-elevated p-6">
+      <Skeleton className="aspect-[4/3] w-full rounded-lg" />
+      <Skeleton className="mt-5 h-5 w-3/4" />
+      <Skeleton className="mt-2 h-4 w-full" />
+      <Skeleton className="mt-2 h-4 w-1/2" />
+    </div>
+  );
+}
+
+export function SkeletonTable({ rows = 5 }: { rows?: number }) {
+  return (
+    <div className="rounded-xl border border-border overflow-hidden">
+      <div className="grid grid-cols-4 gap-4 bg-bg-subtle px-6 py-4">
+        {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-3 w-3/4" />)}
+      </div>
+      {Array.from({ length: rows }).map((_, i) => (
+        <div key={i} className="grid grid-cols-4 gap-4 border-t border-border px-6 py-4">
+          {Array.from({ length: 4 }).map((_, j) => <Skeleton key={j} className="h-4 w-4/5" />)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function SkeletonStatsGrid() {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="rounded-xl border border-border bg-bg-elevated p-6">
+          <Skeleton className="h-3 w-1/3" />
+          <Skeleton className="mt-3 h-8 w-1/2" />
+          <Skeleton className="mt-2 h-3 w-2/3" />
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+RULES:
+- Skeletons never spin. Shimmer only (via `animate-pulse`).
+- Skeletons must match the real layout — same heights, gaps, border radii.
+- Spinners (`animate-spin`) are OK ONLY inside buttons during a mutation.
+- Loading.tsx files use skeleton grids matching their page's content shape.
+
+──────────────────────────────────────────────────────
 EMPTY STATES (use illustrations, not lonely icons)
 ──────────────────────────────────────────────────────
 
@@ -1051,33 +1395,19 @@ BADGES, PILLS, CHIPS
 - Status pip: 6px circle inline-block before the text.
 - NO border on badges; rely on background tint (`bg-success/10 text-success`).
 
-──────────────────────────────────────────────────────
-LOADING + SKELETONS
-──────────────────────────────────────────────────────
 
-- Skeleton shimmer (CSS gradient slide) — NEVER spinners on page load.
-- Match the layout of the real content exactly: same heights, same widths, same gaps.
-- Spinners are OK ONLY inside buttons during a mutation (`<Loader2 className="animate-spin" />`).
 
 ──────────────────────────────────────────────────────
 TOASTS + ALERTS
 ──────────────────────────────────────────────────────
 
-- Sonner library, bottom-right.
+- Sonner library (already in dependencies — use `toast()` from `sonner`, not `react-hot-toast` or custom), bottom-right.
 - Success: 3s auto-dismiss, accent colored icon left.
 - Error: no auto-dismiss, danger icon, includes "Retry" or "Dismiss" action.
 - Info: 4s auto-dismiss.
 - AlertDialog for destructive confirmations (delete, cancel subscription) — never a plain `confirm()`.
 
-──────────────────────────────────────────────────────
-RESPONSIVE
-──────────────────────────────────────────────────────
 
-- Mobile-first. Every layout works at 360px width.
-- Sidebar hides at <`lg`, becomes a Sheet drawer triggered by hamburger.
-- Tables become card-view at <`md` — each row becomes a stacked card.
-- Forms: single column on mobile, two-column from `md` upward.
-- Hero typography uses `clamp(min, vw, max)` so it scales fluidly.
 
 ──────────────────────────────────────────────────────
 ALWAYS BUILD
@@ -1212,63 +1542,57 @@ NEVER:
 MOTION & MICRO-INTERACTIONS RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Two libraries, two purposes. Do not mix them up.
+Download size for animation: 0KB (CSS-only) → 35KB (Framer Motion) → 75KB (Framer Motion + GSAP).
+
+Default: Framer Motion ONLY. It handles both state animations (modals, tabs, toasts) AND entrance animations (staggered reveals, fade-ups). GSAP should ONLY be installed for extreme scroll-driven storytelling (multi-pin parallax, detailed scroll sequences) on marketing-heavy sites.
+
+Decision rule:
+- Dashboard / internal tool → CSS transitions + Framer Motion for modals only (35KB gzipped)
+- Marketing page with hero entrance → Framer Motion (35KB) with `whileInView` / `viewport` for scroll reveals
+- Full marketing site with pinned scroll sequences / complex parallax → Framer Motion + GSAP (install both)
+
+BUNDLE RULE: If the project is a dashboard/internal app, NEVER install GSAP. Use Framer Motion `whileInView` for entrance animations instead.
 
 ──────────────────────────────────────────────────────
-WHEN TO USE GSAP (with @gsap/react + ScrollTrigger)
+FRAMER MOTION — THE DEFAULT
 ──────────────────────────────────────────────────────
 
-- Hero entrance animations (text reveal, staggered orbital, particle field)
-- Scroll-triggered section reveals (fade-up, slide-in)
-- List staggers when a section enters viewport
-- Pinned scroll sequences, parallax, scroll-driven counters
-- Multi-step entrance timelines (eyebrow → headline → body → CTA in sequence)
-- Page-level marquee animations
+For entrance animations (scroll-triggered): use `whileInView` + `viewport`. Zero extra library cost.
+For state animations: `motion.div` + `AnimatePresence` as shown below.
 
-PATTERN:
-
+ENTRANCE (scroll-triggered reveal) — replaces GSAP ScrollTrigger:
 ```tsx
 "use client";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+};
 
 export function MySection() {
-  const root = useRef<HTMLElement>(null);
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: root.current, start: "top 80%", toggleActions: "play none none none" },
-      defaults: { ease: "power3.out" },
-    });
-    tl.from(".reveal-eyebrow", { y: 14, opacity: 0, duration: 0.5 })
-      .from(".reveal-headline", { y: 18, opacity: 0, duration: 0.6 }, "-=0.3")
-      .from(".reveal-card", { y: 24, opacity: 0, stagger: 0.12, duration: 0.7 }, "-=0.2");
-  }, { scope: root });
-  return <section ref={root}>...</section>;
+  return (
+    <section>
+      <motion.h2 {...fadeUp} className="text-2xl font-semibold">Heading</motion.h2>
+      <motion.div
+        {...fadeUp}
+        transition={{ ...fadeUp.transition, staggerChildren: 0.1, delayChildren: 0.2 }}
+        className="grid grid-cols-3 gap-6"
+      >
+        {items.map((item, i) => (
+          <motion.div key={i} {...fadeUp} className="rounded-xl border p-6">
+            {item.title}
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
 }
 ```
 
-CRITICAL — defensive pattern for CTAs and important UI:
-- NEVER apply `gsap.from()` with `opacity: 0` to interactive elements (buttons, links, form inputs). If ScrollTrigger doesn't fire (mid-page reload, hash navigation), the element stays at opacity 0 forever — the CommunityBanner WhatsApp button bug. Use `gsap.fromTo()` with explicit values, OR animate parent containers, OR render CTAs statically without entrance animation.
-
-──────────────────────────────────────────────────────
-WHEN TO USE FRAMER MOTION
-──────────────────────────────────────────────────────
-
-- Modal open/close (fade + scale 0.96 → 1)
-- Tab switching (slide + fade)
-- Accordion expand/collapse (height auto + fade)
-- Toast slide-in
-- Drag interactions (Framer Motion's `drag` prop, draggable cards/sliders)
-- Layout animations (`<motion.div layout>`)
-- Hover micro-interactions when CSS isn't enough (e.g. shared element transitions)
-- Gesture-based sheet drawers (mobile Sheet swipe-to-dismiss)
-
-PATTERN:
-
+MODAL (state animation):
 ```tsx
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1300,6 +1624,67 @@ export function Modal({ open, onClose, children }) {
 }
 ```
 
+CRITICAL — entrance animation safety:
+NEVER fade-in CTAs, buttons, forms, or navigation with `opacity: 0`. If the scroll trigger doesn't fire (mid-page reload, hash navigation), interactive elements stay invisible. Always render CTAs statically or animate parent containers only.
+
+──────────────────────────────────────────────────────
+GSAP — ONLY for advanced scroll sequences (install explicitly)
+──────────────────────────────────────────────────────
+
+When the project has multi-pin scroll sequences, complex parallax timelines, or detailed scroll-driven animations that Framer Motion can't handle, install GSAP:
+
+```bash
+pnpm add gsap @gsap/react
+```
+
+PATTERN:
+```tsx
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+
+export function MySection() {
+  const root = useRef<HTMLElement>(null);
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: root.current, start: "top 80%", toggleActions: "play none none none" },
+      defaults: { ease: "power3.out" },
+    });
+    tl.from(".reveal-headline", { y: 24, opacity: 0, duration: 0.6 })
+      .from(".reveal-card", { y: 24, opacity: 0, stagger: 0.12, duration: 0.7 }, "-=0.3");
+  }, { scope: root });
+  return <section ref={root}>...</section>;
+}
+```
+
+When GSAP IS installed, the default `package.json` already has Framer Motion — DO NOT remove it. Both can coexist when needed.
+When GSAP is NOT needed (dashboard/internal apps), REMOVE it from the dependencies. Default package.json provides Framer Motion only.
+
+──────────────────────────────────────────────────────
+GPU COMPOSITING — prevent jank
+──────────────────────────────────────────────────────
+
+Animations that touch `top`, `left`, `width`, or `height` trigger layout recalculations — expensive and janky.
+
+RULES:
+- ALWAYS animate using `transform` and `opacity` only (`translateX`/`translateY`/`scale` for motion, `opacity` for fade). NEVER `top`/`left`/`width`/`height`.
+- For heavy animated elements (hero illustrations, full-viewport sections), add `will-change: transform, opacity` to the animated element.
+- For hover lift on cards: `hover:-translate-y-0.5` (transform), NOT `hover:margin-top` or `hover:top`.
+- For skeleton shimmer: use `animate-pulse` (opacity-based, GPU-friendly) or `background-position` animation, never `width` cycling.
+
+WRONG:
+```tsx
+<div style={{ top: 0 }} className="transition-all duration-300 hover:top-[-2px]" />
+```
+RIGHT:
+```tsx
+<div className="transition-transform duration-150 hover:-translate-y-0.5" />
+```
+
 ──────────────────────────────────────────────────────
 TIMING + EASING (canonical)
 ──────────────────────────────────────────────────────
@@ -1311,11 +1696,10 @@ TIMING + EASING (canonical)
 | Dropdown / popover | 150ms | ease-out |
 | Modal enter | 200ms | `[0.16, 1, 0.3, 1]` (Framer Motion bezier) |
 | Modal exit | 150ms | ease-in |
-| Page transition | 300ms | `power3.out` (GSAP) |
-| Section reveal (scroll) | 600–800ms | `power3.out` (GSAP) |
-| List stagger | 80–120ms per item | `power3.out` (GSAP) |
+| Section reveal (scroll) | 600–800ms | `[0.16, 1, 0.3, 1]` |
+| List stagger | 80–120ms per item | `[0.16, 1, 0.3, 1]` |
 | Toast slide | 250ms | `[0.16, 1, 0.3, 1]` |
-| Counter count-up | 1500ms | `power2.out` |
+| Counter count-up | 1500ms | `ease-out` |
 
 NEVER:
 - Spring animations on entrance (looks bouncy/cheap)
@@ -1328,7 +1712,7 @@ NEVER:
 prefers-reduced-motion
 ──────────────────────────────────────────────────────
 
-ALWAYS respect it. In CSS:
+ALWAYS respect it. In globals.css:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -1340,13 +1724,27 @@ ALWAYS respect it. In CSS:
 }
 ```
 
-For GSAP timelines, gate the animation:
+For React components, use `motion-safe:` Tailwind variant on transitions and Framer's `useReducedMotion()` hook:
+```tsx
+import { useReducedMotion } from "framer-motion";
 
-```ts
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+function MyComponent() {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
+    />
+  );
+}
 ```
 
-For Framer Motion, use the `useReducedMotion()` hook and conditionally skip transitions.
+When GSAP is installed:
+```ts
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+// ^ gate the entire timeline
+```
 
 ──────────────────────────────────────────────────────
 MICRO-INTERACTIONS CHECKLIST (every interactive element)
@@ -1369,14 +1767,155 @@ A button with no hover state, no focus ring, and no transition is a sign the age
 DATA FETCHING — REACT QUERY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-ALWAYS @tanstack/react-query. NEVER useEffect for data. useQuery for GET, useMutation for POST/PATCH/DELETE. invalidateQueries after mutations. staleTime 30000. Optimistic updates for toggles.
+ALWAYS @tanstack/react-query. NEVER useEffect for data. useQuery for GET, useMutation for POST/PATCH/DELETE. invalidateQueries after mutations. Optimistic updates for toggles.
+
+CANONICAL React Query config (in QueryClientProvider):
+```tsx
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30_000,      // 30s — don't refetch within this window
+      gcTime: 5 * 60_000,     // 5min — keep in cache for back-nav
+      refetchOnWindowFocus: false,  // prevents disruptive refetches — set true for financial/real-time data only
+      retry: 1,                // retry once on failure
+    },
+  },
+});
+```
+
 API response format: { data: T[], total: number, page: number, limit: number }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REDIS CACHING — mandatory API-layer cache
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+React Query caches on the CLIENT. Redis caches on the SERVER. Both are required — they serve different purposes:
+- React Query = instant page transitions, optimistic UI, deduplication of same-window requests
+- Redis = database query offload, shared cache across users, survive page refresh, rate limiting, session store
+
+Install `@upstash/redis` (serverless Redis via HTTP — no connection pool, no cold starts):
+
+```tsx
+// src/lib/cache.ts
+import { Redis } from "@upstash/redis";
+
+export const cache = new Redis({
+  url: process.env.UPSTASH_REDIS_URL!,
+  token: process.env.UPSTASH_REDIS_TOKEN!,
+});
+
+const DEFAULT_TTL = 60; // seconds
+
+export async function getCachedOrFetch<T>(
+  key: string,
+  fetchFn: () => Promise<T>,
+  ttl = DEFAULT_TTL
+): Promise<T> {
+  const cached = await cache.get<T>(key);
+  if (cached !== null) return cached;
+  const data = await fetchFn();
+  await cache.set(key, data, { ex: ttl });
+  return data;
+}
+
+// For API routes: cache invalidation tag pattern
+export const tags = {
+  contacts: "contacts",
+  invoices: "invoices",
+  dashboard: "dashboard",
+  settings: "settings",
+};
+
+export async function invalidateTag(tag: string) {
+  // Pattern: keys stored as "tag:{tag}:{id}" — scan and delete on mutation
+  let cursor = 0;
+  do {
+    const [nextCursor, keys] = await cache.scan(cursor, { match: `tag:${tag}:*`, count: 100 });
+    if (keys.length > 0) await cache.del(...keys);
+    cursor = Number(nextCursor);
+  } while (cursor !== 0);
+}
+```
+
+Env vars (add to .env.example and .env.local):
+```
+UPSTASH_REDIS_URL="https://<id>.upstash.io"    # From Upstash Console
+UPSTASH_REDIS_TOKEN=""                            # From Upstash Console → REST API → Token
+```
+
+COVER RULES:
+- Cache hot API routes with Redis (dashboard stats, lists, dropdown options, reference data)
+- Cache TTL: 30–120s for frequently-changing data (dashboard KPI), 5–60min for reference data (categories, regions)
+- Invalidate cache on every POST/PATCH/DELETE for the affected entity type (use `invalidateTag`)
+- NEVER cache: user-specific sessions (Better Auth handles this), raw file contents (too large), real-time data (use WebSockets)
+- Use `getCachedOrFetch` wrapper in API routes to minimize boilerplate
+
+API ROUTE WITH CACHING PATTERN:
+```tsx
+// src/app/api/contacts/route.ts
+import { db } from "@/lib/db";
+import { requireSession } from "@/lib/auth-guard";
+import { getCachedOrFetch, invalidateTag, tags } from "@/lib/cache";
+import { NextResponse } from "next/server";
+import { z } from "zod";
+
+const ContactSchema = z.object({ name: z.string().min(1).max(120), email: z.string().email() });
+
+export async function GET(req: Request) {
+  const { session, error } = await requireSession();
+  if (error) return error;
+
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get("page") ?? "1");
+  const limit = parseInt(searchParams.get("limit") ?? "20");
+  const search = searchParams.get("search") ?? "";
+  const cacheKey = `tag:${tags.contacts}:${session.user.id}:${page}:${limit}:${search}`;
+
+  const data = await getCachedOrFetch(cacheKey, async () => {
+    const skip = (page - 1) * limit;
+    const where = {
+      userId: session.user.id,
+      ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
+    };
+    const [items, total] = await Promise.all([
+      db.contact.findMany({ where, skip, take: limit, orderBy: { createdAt: "desc" } }),
+      db.contact.count({ where }),
+    ]);
+    return { data: items, total, page, limit, totalPages: Math.ceil(total / limit) };
+  }, 60); // 60s TTL
+
+  return NextResponse.json(data);
+}
+
+export async function POST(req: Request) {
+  const { session, error } = await requireSession();
+  if (error) return error;
+
+  const body = await req.json();
+  const parsed = ContactSchema.safeParse(body);
+  if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+
+  const contact = await db.contact.create({ data: { ...parsed.data, userId: session.user.id } });
+  await invalidateTag(tags.contacts); // bust the cache so next GET sees the new record
+  return NextResponse.json(contact, { status: 201 });
+}
+```
+
+ALSO: Cache TTL decisions matter. Document the TTL for each cache key:
+- Dashboard KPIs: 30s (fast-refresh for high-traffic dashboards, 120s for simple overviews)
+- List pages: 60s (balance freshness vs. DB load)
+- Reference/lookup data (categories, countries, dropdown options): 300s (changes rarely)
+- Session tokens: NEVER cache (Better Auth handles this natively)
+
+IF UPSTASH IS NOT THE PROVIDER (self-hosted Redis, Redis Cloud, etc.):
+Replace the `@upstash/redis` import with your client (e.g. `ioredis`). Keep the `getCachedOrFetch` wrapper pattern identical.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 INTEGRATIONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 AUTH: Better Auth + Prisma + PostgreSQL. Auth pages: centered card 400px, shadow-xl, 16px radius, Google OAuth + email/password.
+CACHE: Upstash Redis (global). Used for API route caching, session rate-limiting, and hot-path query offload. See REDIS CACHING section above.
 FILES: UploadThing ("uploadthing", "@uploadthing/react") OR Cloudflare R2 (JB File Storage UI)
 EMAIL: Resend + React Email ("resend", "@react-email/components")
 AI: Vercel AI SDK ("ai", "@ai-sdk/openai")
@@ -1441,6 +1980,7 @@ Never install these. Use the listed alternative:
 - styled-components / emotion   → use Tailwind v4 + CSS variables
 - redux / redux-toolkit         → use Zustand for client state, React Query for server state
 - material-ui / chakra-ui       → use shadcn/ui (already in stack)
+- gsap (on dashboard/internal apps) → use Framer Motion only. GSAP only for marketing sites with explicit scroll-driven animation needs.
 
 If a user request seems to need a blocked package, propose the alternative and explain why before installing anything.
 
@@ -1465,12 +2005,16 @@ DONE PHASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Summarize what was built, then:
-"To connect your database:
+"To connect your database and cache:
 
-1. Create a PostgreSQL database (Neon, Supabase, or local)
-2. Set DATABASE_URL in .env (postgres:// format, NOT prisma+postgres://)
+1. Create a PostgreSQL database (Neon, Supabase, or local). Set DATABASE_URL in .env
+2. Create an Upstash Redis database (upstash.com — free tier is fine). Set UPSTASH_REDIS_URL and UPSTASH_REDIS_TOKEN in .env
 3. Run: pnpm db:push && pnpm db:generate
-4. Run: pnpm dev"
+4. Run: pnpm db:seed (if seed file was created)
+5. Run: pnpm dev
+
+To verify bundle size before deploying:
+ANALYZE=true next build  # check for chunks >50KB in .next/analyze"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FILE / PLAN / QUESTION FORMAT

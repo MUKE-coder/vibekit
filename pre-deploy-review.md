@@ -26,6 +26,17 @@ Identify and flag:
 - Missing pagination on large dataset operations
 - Unoptimized image/file processing
 
+### JS Bundle & Web Vitals (new):
+- Eager imports of `@react-pdf/renderer`, `xlsx`, chart/editor/map libraries (should use `next/dynamic`)
+- Missing `<Suspense>` boundaries around data-fetching sections (blocks page render)
+- Missing `<ErrorBoundary>` wrappers on major page blocks (one crash kills the whole page)
+- Images without `aspect-ratio` or explicit dimensions (causes CLS)
+- CSS/JS animations on `top`/`left`/`width`/`height` instead of `transform`/`opacity` (causes layout thrashing)
+- Missing `will-change: transform` on heavy animated elements (hero sections, viewport-filling animations)
+- Large client component bundles that could be Server Components (check for unnecessary `"use client"`)
+- CLS contributors: font swap without `size-adjust`, layout shifts from dynamic ads/content
+- LCP contributors: hero image without `priority`, font without `preload: true`, client-side hero content
+
 For each issue found:
 - Show the problematic code (file path + line numbers)
 - Explain the CPU impact
@@ -39,11 +50,21 @@ For each issue found:
 - SELECT * instead of specific columns
 - Missing database indexes on frequently queried columns
 - Queries inside loops
-- Lack of query result caching
+- Lack of query result caching (Redis `getCachedOrFetch` not used on hot API routes)
 - Missing connection pooling
 - Inefficient ORM usage
 - Missing batch operations (bulk inserts/updates)
 - Suboptimal transaction boundaries
+
+### Redis Cache Audit:
+- Hot API route GET handlers without `getCachedOrFetch()` wrapper
+- POST/PATCH/DELETE handlers without `invalidateTag()` call
+- Cache keys with no TTL or TTL too long (>5min for data, >1h for reference)
+- Cache invalidation missing on related entities (e.g. updating invoice doesn't invalidate dashboard stats)
+- Incorrect cache key patterns (missing user ID scope, leaking data across users)
+- Over-cached data (sessions, raw file contents, real-time data)
+- No cache warming strategy for critical dashboard queries
+- Cache stampede risk on high-traffic endpoints (consider `Promise.all` deduplication)
 
 ### Logging & Monitoring:
 - Excessive logging in production (debug/trace levels)
@@ -170,7 +191,7 @@ Structure your review as:
 
 ## CONTEXT
 
-- Tech stack: Next.js 16, TypeScript, Prisma v7, Neon Postgres, Better Auth, React Query, Tailwind v4, shadcn/ui
+- Tech stack: Next.js 16, TypeScript, Prisma v7, Neon Postgres, Better Auth, React Query, Upstash Redis, Framer Motion, Tailwind v4, shadcn/ui
 - Deployment: Vercel + Cloudflare DNS
 - Read project-description.md for the app's specific scope, integrations, and expected load
 - Read project-phases.md to understand what's been built
