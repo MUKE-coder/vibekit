@@ -5349,5 +5349,108 @@ export const resources: Resource[] = [
       "boilerplate",
       "templates"
     ]
+  },
+  {
+    "slug": "metal-jakub-antalik",
+    "name": "Metal",
+    "description": "Animated liquid-metal shader effect by Jakub Antalik — drop-in WebGL backdrop for hero sections that want a premium, fluid-chrome look.",
+    "url": "https://metal.jakubantalik.com/",
+    "category": "animation",
+    "categoryLabel": "Animation",
+    "tags": [
+      "shader",
+      "webgl",
+      "hero",
+      "background"
+    ],
+    "author": "Jakub Antalik"
+  },
+  {
+    "slug": "styleui-fabrika",
+    "name": "StyleUI",
+    "description": "Handmade UI templates and layouts by Ras Mic + the Fabrika team — production-ready starters like Notio and Axis for marketing sites and SaaS landing pages.",
+    "url": "https://styleui.dev/",
+    "category": "templates",
+    "categoryLabel": "Template",
+    "tags": [
+      "templates",
+      "saas",
+      "landing",
+      "marketing"
+    ],
+    "author": "Fabrika / Ras Mic"
+  },
+  {
+    "slug": "ali-imam-components",
+    "name": "Ali Imam Components",
+    "description": "Personal component library and showcase by Ali Imam — copy-paste shadcn-style primitives and motion bits used across his portfolio work.",
+    "url": "https://aliimam.in/docs/components",
+    "category": "components",
+    "categoryLabel": "Components",
+    "tags": [
+      "components",
+      "shadcn",
+      "personal"
+    ],
+    "author": "Ali Imam"
+  },
+  {
+    "slug": "watermelon-ui",
+    "name": "Watermelon UI",
+    "description": "Watermelon UI — a fresh shadcn-style component registry with copy-paste blocks and primitives for modern Next.js apps.",
+    "url": "https://ui.watermelon.sh/",
+    "category": "components",
+    "categoryLabel": "Components",
+    "tags": [
+      "shadcn",
+      "components",
+      "blocks"
+    ],
+    "author": "Watermelon"
+  },
+  {
+    "slug": "dotmatrix-loaders",
+    "name": "Dot Matrix",
+    "description": "55+ free, open-source animated loaders (Neon Drift, Pulse Ladder, Helix Glow, etc.) built with React, TypeScript, Tailwind, and shadcn — drop-in loading states with personality.",
+    "url": "https://dotmatrix.zzzzshawn.cloud/",
+    "category": "animation",
+    "categoryLabel": "Animation",
+    "tags": [
+      "loaders",
+      "spinners",
+      "shadcn",
+      "react"
+    ],
+    "author": "zzzzshawn"
+  },
+  {
+    "slug": "componentry-harshjdhv",
+    "name": "Componentry",
+    "description": "Growing collection of animated React primitives by Harsh Jain — text animations, interactive components, hero backgrounds, and visual effects for modern motion-heavy UIs.",
+    "url": "https://www.componentry.fun/docs",
+    "category": "animation",
+    "categoryLabel": "Animation",
+    "tags": [
+      "animation",
+      "react",
+      "primitives",
+      "hero"
+    ],
+    "author": "Harsh Jain (harshjdhv)"
+  },
+  {
+    "slug": "balloons-js",
+    "name": "balloons-js",
+    "description": "Tiny JS library by Artur Bień that fires balloon and text-balloon animations across the page — instant celebration effect for sign-ups, purchases, and milestones.",
+    "url": "https://arturbien.github.io/balloons-js/",
+    "category": "animation",
+    "categoryLabel": "Animation",
+    "tags": [
+      "animation",
+      "celebration",
+      "confetti-alt",
+      "vanilla-js"
+    ],
+    "author": "Artur Bień"
   }
 ];
