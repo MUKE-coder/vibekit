@@ -1,4 +1,14 @@
-export type TemplateCategory = "portfolio" | "blog" | "saas" | "ecommerce" | "dashboard";
+export type TemplateCategory =
+  | "portfolio"
+  | "blog"
+  | "saas"
+  | "ecommerce"
+  | "dashboard"
+  | "landing"
+  | "auth"
+  | "admin"
+  | "agency"
+  | "coming-soon";
 
 export type TemplateSection = {
   id: string;
@@ -257,6 +267,249 @@ export const templates: Template[] = [
     ],
     customizationGuide:
       "Walk the user through Branding → Navigation → Homepage → Post template → Tags → Seed content → Deployment. After answers, edit `app/layout.tsx` for branding, `components/navbar.tsx` for nav, `app/page.tsx` for homepage layout, `source.config.ts` for frontmatter schema, and seed the `blog/content/` folder with their starter posts. Don't restructure the project.",
+  },
+
+  {
+    slug: "notio",
+    name: "Notio",
+    tagline: "Call-transcription / note-taking SaaS landing — hero with phone mock, logo cloud, feature beam, stats, team, testimonials, pricing, login.",
+    category: "saas",
+    categoryLabel: "SaaS",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/notio",
+    upstreamUrl: "https://styleui.dev/",
+    stack: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "shadcn/ui",
+      "Motion / Framer Motion",
+      "Light + dark mode",
+    ],
+    whenToUse:
+      "AI-powered SaaS, productivity tools, recording or note-taking apps, anything that needs a polished marketing site with a single-product narrative and a clean pricing page.",
+    whenNotToUse:
+      "Multi-product marketplaces, agency sites, or content-heavy publications — the layout assumes a single product story.",
+    features: [
+      "Navbar + animated hero with phone mockup",
+      "Trusted-by logo cloud (Loom, Notion, Slack, Coinbase, Webflow, Uber, etc.)",
+      "Beam-wrapped features grid",
+      "Stats band + team grid",
+      "Testimonials carousel",
+      "Pricing (free + paid tier)",
+      "Auth /login page",
+      "Light + dark mode toggle",
+    ],
+    sections: [
+      {
+        id: "branding",
+        name: "Branding",
+        description: "Logo, brand color, typography, light/dark default.",
+        customizationQuestions: [
+          "What's the product name and one-line tagline?",
+          "What's your brand color? (hex — used for accents and CTAs)",
+          "Do you have a logo, or want me to keep the Notio placeholder for now?",
+          "Default theme: light, dark, or follow system?",
+        ],
+      },
+      {
+        id: "hero",
+        name: "Hero",
+        description: "Headline + sub + primary CTA + product mock.",
+        customizationQuestions: [
+          "What's the hero headline? (one sentence, ideally with a verb)",
+          "What's the sub-headline? (1–2 sentences explaining the value)",
+          "Primary CTA label + URL? (e.g. 'Start for free' → /auth/login)",
+          "Want to keep the phone mockup or replace with a screenshot of your product?",
+        ],
+      },
+      {
+        id: "logos",
+        name: "Logo cloud",
+        description: "'Trusted by' / 'Works with' brand strip.",
+        customizationQuestions: [
+          "Which logos should appear? (4–8 brands — yours or integrations)",
+          "Is this 'Trusted by' or 'Integrates with'?",
+        ],
+      },
+      {
+        id: "features",
+        name: "Features",
+        description: "Beam-framed feature grid with icon + headline + body.",
+        customizationQuestions: [
+          "List 4–6 features: short title + 1-sentence description each.",
+          "Want icons (Lucide) or screenshots in each feature card?",
+        ],
+      },
+      {
+        id: "stats",
+        name: "Stats",
+        description: "Single-row metric band (e.g. 1M+ calls transcribed).",
+        customizationQuestions: [
+          "What 3–4 stats best demonstrate traction or product power? (number + short label each)",
+        ],
+      },
+      {
+        id: "team",
+        name: "Team",
+        description: "Team grid with avatars and roles.",
+        customizationQuestions: [
+          "Do you want a team section, or remove it for v1?",
+          "If keeping it: list founders/team members with name, role, and avatar URL.",
+        ],
+      },
+      {
+        id: "testimonials",
+        name: "Testimonials",
+        description: "Customer quotes with avatar + role + company logo.",
+        customizationQuestions: [
+          "Do you have 3–6 real customer quotes? (otherwise we'll keep placeholders)",
+          "For each: quote, author name, role, company logo or name.",
+        ],
+      },
+      {
+        id: "pricing",
+        name: "Pricing",
+        description: "Free + paid tiers with feature lists.",
+        customizationQuestions: [
+          "Free tier feature list (5–8 items)?",
+          "Paid tier monthly price + feature list (5–8 items)?",
+          "Where should the CTA link to? (Stripe checkout, /auth/signup, etc.)",
+        ],
+      },
+      {
+        id: "auth",
+        name: "Login page",
+        description: "/auth/login — connect to Better Auth or skip if marketing-only.",
+        customizationQuestions: [
+          "Are we wiring up auth (recommend: JB Better Auth UI) or keeping /auth/login as a static placeholder?",
+          "If auth: Google? GitHub? Email-only?",
+        ],
+      },
+    ],
+    customizationGuide:
+      "This is a single-page SaaS landing. Walk the user through Branding → Hero → Logo cloud → Features → Stats → Team → Testimonials → Pricing → Auth. Edit `src/components/<section>.tsx` for each — every section is its own component. For brand color, edit `src/app/globals.css` Tailwind v4 tokens. To connect real auth, install JB Better Auth UI (see jb-components.md) and replace `/auth/login`. Do NOT change file structure — only the content of each section component.",
+  },
+
+  {
+    slug: "axis",
+    name: "Axis",
+    tagline: "CRM for consultants landing — blurred orb hero, companies strip, feature blocks, tool feature, stats, testimonials, pricing, auth.",
+    category: "saas",
+    categoryLabel: "SaaS",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/axis",
+    upstreamUrl: "https://styleui.dev/",
+    stack: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "shadcn/ui",
+      "Motion / Framer Motion",
+      "Light + dark mode",
+    ],
+    whenToUse:
+      "B2B SaaS, CRM, sales tools, professional-services software, anywhere you want an editorial 'serious product' aesthetic with bold sections and rich product screenshots.",
+    whenNotToUse:
+      "Consumer or playful brands — Axis leans editorial/professional. For B2C launches use Notio or one of the v0 landing variants instead.",
+    features: [
+      "Navbar with theme toggle",
+      "Hero with blurred-orb gradient backdrop",
+      "Companies / trusted-by strip",
+      "Feature blocks with product screenshots",
+      "Tool feature deep-dive",
+      "Stats band",
+      "Testimonials grid",
+      "Pricing tiers",
+      "Auth /auth page",
+      "Light + dark mode with full token system",
+    ],
+    sections: [
+      {
+        id: "branding",
+        name: "Branding",
+        description: "Logo, brand color, typography, light/dark default.",
+        customizationQuestions: [
+          "What's the product name and one-line tagline?",
+          "What's your brand color? (hex — used for accents and CTAs)",
+          "Default theme: light, dark, or follow system?",
+        ],
+      },
+      {
+        id: "hero",
+        name: "Hero",
+        description: "Headline + sub + CTA pair + dashboard mock + blurred orb.",
+        customizationQuestions: [
+          "What's the hero headline? (e.g. 'The CRM built for how consultants actually work')",
+          "Sub-headline (1–2 sentences)?",
+          "Primary CTA label + URL?",
+          "Secondary CTA label + URL? (e.g. 'Watch Demo')",
+          "Keep the dashboard mock or replace with your product screenshot?",
+        ],
+      },
+      {
+        id: "companies",
+        name: "Companies / trusted by",
+        description: "Logo strip of customer or integration brands.",
+        customizationQuestions: [
+          "Which logos? (4–8 brands — yours or integrations)",
+          "Is this 'Trusted by' or 'Integrates with'?",
+        ],
+      },
+      {
+        id: "feature",
+        name: "Feature blocks",
+        description: "Stacked feature sections with product screenshots and copy.",
+        customizationQuestions: [
+          "List 3–4 feature blocks: headline + 1-paragraph body + screenshot URL.",
+          "Image-left or image-right preference? (current default alternates)",
+        ],
+      },
+      {
+        id: "tool-feature",
+        name: "Tool feature",
+        description: "Deep-dive section for the headline tool / capability.",
+        customizationQuestions: [
+          "What's the single capability you want to highlight here? (one product feature in depth)",
+          "Provide a screenshot or animation URL.",
+        ],
+      },
+      {
+        id: "stats",
+        name: "Stats",
+        description: "Single-row metric band.",
+        customizationQuestions: [
+          "What 3–4 stats best demonstrate traction? (number + short label each)",
+        ],
+      },
+      {
+        id: "testimonials",
+        name: "Testimonials",
+        description: "Customer quotes grid.",
+        customizationQuestions: [
+          "Do you have 3–6 real customer quotes?",
+          "For each: quote, author name, role, company.",
+        ],
+      },
+      {
+        id: "pricing",
+        name: "Pricing",
+        description: "Tier cards with feature lists and CTA.",
+        customizationQuestions: [
+          "How many tiers? (typically 2–3)",
+          "Each tier: name, monthly price, feature list, CTA URL.",
+        ],
+      },
+      {
+        id: "auth",
+        name: "Auth page",
+        description: "/auth — wire to Better Auth or keep as a placeholder.",
+        customizationQuestions: [
+          "Wire to JB Better Auth UI, or keep /auth as a static placeholder for now?",
+          "If auth: Google? GitHub? Email-only?",
+        ],
+      },
+    ],
+    customizationGuide:
+      "Single-page B2B SaaS landing. Walk through Branding → Hero → Companies → Feature blocks → Tool feature → Stats → Testimonials → Pricing → Auth. Each section is `src/components/<name>.tsx`. The blurred-orb backdrop uses Tailwind v4 CSS variables `--color-hero-start/mid/end` in `src/app/globals.css` — edit those to retune the gradient. To wire real auth, install JB Better Auth UI and replace `/auth`. Don't restructure files — only edit section contents and design tokens.",
   },
 ];
 
