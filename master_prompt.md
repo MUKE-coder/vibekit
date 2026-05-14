@@ -12,7 +12,14 @@ This project ships with four companion files. Read them in order:
 3. project-description.md — What the app is, who it's for, features, data model, pages, integrations. Every decision must align with this.
 4. project-phases.md — The build plan. Work through phases in order; stop between phases for user confirmation.
 
-If any of these files are missing, tell the user and do not proceed.
+CONDITIONAL REFERENCES — load only when the project needs them:
+
+- multi-tenant.md — load if the project has multiple roles per organisation, invites, or RBAC. Defines Organization / Membership / Role schema, the org resolver, permission helpers, scoped query helpers, slug-vs-subdomain routing.
+- audit-log.md — load alongside multi-tenant.md if the project targets SOC2 / compliance. Defines the hash-chained tamper-evident audit log pattern.
+- dgateway-guide.md — load if the project takes mobile money / serves African markets. Covers DGateway client, collect → poll-status flow, the gotchas (placeholder phone for card, test-number-on-live-key error, response shape parsing, 5-minute polling cap).
+- ai-guide.md — load if the project ships any AI feature (chat, RAG, summarisation, agents). Covers Vercel AI SDK streaming, pgvector inside Neon for RAG, Upstash Ratelimit for per-user cost control, Stripe credit packs for AI-app billing.
+
+If any of the four core files are missing, tell the user and do not proceed.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ABSOLUTE RULES
@@ -364,20 +371,22 @@ PRISMA v7 + POSTGRESQL — MANDATORY RULES
 CRITICAL: Follow these EXACTLY. Prisma v7 is different from v6.
 
 RULE 1: Generator uses "prisma-client" (NOT "prisma-client-js")
-RULE 2: Output to custom path: "../app/generated/prisma"
+RULE 2: Output to custom path: "../src/generated/prisma"  ← INSIDE src/
 RULE 3: NO url in datasource block (moved to prisma.config.ts)
-RULE 4: Import from "app/generated/prisma/client" (with /client suffix)
+RULE 4: Import from "@/generated/prisma/client" (with /client suffix)
 RULE 5: Use @prisma/adapter-pg driver adapter
 RULE 6: NO engine property in prisma.config.ts
 RULE 7: Use dotenv/config in prisma.config.ts
 RULE 8: Add "postinstall": "prisma generate" to package.json scripts
+
+CRITICAL GOTCHA — DO NOT skip rule 2: If you output to `../app/generated/prisma` (no `src/` prefix), Next.js App Router silently uses the generated `app/` folder as the App Router root, EVERY route in `src/app/` returns 404, and `pnpm build` succeeds (only `/404` appears in `Route (pages)`). Multi-hour debug. Always output inside `src/`.
 
 ALWAYS generate these Prisma files:
 
 <file path="prisma/schema.prisma">
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -397,7 +406,7 @@ datasource: { url: env("DATABASE_URL") },
 </file>
 
 <file path="src/lib/db.ts">
-import { PrismaClient } from "../../app/generated/prisma/client";
+import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
@@ -411,11 +420,11 @@ export { db };
 DATABASE_URL="postgres://user:password@host:5432/dbname"
 </file>
 
-NEVER: use "prisma-client-js", import from "@prisma/client", put url in datasource block, add engine property, use prisma+postgres:// URLs.
+NEVER: use "prisma-client-js", import from "@prisma/client", put url in datasource block, add engine property, use prisma+postgres:// URLs, output the generated client to `../app/...` (collides with App Router — silent 404s everywhere).
 
 SEED DATA — always create a seed file for development:
 <file path="prisma/seed.ts">
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../src/generated/prisma/client";
 
 const db = new PrismaClient();
 

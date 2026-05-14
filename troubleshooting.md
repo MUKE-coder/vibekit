@@ -8,14 +8,97 @@
 
 **Answer these questions before scrolling:**
 
-1. Did this work before and then break? → [Something I Changed Broke It](#something-broke)
-2. Is AI looping on the same error? → [AI Is Stuck in a Loop](#ai-stuck)
-3. Did the app deploy but something doesn't work? → [Production Issues](#production-issues)
-4. Is auth broken? → [Authentication Problems](#authentication-problems)
-5. Is the database throwing errors? → [Database Errors](#database-errors)
-6. Are emails not arriving? → [Email Issues](#email-issues)
-7. Are payments failing? → [Payment Issues](#payment-issues)
-8. Does the app look broken? → [UI / Design Issues](#ui-issues)
+1. **Every route returns 404 in dev OR `pnpm build` only shows `/404` under `Route (pages)`?** → [Prisma output collides with App Router](#prisma-app-collision) ← check this FIRST if `app/generated/` exists at the project root
+2. **Protected routes return 200 instead of redirecting?** → [proxy.ts silently ignored in dev](#proxy-dev-noop) (Next 16)
+3. Did this work before and then break? → [Something I Changed Broke It](#something-broke)
+4. Is AI looping on the same error? → [AI Is Stuck in a Loop](#ai-stuck)
+5. Did the app deploy but something doesn't work? → [Production Issues](#production-issues)
+6. Is auth broken? → [Authentication Problems](#authentication-problems)
+7. Is the database throwing errors? → [Database Errors](#database-errors)
+8. Are emails not arriving? → [Email Issues](#email-issues)
+9. Are payments failing? → [Payment Issues](#payment-issues)
+10. Does the app look broken? → [UI / Design Issues](#ui-issues)
+
+---
+
+## Prisma output collides with App Router → silent 404s everywhere {#prisma-app-collision}
+
+### Symptom
+
+- Every route in `src/app/` returns 404 in `next dev`
+- `pnpm build` succeeds but the build output only shows `/404` under `Route (pages)` — none of your `src/app/` routes appear under `Route (app)`
+- No error message, no warning. The build looks fine.
+
+### Cause
+
+Your `prisma/schema.prisma` has:
+
+```prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"   // ← THIS line is the bug
+}
+```
+
+When Prisma generates the client, it creates an `app/` folder at the project root. Next.js App Router then treats that **root-level `app/`** as the App Router root (not your `src/app/`), and since the generated folder has no route files, every request 404s.
+
+### Fix
+
+Change the output path to live inside `src/`:
+
+```prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"   // ← inside src/
+}
+```
+
+Then update every import:
+
+```ts
+// OLD (wrong)
+import { PrismaClient } from "../../app/generated/prisma/client";
+
+// NEW (correct)
+import { PrismaClient } from "@/generated/prisma/client";
+```
+
+Regenerate:
+
+```bash
+rm -rf app/generated src/generated
+pnpm prisma generate
+```
+
+Restart `pnpm dev`. Routes should appear immediately.
+
+This is the canonical Prisma v7 setup in `master_prompt.md` — projects scaffolded before this rule was added need a one-time migration.
+
+---
+
+## proxy.ts silently no-ops in dev (Next 16) {#proxy-dev-noop}
+
+### Symptom
+
+- You renamed `middleware.ts` to `proxy.ts` (Next 16 deprecated the old name)
+- Build output shows `ƒ Proxy (Middleware)`
+- But in `next dev` with Turbopack, protected routes return 200 with their normal content — the proxy never executes
+- Production build is fine. Only dev is broken.
+
+### Cause
+
+Next 16.2.x has a known bug where `proxy.ts` is recognised at build time but never loaded in dev mode (Turbopack). The deprecation warning encourages you to migrate but the new file silently fails.
+
+### Fix
+
+**Stay on `middleware.ts` until Next patches dev-mode `proxy.ts` loading.** Ignore the deprecation warning for now.
+
+```bash
+# Rename back
+mv src/proxy.ts src/middleware.ts
+```
+
+The framework's default templates intentionally keep `middleware.ts` for this reason. Re-evaluate when Next 16 ships a patch (track [vercel/next.js](https://github.com/vercel/next.js/issues)).
 
 ---
 

@@ -169,7 +169,11 @@ vibekit/
 ├── database-guide.md            ← Neon, Prisma, schema patterns, migrations
 ├── design-system-guide.md       ← Design principles, color palettes, component styles
 ├── troubleshooting.md           ← Symptoms → fixes, AI rescue protocols
-└── monetization-guide.md        ← Stripe, webhooks, feature gating, billing
+├── monetization-guide.md        ← Stripe, webhooks, feature gating, billing
+├── dgateway-guide.md            ← Mobile Money + card checkout for African markets
+├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
+├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2 / compliance)
+└── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
 ```
 
 ### Files to copy into your project
