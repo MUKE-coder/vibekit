@@ -3660,6 +3660,616 @@ function CreateTokenForm({ onCreated, onCancel }: CreateTokenFormProps) {
       },
     ],
   },
+  /* ──────────────────────────────────────────────
+   * Marketing primitives extracted from VibeKit public templates
+   * ────────────────────────────────────────────── */
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "animated-counter",
+    type: "registry:component",
+    title: "Animated Counter",
+    description:
+      "Number stat that counts up from 0 to a target value when scrolled into view. Useful for stat bands on marketing pages.",
+    dependencies: ["framer-motion"],
+    registryDependencies: [],
+    files: [
+      {
+        path: "animated-counter.tsx",
+        type: "registry:component",
+        content: `"use client";
+
+import { useEffect, useRef } from "react";
+import { useInView, animate } from "framer-motion";
+
+interface AnimatedCounterProps {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+  className?: string;
+}
+
+export function AnimatedCounter({
+  value,
+  suffix = "",
+  prefix = "",
+  duration = 2.5,
+  className,
+}: AnimatedCounterProps) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const node = ref.current;
+    if (!node) return;
+
+    const controls = animate(0, value, {
+      duration,
+      ease: "easeOut",
+      onUpdate(latest) {
+        node.textContent = \`\${prefix}\${Math.floor(latest).toLocaleString()}\${suffix}\`;
+      },
+    });
+
+    return () => controls.stop();
+  }, [isInView, value, suffix, prefix, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {prefix}0{suffix}
+    </span>
+  );
+}
+`,
+        target: "components/animated-counter.tsx",
+      },
+    ],
+  },
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "logo-marquee",
+    type: "registry:component",
+    title: "Logo Marquee",
+    description:
+      "Auto-scrolling \"trusted by\" / \"works with\" brand strip with pause-on-hover and edge fade-out.",
+    dependencies: [],
+    registryDependencies: [],
+    files: [
+      {
+        path: "logo-marquee.tsx",
+        type: "registry:component",
+        content: `"use client";
+
+import { cn } from "@/lib/utils";
+
+export interface LogoMarqueeItem {
+  name: string;
+  /** Either a src URL/path for the underlying img tag or an inline SVG/React node. */
+  src?: string;
+  svg?: React.ReactNode;
+}
+
+interface LogoMarqueeProps {
+  logos: LogoMarqueeItem[];
+  /** Direction the marquee scrolls. Default: left. */
+  direction?: "left" | "right";
+  /** Seconds for one full loop. Default: 30. */
+  speed?: number;
+  /** Pause on hover (default: true). */
+  pauseOnHover?: boolean;
+  /** Fade out the marquee edges with a mask. Default: true. */
+  fade?: boolean;
+  className?: string;
+  itemClassName?: string;
+}
+
+export function LogoMarquee({
+  logos,
+  direction = "left",
+  speed = 30,
+  pauseOnHover = true,
+  fade = true,
+  className,
+  itemClassName,
+}: LogoMarqueeProps) {
+  const items = [...logos, ...logos];
+
+  return (
+    <div
+      className={cn(
+        "group/marquee relative w-full overflow-hidden",
+        fade && "[mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]",
+        className,
+      )}
+    >
+      <div
+        className={cn(
+          "flex w-max items-center gap-12",
+          direction === "left" ? "animate-marquee-left" : "animate-marquee-right",
+          pauseOnHover && "group-hover/marquee:[animation-play-state:paused]",
+        )}
+        style={{ animationDuration: \`\${speed}s\` }}
+      >
+        {items.map((item, i) => (
+          <div
+            key={\`\${item.name}-\${i}\`}
+            className={cn(
+              "flex h-12 shrink-0 items-center justify-center text-muted-foreground",
+              "transition-colors hover:text-foreground",
+              itemClassName,
+            )}
+          >
+            {item.svg ? (
+              item.svg
+            ) : item.src ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={item.src} alt={item.name} className="h-8 w-auto opacity-70 hover:opacity-100" />
+            ) : (
+              <span className="text-lg font-medium">{item.name}</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <style jsx global>{\`
+        @keyframes marquee-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-marquee-left { animation: marquee-left linear infinite; }
+        .animate-marquee-right { animation: marquee-right linear infinite; }
+      \`}</style>
+    </div>
+  );
+}
+`,
+        target: "components/logo-marquee.tsx",
+      },
+    ],
+  },
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "alternating-timeline",
+    type: "registry:component",
+    title: "Alternating Timeline",
+    description:
+      "Vertical timeline with left/right alternating entries and scroll-driven opacity/scale. Reusable for about / history / roadmap pages.",
+    dependencies: ["framer-motion"],
+    registryDependencies: [],
+    files: [
+      {
+        path: "alternating-timeline.tsx",
+        type: "registry:component",
+        content: `"use client";
+
+import { useRef } from "react";
+import { useScroll, useTransform, motion, type MotionValue } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+export interface TimelineEntry {
+  id: string | number;
+  title: string;
+  description: string;
+  /** Optional image URL. */
+  image?: string;
+  /** Optional sub-line (date, role, location). */
+  meta?: string;
+  /** Forces left/right; otherwise alternates automatically. */
+  layout?: "left" | "right";
+}
+
+interface AlternatingTimelineProps {
+  entries: TimelineEntry[];
+  className?: string;
+}
+
+export function AlternatingTimeline({ entries, className }: AlternatingTimelineProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div ref={containerRef} className={cn("relative py-12", className)}>
+      <div className="absolute left-1/2 top-0 bottom-0 hidden w-px -translate-x-1/2 bg-border md:block" />
+
+      {entries.map((entry, index) => (
+        <TimelineItem
+          key={entry.id}
+          entry={entry}
+          isLeft={(entry.layout ?? (index % 2 === 0 ? "left" : "right")) === "left"}
+        />
+      ))}
+    </div>
+  );
+}
+
+function TimelineItem({ entry, isLeft }: { entry: TimelineEntry; isLeft: boolean }) {
+  const itemRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start center", "end center"],
+  });
+
+  const opacity: MotionValue<number> = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.35, 1, 1, 0.35]);
+  const scale: MotionValue<number> = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);
+
+  return (
+    <motion.div ref={itemRef} style={{ opacity, scale }} className="relative mb-16 md:mb-28">
+      <div className="absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground md:block" />
+
+      <div className="container mx-auto px-6">
+        <div
+          className={cn("grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16", {
+            "md:text-right": isLeft,
+          })}
+        >
+          <div className={cn("relative", isLeft ? "md:order-2" : "md:order-1")}>
+            {entry.image ? (
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={entry.image}
+                  alt={entry.title}
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+            ) : (
+              <div className="aspect-[3/4] rounded-2xl bg-muted" aria-hidden />
+            )}
+          </div>
+
+          <div className={cn("relative", isLeft ? "md:order-1" : "md:order-2")}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              {entry.meta ? (
+                <div className="text-sm font-mono uppercase tracking-wider text-muted-foreground">
+                  {entry.meta}
+                </div>
+              ) : null}
+              <h3 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{entry.title}</h3>
+              <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+                {entry.description}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+`,
+        target: "components/alternating-timeline.tsx",
+      },
+    ],
+  },
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "text-gradient-scroll",
+    type: "registry:component",
+    title: "Text Gradient Scroll",
+    description:
+      "Scroll-driven text reveal — paragraph fades word-by-word or letter-by-letter as the user scrolls. On-trend hero/section accent.",
+    dependencies: ["framer-motion"],
+    registryDependencies: [],
+    files: [
+      {
+        path: "text-gradient-scroll.tsx",
+        type: "registry:component",
+        content: `"use client";
+
+import { useRef } from "react";
+import { useScroll, useTransform, motion, type MotionValue } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+type TextOpacity = "none" | "soft" | "medium";
+type ViewType = "word" | "letter";
+
+interface TextGradientScrollProps {
+  text: string;
+  /** Reveal granularity. "letter" is more dramatic, "word" is calmer. Default: letter. */
+  type?: ViewType;
+  /** How visible the un-revealed text is. Default: soft. */
+  textOpacity?: TextOpacity;
+  className?: string;
+}
+
+export function TextGradientScroll({
+  text,
+  className,
+  type = "letter",
+  textOpacity = "soft",
+}: TextGradientScrollProps) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start center", "end center"],
+  });
+
+  const words = text.split(" ");
+
+  return (
+    <p ref={ref} className={cn("relative m-0 flex flex-wrap", className)}>
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = start + 1 / words.length;
+        return type === "word" ? (
+          <Word key={i} progress={scrollYProgress} range={[start, end]} opacity={textOpacity}>
+            {word}
+          </Word>
+        ) : (
+          <Letter key={i} progress={scrollYProgress} range={[start, end]} opacity={textOpacity}>
+            {word}
+          </Letter>
+        );
+      })}
+    </p>
+  );
+}
+
+function Word({
+  children,
+  progress,
+  range,
+  opacity,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: number[];
+  opacity: TextOpacity;
+}) {
+  const revealOpacity = useTransform(progress, range, [0, 1]);
+  const baseOpacityClass = opacityClassFor(opacity);
+
+  return (
+    <span className="relative me-2 mt-2">
+      <span className={cn("absolute", baseOpacityClass)}>{children}</span>
+      <motion.span style={{ opacity: revealOpacity, transition: "all 0.5s" }}>{children}</motion.span>
+    </span>
+  );
+}
+
+function Letter({
+  children,
+  progress,
+  range,
+  opacity,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: number[];
+  opacity: TextOpacity;
+}) {
+  const amount = range[1] - range[0];
+  const step = amount / children.length;
+
+  return (
+    <span className="relative me-2 mt-2">
+      {children.split("").map((char, i) => {
+        const start = range[0] + i * step;
+        const end = range[0] + (i + 1) * step;
+        return (
+          <Char key={\`c_\${i}\`} progress={progress} range={[start, end]} opacity={opacity}>
+            {char}
+          </Char>
+        );
+      })}
+    </span>
+  );
+}
+
+function Char({
+  children,
+  progress,
+  range,
+  opacity,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: number[];
+  opacity: TextOpacity;
+}) {
+  const revealOpacity = useTransform(progress, range, [0, 1]);
+  const baseOpacityClass = opacityClassFor(opacity);
+
+  return (
+    <span>
+      <span className={cn("absolute", baseOpacityClass)}>{children}</span>
+      <motion.span style={{ opacity: revealOpacity, transition: "all 0.5s" }}>{children}</motion.span>
+    </span>
+  );
+}
+
+function opacityClassFor(value: TextOpacity): string {
+  if (value === "none") return "opacity-0";
+  if (value === "medium") return "opacity-30";
+  return "opacity-10";
+}
+`,
+        target: "components/text-gradient-scroll.tsx",
+      },
+    ],
+  },
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "blurred-orb",
+    type: "registry:component",
+    title: "Blurred Orb",
+    description:
+      "Gradient-blurred backdrop element. Drop behind a hero or section for a soft glow accent — alternative to busy hero imagery.",
+    dependencies: [],
+    registryDependencies: [],
+    files: [
+      {
+        path: "blurred-orb.tsx",
+        type: "registry:component",
+        content: `import { cn } from "@/lib/utils";
+
+interface BlurredOrbProps {
+  className?: string;
+  style?: React.CSSProperties;
+  /**
+   * Use Tailwind tokens by default. Override via \`style\` for a custom radial gradient,
+   * e.g. \`background: "radial-gradient(circle at center, var(--brand-start), transparent)"\`.
+   */
+  variant?: "primary" | "accent" | "muted";
+}
+
+export function BlurredOrb({ className, style, variant = "primary" }: BlurredOrbProps) {
+  const variantClass = {
+    primary: "from-primary/60 to-primary/0",
+    accent: "from-accent/60 to-accent/0",
+    muted: "from-muted-foreground/40 to-muted-foreground/0",
+  }[variant];
+
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute rounded-full blur-3xl",
+        "bg-gradient-to-br",
+        variantClass,
+        "h-64 w-64",
+        className,
+      )}
+      style={style}
+    />
+  );
+}
+`,
+        target: "components/blurred-orb.tsx",
+      },
+    ],
+  },
+  {
+    $schema: "https://ui.shadcn.com/schema/registry.json",
+    name: "custom-cursor",
+    type: "registry:component",
+    title: "Custom Cursor",
+    description:
+      "Pointer-following animated cursor with dot + outline, hover-grow on links/buttons, click squeeze. Auto-hides on mobile.",
+    dependencies: ["framer-motion"],
+    registryDependencies: [],
+    files: [
+      {
+        path: "custom-cursor.tsx",
+        type: "registry:component",
+        content: `"use client";
+
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+interface CustomCursorProps {
+  dotClassName?: string;
+  outlineClassName?: string;
+  /** Selector for elements that should make the cursor grow on hover. */
+  hoverSelector?: string;
+  hideOnMobile?: boolean;
+}
+
+export function CustomCursor({
+  dotClassName,
+  outlineClassName,
+  hoverSelector = "a, button, input, textarea, [data-cursor-hover]",
+  hideOnMobile = true,
+}: CustomCursorProps = {}) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [clicked, setClicked] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    const onMouseMove = (e: MouseEvent) => setPosition({ x: e.clientX, y: e.clientY });
+    const onEnter = () => setHidden(false);
+    const onLeave = () => setHidden(true);
+    const onDown = () => setClicked(true);
+    const onUp = () => setClicked(false);
+
+    if (!isMobile) {
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseenter", onEnter);
+      document.addEventListener("mouseleave", onLeave);
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("mouseup", onUp);
+
+      const hoverables = document.querySelectorAll(hoverSelector);
+      const hoverIn = () => setLinkHovered(true);
+      const hoverOut = () => setLinkHovered(false);
+      hoverables.forEach((el) => {
+        el.addEventListener("mouseenter", hoverIn);
+        el.addEventListener("mouseleave", hoverOut);
+      });
+
+      return () => {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseenter", onEnter);
+        document.removeEventListener("mouseleave", onLeave);
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("mouseup", onUp);
+        hoverables.forEach((el) => {
+          el.removeEventListener("mouseenter", hoverIn);
+          el.removeEventListener("mouseleave", hoverOut);
+        });
+        window.removeEventListener("resize", checkIfMobile);
+      };
+    }
+
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, [isMobile, hoverSelector]);
+
+  if (hideOnMobile && isMobile) return null;
+
+  return (
+    <>
+      <motion.div
+        aria-hidden
+        className={cn(
+          "pointer-events-none fixed left-0 top-0 z-50 h-3 w-3 rounded-full bg-foreground mix-blend-difference",
+          dotClassName,
+        )}
+        animate={{
+          x: position.x - 6,
+          y: position.y - 6,
+          scale: clicked ? 0.5 : linkHovered ? 2 : 1,
+          opacity: hidden ? 0 : 1,
+        }}
+        transition={{ type: "spring", mass: 0.2, stiffness: 800, damping: 30 }}
+      />
+      <motion.div
+        aria-hidden
+        className={cn(
+          "pointer-events-none fixed left-0 top-0 z-50 h-8 w-8 rounded-full border border-foreground mix-blend-difference",
+          outlineClassName,
+        )}
+        animate={{
+          x: position.x - 16,
+          y: position.y - 16,
+          scale: clicked ? 0.5 : linkHovered ? 1.5 : 1,
+          opacity: hidden ? 0 : 1,
+        }}
+        transition={{ type: "spring", mass: 0.5, stiffness: 200, damping: 30 }}
+      />
+    </>
+  );
+}
+`,
+        target: "components/custom-cursor.tsx",
+      },
+    ],
+  },
 ];
 
 export function getRegistryComponent(slug: string): RegistryComponent | undefined {

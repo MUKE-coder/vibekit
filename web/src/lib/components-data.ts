@@ -11,7 +11,8 @@ export type ComponentCategory =
   | "saas"
   | "productivity"
   | "team"
-  | "documents";
+  | "documents"
+  | "animation";
 
 export type ComponentSource =
   | "JB"
@@ -697,13 +698,120 @@ export const components: JBComponent[] = [
     whenToUse: "Anywhere the app needs invoices, receipts, or printable reports.",
     whenNotToUse: "Interactive dashboards — these are layout-only and meant for print/PDF output.",
   },
+  /* ──────────────────────────────────────────────
+   * Marketing primitives extracted from VibeKit public templates
+   * ────────────────────────────────────────────── */
+  {
+    slug: "animated-counter",
+    name: "Animated Counter",
+    tagline: "Number stat that counts up from 0 to a target value when scrolled into view.",
+    category: "animation",
+    categoryLabel: "Animation",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/animated-counter.json",
+    prerequisites: ["framer-motion (installed automatically)"],
+    features: [
+      "Counts up only after scrolling into view (useInView)",
+      "Configurable duration, prefix, and suffix",
+      "Locale-formatted numbers (12,345 not 12345)",
+      "Single span — drops into any layout",
+    ],
+    whenToUse: "Marketing stat bands, dashboards highlighting milestone numbers, About / Press sections.",
+    whenNotToUse: "Live counters that change after the initial reveal — use a state-driven number instead.",
+  },
+  {
+    slug: "logo-marquee",
+    name: "Logo Marquee",
+    tagline: "Auto-scrolling 'trusted by' brand strip with pause-on-hover and edge fade.",
+    category: "marketing",
+    categoryLabel: "Marketing",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/logo-marquee.json",
+    features: [
+      "Auto-scrolling left or right with seamless loop",
+      "Pause on hover (optional)",
+      "Edge mask fade (optional)",
+      "Accepts img src URLs, inline SVG nodes, or fallback text labels",
+      "Configurable speed (seconds per loop)",
+    ],
+    whenToUse: "Marketing landing pages, hero 'trusted by' strips, integrations sections, social-proof bands.",
+    whenNotToUse: "Static logo grids where movement would distract — use a plain flex layout.",
+  },
+  {
+    slug: "alternating-timeline",
+    name: "Alternating Timeline",
+    tagline: "Vertical timeline with left/right alternating entries and scroll-driven opacity/scale.",
+    category: "marketing",
+    categoryLabel: "Marketing",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/alternating-timeline.json",
+    prerequisites: ["framer-motion (installed automatically)"],
+    features: [
+      "Auto-alternating left/right layout per entry",
+      "Scroll-driven opacity + scale on each item",
+      "Optional image, meta line (date/role), title, description",
+      "Center timeline rail with dot markers (desktop)",
+      "Stacked single-column on mobile",
+    ],
+    whenToUse: "About pages, company history, roadmap timelines, product evolution stories.",
+    whenNotToUse: "Linear feed lists or comment threads — use a simple list instead.",
+  },
+  {
+    slug: "text-gradient-scroll",
+    name: "Text Gradient Scroll",
+    tagline: "Scroll-driven text reveal — paragraph fades word-by-word or letter-by-letter as the user scrolls.",
+    category: "animation",
+    categoryLabel: "Animation",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/text-gradient-scroll.json",
+    prerequisites: ["framer-motion (installed automatically)"],
+    features: [
+      "Word-by-word OR letter-by-letter reveal granularity",
+      "Three baseline opacity modes (none / soft / medium)",
+      "Triggered by element's scroll position (useScroll)",
+      "Drop-in <TextGradientScroll text=... /> — no setup",
+    ],
+    whenToUse: "Hero mission statements, manifesto sections, editorial brand pages.",
+    whenNotToUse: "Critical product copy or anything that must be readable from the first frame — accessibility risk on slow scrolls.",
+  },
+  {
+    slug: "blurred-orb",
+    name: "Blurred Orb",
+    tagline: "Gradient-blurred backdrop element — drop behind a hero or section for a soft glow accent.",
+    category: "marketing",
+    categoryLabel: "Marketing",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/blurred-orb.json",
+    features: [
+      "Primary / accent / muted variants using shadcn tokens",
+      "Configurable size via className",
+      "Override gradient via style prop for custom radial-gradients",
+      "Aria-hidden + pointer-events-none — purely decorative",
+    ],
+    whenToUse: "Hero backdrops, behind feature cards, beside CTAs — anywhere a flat hero needs subtle depth.",
+    whenNotToUse: "Information-dense interfaces where the blur would compete with content.",
+  },
+  {
+    slug: "custom-cursor",
+    name: "Custom Cursor",
+    tagline: "Pointer-following animated cursor — dot + outline, hover grow, click squeeze, auto-hides on mobile.",
+    category: "animation",
+    categoryLabel: "Animation",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/custom-cursor.json",
+    prerequisites: ["framer-motion (installed automatically)"],
+    features: [
+      "Spring-physics follow with two layers (dot + outline ring)",
+      "Mix-blend-difference for visibility on any background",
+      "Hover grow on links, buttons, inputs, or any [data-cursor-hover] element",
+      "Click squeeze feedback",
+      "Auto-hides on screens under 768px (no touch-device cursor)",
+    ],
+    whenToUse: "Designer portfolios, agency sites, brand sites where a tactile cursor reinforces the aesthetic.",
+    whenNotToUse: "App-style products, mobile-first audiences, accessibility-sensitive contexts. Add as a polish, not a default.",
+  },
 ];
 
 export const categories: { value: ComponentCategory | "all"; label: string }[] = [
   { value: "all", label: "All" },
   { value: "hero", label: "Hero" },
-  { value: "auth", label: "Auth" },
   { value: "marketing", label: "Marketing" },
+  { value: "animation", label: "Animation" },
+  { value: "auth", label: "Auth" },
   { value: "data", label: "Data" },
   { value: "commerce", label: "Commerce" },
   { value: "saas", label: "SaaS" },

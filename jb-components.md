@@ -44,6 +44,12 @@
 | Pricing tiers, plan comparison, billing history | SaaS Billing (in-house) | — |
 | Subscription status + usage meters | SaaS Subscription (in-house) | — |
 | API token management UI | SaaS Management (in-house) | — |
+| Animated stat counter on scroll | Animated Counter (in-house) | — |
+| Auto-scrolling logo / trusted-by strip | Logo Marquee (in-house) | — |
+| Alternating-layout vertical timeline (about/roadmap) | Alternating Timeline (in-house) | — |
+| Scroll-driven text reveal (manifesto hero) | Text Gradient Scroll (in-house) | — |
+| Blurred gradient backdrop orb | Blurred Orb (in-house) | — |
+| Designer-portfolio custom cursor | Custom Cursor (in-house) | — |
 
 ---
 
@@ -756,6 +762,141 @@ These are **in-house VibeKit components** — built when no JB or community comp
 **Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/saas-management.json`
 
 **Prerequisites:** shadcn/ui (`button`, `card`, `dialog`, `input`, `label`, `badge`, `separator`).
+
+---
+
+### 26. Animated Counter
+
+**What it is:** Number stat that counts up from 0 to a target value when scrolled into view.
+
+**What it does:**
+- Counts up only after `useInView` triggers (one-shot)
+- Configurable `duration`, `prefix`, `suffix`
+- Locale-formatted numbers (12,345 not 12345)
+- Single `<span>` — drops into any layout
+
+**Environment variables:** None.
+
+**When to use:** Marketing stat bands, milestone numbers on About pages, dashboard reveals.
+
+**When NOT to use:** Live numbers that change after first reveal — use state-driven content.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/animated-counter.json`
+
+**Prerequisites:** Framer Motion (auto-installed).
+
+---
+
+### 27. Logo Marquee
+
+**What it is:** Auto-scrolling brand strip with pause-on-hover and edge fade. CSS-only animation (no JS loop).
+
+**What it does:**
+- Seamless loop with duplicated logo list
+- Direction (left / right) + configurable speed
+- Pause on hover
+- Edge mask fade for clean entry/exit
+- Accepts img `src`, inline SVG, or plain text labels
+
+**Environment variables:** None.
+
+**When to use:** "Trusted by" social-proof strips, integrations sections, customer logo bands.
+
+**When NOT to use:** Static grids where movement would distract.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/logo-marquee.json`
+
+**Prerequisites:** None.
+
+---
+
+### 28. Alternating Timeline
+
+**What it is:** Vertical timeline with left/right alternating entries and scroll-driven opacity/scale.
+
+**What it does:**
+- Auto-alternates left/right (override per entry with `layout`)
+- Scroll-driven opacity + scale on each item
+- Optional image, meta line (date/role), title, description
+- Center timeline rail with dot markers (desktop)
+- Stacked single-column on mobile
+
+**Environment variables:** None.
+
+**When to use:** About pages, company history, roadmaps, product evolution stories.
+
+**When NOT to use:** Feed-style lists or comment threads.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/alternating-timeline.json`
+
+**Prerequisites:** Framer Motion (auto-installed).
+
+---
+
+### 29. Text Gradient Scroll
+
+**What it is:** Scroll-driven text reveal — paragraph fades word-by-word or letter-by-letter as the user scrolls past.
+
+**What it does:**
+- Word OR letter reveal granularity
+- Baseline opacity modes: `none`, `soft`, `medium`
+- Triggered by element's own scroll position
+- Drop-in: `<TextGradientScroll text="..." />`
+
+**Environment variables:** None.
+
+**When to use:** Hero mission statements, manifesto sections, editorial brand pages.
+
+**When NOT to use:** Critical product copy that must be readable from the first frame — accessibility risk on fast scrolls.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/text-gradient-scroll.json`
+
+**Prerequisites:** Framer Motion (auto-installed).
+
+---
+
+### 30. Blurred Orb
+
+**What it is:** Gradient-blurred backdrop element. Drop behind a hero or section for a soft glow accent — alternative to busy hero imagery.
+
+**What it does:**
+- Three token-driven variants: `primary`, `accent`, `muted`
+- Configurable size via `className` (e.g. `h-[40rem] w-[40rem]`)
+- Override gradient via `style` for custom radial-gradients
+- `aria-hidden` + `pointer-events-none` — purely decorative
+
+**Environment variables:** None.
+
+**When to use:** Hero backdrops, behind feature cards, beside CTAs — anywhere a flat hero needs depth.
+
+**When NOT to use:** Information-dense interfaces where the blur competes with content.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/blurred-orb.json`
+
+**Prerequisites:** None.
+
+---
+
+### 31. Custom Cursor
+
+**What it is:** Pointer-following animated cursor with dot + outline, hover-grow on links/buttons, click squeeze. Auto-hides on mobile.
+
+**What it does:**
+- Spring-physics follow (two layers: dot + outline ring)
+- `mix-blend-difference` for visibility on any background
+- Hover grow on `a`, `button`, `input`, `textarea`, or `[data-cursor-hover]` elements
+- Click squeeze feedback
+- Auto-hides on screens < 768px (no touch-device cursor)
+
+**Environment variables:** None.
+
+**When to use:** Designer portfolios, agency sites, brand sites where a tactile cursor reinforces aesthetic.
+
+**When NOT to use:** App-style products, mobile-first audiences, accessibility-sensitive contexts.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/custom-cursor.json`
+
+**Prerequisites:** Framer Motion (auto-installed).
 
 ## Rules for Coding Agents (Claude Code, Cursor, Cline, Codex, etc.)
 
