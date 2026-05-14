@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 94.1176%;
+    --foreground: 0 0% 20%;
+    --card: 0 0% 96.0784%;
+    --card-foreground: 0 0% 20%;
+    --popover: 0 0% 96.0784%;
+    --popover-foreground: 0 0% 20%;
+    --primary: 0 0% 37.6471%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 87.8431%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 0 0% 85.0980%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 75.2941%;
+    --accent-foreground: 0 0% 20%;
+    --destructive: 356.0784 60.0000% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 81.5686%;
+    --input: 0 0% 87.8431%;
+    --ring: 0 0% 37.6471%;
+    --chart-1: 0 0% 37.6471%;
+    --chart-2: 176.129 17.9191% 33.9216%;
+    --chart-3: 0 0% 56.4706%;
+    --chart-4: 0 0% 65.8824%;
+    --chart-5: 0 0% 75.2941%;
+    --sidebar: 0 0% 91.7647%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 0% 37.6471%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 75.2941%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 81.5686%;
+    --sidebar-ring: 0 0% 37.6471%;
+    --font-sans: Montserrat, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: Fira Code, monospace;
+    --radius: 0.675rem;
+    --shadow-2xs: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.16);
+    --shadow-xs: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.16);
+    --shadow-sm: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 1px 2px -1px hsl(0 0% 20% / 0.32);
+    --shadow: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 1px 2px -1px hsl(0 0% 20% / 0.32);
+    --shadow-md: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 2px 4px -1px hsl(0 0% 20% / 0.32);
+    --shadow-lg: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 4px 6px -1px hsl(0 0% 20% / 0.32);
+    --shadow-xl: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 8px 10px -1px hsl(0 0% 20% / 0.32);
+    --shadow-2xl: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.8);
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
+  }
+
+  .dark {
+    --background: 0 0% 10.1961%;
+    --foreground: 0 0% 85.0980%;
+    --card: 0 0% 12.5490%;
+    --card-foreground: 0 0% 85.0980%;
+    --popover: 0 0% 12.5490%;
+    --popover-foreground: 0 0% 85.0980%;
+    --primary: 0 0% 62.7451%;
+    --primary-foreground: 0 0% 10.1961%;
+    --secondary: 0 0% 18.8235%;
+    --secondary-foreground: 0 0% 85.0980%;
+    --muted: 0 0% 16.4706%;
+    --muted-foreground: 0 0% 50.1961%;
+    --accent: 0 0% 25.0980%;
+    --accent-foreground: 0 0% 85.0980%;
+    --destructive: 356.0656 66.3043% 63.9216%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20.7843%;
+    --input: 0 0% 18.8235%;
+    --ring: 0 0% 62.7451%;
+    --chart-1: 0 0% 62.7451%;
+    --chart-2: 183.5294 15.1786% 56.0784%;
+    --chart-3: 0 0% 43.9216%;
+    --chart-4: 0 0% 34.5098%;
+    --chart-5: 0 0% 25.0980%;
+    --sidebar: 0 0% 12.1569%;
+    --sidebar-foreground: 0 0% 85.0980%;
+    --sidebar-primary: 0 0% 62.7451%;
+    --sidebar-primary-foreground: 0 0% 10.1961%;
+    --sidebar-accent: 0 0% 25.0980%;
+    --sidebar-accent-foreground: 0 0% 85.0980%;
+    --sidebar-border: 0 0% 20.7843%;
+    --sidebar-ring: 0 0% 62.7451%;
+    --font-sans: Inter, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: Fira Code, monospace;
+    --radius: 0.675rem;
+    --shadow-2xs: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.16);
+    --shadow-xs: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.16);
+    --shadow-sm: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 1px 2px -1px hsl(0 0% 20% / 0.32);
+    --shadow: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 1px 2px -1px hsl(0 0% 20% / 0.32);
+    --shadow-md: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 2px 4px -1px hsl(0 0% 20% / 0.32);
+    --shadow-lg: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 4px 6px -1px hsl(0 0% 20% / 0.32);
+    --shadow-xl: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.32), 4.5px 8px 10px -1px hsl(0 0% 20% / 0.32);
+    --shadow-2xl: 4.5px 4.5px 0px 0px hsl(0 0% 20% / 0.8);
+  }
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: var(--font-sans);
+}
+
+/* Subtle Grid Background Pattern */
+.bg-grid-subtle {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.09) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 0;
+}
+
+/* Add a subtle dot pattern overlay for extra depth */
+.bg-grid-subtle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20px 20px, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}

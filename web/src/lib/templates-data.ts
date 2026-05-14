@@ -511,6 +511,249 @@ export const templates: Template[] = [
     customizationGuide:
       "Single-page B2B SaaS landing. Walk through Branding → Hero → Companies → Feature blocks → Tool feature → Stats → Testimonials → Pricing → Auth. Each section is `src/components/<name>.tsx`. The blurred-orb backdrop uses Tailwind v4 CSS variables `--color-hero-start/mid/end` in `src/app/globals.css` — edit those to retune the gradient. To wire real auth, install JB Better Auth UI and replace `/auth`. Don't restructure files — only edit section contents and design tokens.",
   },
+
+  /* ──────────────────────────────────────────────
+   * v0 community templates — curated and QA'd by the framework
+   * ────────────────────────────────────────────── */
+  {
+    slug: "mindspace",
+    name: "MindSpace",
+    tagline: "Meeting-intelligence / note-taking SaaS landing with pro-blocks navbar, hero, bento grid, features, stats, pricing, FAQ.",
+    category: "saas",
+    categoryLabel: "SaaS",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/mindspace",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "shadcn/ui", "pro-blocks landing components"],
+    whenToUse:
+      "AI productivity, meeting summarizers, knowledge-management apps, anything that wants a deep, multi-section landing page out of the box.",
+    whenNotToUse:
+      "Single-purpose product pages or apps without features/pricing/FAQ. The depth here is overkill for v1 launches.",
+    features: [
+      "Pro-blocks navbar + hero with video/image slot",
+      "Logo cloud + testimonials with avatar",
+      "Bento grid feature showcase",
+      "Stats band + pricing tiers + FAQ accordion",
+      "Mobile responsive, light mode",
+    ],
+    sections: [],
+    customizationGuide:
+      "Walk the user through Branding → Hero → Logos → Testimonials → Bento → Features → Stats → Pricing → FAQ → Footer. Each section is a pro-blocks component under `components/pro-blocks/landing-page/`. Replace copy and props per section.",
+  },
+  {
+    slug: "optimus",
+    name: "Optimus",
+    tagline: "Infrastructure / dev-tools SaaS landing with animated 3D sphere, wave, and tetrahedron backgrounds plus full marketing sections.",
+    category: "saas",
+    categoryLabel: "SaaS",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/optimus",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Three.js / animated SVGs"],
+    whenToUse:
+      "Dev tools, infrastructure platforms, AI/ML APIs, any technical product that benefits from a serious, animated, 'we ship real engineering' aesthetic.",
+    whenNotToUse:
+      "Consumer apps or B2C products — Optimus leans technical/enterprise.",
+    features: [
+      "Hero with animated sphere/wave/tetrahedron",
+      "How-it-works, features, infrastructure, integrations, security sections",
+      "Metrics, testimonials, pricing, developers, CTA",
+      "Navigation + footer",
+      "Dark mode default",
+    ],
+    sections: [],
+    customizationGuide:
+      "Walk through hero → how-it-works → features → infrastructure → integrations → security → metrics → testimonials → pricing → developers → CTA → footer. Each is `components/landing/<name>-section.tsx`.",
+  },
+  {
+    slug: "commerce",
+    name: "Commerce (Shopify)",
+    tagline: "Shopify-backed storefront with collections, product cards, sidebar layout, checkout, and full Next.js commerce patterns.",
+    category: "ecommerce",
+    categoryLabel: "E-commerce",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/commerce",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Shopify Storefront API"],
+    whenToUse:
+      "Online stores backed by Shopify. Use this when the user already has products in Shopify and wants a custom front-end with full SSR/SSG performance.",
+    whenNotToUse:
+      "Stripe-only or DGateway-only checkouts — install JB Stripe UI or DGateway Shop instead.",
+    features: [
+      "Shopify Storefront API integration",
+      "Sidebar layout with collections",
+      "Latest products grid with badges",
+      "Product detail pages with variants",
+      "Cart + checkout flow",
+    ],
+    sections: [],
+    customizationGuide:
+      "Set Shopify env vars (SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_ACCESS_TOKEN). Edit `lib/shopify/` for any API extensions, customise the sidebar in `components/layout/sidebar/`, and theme via Tailwind tokens.",
+  },
+  {
+    slug: "invoicely",
+    name: "Invoicely",
+    tagline: "GitHub-Invoicely-style admin template — code-entry redirect flow, invoice management, dashboard layout.",
+    category: "admin",
+    categoryLabel: "Admin",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/invoicely",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+    whenToUse:
+      "Internal billing tools, freelancer invoicing dashboards, light admin panels that need a clean code-gated entry flow.",
+    whenNotToUse:
+      "Public-facing marketing sites. This is an internal-tool template.",
+    features: [
+      "Code-entry gate at `/` → `/code`",
+      "Invoice dashboard with table, status, actions",
+      "Clean admin layout",
+      "Light/dark mode",
+    ],
+    sections: [],
+    customizationGuide:
+      "Wire the `/code` page to a real auth check (or replace with JB Better Auth UI). Add Prisma + a real invoice model. Customise the dashboard table columns to match the user's invoice schema.",
+  },
+  {
+    slug: "cursor-animate-portfolio",
+    name: "Cursor-Animate Portfolio",
+    tagline: "Portfolio with custom cursor, smooth-scroll, and Framer Motion section transitions — hero, work, about, contact.",
+    category: "portfolio",
+    categoryLabel: "Portfolio",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/cursor-animate-portfolio",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
+    whenToUse:
+      "Designers, motion-heavy portfolios, agencies, anyone who wants a tactile cursor-driven aesthetic.",
+    whenNotToUse:
+      "Mobile-first audiences (custom cursor degrades on touch). For dev portfolios prefer `personal-portfolio`.",
+    features: [
+      "Custom cursor with hover effects",
+      "Smooth-scroll provider with section transitions",
+      "Hero, work, about, contact sections",
+      "Framer Motion entrance animations",
+      "Navbar + footer included",
+    ],
+    sections: [],
+    customizationGuide:
+      "Each section is `components/<name>-section.tsx`. Edit work entries in `components/work-section.tsx`. Replace cursor SVG / animation in `components/custom-cursor.tsx`.",
+  },
+  {
+    slug: "katachi-studio",
+    name: "Katachi Studio",
+    tagline: "Brand / studio storefront with header, hero, featured products, collection strip, materials section, and newsletter.",
+    category: "agency",
+    categoryLabel: "Agency",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/katachi-studio",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+    whenToUse:
+      "Design studios, fashion / lifestyle brands, craft shops, anyone selling a curated set of products with a strong editorial brand voice.",
+    whenNotToUse:
+      "Catalog-heavy stores (50+ products) — use the Commerce template with Shopify instead.",
+    features: [
+      "Editorial header + hero",
+      "Featured products grid",
+      "Collection strip with imagery",
+      "Materials / process section",
+      "Newsletter signup",
+      "Footer",
+    ],
+    sections: [],
+    customizationGuide:
+      "Each section is `components/<name>.tsx`. Replace product data, imagery, and the materials/process copy. Theme via Tailwind tokens.",
+  },
+  {
+    slug: "wadada-hero",
+    name: "Wadada Hero",
+    tagline: "Editorial scroll-driven landing — text-gradient scroll, timeline, stagger testimonials, smooth-scroll hero, embedded chatbot.",
+    category: "landing",
+    categoryLabel: "Landing",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/wadada-hero",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
+    whenToUse:
+      "Mission-driven brands, run clubs, fitness, lifestyle communities, anywhere you want long-scroll storytelling with photography and emotion.",
+    whenNotToUse:
+      "Information-dense product pages — Wadada is narrative, not feature-list.",
+    features: [
+      "Smooth-scroll hero with motion blur photography",
+      "Text-gradient-scroll mission statement",
+      "Timeline with alternating layout",
+      "Stagger testimonials carousel",
+      "Floating chatbot widget",
+    ],
+    sections: [],
+    customizationGuide:
+      "Swap photography URLs in `app/page.tsx`. Edit mission statement text. Re-author timeline entries (image, alt, title, description, layout). Customise testimonials in `components/ui/stagger-testimonials.tsx`.",
+  },
+  {
+    slug: "infinite-3d-gallery",
+    name: "Infinite 3D Gallery",
+    tagline: "React Three Fiber infinite-scroll image gallery — fixed-center hero text over a depth-faded 3D scene.",
+    category: "portfolio",
+    categoryLabel: "Portfolio",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/infinite-3d-gallery",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "React Three Fiber", "drei", "postprocessing"],
+    whenToUse:
+      "Photography portfolios, design studios, art galleries, brand sites that need a memorable interactive landing.",
+    whenNotToUse:
+      "Performance-sensitive marketing pages targeting low-end devices — WebGL is heavy. Provide a non-3D fallback hero.",
+    features: [
+      "Infinite-scroll 3D gallery (R3F + drei)",
+      "Configurable speed, z-spacing, visible count, falloff",
+      "Mix-blend-exclusion centered hero text",
+      "Postprocessing effects (bloom, glow)",
+    ],
+    sections: [],
+    customizationGuide:
+      "Swap the sample image array in `app/page.tsx`. Tune InfiniteGallery props (speed, zSpacing, visibleCount, falloff). Adjust the fixed hero text and mix-blend mode.",
+  },
+  {
+    slug: "elegant-login",
+    name: "Elegant Login",
+    tagline: "Split-screen auth UI with login / register / forgot-password views, brand panel on the left, form on the right.",
+    category: "auth",
+    categoryLabel: "Auth",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/elegant-login",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+    whenToUse:
+      "Auth-first apps that need a polished split-screen sign-in experience before installing JB Better Auth UI. Good visual reference for your auth flow.",
+    whenNotToUse:
+      "Production auth — this template is UI-only with no backend wiring. Install JB Better Auth UI to make it real.",
+    features: [
+      "Login / register / forgot-password views in a single page",
+      "Split-screen brand panel + form layout",
+      "Password show/hide toggle",
+      "Confirm-password support",
+      "Lucide icons for entry/exit affordances",
+    ],
+    sections: [],
+    customizationGuide:
+      "Re-brand the left panel (logo, color, marketing copy). For real auth, install JB Better Auth UI and wire form submissions to its actions. Keep this UI as the visual layer.",
+  },
+  {
+    slug: "apple-watch-landing",
+    name: "Apple Watch Landing",
+    tagline: "Hardware / device product landing — photo gallery, color picker, spec sections, reviews, multi-language support.",
+    category: "landing",
+    categoryLabel: "Landing",
+    cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/apple-watch-landing",
+    upstreamUrl: "https://v0.app/community",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "language context"],
+    whenToUse:
+      "Hardware launches, physical products, device marketing, anywhere you need a polished product detail / launch page with image carousel and variant picker.",
+    whenNotToUse:
+      "Multi-product catalogs — use the Commerce template with Shopify instead.",
+    features: [
+      "Product image carousel (5 photos)",
+      "Color / variant picker with named swatches",
+      "Spec sections + review stars",
+      "Multi-language context (i18n hook)",
+      "Contact form for inquiries",
+    ],
+    sections: [],
+    customizationGuide:
+      "Swap product imagery in `app/page.tsx`. Edit `colorOptions` array for variants. Replace marketing copy. To use i18n meaningfully, extend `contexts/language-context.tsx` with your locale dictionaries.",
+  },
 ];
 
 export function getTemplateBySlug(slug: string): Template | undefined {

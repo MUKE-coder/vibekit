@@ -1,0 +1,228 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Onest, sans-serif;
+  --font-mono: Menlo, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --shadow-2xs: 0 1px 0 0 oklch(0.554 0.041 257.417 / 0.05);
+  --shadow-xs: 0 1px 2px 0 oklch(0.554 0.041 257.417 / 0.05);
+  --shadow-sm:
+    0 1px 3px 0 oklch(0.554 0.041 257.417 / 0.1),
+    0 1px 2px -1px oklch(0.554 0.041 257.417 / 0.1);
+  --shadow-md:
+    0 4px 6px -1px oklch(0.554 0.041 257.417 / 0.1),
+    0 2px 4px -2px oklch(0.554 0.041 257.417 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px oklch(0.545 0.161 295.179 / 0.1),
+    0 4px 6px -4px oklch(0.545 0.161 295.179 / 0.1);
+  --shadow-xl:
+    0 20px 25px -5px oklch(0 0 0 / 0.1),
+    0 8px 10px -6px oklch(0.554 0.041 257.417 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px oklch(0.554 0.041 257.417 / 0.15);
+  --drop-shadow-xs: drop-shadow(0 1px 1px 0 oklch(0.545 0.161 295.179 / 0.05));
+  --drop-shadow-sm: drop-shadow(0 1px 2px 0 oklch(0.545 0.161 295.179 / 0.15));
+  --drop-shadow-md: drop-shadow(0 3px 3px 0 oklch(0.545 0.161 295.179 / 0.12));
+  --drop-shadow-lg: drop-shadow(0 4px 4px 0 oklch(0.545 0.161 295.179 / 0.15));
+  --drop-shadow-xl: drop-shadow(0 9px 7px 0 oklch(0.545 0.161 295.179 / 0.1));
+  --drop-shadow-2xl: drop-shadow(
+    0 25px 25px 0 oklch(0.545 0.161 295.179 / 0.15)
+  );
+  --inset-shadow-2xs: inset 0 1px 0 0 oklch(0.545 0.161 295.179 / 0.05);
+  --inset-shadow-xs: inset 0 1px 1px 0 oklch(0.545 0.161 295.179 / 0.05);
+  --inset-shadow-sm: inset 0 2px 4px 0 oklch(0.545 0.161 295.179 / 0.05);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.282 0.087 267.935);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.282 0.087 267.935);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.282 0.087 267.935);
+  --primary: oklch(0.677 0.203 40.381);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.981 0.009 258.335);
+  --secondary-foreground: oklch(0.282 0.087 267.935);
+  --muted: oklch(0.984 0.003 247.858);
+  --muted-foreground: oklch(0.516 0.054 272.586);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.208 0.04 265.755);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.929 0.013 255.508);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.677 0.203 40.381 / 0.1);
+  --chart-1: oklch(0.677 0.203 40.381);
+  --chart-2: oklch(0.677 0.157 35.096);
+  --chart-3: oklch(0.379 0.044 226.154);
+  --chart-4: oklch(0.833 0.119 88.346);
+  --chart-5: oklch(0.784 0.126 58.996);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.282 0.087 267.935);
+  --sidebar-primary: oklch(0.282 0.087 267.935);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.282 0.087 267.935);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.929 0.013 255.508);
+}
+
+@theme {
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 80rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button {
+    cursor: pointer;
+  }
+  .heading-xl {
+    font-family: Onest;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .heading-lg {
+    font-family: Onest;
+    font-size: 2.25rem;
+    line-height: 1.111;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .heading-md {
+    font-family: Onest;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .heading-sm {
+    font-family: Onest;
+    font-size: 1.5rem;
+    line-height: 1.333;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .container-padding-x {
+    padding-inline: 1.5rem;
+  }
+  .section-padding-y {
+    padding-block: 6rem;
+  }
+  .section-title-gap-xl {
+    gap: 1.5rem;
+  }
+  .section-title-gap-lg {
+    gap: 1.25rem;
+  }
+  .section-title-gap-md {
+    gap: 1.25rem;
+  }
+  .section-title-gap-sm {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 64rem) {
+  .heading-xl {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .heading-lg {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .heading-md {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .heading-sm {
+    font-size: 1.5rem;
+    line-height: 1.333;
+    font-weight: 700;
+  }
+  .container-padding-x {
+    padding-inline: 1.5rem;
+  }
+  .section-padding-y {
+    padding-block: 4rem;
+  }
+  .section-title-gap-xl {
+    gap: 1rem;
+  }
+  .section-title-gap-lg {
+    gap: 1rem;
+  }
+  .section-title-gap-md {
+    gap: 1rem;
+  }
+  .section-title-gap-sm {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 80rem) {
+  .heading-xl {
+    font-family: Onest;
+    font-weight: 600;
+  }
+  .heading-lg {
+    font-family: Onest;
+    font-weight: 600;
+  }
+  .heading-md {
+    font-family: Onest;
+    font-weight: 600;
+  }
+  .heading-sm {
+    font-family: Onest;
+    font-weight: 600;
+  }
+}
