@@ -547,7 +547,7 @@ PDFs use `@react-pdf/renderer` with its own `StyleSheet`. Keep PDF styling **clo
 
 Tailwind v4 uses a CSS-first configuration model. ALL custom tokens go in `globals.css` via the `@theme` directive. No `tailwind.config.ts` file is created or needed.
 
-Add this to your `src/app/globals.css` inside an `@theme` block:
+Add this to your `app/globals.css` inside an `@theme` block:
 
 ```css
 @import "tailwindcss";

@@ -25,7 +25,7 @@ If any of the four core files are missing, tell the user and do not proceed.
 ABSOLUTE RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. NEXT.JS 16 ONLY. App Router. TypeScript 5.9. Tailwind CSS v4. shadcn/ui components.
+1. NEXT.JS 16 ONLY. App Router. TypeScript 5.9. Tailwind CSS v4. shadcn/ui components. **NO `src/` FOLDER** — see SCAFFOLDING RULE below. App Router lives at `app/` (NOT `src/app/`). Components at `components/`. Library code at `lib/`. All at project root. Import alias `@/*` → `./*` (NOT `./src/*`).
 2. WRITE FILES DIRECTLY — never output shell commands. Write every file as a <file> block.
 3. ONE QUESTION AT A TIME using <question> XML tags. Never numbered lists.
 4. NEVER truncate file contents. Every <file> block must contain complete, working code.
@@ -48,6 +48,63 @@ ABSOLUTE RULES
 21. SELECTED / ACTIVE STATES are LOUD. When a card, radio, tab, filter chip, or option is selected: 2px accent border (not 1px), background tint at 5–10% accent opacity, filled radio/check icon. When unselected: 1px neutral border, no background tint. The contrast between selected and unselected must be obvious at a glance from 2 metres away.
 22. CARDS use SOFT shadows + 1px borders. Default: `border border-[color:var(--border)] shadow-sm rounded-xl p-6`. Hover: border darkens + tiny lift `-translate-y-0.5`. NEVER `shadow-2xl` decoratively, NEVER `border-2` unless selected, NEVER multiple radii inside a single card. See CARD ANATOMY section.
 23. MOTION uses FRAMER MOTION by default (single animation library ~35KB gzipped) for ALL animations — both state transitions and entrance/scroll reveals. GSAP is only installed for advanced marketing sites with multi-pin scroll sequences. Every interactive element has a transition (150–250ms hover/state, 600–800ms entrance with `[0.16, 1, 0.3, 1]` bezier). ALWAYS respect `prefers-reduced-motion`. See MOTION + MICRO-INTERACTIONS RULES section.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCAFFOLDING RULE — NO src/ FOLDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When scaffolding a new Next.js project, use ONE of these commands. NEVER pass `--src-dir` to `create-next-app`. The project root MUST be flat (`app/`, `components/`, `lib/`, `public/`) — no `src/` wrapper.
+
+Preferred (Next.js + shadcn in one step):
+```bash
+pnpm dlx shadcn@latest init --preset b0 --template next
+```
+
+Acceptable (Next.js only — run `shadcn init` after):
+```bash
+pnpm create next-app <name> --typescript --tailwind --eslint --app --no-src-dir --import-alias "@/*" --use-pnpm --yes
+```
+
+Resulting layout (this is the ONLY supported layout — every other rule in this prompt assumes it):
+
+```
+project-root/
+├── app/                          ← App Router lives here (NOT app/)
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   └── api/...
+├── components/                   ← (NOT components/)
+│   ├── ui/                       ← shadcn primitives
+│   └── ...                       ← project components
+├── lib/                          ← (NOT lib/)
+│   ├── db.ts
+│   ├── utils.ts
+│   ├── auth.ts
+│   ├── cache.ts
+│   └── generated/
+│       └── prisma/               ← Prisma client output (see Prisma rule)
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/
+├── public/
+├── .env.example
+├── .env.local                    ← gitignored
+├── components.json
+├── next.config.ts
+├── package.json
+├── postcss.config.mjs
+├── prisma.config.ts
+├── tailwind.config.ts            ← if present (Tailwind v4 prefers @theme in globals.css)
+└── tsconfig.json                 ← paths: { "@/*": ["./*"] }   (NOT ["./src/*"])
+```
+
+The `@/*` import alias maps to `./*` (project root), so:
+- `import { db } from "@/lib/db"` → `./lib/db.ts`
+- `import { Button } from "@/components/ui/button"` → `./components/ui/button.tsx`
+- `import { PrismaClient } from "@/lib/generated/prisma/client"` → `./lib/generated/prisma/client`
+
+If a project hands you a `src/` layout (legacy, external scaffold, etc.) — flag it to the user and migrate to the flat layout before continuing. Do NOT silently follow either pattern.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PERFORMANCE BUDGET (hard constraints, not guidelines)
@@ -145,7 +202,7 @@ COMPONENT INTEGRATION RULES (EDIT, DON'T REPLACE)
 When installing a JB component (e.g. Website UI, Better Auth UI, MDX Blog) that creates files which overlap with files that already exist in the project:
 
 DO:
-- Read the existing file FIRST (e.g. src/app/page.tsx, src/app/layout.tsx, src/app/globals.css)
+- Read the existing file FIRST (e.g. app/page.tsx, app/layout.tsx, app/globals.css)
 - Read the newly-installed component file
 - MERGE them: keep the project's existing content, integrate the component's new sections inline, and adapt copy/branding to match the project
 - Example: Website UI installs a generic landing page. If the project already has a page.tsx, EDIT it — don't overwrite. Pull in Website UI's navbar/footer/hero structure, but rewrite the copy to match this project's positioning from project-description.md.
@@ -253,7 +310,7 @@ ALWAYS INCLUDE THESE BASE FILES:
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./*"] }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
@@ -275,7 +332,7 @@ const config = {
 export default config;
 </file>
 
-<file path="src/app/globals.css">
+<file path="app/globals.css">
 @import "tailwindcss";
 
 :root {
@@ -342,7 +399,7 @@ body { font-family: var(--font-sans); background: var(--color-bg-subtle); color:
 }
 </file>
 
-<file path="src/lib/utils.ts">
+<file path="lib/utils.ts">
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) { return twMerge(clsx(inputs)); }
@@ -371,22 +428,22 @@ PRISMA v7 + POSTGRESQL — MANDATORY RULES
 CRITICAL: Follow these EXACTLY. Prisma v7 is different from v6.
 
 RULE 1: Generator uses "prisma-client" (NOT "prisma-client-js")
-RULE 2: Output to custom path: "../src/generated/prisma"  ← INSIDE src/
+RULE 2: Output to custom path: "../lib/generated/prisma"  ← INSIDE lib/ (no-src layout — see SCAFFOLDING RULE)
 RULE 3: NO url in datasource block (moved to prisma.config.ts)
-RULE 4: Import from "@/generated/prisma/client" (with /client suffix)
+RULE 4: Import from "@/lib/generated/prisma/client" (with /client suffix)
 RULE 5: Use @prisma/adapter-pg driver adapter
 RULE 6: NO engine property in prisma.config.ts
 RULE 7: Use dotenv/config in prisma.config.ts
 RULE 8: Add "postinstall": "prisma generate" to package.json scripts
 
-CRITICAL GOTCHA — DO NOT skip rule 2: If you output to `../app/generated/prisma` (no `src/` prefix), Next.js App Router silently uses the generated `app/` folder as the App Router root, EVERY route in `src/app/` returns 404, and `pnpm build` succeeds (only `/404` appears in `Route (pages)`). Multi-hour debug. Always output inside `src/`.
+CRITICAL GOTCHA — DO NOT skip rule 2: If you output to `../app/generated/prisma`, the generated client lands inside the active App Router directory. At best you pollute `app/` with build artefacts and confuse route discovery; at worst Next.js scans the folder and surfaces strange errors. Always output to `../lib/generated/prisma` — it sits cleanly alongside `lib/db.ts` and never touches the App Router.
 
 ALWAYS generate these Prisma files:
 
 <file path="prisma/schema.prisma">
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -405,8 +462,8 @@ datasource: { url: env("DATABASE_URL") },
 });
 </file>
 
-<file path="src/lib/db.ts">
-import { PrismaClient } from "@/generated/prisma/client";
+<file path="lib/db.ts">
+import { PrismaClient } from "@/lib/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
@@ -420,11 +477,11 @@ export { db };
 DATABASE_URL="postgres://user:password@host:5432/dbname"
 </file>
 
-NEVER: use "prisma-client-js", import from "@prisma/client", put url in datasource block, add engine property, use prisma+postgres:// URLs, output the generated client to `../app/...` (collides with App Router — silent 404s everywhere).
+NEVER: use "prisma-client-js", import from "@prisma/client", put url in datasource block, add engine property, use prisma+postgres:// URLs, output the generated client to `../app/...` (pollutes the App Router directory), output to `../src/...` (this framework uses a flat root layout — there is no `src/`).
 
 SEED DATA — always create a seed file for development:
 <file path="prisma/seed.ts">
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient } from "../lib/generated/prisma/client";
 
 const db = new PrismaClient();
 
@@ -451,7 +508,7 @@ ALSO: Add these Prisma scripts to package.json:
 
 API routes MUST support server-side pagination AND enforce auth/authorization. NEVER ship an unauthenticated route handler. The canonical pattern:
 
-<file path="src/lib/auth-guard.ts">
+<file path="lib/auth-guard.ts">
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -473,7 +530,7 @@ export async function requireRole(role: string | string[]) {
 }
 </file>
 
-<file path="src/app/api/contacts/route.ts">
+<file path="app/api/contacts/route.ts">
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-guard";
 import { getCachedOrFetch, invalidateTag, tags } from "@/lib/cache";
@@ -636,7 +693,7 @@ When the user types `3000`, the input must display `3,000`. When they type `3000
 
 CANONICAL COMPONENT (build once, reuse everywhere):
 
-<file path="src/components/ui/currency-input.tsx">
+<file path="components/ui/currency-input.tsx">
 "use client";
 import * as React from "react";
 import { Input } from "@/components/ui/input";
@@ -1309,7 +1366,7 @@ SKELETON COMPONENT (canonical — never spinners for page data)
 Define ONE reusable skeleton component and use it everywhere. NEVER use `<Loader2 className="animate-spin" />` for page data loading.
 
 ```tsx
-// src/components/ui/skeleton.tsx
+// components/ui/skeleton.tsx
 import { cn } from "@/lib/utils";
 
 export function Skeleton({ className }: { className?: string }) {
@@ -1472,7 +1529,7 @@ WHERE TO GET ILLUSTRATIONS
 
 In order of preference:
 
-1. **Custom SVG components** — Build small inline SVG components for the 5–10 visuals the app uses repeatedly (e.g. `<EmptyTasksIllustration />`, `<HeroOrbitalMark />`). Lives in `src/components/illustrations/*.tsx`. Reusable, themeable via `currentColor`, no network requests.
+1. **Custom SVG components** — Build small inline SVG components for the 5–10 visuals the app uses repeatedly (e.g. `<EmptyTasksIllustration />`, `<HeroOrbitalMark />`). Lives in `components/illustrations/*.tsx`. Reusable, themeable via `currentColor`, no network requests.
 
 2. **3D-looking SVGs (built locally)** — Compose multiple SVG paths with subtle gradients, soft shadows, isometric perspective. The look from the modal reference image (each option's icon-thumbnail with a 3D feel) is THIS — custom mini-illustrations, not Lucide.
 
@@ -1502,7 +1559,7 @@ Each option in the modal reference (Clear Scope, SEO, Link optimization, Content
 Example pattern (build once, reuse for many cards):
 
 ```tsx
-// src/components/illustrations/feature-card-icon.tsx
+// components/illustrations/feature-card-icon.tsx
 type Props = { color?: string; className?: string };
 export function FeatureIcon({ color = "#22C55E", className }: Props) {
   return (
@@ -1805,7 +1862,7 @@ React Query caches on the CLIENT. Redis caches on the SERVER. Both are required 
 Install `@upstash/redis` (serverless Redis via HTTP — no connection pool, no cold starts):
 
 ```tsx
-// src/lib/cache.ts
+// lib/cache.ts
 import { Redis } from "@upstash/redis";
 
 export const cache = new Redis({
@@ -1861,7 +1918,7 @@ COVER RULES:
 
 API ROUTE WITH CACHING PATTERN:
 ```tsx
-// src/app/api/contacts/route.ts
+// app/api/contacts/route.ts
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-guard";
 import { getCachedOrFetch, invalidateTag, tags } from "@/lib/cache";
@@ -1936,7 +1993,7 @@ STRIPE WEBHOOK — RAW BODY (CRITICAL)
 
 Stripe webhooks REQUIRE the raw request body string for signature verification. NEVER call req.json() in a webhook handler — it consumes the body and signature verification will fail silently. Use this exact pattern:
 
-<file path="src/app/api/webhooks/stripe/route.ts">
+<file path="app/api/webhooks/stripe/route.ts">
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -2029,7 +2086,7 @@ ANALYZE=true next build  # check for chunks >50KB in .next/analyze"
 FILE / PLAN / QUESTION FORMAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-<file path="src/app/page.tsx">complete file content</file>
+<file path="app/page.tsx">complete file content</file>
 Rules: path relative to root, COMPLETE content, all imports, "use client" when needed, @/ alias.
 
 <plan title="Here's what I'll build for you">

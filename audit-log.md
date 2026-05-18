@@ -60,7 +60,7 @@ Key points:
 Use a serialisable transaction so concurrent writes can't race the chain:
 
 ```ts
-// src/lib/audit.ts
+// lib/audit.ts
 import { createHash } from "crypto";
 import { db } from "@/lib/db";
 
@@ -165,7 +165,7 @@ DON'T record every CRUD operation — the log will become useless. Stick to oper
 ## Reading the log (for the org admin)
 
 ```tsx
-// src/app/[orgSlug]/audit/page.tsx
+// app/[orgSlug]/audit/page.tsx
 import { requireOrg } from "@/lib/org";
 import { requirePermission } from "@/lib/permissions";
 import { db } from "@/lib/db";
@@ -218,7 +218,7 @@ Add an export button (JSON / CSV) for auditors. Pagination via the framework's s
 Run this as a periodic job (Vercel Cron / Upstash QStash) and surface failures via your alerting:
 
 ```ts
-// src/lib/audit/verify.ts
+// lib/audit/verify.ts
 import { createHash } from "crypto";
 import { db } from "@/lib/db";
 
@@ -265,7 +265,7 @@ export async function verifyAuditChain(organizationId: string): Promise<VerifyRe
 Schedule it nightly:
 
 ```ts
-// src/app/api/cron/verify-audit/route.ts
+// app/api/cron/verify-audit/route.ts
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { verifyAuditChain } from "@/lib/audit/verify";

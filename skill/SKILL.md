@@ -74,7 +74,7 @@ USE IMAGES (illustrations, custom SVG art, photos, product screenshots) for:
 LUCIDE ICONS are only for inline UI affordances (close X, chevrons, search prefix, sort indicator, sidebar nav items, status pip, password-toggle Eye, in-button icon).
 
 WHERE TO GET illustrations:
-1. Custom inline SVG components in `src/components/illustrations/*.tsx` (preferred — themeable via currentColor, no network requests)
+1. Custom inline SVG components in `components/illustrations/*.tsx` (preferred — themeable via currentColor, no network requests)
 2. Free libraries: undraw.co, manypixels.co, blush.design, Storyset, lottiefiles.com (Lottie animations)
 3. Real Unsplash photos for testimonial avatars / hero backgrounds (always use `next/image` + alt text)
 4. Product screenshots from the actual app (best social proof)
@@ -118,7 +118,7 @@ Install with the exact `pnpm dlx shadcn@latest add ...` command from `jb-compone
 
 ### API Routes — Auth/Authorization Are Mandatory
 Every route handler must:
-- Start with `requireSession()` (or `requireRole()` for admin-only routes) from `src/lib/auth-guard.ts`
+- Start with `requireSession()` (or `requireRole()` for admin-only routes) from `lib/auth-guard.ts`
 - Validate POST/PATCH/PUT bodies with Zod before touching the database
 - Scope queries to `session.user.id` unless the route is admin-only
 - Never log session tokens, full request bodies with secrets, or stack traces in production responses
@@ -164,7 +164,7 @@ Check `project-description.md` → **Integrations** → **Dark mode**.
 - **If "No":** SKIP `next-themes` entirely. Do not install it. Do not create a ThemeProvider. Do not generate a toggle. Hardcode the light palette only. Do not use `.dark` classes anywhere.
 
 ### Editing vs Replacing Files (JB component integration)
-When a JB component install creates files that overlap with files already in the project (e.g. `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`):
+When a JB component install creates files that overlap with files already in the project (e.g. `app/page.tsx`, `app/layout.tsx`, `app/globals.css`):
 
 **DO:**
 - Read the existing file FIRST
@@ -185,14 +185,14 @@ If a merge is ambiguous, ask the user before proceeding.
 - Every import over 15KB gzipped MUST use `next/dynamic` (`@react-pdf/renderer`, `xlsx`, chart libs, editors, `@stripe/react-stripe-js`). See master_prompt.md → LAZY LOADING for the full list.
 - Every data-fetching page section MUST be wrapped in a `<Suspense>` boundary with a skeleton fallback. Never block the whole page on one slow query.
 - Every major page block MUST have an `<ErrorBoundary>` to prevent one crash from killing the whole page. See master_prompt.md → ERROR BOUNDARIES for the canonical component.
-- All API route GET handlers MUST use Redis caching (`getCachedOrFetch` from `src/lib/cache.ts`) for hot paths. POST/PATCH/DELETE MUST call `invalidateTag()`.
+- All API route GET handlers MUST use Redis caching (`getCachedOrFetch` from `lib/cache.ts`) for hot paths. POST/PATCH/DELETE MUST call `invalidateTag()`.
 - Never animate `top`/`left`/`width`/`height` — use `transform` and `opacity` only. Add `will-change: transform, opacity` on heavy animated elements.
 - Every `<img>` and `next/image` MUST have `aspect-ratio` and explicit `width`/`height` to prevent CLS.
 - Fonts must use `next/font/google` with `display: swap` and hero fonts with `preload: true`.
 - Bundle analysis: before deploying, run `ANALYZE=true next build` and check for chunks >50KB.
 
 ### Redis Caching
-- Add `@upstash/redis` to dependencies. Create `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING for the exact pattern).
+- Add `@upstash/redis` to dependencies. Create `lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING for the exact pattern).
 - Cache TTL: 30-60s for dashboard/list data, 300s for reference data. Never cache sessions or raw files.
 - Invalidate cache tag on every POST/PATCH/DELETE for the affected entity.
 

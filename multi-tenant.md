@@ -147,7 +147,7 @@ The framework supports two patterns:
 URL: `yourapp.com/[orgSlug]/dashboard`
 
 ```
-src/app/
+app/
 ├─ (marketing)/page.tsx          ← public home
 ├─ auth/...                       ← sign-in / sign-up
 └─ [orgSlug]/
@@ -166,7 +166,7 @@ URL: `acme.yourapp.com/dashboard`
 Use `middleware.ts` (Next 16 — keep `middleware.ts`, NOT `proxy.ts` — see troubleshooting.md) to rewrite:
 
 ```ts
-// src/middleware.ts
+// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
@@ -189,20 +189,20 @@ export const config = {
 };
 ```
 
-Then routes live at `src/app/_subdomain/[subdomain]/...`. More complex DNS setup (wildcard cert, Cloudflare). Use when customers expect their own URL.
+Then routes live at `app/_subdomain/[subdomain]/...`. More complex DNS setup (wildcard cert, Cloudflare). Use when customers expect their own URL.
 
 ---
 
 ## The organization resolver (server component)
 
-Drop this in `src/lib/org.ts`. Every server component / route uses it.
+Drop this in `lib/org.ts`. Every server component / route uses it.
 
 ```ts
 import { headers } from "next/headers";
 import { redirect, notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
-import type { Role } from "@/generated/prisma/client";
+import type { Role } from "@/lib/generated/prisma/client";
 
 export type OrgContext = {
   org: { id: string; slug: string; name: string };
@@ -240,7 +240,7 @@ export async function requireOrg(slug: string): Promise<OrgContext> {
 Use in layouts:
 
 ```tsx
-// src/app/[orgSlug]/layout.tsx
+// app/[orgSlug]/layout.tsx
 import { requireOrg } from "@/lib/org";
 
 export default async function OrgLayout({
@@ -262,8 +262,8 @@ export default async function OrgLayout({
 ## Permission helpers
 
 ```ts
-// src/lib/permissions.ts
-import type { Role } from "@/generated/prisma/client";
+// lib/permissions.ts
+import type { Role } from "@/lib/generated/prisma/client";
 
 type Permission =
   | "org.delete"
@@ -326,7 +326,7 @@ requirePermission(ctx.membership.role, "member.invite");
 Wrap every Prisma query that touches tenant data so you can't forget `where: { organizationId }`:
 
 ```ts
-// src/lib/scoped-db.ts
+// lib/scoped-db.ts
 import { db } from "@/lib/db";
 
 export function scopedDb(organizationId: string) {
@@ -363,7 +363,7 @@ const invoices = await scoped.invoice.findMany({ orderBy: { createdAt: "desc" } 
 ### API route: POST /api/[orgSlug]/invites
 
 ```ts
-// src/app/api/[orgSlug]/invites/route.ts
+// app/api/[orgSlug]/invites/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 import { z } from "zod";
@@ -422,7 +422,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ org
 ### Accept route: /invite/[token]
 
 ```tsx
-// src/app/invite/[token]/page.tsx
+// app/invite/[token]/page.tsx
 import { redirect, notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";

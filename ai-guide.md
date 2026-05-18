@@ -56,7 +56,7 @@ Already in the framework: `@upstash/redis`, `zod`, `react-hook-form`.
 
 ## Streaming chat — the canonical pattern
 
-### Server route: `src/app/api/chat/route.ts`
+### Server route: `app/api/chat/route.ts`
 
 ```ts
 import { streamText, convertToCoreMessages } from "ai";
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
 }
 ```
 
-### Client component: `src/components/chat.tsx`
+### Client component: `components/chat.tsx`
 
 ```tsx
 "use client";
@@ -218,7 +218,7 @@ CREATE INDEX ON "Document" USING hnsw (embedding vector_cosine_ops);
 ### 3. Indexing pipeline
 
 ```ts
-// src/lib/rag.ts
+// lib/rag.ts
 import { embed } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { db } from "@/lib/db";
@@ -272,7 +272,7 @@ function cuid(): string {
 ### 4. Retrieval
 
 ```ts
-// src/lib/rag.ts (continued)
+// lib/rag.ts (continued)
 export async function searchDocuments(opts: {
   organizationId: string;
   query: string;
@@ -375,7 +375,7 @@ model CreditTransaction {
 ### Spend helper
 
 ```ts
-// src/lib/credits.ts
+// lib/credits.ts
 import { db } from "@/lib/db";
 
 export async function spendCredits(userId: string, amount: number): Promise<boolean> {
@@ -396,7 +396,7 @@ export async function spendCredits(userId: string, amount: number): Promise<bool
 ### Purchase flow (Stripe one-time)
 
 ```ts
-// src/app/api/credits/purchase/route.ts
+// app/api/credits/purchase/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { auth } from "@/lib/auth";
@@ -445,7 +445,7 @@ export async function POST(req: NextRequest) {
 ### Webhook fulfillment
 
 ```ts
-// src/app/api/webhooks/stripe/route.ts
+// app/api/webhooks/stripe/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";

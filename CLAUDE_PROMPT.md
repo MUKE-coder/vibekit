@@ -96,11 +96,12 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 **Goal:** Project scaffolded, design system applied, env files created, database connected, Redis cache configured, auth working.
 
 ### Tasks
-- [ ] Initialize Next.js 16 project with TypeScript, Tailwind v4, shadcn/ui
+- [ ] Initialize Next.js 16 + shadcn/ui in ONE step: `pnpm dlx shadcn@latest init --preset b0 --template next`. **Do NOT use `--src-dir`** — the framework requires a flat root layout (`app/`, `components/`, `lib/` at the project root, no `src/` wrapper). If you fall back to `pnpm create next-app`, pass `--no-src-dir`.
+- [ ] Confirm the resulting tsconfig has `"paths": { "@/*": ["./*"] }` (NOT `["./src/*"]`).
 - [ ] Create `.env.example` (committed) and `.env.local` (gitignored) with EVERY env var this project needs (Database, Redis, Better Auth, OAuth, Resend, Stripe, file storage — whichever apply). Each var commented with what it is and where to get it.
 - [ ] Add `.env.local` to `.gitignore`
 - [ ] Set up Prisma v7 with Neon PostgreSQL (schema, config, db client)
-- [ ] Set up Upstash Redis cache client in `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` wrappers. Add `@upstash/redis` to dependencies.
+- [ ] Set up Upstash Redis cache client in `lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` wrappers. Add `@upstash/redis` to dependencies.
 - [ ] Apply design-style-guide.md tokens to globals.css (Tailwind v4 CSS-first config — @theme directive, no tailwind.config.ts)
 - [ ] Create root layout with correct font, QueryClientProvider, [if dark mode = Yes: ThemeProvider + next-themes; if No: skip]
 - [ ] Build sidebar layout (collapsible, nav items, user section[, dark mode toggle if enabled])
@@ -260,7 +261,7 @@ Read the following files in order before doing anything:
 - After completing each phase, stop and confirm with me before proceeding.
 - Follow design-style-guide.md tokens exactly (colors, typography, spacing, radius).
 - Use Prisma v7 patterns (NOT v6). See master_prompt.md for the exact setup.
-- **Use React Query for all client data fetching + Redis for API-layer caching** (getCachedOrFetch + invalidateTag from src/lib/cache.ts). Never useEffect for data.
+- **Use React Query for all client data fetching + Redis for API-layer caching** (getCachedOrFetch + invalidateTag from lib/cache.ts). Never useEffect for data.
 - Use React Hook Form + Zod for all forms.
 - Use API Routes (Route Handlers) for all server-side logic.
 - Use Framer Motion for animation (default). GSAP only if explicitly requested for complex marketing scroll.

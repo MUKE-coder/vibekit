@@ -84,7 +84,7 @@ Install with the exact `pnpm dlx shadcn@latest add ...` command from `jb-compone
 
 ### API Routes — Auth/Authorization Are Mandatory
 Every route handler must:
-- Start with `requireSession()` (or `requireRole()` for admin-only routes) from `src/lib/auth-guard.ts`
+- Start with `requireSession()` (or `requireRole()` for admin-only routes) from `lib/auth-guard.ts`
 - Validate POST/PATCH/PUT bodies with Zod before touching the database
 - Scope queries to `session.user.id` unless the route is admin-only
 - Never log session tokens, full request bodies with secrets, or stack traces in production responses
@@ -130,7 +130,7 @@ Check `project-description.md` → **Integrations** → **Dark mode**.
 - **If "No":** SKIP `next-themes` entirely. Do not install it. Do not create a ThemeProvider. Do not generate a toggle. Hardcode the light palette only. Do not use `.dark` classes anywhere.
 
 ### Editing vs Replacing Files (JB component integration)
-When a JB component install creates files that overlap with files already in the project (e.g. `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`):
+When a JB component install creates files that overlap with files already in the project (e.g. `app/page.tsx`, `app/layout.tsx`, `app/globals.css`):
 
 **DO:**
 - Read the existing file FIRST
@@ -180,7 +180,7 @@ USE IMAGES (illustrations, custom SVG art, photos, product screenshots) for:
 LUCIDE ICONS are only for inline UI affordances (close X, chevrons, search prefix, sort indicator, sidebar nav items, status pip, password-toggle Eye, in-button icon).
 
 WHERE TO GET illustrations:
-1. Custom inline SVG components in `src/components/illustrations/*.tsx` (preferred — themeable via currentColor, no network requests)
+1. Custom inline SVG components in `components/illustrations/*.tsx` (preferred — themeable via currentColor, no network requests)
 2. Free libraries: undraw.co, manypixels.co, blush.design, Storyset, lottiefiles.com (Lottie animations)
 3. Real Unsplash photos for testimonial avatars / hero backgrounds (always use `next/image` + alt text)
 4. Product screenshots from the actual app (best social proof)
@@ -207,7 +207,7 @@ The canonical 3D-looking SVG pattern (gradient + soft highlight + drop shadow) i
 - Pre-deploy: run `ANALYZE=true next build`, flag chunks >50KB.
 
 ### Redis Caching
-- Add `@upstash/redis`. Create `src/lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING).
+- Add `@upstash/redis`. Create `lib/cache.ts` with `getCachedOrFetch()` and `invalidateTag()` (see master_prompt.md → REDIS CACHING).
 - Cache TTL: 30-60s dashboard data, 300s reference data. Never cache sessions or raw files.
 - Invalidate cache tag on every POST/PATCH/DELETE.
 

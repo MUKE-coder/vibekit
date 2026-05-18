@@ -21,12 +21,15 @@
 
 ---
 
-## Prisma output collides with App Router → silent 404s everywhere {#prisma-app-collision}
+## Prisma output collides with the App Router {#prisma-app-collision}
+
+> The framework uses a flat root layout — App Router at `app/` (no `src/`). Prisma's output path must NEVER point into `app/`. See the [`SCAFFOLDING RULE`](./master_prompt.md) in master_prompt.md for the full layout.
 
 ### Symptom
 
-- Every route in `src/app/` returns 404 in `next dev`
-- `pnpm build` succeeds but the build output only shows `/404` under `Route (pages)` — none of your `src/app/` routes appear under `Route (app)`
+- Routes in `app/` behave oddly — 404s, stale builds, weird discovery failures
+- Sometimes `pnpm build` succeeds but the build output only shows `/404` under `Route (pages)`
+- Generated Prisma files appear under `app/generated/...` instead of somewhere sensible
 - No error message, no warning. The build looks fine.
 
 ### Cause
@@ -40,39 +43,41 @@ generator client {
 }
 ```
 
-When Prisma generates the client, it creates an `app/` folder at the project root. Next.js App Router then treats that **root-level `app/`** as the App Router root (not your `src/app/`), and since the generated folder has no route files, every request 404s.
+This dumps generated code INTO the live App Router directory. At best it pollutes routes with build artefacts; at worst Next.js scans the folder and the routing state goes haywire.
 
 ### Fix
 
-Change the output path to live inside `src/`:
+Move the output into `lib/` where it sits cleanly beside `lib/db.ts`:
 
 ```prisma
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"   // ← inside src/
+  output   = "../lib/generated/prisma"   // ← inside lib/ (no-src layout)
 }
 ```
 
-Then update every import:
+Then update every import to use the `@/lib/` alias path:
 
 ```ts
 // OLD (wrong)
 import { PrismaClient } from "../../app/generated/prisma/client";
 
 // NEW (correct)
-import { PrismaClient } from "@/generated/prisma/client";
+import { PrismaClient } from "@/lib/generated/prisma/client";
 ```
 
 Regenerate:
 
 ```bash
-rm -rf app/generated src/generated
+rm -rf app/generated lib/generated
 pnpm prisma generate
 ```
 
-Restart `pnpm dev`. Routes should appear immediately.
+Restart `pnpm dev`. Routes should behave normally.
 
-This is the canonical Prisma v7 setup in `master_prompt.md` — projects scaffolded before this rule was added need a one-time migration.
+This is the canonical Prisma v7 setup in `master_prompt.md`. Projects scaffolded with the older `../src/generated/prisma` or `../app/generated/prisma` paths need a one-time migration.
+
+> **Legacy `src/` projects:** if your project still uses `src/app/` (an older layout — the framework no longer scaffolds this way), move to the flat root layout before continuing. The framework assumes no `src/` everywhere.
 
 ---
 
@@ -94,8 +99,8 @@ Next 16.2.x has a known bug where `proxy.ts` is recognised at build time but nev
 **Stay on `middleware.ts` until Next patches dev-mode `proxy.ts` loading.** Ignore the deprecation warning for now.
 
 ```bash
-# Rename back
-mv src/proxy.ts src/middleware.ts
+# Rename back (flat layout — files live at the project root)
+mv proxy.ts middleware.ts
 ```
 
 The framework's default templates intentionally keep `middleware.ts` for this reason. Re-evaluate when Next 16 ships a patch (track [vercel/next.js](https://github.com/vercel/next.js/issues)).

@@ -93,9 +93,9 @@ DGateway stores UGX amounts as integer shillings (3000 → 3000), but USD as cen
 
 ---
 
-## The DGateway client (`src/lib/dgateway.ts`)
+## The DGateway client (`lib/dgateway.ts`)
 
-This is the canonical client. Drop it in `src/lib/dgateway.ts` and import everywhere.
+This is the canonical client. Drop it in `lib/dgateway.ts` and import everywhere.
 
 ```ts
 const API_URL = process.env.DGATEWAY_API_URL!;
@@ -174,7 +174,7 @@ export async function verifyTransaction(transactionId: string): Promise<CollectP
 
 The framework pattern: client posts to `/api/checkout/start`, gets a `transaction_id`, then polls `/api/checkout/status?id=...` until success/fail.
 
-### `src/app/api/checkout/start/route.ts`
+### `app/api/checkout/start/route.ts`
 
 ```ts
 import { NextRequest, NextResponse } from "next/server";
@@ -240,7 +240,7 @@ export async function POST(req: NextRequest) {
 }
 ```
 
-### `src/app/api/checkout/status/route.ts`
+### `app/api/checkout/status/route.ts`
 
 ```ts
 import { NextRequest, NextResponse } from "next/server";
