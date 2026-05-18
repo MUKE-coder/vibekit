@@ -50,6 +50,7 @@
 | Scroll-driven text reveal (manifesto hero) | Text Gradient Scroll (in-house) | — |
 | Blurred gradient backdrop orb | Blurred Orb (in-house) | — |
 | Designer-portfolio custom cursor | Custom Cursor (in-house) | — |
+| **Form primitives** (FormField, FormControl, FormMessage etc.) — `shadcn add form` is gone | **Form (shadcn fallback)** (in-house) — install in Phase 1 | — |
 
 ---
 
@@ -897,6 +898,210 @@ These are **in-house VibeKit components** — built when no JB or community comp
 **Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/custom-cursor.json`
 
 **Prerequisites:** Framer Motion (auto-installed).
+
+---
+
+## shadcn Fallback Primitives
+
+> Components the framework depends on that are no longer in the upstream shadcn registry. Install these whenever `pnpm dlx shadcn@latest add <name>` returns "not found" or installs nothing.
+
+### 32. Form (shadcn fallback)
+
+**What it is:** The canonical shadcn Form primitives for React Hook Form. Provides `Form`, `FormField`, `FormItem`, `FormLabel`, `FormControl`, `FormDescription`, `FormMessage`, and the `useFormField()` hook — everything the FORM RULES in `master_prompt.md` reference.
+
+**Why this exists separately:** Upstream shadcn removed `form` from the default registry. Every form pattern in the framework assumes these primitives at `components/ui/form.tsx`. Install this BEFORE writing any form.
+
+**What it does:**
+- `Form` = `FormProvider` from react-hook-form
+- `FormField` wraps `Controller` with a context for ARIA wiring
+- `FormItem` provides a unique id via `useId()` so labels / descriptions / messages can link
+- `FormLabel` adds `data-error` styling and links `htmlFor` to the control
+- `FormControl` is a `Slot` that gets `id`, `aria-describedby`, `aria-invalid`
+- `FormDescription` and `FormMessage` are paragraphs with ids the control references
+
+**Environment variables:** None.
+
+**When to use:** Every project that needs forms. Install in Phase 1 alongside Better Auth UI so all subsequent forms work out of the box.
+
+**When NOT to use:** Never skip — there's no upstream fallback. If you don't install this, every `<FormField>` / `<FormControl>` import will fail.
+
+**Install:** `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/form.json`
+
+**Prerequisites:** shadcn `label` component. Auto-installs `react-hook-form`, `@radix-ui/react-label`, `@radix-ui/react-slot`.
+
+**Files added:** `components/ui/form.tsx`
+
+**Manual fallback (if the VibeKit registry is unreachable):** create `components/ui/form.tsx` with this exact source — it's the same canonical shadcn implementation, just hosted by VibeKit:
+
+```tsx
+"use client"
+
+import * as React from "react"
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { Slot } from "@radix-ui/react-slot"
+import {
+  Controller,
+  FormProvider,
+  useFormContext,
+  useFormState,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
+} from "react-hook-form"
+
+import { cn } from "@/lib/utils"
+import { Label } from "@/components/ui/label"
+
+const Form = FormProvider
+
+type FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = {
+  name: TName
+}
+
+const FormFieldContext = React.createContext<FormFieldContextValue>(
+  {} as FormFieldContextValue,
+)
+
+const FormField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
+  ...props
+}: ControllerProps<TFieldValues, TName>) => {
+  return (
+    <FormFieldContext.Provider value={{ name: props.name }}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  )
+}
+
+const useFormField = () => {
+  const fieldContext = React.useContext(FormFieldContext)
+  const itemContext = React.useContext(FormItemContext)
+  const { getFieldState } = useFormContext()
+  const formState = useFormState({ name: fieldContext.name })
+  const fieldState = getFieldState(fieldContext.name, formState)
+
+  if (!fieldContext) {
+    throw new Error("useFormField should be used within <FormField>")
+  }
+
+  const { id } = itemContext
+
+  return {
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    ...fieldState,
+  }
+}
+
+type FormItemContextValue = {
+  id: string
+}
+
+const FormItemContext = React.createContext<FormItemContextValue>(
+  {} as FormItemContextValue,
+)
+
+function FormItem({ className, ...props }: React.ComponentProps<"div">) {
+  const id = React.useId()
+
+  return (
+    <FormItemContext.Provider value={{ id }}>
+      <div
+        data-slot="form-item"
+        className={cn("grid gap-2", className)}
+        {...props}
+      />
+    </FormItemContext.Provider>
+  )
+}
+
+function FormLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+  const { error, formItemId } = useFormField()
+
+  return (
+    <Label
+      data-slot="form-label"
+      data-error={!!error}
+      className={cn("data-[error=true]:text-destructive", className)}
+      htmlFor={formItemId}
+      {...props}
+    />
+  )
+}
+
+function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+
+  return (
+    <Slot
+      data-slot="form-control"
+      id={formItemId}
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
+      aria-invalid={!!error}
+      {...props}
+    />
+  )
+}
+
+function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
+  const { formDescriptionId } = useFormField()
+
+  return (
+    <p
+      data-slot="form-description"
+      id={formDescriptionId}
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  )
+}
+
+function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+  const { error, formMessageId } = useFormField()
+  const body = error ? String(error?.message ?? "") : props.children
+
+  if (!body) {
+    return null
+  }
+
+  return (
+    <p
+      data-slot="form-message"
+      id={formMessageId}
+      className={cn("text-destructive text-sm", className)}
+      {...props}
+    >
+      {body}
+    </p>
+  )
+}
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+}
+```
 
 ## Rules for Coding Agents (Claude Code, Cursor, Cline, Codex, etc.)
 

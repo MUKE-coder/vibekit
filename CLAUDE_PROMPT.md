@@ -98,6 +98,7 @@ A detailed build blueprint with phases, tasks, and dependencies. Claude Code wil
 ### Tasks
 - [ ] Initialize Next.js 16 + shadcn/ui in ONE step: `pnpm dlx shadcn@latest init --preset b0 --template next`. **Do NOT use `--src-dir`** — the framework requires a flat root layout (`app/`, `components/`, `lib/` at the project root, no `src/` wrapper). If you fall back to `pnpm create next-app`, pass `--no-src-dir`.
 - [ ] Confirm the resulting tsconfig has `"paths": { "@/*": ["./*"] }` (NOT `["./src/*"]`).
+- [ ] Install the Form shadcn fallback (upstream shadcn no longer ships `form`): `pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/form.json`. Every React Hook Form + Zod example in the framework imports from `@/components/ui/form` — without this, every form breaks.
 - [ ] Create `.env.example` (committed) and `.env.local` (gitignored) with EVERY env var this project needs (Database, Redis, Better Auth, OAuth, Resend, Stripe, file storage — whichever apply). Each var commented with what it is and where to get it.
 - [ ] Add `.env.local` to `.gitignore`
 - [ ] Set up Prisma v7 with Neon PostgreSQL (schema, config, db client)

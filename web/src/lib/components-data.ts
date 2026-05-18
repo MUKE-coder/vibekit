@@ -804,6 +804,31 @@ export const components: JBComponent[] = [
     whenToUse: "Designer portfolios, agency sites, brand sites where a tactile cursor reinforces the aesthetic.",
     whenNotToUse: "App-style products, mobile-first audiences, accessibility-sensitive contexts. Add as a polish, not a default.",
   },
+  /* ──────────────────────────────────────────────
+   * shadcn fallback primitives — components removed from the upstream
+   * shadcn registry that the framework still depends on.
+   * ────────────────────────────────────────────── */
+  {
+    slug: "form",
+    name: "Form (shadcn fallback)",
+    tagline: "Canonical shadcn Form primitives (FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage) — install when `shadcn add form` returns 'not found'.",
+    category: "forms",
+    categoryLabel: "Forms",
+    install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/form.json",
+    prerequisites: [
+      "shadcn/ui Label",
+      "react-hook-form (installed automatically)",
+      "@radix-ui/react-label + @radix-ui/react-slot (installed automatically)",
+    ],
+    features: [
+      "Drop-in replacement for the original shadcn Form primitives",
+      "FormField (Controller wrapper), FormItem, FormLabel, FormControl, FormDescription, FormMessage",
+      "ARIA-correct: htmlFor, aria-describedby, aria-invalid wired up via useFormField()",
+      "Works unchanged with every React Hook Form + Zod pattern in master_prompt.md → FORM RULES",
+    ],
+    whenToUse: "Every form in the project. The framework's FORM RULES assume these primitives exist; install this first when scaffolding any project that needs forms.",
+    whenNotToUse: "Never skip — the official shadcn registry stopped shipping `form` upstream. This is the supported fallback.",
+  },
 ];
 
 export const categories: { value: ComponentCategory | "all"; label: string }[] = [

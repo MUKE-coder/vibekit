@@ -645,6 +645,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
+──────────────────────────────────────────────────────
+SHADCN FALLBACK — `Form` is no longer in the upstream registry
+──────────────────────────────────────────────────────
+
+The shadcn CLI's default registry stopped shipping the `form` primitive. `pnpm dlx shadcn@latest add form` returns "not found" or installs nothing. Every form rule in this file depends on `Form / FormField / FormItem / FormLabel / FormControl / FormDescription / FormMessage` existing at `components/ui/form.tsx`.
+
+WHEN you scaffold a project (Phase 1) OR when an agent runs `shadcn add form` and it fails: install the framework's fallback:
+
+```bash
+pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/form.json
+```
+
+This is the canonical shadcn Form source (FormProvider wrapper, useFormField hook, all six primitives, ARIA wired through `useFormField()`). It writes to `components/ui/form.tsx`, depends on shadcn `label` + `react-hook-form` + `@radix-ui/react-label` + `@radix-ui/react-slot` (all auto-installed). Every example below assumes you've installed it.
+
+If for some reason the registry is unreachable, write `components/ui/form.tsx` manually using the source in `jb-components.md` → Form (shadcn fallback). The file is identical.
+
 The schema lives next to the form (or in a /schemas folder for shared schemas). The SAME schema validates on the client (form) AND server (API route). Never duplicate validation.
 
 PATTERN:
