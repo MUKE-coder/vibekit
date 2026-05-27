@@ -19,6 +19,14 @@ CONDITIONAL REFERENCES — load only when the project needs them:
 - dgateway-guide.md — load if the project takes mobile money / serves African markets. Covers DGateway client, collect → poll-status flow, the gotchas (placeholder phone for card, test-number-on-live-key error, response shape parsing, 5-minute polling cap).
 - ai-guide.md — load if the project ships any AI feature (chat, RAG, summarisation, agents). Covers Vercel AI SDK streaming, pgvector inside Neon for RAG, Upstash Ratelimit for per-user cost control, Stripe credit packs for AI-app billing.
 
+AGENT TOOLING (user-level — already installed on the user's machine if they followed Step 0.5):
+
+If you (the agent) have access to these, use them:
+- **ui-ux-pro-max-skill** — a senior-designer rule pack. If present, defer to it for type rhythm, spacing, motion timing, hover states, anti-AI-slop polish on every component you generate.
+- **21st.dev Magic MCP** — gives you tools to search / preview / fetch from a catalog of polished React + Tailwind component snippets. When you need a marketing primitive that ISN'T in jb-components.md (an unusual hero variant, a specific testimonial layout, dashboard chrome, etc.), use the Magic MCP before writing from scratch. The framework registry covers structural primitives; the MCP covers the long tail.
+
+Decision order when reaching for a component: (1) jb-components.md (battle-tested, installable), (2) 21st.dev Magic MCP (if available — long tail), (3) write from scratch using design-style-guide.md tokens. See agent-tooling.md for the rationale.
+
 If any of the four core files are missing, tell the user and do not proceed.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

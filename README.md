@@ -93,6 +93,21 @@ The written version with copyable prompts is also on the site: [vibekit.desishub
 
 Before anything else, make sure your machine has Node 20+, pnpm 9+, git, and gh CLI installed. The fastest check: copy the OS-specific prompt from [`setup-prompts/`](./setup-prompts) (macOS / Windows / Linux) and paste it into your AI coding agent. It runs a single safe shell command and tells you exactly what's installed and what to fix — without touching your system. Or visit [vibekit.desishub.com/setup](https://vibekit.desishub.com/setup) for the full guide with one-click copy.
 
+### Step 0.5 — Give your agent superpowers (5 min, highly recommended)
+
+Two user-level installs that compound the framework's value on every project:
+
+1. **`ui-ux-pro-max-skill`** — a Claude Code skill that auto-loads senior-designer rules (type rhythm, spacing, motion, contrast) into every conversation. Install:
+   ```bash
+   mkdir -p ~/.claude/skills && git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skills/ui-ux-pro-max
+   ```
+2. **21st.dev Magic MCP** — gives Claude access to hundreds of polished component snippets on demand. Sign in at [21st.dev](https://21st.dev), grab an MCP API key, then:
+   ```bash
+   claude mcp add magic --scope user --env API_KEY="YOUR_KEY" -- npx -y @21st-dev/magic@latest
+   ```
+
+For non-Claude agents (Cursor, Cline, Codex, Windsurf), see [`agent-tooling.md`](./agent-tooling.md). Both installs are user-level — set up once, every VibeKit project benefits.
+
 ### Step 1 — Copy the planning prompt
 
 Copy the contents of [`CLAUDE_PROMPT.md`](./CLAUDE_PROMPT.md) from this repository.
@@ -173,7 +188,8 @@ vibekit/
 ├── dgateway-guide.md            ← Mobile Money + card checkout for African markets
 ├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2 / compliance)
-└── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
+├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
+└── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
 ```
 
 ### Files to copy into your project

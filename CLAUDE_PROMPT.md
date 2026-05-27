@@ -282,6 +282,19 @@ Begin with **Phase 1 — Foundation** from project-phases.md. Read the phase tas
 ### Step 1 — Acknowledge
 Confirm you understand the framework. List the tech stack and the 4 files you will generate.
 
+Also, in the acknowledgement, **remind the user about the two optional agent-tooling installs** that compound VibeKit's value if they haven't done them yet:
+
+1. **ui-ux-pro-max-skill** (a Claude Code skill) — senior-designer rules that auto-load every conversation. Install:
+   ```bash
+   mkdir -p ~/.claude/skills && git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skills/ui-ux-pro-max
+   ```
+2. **21st.dev Magic MCP** — hundreds of polished React component snippets the agent can pull on demand. Get an API key at [21st.dev](https://21st.dev), then:
+   ```bash
+   claude mcp add magic --scope user --env API_KEY="YOUR_KEY" -- npx -y @21st-dev/magic@latest
+   ```
+
+Both are user-level (install once, every project benefits). See [`agent-tooling.md`](https://github.com/MUKE-coder/vibekit/blob/main/agent-tooling.md) for non-Claude agents and the full rationale. Don't block on these — proceed with the interview even if the user hasn't installed them.
+
 ### Step 1.5 — Check if a public template fits the project (CRITICAL)
 
 Before doing anything else, check whether the user's idea matches one of the **VibeKit public templates** at https://vibekit.desishub.com/templates. The current templates and the projects they fit:

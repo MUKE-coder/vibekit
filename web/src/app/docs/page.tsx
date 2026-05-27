@@ -39,6 +39,7 @@ const externalGuides = [
   { name: "Multi-tenant / RBAC", href: `${SITE.github}/blob/main/multi-tenant.md`, blurb: "Orgs, memberships, role-based access, scoped queries, custom subdomains." },
   { name: "Audit log (hash-chained)", href: `${SITE.github}/blob/main/audit-log.md`, blurb: "Tamper-evident audit log pattern for SOC2 / compliance." },
   { name: "AI & RAG", href: `${SITE.github}/blob/main/ai-guide.md`, blurb: "Vercel AI SDK + pgvector in Neon + Upstash rate-limit + credit packs." },
+  { name: "Agent tooling", href: `${SITE.github}/blob/main/agent-tooling.md`, blurb: "ui-ux-pro-max-skill + 21st.dev Magic MCP — user-level installs that compound VibeKit's value." },
   { name: "Pre-deploy review", href: `${SITE.github}/blob/main/pre-deploy-review.md`, blurb: "Senior-level audit prompt to run before going live." },
   { name: "Prompt engineering", href: `${SITE.github}/blob/main/prompt-engineering.md`, blurb: "5-part formula, token economy, rescue system." },
   { name: "Troubleshooting", href: `${SITE.github}/blob/main/troubleshooting.md`, blurb: "Symptoms → fixes when AI gets stuck." },

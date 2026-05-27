@@ -19,7 +19,8 @@ const tree = `vibekit/
 ├── dgateway-guide.md            ← Mobile Money + card checkout (African markets)
 ├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2)
-└── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs`;
+├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
+└── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)`;
 
 const copyFiles = [
   { file: "master_prompt.md", purpose: "Claude Code reads this first — tech stack + coding rules" },
