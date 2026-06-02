@@ -1,0 +1,44 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "use-local-storage",
+      "type": "registry:hook",
+      "title": "useLocalStorage",
+      "description": "SSR-safe localStorage hook with typed values, cross-tab sync via the storage event, and a state-style setter (value or updater). Returns [value, setValue, remove].",
+      "files": [
+        {
+          "path": "use-local-storage.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-local-storage.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-media-query",
+      "type": "registry:hook",
+      "title": "useMediaQuery + useBreakpoint",
+      "description": "Reactive media-query hook plus a named-breakpoint helper (isMobile / isTablet / isDesktop) tuned to Tailwind v4 defaults. SSR-safe.",
+      "files": [
+        {
+          "path": "use-media-query.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-media-query.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-clipboard",
+      "type": "registry:hook",
+      "title": "useClipboard",
+      "description": "Copy hook with a 'copied' flag that auto-resets after a configurable timeout. Falls back to document.execCommand for older browsers without the Clipboard API.",
+      "files": [
+        {
+          "path": "use-clipboard.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-clipboard.ts"
+        }
+      ]
+    }
+  ]
+}

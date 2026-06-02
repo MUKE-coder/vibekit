@@ -189,7 +189,10 @@ vibekit/
 ├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2 / compliance)
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
-└── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
+├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
+├── vibekit-primitives.md        ← Roadmap: 150 primitives via GitHub registry (12 shipped)
+├── registry.json                ← Root index for the GitHub registry
+└── registry/                    ← Source for installable primitives (auth/hooks/utilities/...)
 ```
 
 ### Files to copy into your project
@@ -244,6 +247,25 @@ Claude Code writes the findings to `pre-deploy-review-report.md`. Address every 
 **Framework Reference:** [`jb-components.md`](./jb-components.md) — Detailed guide with install commands, env vars, prerequisites, and when-to-use for every component (JB + in-house).
 
 Production-ready shadcn components for auth, data tables, forms, file uploads, e-commerce, Stripe checkout, MDX blogs, API docs, kanban boards, org/team UI, charts dashboards, multi-step wizards, rich text editors, command palettes, notification centers, file managers, printable templates, and SaaS pricing/billing/subscription/token UIs. Claude Code (and Cursor, Cline, Codex) checks `jb-components.md` before building features from scratch.
+
+### VibeKit Primitives (GitHub registry — new)
+
+The big component registry above ships **feature units** (Kanban Board, Stripe UI, Charts Grid, etc.). The new **VibeKit Primitives** library at [`vibekit-primitives.md`](./vibekit-primitives.md) ships **small building blocks** (typed hooks, helpers, single-file components) every CRM / ERP / SaaS rebuilds — `useCurrentUser`, `useTableState`, `EmptyState`, `useConfirm()`, `formatters`, `env-validator`, etc.
+
+Install via the shadcn GitHub-registry syntax:
+
+```bash
+pnpm dlx shadcn@latest add MUKE-coder/vibekit/use-current-user
+pnpm dlx shadcn@latest add MUKE-coder/vibekit/empty-state
+pnpm dlx shadcn@latest add MUKE-coder/vibekit/formatters
+```
+
+Phase 1 (12 items) shipped. Roadmap of all 150 in [`vibekit-primitives.md`](./vibekit-primitives.md). Browse all from the CLI:
+
+```bash
+pnpm dlx shadcn@latest list MUKE-coder/vibekit
+pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-table-state
+```
 
 ---
 

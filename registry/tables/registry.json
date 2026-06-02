@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "use-table-state",
+      "type": "registry:hook",
+      "title": "useTableState",
+      "description": "URL-synced table state hook: page, pageSize, sort, dir, search query, and arbitrary filters. Makes every table shareable and bookmarkable; pass straight into a server-side fetcher.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "use-table-state.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-table-state.ts"
+        }
+      ]
+    }
+  ]
+}

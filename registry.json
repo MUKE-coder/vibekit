@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "vibekit",
+  "homepage": "https://github.com/MUKE-coder/vibekit",
+  "include": [
+    "registry/auth/registry.json",
+    "registry/tables/registry.json",
+    "registry/feedback/registry.json",
+    "registry/hooks/registry.json",
+    "registry/utilities/registry.json"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "formatters",
+      "type": "registry:lib",
+      "title": "Formatters",
+      "description": "Locale-aware Intl-backed formatters (currency, date, datetime, relative time, number, percent, bytes) plus truncate and initials helpers. One place for every consistent string format in the app.",
+      "files": [
+        {
+          "path": "formatters.ts",
+          "type": "registry:lib",
+          "target": "~/lib/formatters.ts"
+        }
+      ]
+    },
+    {
+      "name": "env-validator",
+      "type": "registry:lib",
+      "title": "Env validator (Zod)",
+      "description": "Zod-validated server + client env loader. Fails fast at boot if anything required is missing or malformed. Import `env` everywhere instead of touching process.env directly.",
+      "dependencies": ["zod"],
+      "files": [
+        {
+          "path": "env.ts",
+          "type": "registry:lib",
+          "target": "~/lib/env.ts"
+        }
+      ]
+    }
+  ]
+}

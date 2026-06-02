@@ -1,0 +1,62 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "empty-state",
+      "type": "registry:component",
+      "title": "EmptyState",
+      "description": "Standard empty state for 'no data' and 'no results' cases. Default and inline variants. Slots for icon, title, description, primary + secondary action.",
+      "files": [
+        {
+          "path": "empty-state.tsx",
+          "type": "registry:component",
+          "target": "~/components/empty-state.tsx"
+        }
+      ]
+    },
+    {
+      "name": "confirm-dialog",
+      "type": "registry:component",
+      "title": "ConfirmDialog (imperative)",
+      "description": "Imperative `await confirm({ title, description })` API backed by AlertDialog. Drop the provider at the app root, then call useConfirm() from anywhere — no JSX boilerplate.",
+      "registryDependencies": ["alert-dialog"],
+      "files": [
+        {
+          "path": "confirm-dialog.tsx",
+          "type": "registry:component",
+          "target": "~/components/confirm-dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "loading-button",
+      "type": "registry:component",
+      "title": "LoadingButton",
+      "description": "Drop-in replacement for the shadcn Button with a built-in spinner + disabled state when `loading` is true. Saves the inline conditional on every async action.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "loading-button.tsx",
+          "type": "registry:component",
+          "target": "~/components/loading-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:component",
+      "title": "CopyButton",
+      "description": "Click-to-copy button with a 'copied' success state and a Clipboard API fallback for older browsers.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "copy-button.tsx",
+          "type": "registry:component",
+          "target": "~/components/copy-button.tsx"
+        }
+      ]
+    }
+  ]
+}

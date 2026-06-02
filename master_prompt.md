@@ -18,6 +18,7 @@ CONDITIONAL REFERENCES — load only when the project needs them:
 - audit-log.md — load alongside multi-tenant.md if the project targets SOC2 / compliance. Defines the hash-chained tamper-evident audit log pattern.
 - dgateway-guide.md — load if the project takes mobile money / serves African markets. Covers DGateway client, collect → poll-status flow, the gotchas (placeholder phone for card, test-number-on-live-key error, response shape parsing, 5-minute polling cap).
 - ai-guide.md — load if the project ships any AI feature (chat, RAG, summarisation, agents). Covers Vercel AI SDK streaming, pgvector inside Neon for RAG, Upstash Ratelimit for per-user cost control, Stripe credit packs for AI-app billing.
+- vibekit-primitives.md — the canonical roadmap of 150 small primitives (hooks, helpers, single-file components) shipped via GitHub registry. Install any shipped one with `pnpm dlx shadcn@latest add MUKE-coder/vibekit/<name>`. Different from jb-components.md (which ships big feature units like Kanban / Stripe UI). Check vibekit-primitives.md FIRST when you reach for a hook, formatter, URL-state helper, empty-state, loading-button, or confirm-dialog — many already exist and are one command away.
 
 AGENT TOOLING (user-level — already installed on the user's machine if they followed Step 0.5):
 

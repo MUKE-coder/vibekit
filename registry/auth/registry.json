@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "use-current-user",
+      "type": "registry:hook",
+      "title": "useCurrentUser",
+      "description": "Typed hook that returns the current authenticated user via React Query. Reads from the Better Auth session endpoint by default; configurable.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-current-user.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-current-user.ts"
+        }
+      ]
+    },
+    {
+      "name": "role-gate",
+      "type": "registry:component",
+      "title": "RoleGate",
+      "description": "Client-side gate that renders its children only when the current user's role is in an allowed set. Pairs with useCurrentUser.",
+      "registryDependencies": ["MUKE-coder/vibekit/use-current-user"],
+      "files": [
+        {
+          "path": "role-gate.tsx",
+          "type": "registry:component",
+          "target": "~/components/role-gate.tsx"
+        }
+      ]
+    }
+  ]
+}
