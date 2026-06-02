@@ -60,6 +60,21 @@
           "target": "~/components/image-upload.tsx"
         }
       ]
+    },
+    {
+      "name": "gallery",
+      "type": "registry:component",
+      "title": "Gallery (grid + lightbox)",
+      "description": "Responsive image grid with built-in fullscreen lightbox. Keyboard navigation (←/→ to step, Esc to close), backdrop click closes, optional download button, body-scroll-lock while open. Renders via next/image with `unoptimized` escape hatch for arbitrary sources.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "gallery.tsx",
+          "type": "registry:component",
+          "target": "~/components/gallery.tsx"
+        }
+      ]
     }
   ]
 }

@@ -48,6 +48,21 @@
           "target": "~/emails/reset-password-email.tsx"
         }
       ]
+    },
+    {
+      "name": "invoice-email",
+      "type": "registry:component",
+      "title": "InvoiceEmail (paid / due / overdue)",
+      "description": "Transactional invoice email built on BaseLayout. Three status variants (paid / due / overdue) drive the headline, badge, and CTA copy. Line-items table, totals, billing address, and an 'open invoice' button. Pair with `send-email` + Stripe events.",
+      "dependencies": ["@react-email/components"],
+      "registryDependencies": ["MUKE-coder/vibekit/react-email-templates"],
+      "files": [
+        {
+          "path": "invoice-email.tsx",
+          "type": "registry:component",
+          "target": "~/emails/invoice-email.tsx"
+        }
+      ]
     }
   ]
 }

@@ -87,6 +87,21 @@
           "target": "~/components/heatmap-calendar.tsx"
         }
       ]
+    },
+    {
+      "name": "chart-card",
+      "type": "registry:component",
+      "title": "ChartCard (uniform dashboard widget shell)",
+      "description": "Standard wrapper for every chart on a dashboard. Bundles title + description + optional actions dropdown + fullscreen toggle + loading skeleton + empty-state. Local `fullscreen` state expands the card to inset-4 while keeping slot DOM stable so chart libraries don't re-render from scratch.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "card", "dropdown-menu", "skeleton"],
+      "files": [
+        {
+          "path": "chart-card.tsx",
+          "type": "registry:component",
+          "target": "~/components/chart-card.tsx"
+        }
+      ]
     }
   ]
 }

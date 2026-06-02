@@ -111,6 +111,25 @@
           "target": "~/hooks/use-async-validation.ts"
         }
       ]
+    },
+    {
+      "name": "form-file-upload",
+      "type": "registry:component",
+      "title": "FormFileUpload (drag-drop, multi-file, RHF-bound)",
+      "description": "Drag-and-drop FormField for files. Composes `upload-file` to stream each file to a presigned PUT URL, shows per-file progress, supports multiple selections, validates type + size client-side, and stores the resulting URLs in form state.",
+      "dependencies": ["react-hook-form", "lucide-react"],
+      "registryDependencies": [
+        "button",
+        "MUKE-coder/vibekit/upload-file",
+        "https://vibekit.desishub.com/r/form.json"
+      ],
+      "files": [
+        {
+          "path": "form-file-upload.tsx",
+          "type": "registry:component",
+          "target": "~/components/form-file-upload.tsx"
+        }
+      ]
     }
   ]
 }

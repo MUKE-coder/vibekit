@@ -75,6 +75,46 @@
           "target": "~/components/global-search.tsx"
         }
       ]
+    },
+    {
+      "name": "filter-bar",
+      "type": "registry:component",
+      "title": "FilterBar (composable faceted filters)",
+      "description": "Composable faceted filter bar that reads/writes through `useFilters`. Compound exports — `FilterBar.Multi`, `FilterBar.Single`, `FilterBar.Bool`, `FilterBar.DateRange`, `FilterBar.NumRange` — plus a Clear-all chip when any filter is active.",
+      "dependencies": ["lucide-react", "date-fns"],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "calendar",
+        "command",
+        "input",
+        "popover",
+        "separator",
+        "switch",
+        "MUKE-coder/vibekit/use-filters"
+      ],
+      "files": [
+        {
+          "path": "filter-bar.tsx",
+          "type": "registry:component",
+          "target": "~/components/filter-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "recently-viewed",
+      "type": "registry:component",
+      "title": "RecentlyViewed + useRecentlyViewedRecorder",
+      "description": "Cross-entity 'recently viewed' panel backed by localStorage. `useRecentlyViewedRecorder()` records views from any page; `<RecentlyViewed>` renders the list with custom icon slot, type filter, remove + clear. Survives reloads, dedupes by type:id, capped at 20 entries.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "recently-viewed.tsx",
+          "type": "registry:component",
+          "target": "~/components/recently-viewed.tsx"
+        }
+      ]
     }
   ]
 }

@@ -93,6 +93,19 @@
           "target": "~/lib/soft-delete.ts"
         }
       ]
+    },
+    {
+      "name": "monitoring",
+      "type": "registry:lib",
+      "title": "captureError + captureMessage + logger + withErrorReporting",
+      "description": "Adapter-pattern error / event monitoring shim. Defaults to a structured JSON-line console logger so it works on install; swap in Sentry / Axiom / Datadog with `setMonitoringAdapter`. Exposes captureError, captureMessage, logger.{info,warn,error,fatal,debug}, setMonitoringUser, setBaseContext, and a withErrorReporting handler wrapper.",
+      "files": [
+        {
+          "path": "monitoring.ts",
+          "type": "registry:lib",
+          "target": "~/lib/monitoring.ts"
+        }
+      ]
     }
   ]
 }

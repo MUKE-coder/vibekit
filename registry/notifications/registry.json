@@ -13,6 +13,21 @@
           "target": "~/lib/notify.ts"
         }
       ]
+    },
+    {
+      "name": "notification-preferences",
+      "type": "registry:component",
+      "title": "NotificationPreferences (channel × type matrix)",
+      "description": "Per-channel × per-type Switch matrix (in-app / email / push × comments / mentions / billing / digest …) with debounced autosave and an inline saved/saving status. Pair with a `prefs` Prisma table keyed by (userId, type, channel).",
+      "dependencies": ["lucide-react", "@tanstack/react-query"],
+      "registryDependencies": ["card", "switch"],
+      "files": [
+        {
+          "path": "notification-preferences.tsx",
+          "type": "registry:component",
+          "target": "~/components/notification-preferences.tsx"
+        }
+      ]
     }
   ]
 }

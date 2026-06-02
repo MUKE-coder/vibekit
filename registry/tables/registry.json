@@ -118,6 +118,19 @@
           "target": "~/components/activity-timeline.tsx"
         }
       ]
+    },
+    {
+      "name": "use-column-preferences",
+      "type": "registry:hook",
+      "title": "useColumnPreferences + columnResizeHandlers",
+      "description": "Persistent table column preferences (widths, visibility, order) keyed by storageKey in localStorage. Returns `{ widths, visibility, order, setWidth, resetWidths, toggleColumn, reorder, reset }`. Companion `columnResizeHandlers()` produces mouse handlers for drag-to-resize grips.",
+      "files": [
+        {
+          "path": "use-column-resize.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-column-resize.ts"
+        }
+      ]
     }
   ]
 }

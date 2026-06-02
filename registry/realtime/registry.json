@@ -32,6 +32,62 @@
           "target": "~/hooks/use-presence.ts"
         }
       ]
+    },
+    {
+      "name": "use-channel",
+      "type": "registry:hook",
+      "title": "useChannel (transport-agnostic pub/sub)",
+      "description": "Subscribe / publish on a named realtime channel, backed by `useSseChannel` for ingress and a simple POST to `/api/channels/:name` for egress. Returns `{ publish, lastMessage, status }`. Foundation for typing, comments, live cursors, lock takeovers.",
+      "registryDependencies": ["MUKE-coder/vibekit/sse-channel"],
+      "files": [
+        {
+          "path": "use-channel.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-channel.ts"
+        }
+      ]
+    },
+    {
+      "name": "typing-indicator",
+      "type": "registry:component",
+      "title": "useTypingPublisher + <TypingIndicator>",
+      "description": "Pair-up that broadcasts typing.start / typing.stop on a `useChannel` and renders 'Alice, Bob are typing…' with animated dots. Publisher debounces stop events so the indicator doesn't flicker between keystrokes.",
+      "registryDependencies": ["MUKE-coder/vibekit/use-channel"],
+      "files": [
+        {
+          "path": "typing-indicator.tsx",
+          "type": "registry:component",
+          "target": "~/components/typing-indicator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "collaborative-lock",
+      "type": "registry:component",
+      "title": "useCollaborativeLock + <LockBanner> + <LockBadge>",
+      "description": "Soft-lock primitive for collaborative documents. `useCollaborativeLock(channel, { me })` returns `{ state, holder, acquire, release, takeover }`. `<LockBanner>` shows 'Alice is editing — Take over' to others; `<LockBadge>` shows the holder in a row/list.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "MUKE-coder/vibekit/use-channel"],
+      "files": [
+        {
+          "path": "collaborative-lock.tsx",
+          "type": "registry:component",
+          "target": "~/components/collaborative-lock.tsx"
+        }
+      ]
+    },
+    {
+      "name": "activity-broadcast",
+      "type": "registry:lib",
+      "title": "defineActivityBroadcaster (parallel-sink fanout)",
+      "description": "Server-side helper. `defineActivityBroadcaster({ publish, persist, notify, onError })` returns a single `broadcast(event)` you call from any mutation. Fans the event out to SSE, the database, and the notification system in parallel via Promise.allSettled — one sink failing doesn't block the others.",
+      "files": [
+        {
+          "path": "activity-broadcast.ts",
+          "type": "registry:lib",
+          "target": "~/lib/activity-broadcast.ts"
+        }
+      ]
     }
   ]
 }

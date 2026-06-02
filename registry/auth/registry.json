@@ -98,6 +98,36 @@
           "target": "~/hooks/use-session-refresh.ts"
         }
       ]
+    },
+    {
+      "name": "two-factor-setup",
+      "type": "registry:component",
+      "title": "TwoFactorSetup (TOTP enrollment)",
+      "description": "3-step TOTP enrollment flow — scan QR / show secret, verify 6-digit code, display + copy + download backup codes. Wire the QR + verify endpoints to Better Auth's twoFactor plugin (or your own TOTP).",
+      "dependencies": ["lucide-react", "@tanstack/react-query"],
+      "registryDependencies": ["button", "card", "input"],
+      "files": [
+        {
+          "path": "two-factor-setup.tsx",
+          "type": "registry:component",
+          "target": "~/components/two-factor-setup.tsx"
+        }
+      ]
+    },
+    {
+      "name": "device-list",
+      "type": "registry:component",
+      "title": "DeviceList (active sessions)",
+      "description": "Lists every session the current user has open (device icon detected from UA, location, last-active relative time) with per-row revoke + 'sign out everywhere else' bulk action. Pair with Better Auth's session API.",
+      "dependencies": ["lucide-react", "date-fns", "@tanstack/react-query"],
+      "registryDependencies": ["button", "card"],
+      "files": [
+        {
+          "path": "device-list.tsx",
+          "type": "registry:component",
+          "target": "~/components/device-list.tsx"
+        }
+      ]
     }
   ]
 }
