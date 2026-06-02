@@ -14,6 +14,25 @@
           "target": "~/lib/send-email.ts"
         }
       ]
+    },
+    {
+      "name": "react-email-templates",
+      "type": "registry:component",
+      "title": "BaseLayout + WelcomeEmail (React Email)",
+      "description": "Shared BaseLayout wrapper (header logo, footer copyright, Tailwind-styled container) + a Welcome email template using it. Pair with `send-email` to ship a real transactional email in one install.",
+      "dependencies": ["@react-email/components"],
+      "files": [
+        {
+          "path": "base-layout.tsx",
+          "type": "registry:component",
+          "target": "~/emails/base-layout.tsx"
+        },
+        {
+          "path": "welcome-email.tsx",
+          "type": "registry:component",
+          "target": "~/emails/welcome-email.tsx"
+        }
+      ]
     }
   ]
 }

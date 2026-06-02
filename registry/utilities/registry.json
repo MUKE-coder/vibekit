@@ -67,6 +67,32 @@
           "target": "~/lib/rate-limit.ts"
         }
       ]
+    },
+    {
+      "name": "feature-flags",
+      "type": "registry:lib",
+      "title": "defineFlags + useFlag + FlagsProvider",
+      "description": "Lightweight feature flags. Static FEATURE_* env flags + optional dynamic evaluator for per-user/org runtime checks. Client side uses a snapshot via <FlagsProvider> + useFlag().",
+      "files": [
+        {
+          "path": "feature-flags.tsx",
+          "type": "registry:lib",
+          "target": "~/lib/feature-flags.tsx"
+        }
+      ]
+    },
+    {
+      "name": "soft-delete",
+      "type": "registry:lib",
+      "title": "withSoftDelete + softDelete + restore",
+      "description": "Prisma client extension that auto-filters out rows where deletedAt is not null on findMany / findFirst / count. Plus tiny helpers to set / clear deletedAt. Pair with a `deletedAt: DateTime?` column + @@index([deletedAt]).",
+      "files": [
+        {
+          "path": "soft-delete.ts",
+          "type": "registry:lib",
+          "target": "~/lib/soft-delete.ts"
+        }
+      ]
     }
   ]
 }

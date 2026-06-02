@@ -46,6 +46,19 @@
           "target": "~/app/api/readyz/route.ts"
         }
       ]
+    },
+    {
+      "name": "seed-factory",
+      "type": "registry:lib",
+      "title": "Seed factory pattern + helpers",
+      "description": "Typed factory pattern for prisma/seed.ts. `defineFactory` produces variation across many rows; `pickN`, `oneOf`, `chance`, `range`, `aroundDate` give deterministic randomness without faker. `flushFactories` wipes models for idempotent dev seeding (production-disabled).",
+      "files": [
+        {
+          "path": "seed-factory.ts",
+          "type": "registry:lib",
+          "target": "~/lib/seed-factory.ts"
+        }
+      ]
     }
   ]
 }

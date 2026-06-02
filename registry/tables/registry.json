@@ -74,6 +74,21 @@
           "target": "~/components/bulk-actions-bar.tsx"
         }
       ]
+    },
+    {
+      "name": "server-table-fetcher",
+      "type": "registry:lib",
+      "title": "fetchTable (server-side table handler)",
+      "description": "Bundles the standard moves every list API route needs: parse + validate search params with a Zod schema, build a Prisma where via buildPrismaWhere, build an orderBy, run findMany + count in parallel, return the { data, total, page, pageSize, totalPages } shape usePaginatedQuery expects.",
+      "dependencies": ["zod"],
+      "registryDependencies": ["MUKE-coder/vibekit/build-prisma-where"],
+      "files": [
+        {
+          "path": "server-table-fetcher.ts",
+          "type": "registry:lib",
+          "target": "~/lib/server-table-fetcher.ts"
+        }
+      ]
     }
   ]
 }

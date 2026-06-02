@@ -100,6 +100,37 @@
           "target": "~/components/toast.tsx"
         }
       ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:component",
+      "title": "Drawer (responsive side panel / bottom sheet)",
+      "description": "Side panel for detail views and quick-edit forms. Right-anchored on desktop with configurable width preset (sm/md/lg/xl/full), bottom sheet on mobile (< 640px). Built-in header / footer slots so consumers don't repeat the chrome.",
+      "registryDependencies": [
+        "sheet",
+        "MUKE-coder/vibekit/use-media-query"
+      ],
+      "files": [
+        {
+          "path": "drawer.tsx",
+          "type": "registry:component",
+          "target": "~/components/drawer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "Tooltip (standardised wrapper)",
+      "description": "Wraps the shadcn Tooltip primitives — consistent delay, sizing, alignment. Replaces the four-component boilerplate at every call site. Re-exports TooltipProvider for one-import convenience.",
+      "registryDependencies": ["tooltip"],
+      "files": [
+        {
+          "path": "tooltip.tsx",
+          "type": "registry:component",
+          "target": "~/components/tooltip.tsx"
+        }
+      ]
     }
   ]
 }

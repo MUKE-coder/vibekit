@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "sparkline",
+      "type": "registry:component",
+      "title": "Sparkline",
+      "description": "Tiny inline trend chart for stat cards / table cells / dashboard widgets. Line or area variant, optional tooltip, renders responsively into its parent. Built on Recharts.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "sparkline.tsx",
+          "type": "registry:component",
+          "target": "~/components/sparkline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "metric-grid",
+      "type": "registry:component",
+      "title": "MetricGrid (KPI row with comparison)",
+      "description": "Responsive grid of KPI cards with built-in trend arrow + colour, comparison-vs-previous-period rendering, optional sparkline slot, optional icon, and loading-skeleton state.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["card", "skeleton"],
+      "files": [
+        {
+          "path": "metric-grid.tsx",
+          "type": "registry:component",
+          "target": "~/components/metric-grid.tsx"
+        }
+      ]
+    }
+  ]
+}

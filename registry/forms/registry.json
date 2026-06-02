@@ -82,6 +82,21 @@
           "target": "~/hooks/use-unsaved-changes.ts"
         }
       ]
+    },
+    {
+      "name": "form-autosave",
+      "type": "registry:component",
+      "title": "useFormAutosave + FormAutosaveIndicator",
+      "description": "Debounced auto-save for React Hook Form. Watches values, waits for inactivity, fires save (only when valid + dirty). Plus a three-state status indicator (idle / saving / saved with checkmark / error).",
+      "dependencies": ["react-hook-form", "lucide-react"],
+      "registryDependencies": ["MUKE-coder/vibekit/use-debounce"],
+      "files": [
+        {
+          "path": "form-autosave.tsx",
+          "type": "registry:component",
+          "target": "~/components/form-autosave.tsx"
+        }
+      ]
     }
   ]
 }

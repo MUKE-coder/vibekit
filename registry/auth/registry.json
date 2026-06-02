@@ -55,6 +55,49 @@
           "target": "~/lib/require-role.ts"
         }
       ]
+    },
+    {
+      "name": "auth-guard",
+      "type": "registry:component",
+      "title": "AuthGuard (client-side)",
+      "description": "Client-side gate that shows a spinner while loading and redirects to sign-in with a callbackUrl when there's no session. UX-only — the real gate is server-side requireAuth.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["MUKE-coder/vibekit/use-current-user"],
+      "files": [
+        {
+          "path": "auth-guard.tsx",
+          "type": "registry:component",
+          "target": "~/components/auth-guard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "use-permissions",
+      "type": "registry:hook",
+      "title": "usePermissions",
+      "description": "Typed `can(action, resource)` hook backed by a permission matrix you customise in the file. Plus `hasRole(...)` helper. Server-side enforcement stays in requireRole.",
+      "registryDependencies": ["MUKE-coder/vibekit/use-current-user"],
+      "files": [
+        {
+          "path": "use-permissions.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-permissions.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-session-refresh",
+      "type": "registry:hook",
+      "title": "useSessionRefresh + broadcastSessionChange",
+      "description": "Silent periodic session refresh + BroadcastChannel cross-tab sync. Pings the session endpoint while the tab is visible and invalidates the React Query cache; broadcasts sign-in / sign-out so every open tab updates instantly.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-session-refresh.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-session-refresh.ts"
+        }
+      ]
     }
   ]
 }

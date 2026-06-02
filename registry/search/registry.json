@@ -43,6 +43,19 @@
           "target": "~/lib/build-prisma-where.ts"
         }
       ]
+    },
+    {
+      "name": "use-filters",
+      "type": "registry:hook",
+      "title": "useFilters (typed URL-synced filters)",
+      "description": "Typed-schema filter state manager backed by URL params. Supports multi-select, bool, single-select, date range, number range. Provides set / toggle / clear / reset / isActive / activeCount.",
+      "files": [
+        {
+          "path": "use-filters.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-filters.ts"
+        }
+      ]
     }
   ]
 }

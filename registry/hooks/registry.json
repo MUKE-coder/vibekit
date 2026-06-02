@@ -104,6 +104,19 @@
           "target": "~/hooks/use-previous.ts"
         }
       ]
+    },
+    {
+      "name": "use-keyboard-shortcuts",
+      "type": "registry:hook",
+      "title": "useKeyboardShortcuts + formatShortcut",
+      "description": "Register keyboard shortcuts with a typed API. Auto-cleans on unmount. Supports `mod` (Cmd/Ctrl), modifier combos, ignores input/textarea/contenteditable by default. Includes `formatShortcut` for pretty-printing in help dialogs.",
+      "files": [
+        {
+          "path": "use-keyboard-shortcuts.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-keyboard-shortcuts.ts"
+        }
+      ]
     }
   ]
 }
