@@ -69,6 +69,20 @@
           "target": "~/hooks/use-debounced-query.ts"
         }
       ]
+    },
+    {
+      "name": "use-infinite-scroll",
+      "type": "registry:hook",
+      "title": "useInfiniteScroll",
+      "description": "Wires a React Query infinite query to an IntersectionObserver sentinel. Drop the returned ref on a bottom-of-list element and the hook calls fetchNextPage as it scrolls into view (respecting hasNextPage + isFetchingNextPage).",
+      "registryDependencies": ["MUKE-coder/vibekit/use-intersection-observer"],
+      "files": [
+        {
+          "path": "use-infinite-scroll.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-infinite-scroll.ts"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "export-to-csv",
+      "type": "registry:lib",
+      "title": "exportToCSV + toCsvString",
+      "description": "Lightweight client-side CSV export. RFC-4180 escaping (quotes, commas, newlines), configurable delimiter, UTF-8 BOM so Excel detects encoding correctly. Triggers a download or returns the string.",
+      "files": [
+        {
+          "path": "export-to-csv.ts",
+          "type": "registry:lib",
+          "target": "~/lib/export-to-csv.ts"
+        }
+      ]
+    },
+    {
+      "name": "export-to-excel",
+      "type": "registry:lib",
+      "title": "exportToExcel (lazy-loaded xlsx)",
+      "description": "Excel export that lazy-loads the xlsx library (~430KB) only when called — keeps it out of the initial bundle per the framework's LAZY LOADING rule. Column widths, type hints (string/number/date), bold header row.",
+      "dependencies": ["xlsx"],
+      "files": [
+        {
+          "path": "export-to-excel.ts",
+          "type": "registry:lib",
+          "target": "~/lib/export-to-excel.ts"
+        }
+      ]
+    }
+  ]
+}

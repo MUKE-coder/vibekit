@@ -86,6 +86,20 @@
           "target": "~/components/skeletons.tsx"
         }
       ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:component",
+      "title": "Toaster + toast (Sonner preset)",
+      "description": "Pre-configured Sonner toaster with framework design tokens, plus a typed `toast` helper that extends Sonner with a `confirm` variant for low-stakes inline confirmations. Drop <Toaster /> once near root and call toast.success/error/promise from anywhere.",
+      "dependencies": ["sonner"],
+      "files": [
+        {
+          "path": "toast.tsx",
+          "type": "registry:component",
+          "target": "~/components/toast.tsx"
+        }
+      ]
     }
   ]
 }

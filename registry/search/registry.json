@@ -1,0 +1,48 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "search-input",
+      "type": "registry:component",
+      "title": "SearchInput",
+      "description": "Standardised search box with leading icon, optional spinner, clear button, and a keyboard-shortcut hint slot. Pure UI — pair with `use-debounced-query` or your own state for the fetch.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["input"],
+      "files": [
+        {
+          "path": "search-input.tsx",
+          "type": "registry:component",
+          "target": "~/components/search-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sort-dropdown",
+      "type": "registry:component",
+      "title": "SortDropdown",
+      "description": "Reusable sort selector that pairs cleanly with useTableState — pick a field + flip direction. Active field label + directional arrow render in the trigger.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "dropdown-menu"],
+      "files": [
+        {
+          "path": "sort-dropdown.tsx",
+          "type": "registry:component",
+          "target": "~/components/sort-dropdown.tsx"
+        }
+      ]
+    },
+    {
+      "name": "build-prisma-where",
+      "type": "registry:lib",
+      "title": "buildPrismaWhere + buildPrismaOrderBy",
+      "description": "Convert a typed useTableState query object (q + filters) into a Prisma `where` clause. Supports `in`, `eq`, `bool`, `dateRange`, `numRange` filter kinds plus OR-search across multiple fields. Companion `buildPrismaOrderBy` for sort.",
+      "files": [
+        {
+          "path": "build-prisma-where.ts",
+          "type": "registry:lib",
+          "target": "~/lib/build-prisma-where.ts"
+        }
+      ]
+    }
+  ]
+}

@@ -31,7 +31,7 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 
 ---
 
-## Shipped — 42 items
+## Shipped — 56 items
 
 ### Auth & Session
 
@@ -135,9 +135,58 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 | ✅ | **error-boundary** | `MUKE-coder/vibekit/error-boundary` | React error boundary with styled default fallback, retry, resetKey, onError hook |
 | ✅ | **skeletons** | `MUKE-coder/vibekit/skeletons` | Layout-matched skeleton bundle (TableSkeleton, CardGridSkeleton, DetailPageSkeleton, FormSkeleton, StatRowSkeleton) |
 
+### Layout (Phase 4 — shell + sidebar + tabs)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **app-shell** | `MUKE-coder/vibekit/app-shell` | Sidebar + topbar + content shell; collapse persisted; mobile drawer; useAppShell hook |
+| ✅ | **sidebar** | `MUKE-coder/vibekit/sidebar` | Config-driven sidebar — links + nested groups, role filter, badges, active state, collapse |
+| ✅ | **tab-nav** | `MUKE-coder/vibekit/tab-nav` | URL-synced tabs (`path` or `?tab=` query mode), badges, hidden/disabled |
+
+### Search & Filtering (Phase 4 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **search-input** | `MUKE-coder/vibekit/search-input` | Standardised search box — icon + spinner + clear + keyboard shortcut hint |
+| ✅ | **sort-dropdown** | `MUKE-coder/vibekit/sort-dropdown` | Field + direction selector pairing with useTableState |
+| ✅ | **build-prisma-where** | `MUKE-coder/vibekit/build-prisma-where` | Convert useTableState query into a typed Prisma where + orderBy |
+
+### Documents & Export (Phase 4 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **export-to-csv** | `MUKE-coder/vibekit/export-to-csv` | RFC-4180 client-side CSV export with UTF-8 BOM (Excel detection) |
+| ✅ | **export-to-excel** | `MUKE-coder/vibekit/export-to-excel` | Lazy-loaded xlsx export — kept out of initial bundle, type-hinted columns |
+
+### File & Media (Phase 4 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **file-preview** | `MUKE-coder/vibekit/file-preview` | Inline preview for image/video/audio/PDF with icon + download fallback for everything else |
+
+### Security & Ops (Phase 4 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **idempotency** | `MUKE-coder/vibekit/idempotency` | Idempotency-Key middleware caching responses in Upstash for 24h — retries return the original result |
+| ✅ | **webhook-verifier** | `MUKE-coder/vibekit/webhook-verifier` | Generic HMAC verifier with timing-safe equality, configurable algorithm + encoding |
+| ✅ | **health-endpoints** | `MUKE-coder/vibekit/health-endpoints` | /api/healthz (liveness) + /api/readyz (DB + Redis reachability check) handlers |
+
+### Data Fetching (Phase 4)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **use-infinite-scroll** | `MUKE-coder/vibekit/use-infinite-scroll` | Wires a React Query infinite query to an IntersectionObserver sentinel |
+
+### Feedback (Phase 4)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **toast** | `MUKE-coder/vibekit/toast` | Pre-configured Sonner Toaster + `toast` helper with a `toast.confirm()` extension |
+
 ---
 
-## Full roadmap (108 items pending — 28% complete)
+## Full roadmap (94 items pending — 37% complete)
 
 Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-library-150.md). Items are tagged with the implementation phase and current status. The "Phase" column drives the build order in future sessions.
 
@@ -160,22 +209,22 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 9 | ⏳ | TwoFactorSetup | 4 | TOTP enrollment UI |
 | 10 | ⏳ | Device/session list | 4 | Active sessions UI |
 
-### 2. Data Fetching & Caching (12) — 5/12 shipped
+### 2. Data Fetching & Caching (12) — 6/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 11 | ✅ | apiClient | 3 | shipped as `api-client` |
 | 12 | ✅ | createQueryKeys | 3 | shipped as `query-keys` |
-| 13 | ⏳ | cacheGet / cacheSet / withCache | 4 | (pattern — master_prompt.md REDIS CACHING) |
-| 14 | ⏳ | invalidateCache | 4 | Tag-based wildcard |
+| 13 | ⏳ | cacheGet / cacheSet / withCache | 5+ | (pattern — master_prompt.md REDIS CACHING) |
+| 14 | ⏳ | invalidateCache | 5+ | Tag-based wildcard |
 | 15 | ✅ | useOptimisticMutation | 3 | shipped |
 | 16 | ✅ | usePaginatedQuery | 3 | shipped |
-| 17 | ⏳ | useInfiniteScroll | 4 | IntersectionObserver-based |
-| 18 | ⏳ | Stale-while-revalidate Redis layer | 4 | |
-| 19 | ⏳ | prefetchOnHover | 4 | |
+| 17 | ✅ | useInfiniteScroll | 4 | shipped |
+| 18 | ⏳ | Stale-while-revalidate Redis layer | 5+ | |
+| 19 | ⏳ | prefetchOnHover | 5+ | |
 | 20 | ⏳ | Request deduplication | — | React Query already handles |
 | 21 | ✅ | useDebouncedQuery | 3 | shipped |
-| 22 | ⏳ | Polling manager | 4 | Pauses on tab hidden |
+| 22 | ⏳ | Polling manager | 5+ | Pauses on tab hidden |
 
 ### 3. Forms & Validation (12) — 6/12 shipped
 
@@ -211,11 +260,11 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 45 | ✅ | StatCard | 2 | shipped |
 | 46 | ⏳ | Timeline (vertical activity feed) | 4 | Different from alternating-timeline (already shipped) |
 
-### 5. Feedback & Overlays (12) — 6/12 shipped
+### 5. Feedback & Overlays (12) — 7/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 47 | ⏳ | toast system | 4 | Pre-configured Sonner |
+| 47 | ✅ | toast system | 4 | shipped (Sonner preset + toast.confirm extension) |
 | 48 | ✅ | ConfirmDialog + useConfirm | 1 | shipped |
 | 49 | ⏳ | Modal / useModal | 4 | Stack-aware, URL-driven |
 | 50 | ⏳ | Drawer | 4 | Mobile-responsive bottom sheet |
@@ -228,29 +277,29 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 57 | ✅ | CopyButton | 1 | shipped |
 | 58 | ⏳ | Banner / announcement | 4 | Dismissible with persistence |
 
-### 6. File & Media (8) — 0/8 shipped
+### 6. File & Media (8) — 2/8 shipped (counts Avatar)
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 59 | ⏳ | uploadFile | 3 | R2/UploadThing wrapper |
-| 60 | ⏳ | ImageUpload | 3 | Crop/resize before upload |
-| 61 | ⏳ | Avatar + fallback | 2 | Initials + status indicator |
-| 62 | ⏳ | FilePreview | 3 | Image/PDF inline |
-| 63 | ⏳ | Signed URL generator | 3 | R2 presigned links |
-| 64 | ⏳ | Gallery / lightbox | 4 | |
-| 65 | ⏳ | CSV import wizard | 4 | Upload → map → validate → import |
+| 59 | ⏳ | uploadFile | 5+ | R2/UploadThing wrapper |
+| 60 | ⏳ | ImageUpload | 5+ | Crop/resize before upload |
+| 61 | ✅ | Avatar + fallback | 2 | shipped (counted in layout) |
+| 62 | ✅ | FilePreview | 4 | shipped |
+| 63 | ⏳ | Signed URL generator | 5+ | R2 presigned links |
+| 64 | ⏳ | Gallery / lightbox | 5+ | |
+| 65 | ⏳ | CSV import wizard | 5+ | Upload → map → validate → import |
 | 66 | ⏳ | Dropzone | (registry) | Shipped via JB File Storage UI |
 
-### 7. Documents & Export (6) — 0/6 shipped
+### 7. Documents & Export (6) — 2/6 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 67 | ⏳ | PDFDocument templates | (registry) | Shipped as `printable-templates` |
-| 68 | ⏳ | exportToExcel | 2 | xlsx wrapper |
-| 69 | ⏳ | exportToCSV | 2 | Lightweight CSV |
-| 70 | ⏳ | generateInvoicePDF | 3 | (extends printable-templates) |
-| 71 | ⏳ | Print stylesheet + PrintButton | 3 | |
-| 72 | ⏳ | Report builder | 4 | Config → PDF/Excel |
+| 68 | ✅ | exportToExcel | 4 | shipped (lazy-loaded xlsx) |
+| 69 | ✅ | exportToCSV | 4 | shipped |
+| 70 | ⏳ | generateInvoicePDF | 5+ | (extends printable-templates) |
+| 71 | ⏳ | Print stylesheet + PrintButton | 5+ | |
+| 72 | ⏳ | Report builder | 5+ | Config → PDF/Excel |
 
 ### 8. Notifications & Email (8) — 1/8 shipped
 
@@ -276,15 +325,15 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 85 | ⏳ | useSubscription | (registry) | Shipped as `saas-subscription` |
 | 86 | ⏳ | Usage metering | (registry) | Shipped as part of `saas-subscription` |
 
-### 10. Layout & Navigation (6) — 2/6 shipped
+### 10. Layout & Navigation (6) — 5/6 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 87 | ⏳ | AppShell | 3 | Sidebar + topbar + content, responsive |
-| 88 | ⏳ | Sidebar with active state | 3 | Config-driven, nested groups, role-filtered |
+| 87 | ✅ | AppShell | 4 | shipped |
+| 88 | ✅ | Sidebar with active state | 4 | shipped |
 | 89 | ✅ | Breadcrumbs | 2 | shipped |
 | 90 | ✅ | PageHeader | 2 | shipped |
-| 91 | ⏳ | TabNav | 3 | URL-synced tabs |
+| 91 | ✅ | TabNav | 4 | shipped (path + query modes) |
 | 92 | ⏳ | Org/workspace switcher | (registry) | Shipped as part of `org-team-ui` |
 
 ### 11. Utilities & Infra (8) — 2/8 shipped
@@ -317,20 +366,20 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 111 | ✅ | ClientOnly / NoSSR | 2 | shipped as `client-only` |
 | 112 | ✅ | invariant / assert / exhaustive | 2 | shipped as `invariant` |
 
-### 13. Search, Filtering & Views (10) — 0/10 shipped
+### 13. Search, Filtering & Views (10) — 3/10 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 113 | ⏳ | GlobalSearch | 3 | Debounced multi-entity |
-| 114 | ⏳ | useFilters | 2 | URL-synced (overlaps useTableState) |
-| 115 | ⏳ | FilterBar | 2 | Composable faceted filters |
-| 116 | ⏳ | Saved views | 3 | Named filter+sort+column combos |
-| 117 | ⏳ | SearchInput | 2 | Standardized search box |
-| 118 | ⏳ | Faceted filter counts | 3 | Server-side counts |
-| 119 | ⏳ | buildPrismaWhere | 2 | Typed filter → Prisma where |
-| 120 | ⏳ | SortDropdown | 2 | URL-synced |
-| 121 | ⏳ | Recently viewed | 3 | Cross-entity history |
-| 122 | ⏳ | Quick filters / segments | 3 | Preset filters |
+| 113 | ⏳ | GlobalSearch | 5+ | Debounced multi-entity |
+| 114 | ⏳ | useFilters | 5+ | URL-synced (mostly covered by useTableState) |
+| 115 | ⏳ | FilterBar | 5+ | Composable faceted filters (DataTableToolbar covers most) |
+| 116 | ⏳ | Saved views | 5+ | Named filter+sort+column combos |
+| 117 | ✅ | SearchInput | 4 | shipped |
+| 118 | ⏳ | Faceted filter counts | 5+ | Server-side counts |
+| 119 | ✅ | buildPrismaWhere | 4 | shipped (with buildPrismaOrderBy) |
+| 120 | ✅ | SortDropdown | 4 | shipped |
+| 121 | ⏳ | Recently viewed | 5+ | Cross-entity history |
+| 122 | ⏳ | Quick filters / segments | 5+ | Preset filters |
 
 ### 14. Realtime & Collaboration (8) — 0/8 shipped
 
@@ -358,21 +407,21 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 137 | ⏳ | HeatmapCalendar | 4 | GitHub-style contribution grid |
 | 138 | ⏳ | FunnelChart | 4 | Conversion funnel |
 
-### 16. Security, Compliance & Ops (12) — 0/12 shipped
+### 16. Security, Compliance & Ops (12) — 4/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 139 | ⏳ | CSRF + security headers | 3 | Middleware preset |
-| 140 | ⏳ | Input sanitizer | 3 | sanitizeHtml |
-| 141 | ⏳ | Idempotency middleware | 3 | Idempotency-Key handling |
-| 142 | ⏳ | Webhook signature verifier | 3 | HMAC helper |
-| 143 | ⏳ | Data export (GDPR) | 4 | "Export all my data" |
-| 144 | ⏳ | Account deletion flow | 4 | Soft → grace → purge |
-| 145 | ⏳ | Health-check endpoints | 2 | /healthz + /readyz |
-| 146 | ⏳ | Seed + factory system | 2 | Typed factories per entity |
-| 147 | ⏳ | Background job runner | 4 | QStash/BullMQ |
-| 148 | ⏳ | Cron scheduler | 3 | Declarative scheduled tasks |
-| 149 | ⏳ | Maintenance mode | 3 | Flag-driven |
+| 139 | ⏳ | CSRF + security headers | 5+ | Middleware preset |
+| 140 | ⏳ | Input sanitizer | 5+ | sanitizeHtml |
+| 141 | ✅ | Idempotency middleware | 4 | shipped |
+| 142 | ✅ | Webhook signature verifier | 4 | shipped |
+| 143 | ⏳ | Data export (GDPR) | 5+ | "Export all my data" |
+| 144 | ⏳ | Account deletion flow | 5+ | Soft → grace → purge |
+| 145 | ✅ | Health-check endpoints | 4 | shipped (healthz + readyz) |
+| 146 | ⏳ | Seed + factory system | 5+ | Typed factories per entity |
+| 147 | ⏳ | Background job runner | 5+ | QStash/BullMQ |
+| 148 | ⏳ | Cron scheduler | 5+ | Declarative scheduled tasks |
+| 149 | ⏳ | Maintenance mode | 5+ | Flag-driven |
 | 150 | ✅ | env validator | 1 | shipped as `env-validator` |
 
 ---
@@ -382,11 +431,12 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 - **Phase 1** (✅ shipped — 12 items): foundational hooks, URL state, feedback primitives, formatters, env validator. The compounders.
 - **Phase 2** (✅ shipped — 15 items): server auth guards (requireAuth/requireRole), server Zod validator (parse-form-data), Upstash rate-limit, the small universal hooks (useDebounce/useThrottle/useEventListener/useIntersectionObserver/usePrevious), the standard layout chrome (Avatar+AvatarGroup, PageHeader, Breadcrumbs), StatCard, ClientOnly, invariant.
 - **Phase 3** (✅ shipped — 15 items): Form wrappers (field/form-combobox/form-date-picker/use-unsaved-changes), data-fetching suite (api-client/query-keys/use-optimistic-mutation/use-paginated-query/use-debounced-query), email (send-email), data-table chrome (column-header/data-table-toolbar/bulk-actions-bar), error-boundary, skeletons.
-- **Phase 4** (the long tail — ~110 items pending, ~50 truly greenfield after subtracting `(registry)` + `(pattern)` items): impersonation, 2FA, realtime collaboration (SSE/WebSocket, presence, typing, comments, locks, activity broadcast), GDPR export, background jobs, virtualized grid, gallery/lightbox, CSV import wizard, savedViews, faceted filter counts, Sparkline/MetricGrid/HeatmapCalendar/FunnelChart, AppShell/Sidebar/TabNav, AuthGuard/usePermissions, useKeyboardShortcuts, FormFileUpload/FormAutosave, ImageUpload, signed URLs, in-app notify(), React Email base + welcome/reset/invoice templates, server-side table fetcher, EditableCell, Drawer, Modal, Toast preset, Global loading bar, Tooltip standardized, Banner, Stripe webhook handler, Cron scheduler, Background job runner, CSRF/security headers, input sanitizer, idempotency middleware, webhook signature verifier, health-check endpoints, seed-factory system, maintenance mode, soft-delete + restore, monitoring wrapper, feature flags, the cache layer (withCache/invalidateCache/stale-while-revalidate), usePresence, useChannel, more.
+- **Phase 4** (✅ shipped — 14 items): the shell completes (app-shell, sidebar, tab-nav), search/filtering (search-input, sort-dropdown, build-prisma-where), document export (CSV + lazy-xlsx), file preview, security/ops (idempotency, webhook-verifier, health-endpoints), use-infinite-scroll, toast preset.
+- **Phase 5+** (the long tail — ~80 truly greenfield items left, ~30 more graduate from `(registry)` / `(pattern)`): impersonation, 2FA, realtime collaboration (SSE/WebSocket, presence, typing, comments, locks, activity broadcast), GDPR export, background jobs, virtualized grid, gallery/lightbox, CSV import wizard, savedViews, faceted filter counts, Sparkline/MetricGrid/HeatmapCalendar/FunnelChart, AuthGuard/usePermissions, useKeyboardShortcuts, FormFileUpload/FormAutosave, ImageUpload, signed URLs, in-app notify(), React Email base + welcome/reset/invoice templates, server-side table fetcher, EditableCell, Drawer, Modal, Global loading bar, Tooltip standardized, Banner, Stripe webhook handler, Cron scheduler, Background job runner, CSRF/security headers, input sanitizer, GDPR export, account deletion flow, seed-factory system, maintenance mode, soft-delete + restore, monitoring wrapper, feature flags, the cache layer (withCache/invalidateCache/stale-while-revalidate), usePresence, useChannel, more.
 
 Each phase is a couple of dedicated sessions of focused work. The roadmap above is the canonical tracker — update item status as things ship.
 
-**Progress:** 42 / 150 shipped (28%). Of the ~108 pending items, ~30 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~80, all queued for Phase 4 (which will run as multiple focused sessions, not one batch).
+**Progress:** 56 / 150 shipped (37%). Of the ~94 pending items, ~25 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~69, queued for Phase 5+ across multiple focused sessions.
 
 ---
 
@@ -408,4 +458,4 @@ Migration of existing 32 components from the legacy approach is out of scope rig
 
 ---
 
-_Last updated: 2026-05-18 · Phase 3 of 4 shipped_
+_Last updated: 2026-05-18 · Phase 4 shipped · Phase 5+ queued_

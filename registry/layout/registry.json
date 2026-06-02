@@ -41,6 +41,56 @@
           "target": "~/components/breadcrumbs.tsx"
         }
       ]
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:component",
+      "title": "AppShell + useAppShell",
+      "description": "Sidebar + topbar + content shell with persisted collapse state, mobile drawer with backdrop, and a useAppShell hook for descendants to read the current state. Pairs with `sidebar`.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "MUKE-coder/vibekit/use-local-storage",
+        "MUKE-coder/vibekit/use-media-query"
+      ],
+      "files": [
+        {
+          "path": "app-shell.tsx",
+          "type": "registry:component",
+          "target": "~/components/app-shell.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "title": "Sidebar (config-driven)",
+      "description": "Config-driven sidebar — pass an `items` array of links or nested groups. Active state from pathname, role-based filtering, optional badges, collapse toggle pulling state from AppShell.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "MUKE-coder/vibekit/app-shell"
+      ],
+      "files": [
+        {
+          "path": "sidebar.tsx",
+          "type": "registry:component",
+          "target": "~/components/sidebar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tab-nav",
+      "type": "registry:component",
+      "title": "TabNav (URL-synced)",
+      "description": "Tab navigation with two modes: `path` (real Link navigation, active matched by pathname) and `query` (?tab= search param, single page). Supports badges, hidden + disabled tabs, controlled-mode onChange.",
+      "files": [
+        {
+          "path": "tab-nav.tsx",
+          "type": "registry:component",
+          "target": "~/components/tab-nav.tsx"
+        }
+      ]
     }
   ]
 }

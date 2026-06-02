@@ -11,6 +11,10 @@
     "registry/email/registry.json",
     "registry/hooks/registry.json",
     "registry/layout/registry.json",
-    "registry/utilities/registry.json"
+    "registry/utilities/registry.json",
+    "registry/search/registry.json",
+    "registry/documents/registry.json",
+    "registry/file-media/registry.json",
+    "registry/security/registry.json"
   ]
 }

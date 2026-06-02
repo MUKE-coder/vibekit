@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "file-preview",
+      "type": "registry:component",
+      "title": "FilePreview",
+      "description": "Single-asset preview block — image, video, audio, PDF (via iframe), with a graceful icon + download fallback for everything else (text, code, archives, unknown). Compose inside your own carousel for galleries.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "file-preview.tsx",
+          "type": "registry:component",
+          "target": "~/components/file-preview.tsx"
+        }
+      ]
+    }
+  ]
+}

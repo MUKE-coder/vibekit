@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "idempotency",
+      "type": "registry:lib",
+      "title": "withIdempotency",
+      "description": "Idempotency-Key middleware for write routes. Caches the response by (method, path, key) in Upstash Redis for 24h so retries / double-clicks return the original result without re-executing the handler.",
+      "dependencies": ["@upstash/redis"],
+      "files": [
+        {
+          "path": "idempotency.ts",
+          "type": "registry:lib",
+          "target": "~/lib/idempotency.ts"
+        }
+      ]
+    },
+    {
+      "name": "webhook-verifier",
+      "type": "registry:lib",
+      "title": "verifyHmacSignature + requireHmacSignature",
+      "description": "Generic HMAC signature verifier for inbound webhooks (Resend, Slack, custom partners). Configurable algorithm + encoding, auto-strips signature prefix, constant-time comparison via timingSafeEqual.",
+      "files": [
+        {
+          "path": "webhook-verifier.ts",
+          "type": "registry:lib",
+          "target": "~/lib/webhook-verifier.ts"
+        }
+      ]
+    },
+    {
+      "name": "health-endpoints",
+      "type": "registry:lib",
+      "title": "healthz + readyz",
+      "description": "Liveness (/api/healthz, always 200) and readiness (/api/readyz, 200 only when DB + Redis are reachable) handlers. Drop into app/api/healthz/route.ts and app/api/readyz/route.ts.",
+      "dependencies": ["@upstash/redis"],
+      "files": [
+        {
+          "path": "healthz.ts",
+          "type": "registry:lib",
+          "target": "~/app/api/healthz/route.ts"
+        },
+        {
+          "path": "readyz.ts",
+          "type": "registry:lib",
+          "target": "~/app/api/readyz/route.ts"
+        }
+      ]
+    }
+  ]
+}
