@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "notify",
+      "type": "registry:lib",
+      "title": "defineNotify (in-app + email)",
+      "description": "Build a typed `notify(userId, type, data)` helper that writes an in-app notification row AND sends a transactional email in one call, respecting per-user / per-type preferences. Pair with `send-email` + your Notification Prisma table.",
+      "files": [
+        {
+          "path": "notify.ts",
+          "type": "registry:lib",
+          "target": "~/lib/notify.ts"
+        }
+      ]
+    }
+  ]
+}

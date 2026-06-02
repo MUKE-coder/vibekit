@@ -33,6 +33,21 @@
           "target": "~/emails/welcome-email.tsx"
         }
       ]
+    },
+    {
+      "name": "reset-password-email",
+      "type": "registry:component",
+      "title": "ResetPasswordEmail",
+      "description": "Password reset email template using BaseLayout. Single-use URL + expiry copy + 'didn't request this' security note. Pair with Better Auth's reset flow.",
+      "dependencies": ["@react-email/components"],
+      "registryDependencies": ["MUKE-coder/vibekit/react-email-templates"],
+      "files": [
+        {
+          "path": "reset-password-email.tsx",
+          "type": "registry:component",
+          "target": "~/emails/reset-password-email.tsx"
+        }
+      ]
     }
   ]
 }

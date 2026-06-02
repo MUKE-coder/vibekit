@@ -91,6 +91,21 @@
           "target": "~/components/tab-nav.tsx"
         }
       ]
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:component",
+      "title": "ThemeToggle",
+      "description": "next-themes-backed theme toggle. Dropdown variant (Light/Dark/System) or cycle variant (light↔dark). Mount-gated to dodge SSR mismatch. Requires <ThemeProvider attribute='class'> in the root layout.",
+      "dependencies": ["lucide-react", "next-themes"],
+      "registryDependencies": ["button", "dropdown-menu"],
+      "files": [
+        {
+          "path": "theme-toggle.tsx",
+          "type": "registry:component",
+          "target": "~/components/theme-toggle.tsx"
+        }
+      ]
     }
   ]
 }

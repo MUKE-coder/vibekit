@@ -15,6 +15,51 @@
           "target": "~/components/file-preview.tsx"
         }
       ]
+    },
+    {
+      "name": "signed-url",
+      "type": "registry:lib",
+      "title": "getPresignedDownloadUrl + getPresignedUploadUrl",
+      "description": "Time-limited presigned URLs for private R2/S3 objects. Lazy-built S3 client; supports R2 via endpoint + forcePathStyle env. Download URLs serve private assets; upload URLs let the browser PUT directly (no server proxy).",
+      "dependencies": ["@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
+      "files": [
+        {
+          "path": "signed-url.ts",
+          "type": "registry:lib",
+          "target": "~/lib/signed-url.ts"
+        }
+      ]
+    },
+    {
+      "name": "upload-file",
+      "type": "registry:lib",
+      "title": "uploadFile (client-side)",
+      "description": "Browser-side upload helper. Fetches a presigned PUT URL from your server, streams the file via XHR with progress events + abort support. Returns { key, publicUrl }. Pair with `signed-url` on the server.",
+      "files": [
+        {
+          "path": "upload-file.ts",
+          "type": "registry:lib",
+          "target": "~/lib/upload-file.ts"
+        }
+      ]
+    },
+    {
+      "name": "image-upload",
+      "type": "registry:component",
+      "title": "ImageUpload (drag-drop + preview)",
+      "description": "Drag-drop image upload with client-side type+size validation, progress bar, preview, replace/remove. Pairs with `upload-file` + your `signed-url` endpoint.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "MUKE-coder/vibekit/upload-file"
+      ],
+      "files": [
+        {
+          "path": "image-upload.tsx",
+          "type": "registry:component",
+          "target": "~/components/image-upload.tsx"
+        }
+      ]
     }
   ]
 }

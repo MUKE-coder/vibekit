@@ -131,6 +131,47 @@
           "target": "~/components/tooltip.tsx"
         }
       ]
+    },
+    {
+      "name": "modal",
+      "type": "registry:component",
+      "title": "ModalProvider + useModal + Modal slot helpers",
+      "description": "Stack-aware imperative modal manager. Drop <ModalProvider> + <ModalRoot /> once near root; call modal.open(({ close }) => <Modal>…</Modal>) from anywhere. FIFO stack, Esc / backdrop closes topmost, size presets.",
+      "registryDependencies": ["dialog"],
+      "files": [
+        {
+          "path": "modal.tsx",
+          "type": "registry:component",
+          "target": "~/components/modal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner (dismissible announcement)",
+      "description": "Site-wide banner with info / success / warning / destructive variants. Dismissal persists per `id` via localStorage. Bump the id when copy changes to re-surface.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "banner.tsx",
+          "type": "registry:component",
+          "target": "~/components/banner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "global-loading-bar",
+      "type": "registry:component",
+      "title": "GlobalLoadingBar",
+      "description": "Top progress bar that animates during App Router route transitions. Detects anchor-click navigations, animates to ~80%, completes on pathname / searchParams change. No nprogress dependency.",
+      "files": [
+        {
+          "path": "global-loading-bar.tsx",
+          "type": "registry:component",
+          "target": "~/components/global-loading-bar.tsx"
+        }
+      ]
     }
   ]
 }

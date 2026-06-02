@@ -29,6 +29,21 @@
           "target": "~/components/metric-grid.tsx"
         }
       ]
+    },
+    {
+      "name": "date-range-picker",
+      "type": "registry:component",
+      "title": "DateRangePicker (dashboard presets)",
+      "description": "Calendar-in-popover range picker tailored for dashboards. Bundles Today / Last 7 / Last 30 / Last 90 / This month / This quarter / YTD presets alongside a 2-month custom calendar.",
+      "dependencies": ["lucide-react", "date-fns"],
+      "registryDependencies": ["button", "calendar", "popover", "separator"],
+      "files": [
+        {
+          "path": "date-range-picker.tsx",
+          "type": "registry:component",
+          "target": "~/components/date-range-picker.tsx"
+        }
+      ]
     }
   ]
 }

@@ -59,6 +59,47 @@
           "target": "~/lib/seed-factory.ts"
         }
       ]
+    },
+    {
+      "name": "security-headers",
+      "type": "registry:lib",
+      "title": "withSecurityHeaders (CSP/HSTS/CSRF)",
+      "description": "Middleware helper that sets CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, plus a same-origin Origin-header CSRF check on POST/PUT/PATCH/DELETE. csrfBypass option for public webhook routes.",
+      "files": [
+        {
+          "path": "security-headers.ts",
+          "type": "registry:lib",
+          "target": "~/lib/security-headers.ts"
+        }
+      ]
+    },
+    {
+      "name": "input-sanitizer",
+      "type": "registry:lib",
+      "title": "sanitizeHtml + sanitizeHtmlStrict + sanitizeUrl",
+      "description": "Isomorphic HTML sanitiser (DOMPurify-based) with rich-text and strict profiles, plus a sanitizeUrl helper that blocks javascript: and other dangerous schemes. Use anywhere you render user-generated HTML.",
+      "dependencies": ["isomorphic-dompurify"],
+      "files": [
+        {
+          "path": "input-sanitizer.ts",
+          "type": "registry:lib",
+          "target": "~/lib/input-sanitizer.ts"
+        }
+      ]
+    },
+    {
+      "name": "background-jobs",
+      "type": "registry:lib",
+      "title": "jobs.enqueue + defineJob (Upstash QStash)",
+      "description": "Typed QStash background-job runner. `enqueue(name, payload, { delay, cron })` from any server route; `defineJob(name, { schema, handler })` for the receiving route — verifies the QStash signature and validates the payload with Zod before running.",
+      "dependencies": ["@upstash/qstash", "zod"],
+      "files": [
+        {
+          "path": "background-jobs.ts",
+          "type": "registry:lib",
+          "target": "~/lib/background-jobs.ts"
+        }
+      ]
     }
   ]
 }

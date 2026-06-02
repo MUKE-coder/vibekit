@@ -89,6 +89,21 @@
           "target": "~/lib/server-table-fetcher.ts"
         }
       ]
+    },
+    {
+      "name": "editable-cell",
+      "type": "registry:component",
+      "title": "EditableCell (inline-edit + optimistic save)",
+      "description": "Inline-edit table cell. Click to enter edit mode, Enter to commit, Esc to cancel. Optimistic update with rollback on error. Validate fn + spinner + skip-unchanged. Drop into any TanStack Table cell renderer.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["input"],
+      "files": [
+        {
+          "path": "editable-cell.tsx",
+          "type": "registry:component",
+          "target": "~/components/editable-cell.tsx"
+        }
+      ]
     }
   ]
 }

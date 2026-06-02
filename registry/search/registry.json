@@ -56,6 +56,25 @@
           "target": "~/hooks/use-filters.ts"
         }
       ]
+    },
+    {
+      "name": "global-search",
+      "type": "registry:component",
+      "title": "GlobalSearch (⌘K multi-entity)",
+      "description": "Cmd+K palette with live multi-entity search. Debounced query, grouped results by entity, recent items in localStorage, optional custom onSelect. Global ⌘K binding via useKeyboardShortcuts.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "command",
+        "MUKE-coder/vibekit/use-debounce",
+        "MUKE-coder/vibekit/use-keyboard-shortcuts"
+      ],
+      "files": [
+        {
+          "path": "global-search.tsx",
+          "type": "registry:component",
+          "target": "~/components/global-search.tsx"
+        }
+      ]
     }
   ]
 }
