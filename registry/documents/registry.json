@@ -56,6 +56,20 @@
           "target": "~/lib/invoice-pdf.ts"
         }
       ]
+    },
+    {
+      "name": "report-builder",
+      "type": "registry:lib",
+      "title": "buildReport (config → PDF or Excel)",
+      "description": "Generic config-driven report builder. Pass `{ title, columns, rows, totals, currency, format: 'pdf'|'xlsx' }` and get back a typed Buffer ready for the response stream. Built-in formatters for currency/number/percent/date/datetime. Same input drives both formats — toggle by setting `format`. The Excel path lazy-loads xlsx so it stays out of the initial bundle.",
+      "dependencies": ["@react-pdf/renderer", "xlsx"],
+      "files": [
+        {
+          "path": "report-builder.ts",
+          "type": "registry:lib",
+          "target": "~/lib/report-builder.ts"
+        }
+      ]
     }
   ]
 }

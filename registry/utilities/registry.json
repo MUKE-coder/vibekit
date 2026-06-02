@@ -119,6 +119,37 @@
           "target": "~/lib/db.ts"
         }
       ]
+    },
+    {
+      "name": "tenant-scope",
+      "type": "registry:lib",
+      "title": "scopedDb (multi-tenant Prisma extension)",
+      "description": "Wrap `db` once per request with the current orgId — every subsequent `findMany`/`findFirst`/`count`/`update`/`delete` auto-filters by that scope, and `create`/`createMany`/`upsert` inject the orgId into data. Configurable column name, included/excluded model lists. Removes manual `where: { orgId }` boilerplate.",
+      "registryDependencies": ["MUKE-coder/vibekit/db"],
+      "files": [
+        {
+          "path": "tenant-scope.ts",
+          "type": "registry:lib",
+          "target": "~/lib/tenant-scope.ts"
+        }
+      ]
+    },
+    {
+      "name": "audit-log",
+      "type": "registry:lib",
+      "title": "recordAudit + withAudit + getAuditLog",
+      "description": "Typed audit log helpers. `recordAudit(event)` writes one row safely (never breaks the user flow). `withAudit(db, getContext)` wraps any Prisma client so every write produces an AuditLog row automatically. `getAuditLog(query)` reads the trail with filter + cursor support. Pair with an `auditLog` Prisma model (schema in JSDoc).",
+      "registryDependencies": [
+        "MUKE-coder/vibekit/db",
+        "MUKE-coder/vibekit/monitoring"
+      ],
+      "files": [
+        {
+          "path": "audit-log.ts",
+          "type": "registry:lib",
+          "target": "~/lib/audit-log.ts"
+        }
+      ]
     }
   ]
 }

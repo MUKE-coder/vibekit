@@ -63,6 +63,21 @@
           "target": "~/lib/digest-scheduler.ts"
         }
       ]
+    },
+    {
+      "name": "notification-bell",
+      "type": "registry:component",
+      "title": "NotificationBell (topbar popover)",
+      "description": "Topbar bell + popover for in-app notifications. Unread count badge (9+ cap), per-item mark-as-read on click, 'mark all read' bulk action, configurable polling interval (or 0 to use realtime push). Bring your own `loadNotifications`, `markRead`, `markAllRead`.",
+      "dependencies": ["lucide-react", "date-fns", "@tanstack/react-query"],
+      "registryDependencies": ["button", "popover"],
+      "files": [
+        {
+          "path": "notification-bell.tsx",
+          "type": "registry:component",
+          "target": "~/components/notification-bell.tsx"
+        }
+      ]
     }
   ]
 }

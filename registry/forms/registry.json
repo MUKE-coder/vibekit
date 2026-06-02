@@ -130,6 +130,35 @@
           "target": "~/components/form-file-upload.tsx"
         }
       ]
+    },
+    {
+      "name": "zod-schemas",
+      "type": "registry:lib",
+      "title": "Shared Zod schemas (email, password, slug, phone, url, money, listQuery)",
+      "description": "Common reusable Zod schemas. One source of truth for client + server: emailSchema, passwordSchema, nameSchema, slugSchema, phoneSchema, urlSchema, optionalUrlSchema, positiveIntSchema, moneySchema, hexColorSchema, csvIdsSchema, plus a `listQuerySchema` ready for `parseSearchParams` on paginated list endpoints. Every schema trims/normalises so server + client agree on the stored value.",
+      "dependencies": ["zod"],
+      "files": [
+        {
+          "path": "zod-schemas.ts",
+          "type": "registry:lib",
+          "target": "~/lib/zod-schemas.ts"
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "registry:component",
+      "title": "TagInput (chip input)",
+      "description": "Type → Enter/Tab/comma to commit, Backspace on empty input removes the last. Optional suggestion list with keyboard nav (↑↓/Enter), dedupe, normaliser, validator, max-tag cap, read-only locked-in tags. Drop straight into a `FormField` for RHF integration.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["badge"],
+      "files": [
+        {
+          "path": "tag-input.tsx",
+          "type": "registry:component",
+          "target": "~/components/tag-input.tsx"
+        }
+      ]
     }
   ]
 }

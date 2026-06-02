@@ -190,7 +190,7 @@ vibekit/
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2 / compliance)
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
 ├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
-├── vibekit-primitives.md        ← Roadmap: 150 primitives via GitHub registry (128 shipped, 85%)
+├── vibekit-primitives.md        ← Roadmap: 150 primitives via GitHub registry (141 shipped, 94%)
 ├── registry.json                ← Root index for the GitHub registry
 └── registry/                    ← Source for installable primitives (auth/hooks/utilities/...)
 ```
@@ -260,7 +260,7 @@ pnpm dlx shadcn@latest add MUKE-coder/vibekit/empty-state
 pnpm dlx shadcn@latest add MUKE-coder/vibekit/formatters
 ```
 
-Phases 1–9 shipped (128 items so far — 85% of the 150 roadmap, four categories complete ✨). Roadmap of all 150 in [`vibekit-primitives.md`](./vibekit-primitives.md). Browse all from the CLI:
+Phases 1–10 shipped (141 items so far — 94% of the 150 roadmap, nine categories complete ✨). Roadmap of all 150 in [`vibekit-primitives.md`](./vibekit-primitives.md). Browse all from the CLI:
 
 ```bash
 pnpm dlx shadcn@latest list MUKE-coder/vibekit

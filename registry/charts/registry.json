@@ -102,6 +102,48 @@
           "target": "~/components/chart-card.tsx"
         }
       ]
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:component",
+      "title": "LineChart (themed Recharts)",
+      "description": "Themed line chart with sensible defaults — muted gridlines, lightweight tooltip, theme-token palette, dashed comparison series support. Generic over the row shape so `series[].key` is type-safe. Pair with `<ChartCard>` for the shell + fullscreen + loading/empty states.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "line-chart.tsx",
+          "type": "registry:component",
+          "target": "~/components/line-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:component",
+      "title": "BarChart (vertical / horizontal / stacked)",
+      "description": "Themed bar chart. Vertical (default) or horizontal layout, grouped or stacked. Theme-token palette, optional rounded bar tops, axis tickFormatter slots. Generic over the row shape so `series[].key` is type-safe.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "bar-chart.tsx",
+          "type": "registry:component",
+          "target": "~/components/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "area-chart",
+      "type": "registry:component",
+      "title": "AreaChart (gradient fill, stackable)",
+      "description": "Themed area chart with a soft gradient fill — the dashboard staple for revenue / signups / traffic over time. Stacked or single, monotone / step / linear curve, theme-token palette, per-series colour override.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "area-chart.tsx",
+          "type": "registry:component",
+          "target": "~/components/area-chart.tsx"
+        }
+      ]
     }
   ]
 }

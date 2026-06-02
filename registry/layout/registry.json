@@ -106,6 +106,21 @@
           "target": "~/components/theme-toggle.tsx"
         }
       ]
+    },
+    {
+      "name": "org-switcher",
+      "type": "registry:component",
+      "title": "OrgSwitcher (workspace dropdown)",
+      "description": "Searchable workspace / org switcher for the sidebar or topbar. Avatar + name in the trigger, command-palette search with role badge, checkmark on active, optional 'Create workspace' action. Designed for Better Auth's organisation plugin shape but works with any `{ id, name, slug?, logoUrl?, role? }` list.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["avatar", "button", "command", "popover"],
+      "files": [
+        {
+          "path": "org-switcher.tsx",
+          "type": "registry:component",
+          "target": "~/components/org-switcher.tsx"
+        }
+      ]
     }
   ]
 }

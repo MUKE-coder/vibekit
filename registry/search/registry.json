@@ -149,6 +149,19 @@
           "target": "~/components/quick-filters.tsx"
         }
       ]
+    },
+    {
+      "name": "facet-counts",
+      "type": "registry:lib",
+      "title": "computeFacetCounts + toSegmentCounts",
+      "description": "Server-side faceted-filter count computation. For each filter, returns the number of records matching its options *given everything else the user has applied* (the canonical 'what's left to choose' trick — excludes the facet's own value from its own where clause). Single round trip via Promise.all. Pair with `FilterBar.Multi.counts` and `QuickFilters.counts`.",
+      "files": [
+        {
+          "path": "facet-counts.ts",
+          "type": "registry:lib",
+          "target": "~/lib/facet-counts.ts"
+        }
+      ]
     }
   ]
 }

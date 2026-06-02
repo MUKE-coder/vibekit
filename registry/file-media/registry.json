@@ -95,6 +95,20 @@
           "target": "~/components/csv-import.tsx"
         }
       ]
+    },
+    {
+      "name": "dropzone",
+      "type": "registry:component",
+      "title": "Dropzone (generic drag-drop)",
+      "description": "Generic drag-drop zone for custom file flows (avatar cropper, single-file CSV pickers, etc.). Returns `{ accepted, rejected }` with per-file rejection reasons (`type` or `size`). MIME globs + extension matchers, max-size limit, multiple toggle, keyboard activation.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "dropzone.tsx",
+          "type": "registry:component",
+          "target": "~/components/dropzone.tsx"
+        }
+      ]
     }
   ]
 }

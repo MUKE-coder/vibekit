@@ -131,6 +131,20 @@
           "target": "~/hooks/use-column-resize.ts"
         }
       ]
+    },
+    {
+      "name": "data-grid",
+      "type": "registry:component",
+      "title": "DataGrid (virtualised table)",
+      "description": "Virtualised table built on @tanstack/react-virtual. Renders only rows in the viewport so 50K-row datasets stay smooth. Sticky header, configurable row height, optional row-click navigation, optional `onEndReached` for infinite-scroll pagination, integrates with `useColumnPreferences` via the `hidden` flag.",
+      "dependencies": ["@tanstack/react-virtual"],
+      "files": [
+        {
+          "path": "data-grid.tsx",
+          "type": "registry:component",
+          "target": "~/components/data-grid.tsx"
+        }
+      ]
     }
   ]
 }
