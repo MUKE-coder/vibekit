@@ -88,6 +88,39 @@
           "target": "~/lib/activity-broadcast.ts"
         }
       ]
+    },
+    {
+      "name": "live-cursors",
+      "type": "registry:component",
+      "title": "LiveCursors",
+      "description": "Multi-user live cursor overlay. Every viewer on a `useChannel`-named room sees every other viewer's cursor as a coloured arrow + name label. Throttled publish (~24 fps), 5-second staleness expiry, deterministic colour-from-id palette, optional container ref for page-anchored coords.",
+      "registryDependencies": ["MUKE-coder/vibekit/use-channel"],
+      "files": [
+        {
+          "path": "live-cursors.tsx",
+          "type": "registry:component",
+          "target": "~/components/live-cursors.tsx"
+        }
+      ]
+    },
+    {
+      "name": "comments-thread",
+      "type": "registry:component",
+      "title": "CommentsThread (with @mentions)",
+      "description": "Threaded comments with @mention picker and live updates over `useChannel`. Keyboard-driven suggestions (↑↓/Enter/Esc), ⌘+Enter to send, mention badges, optional delete per author. Server stores mentions as `@[Name](userId)` so they survive edits.",
+      "dependencies": ["lucide-react", "date-fns", "@tanstack/react-query"],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "MUKE-coder/vibekit/use-channel"
+      ],
+      "files": [
+        {
+          "path": "comments-thread.tsx",
+          "type": "registry:component",
+          "target": "~/components/comments-thread.tsx"
+        }
+      ]
     }
   ]
 }

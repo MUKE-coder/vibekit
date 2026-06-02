@@ -28,6 +28,41 @@
           "target": "~/components/notification-preferences.tsx"
         }
       ]
+    },
+    {
+      "name": "email-verification",
+      "type": "registry:lib",
+      "title": "sendEmailVerification + verifyEmailToken",
+      "description": "Email verification flow with single-use, SHA-256-hashed, TTL'd tokens. `sendEmailVerification(userId)` issues a 24h link and emails it via `send-email`. `verifyEmailToken(rawToken)` checks expiry, marks the user verified in a transaction, and deletes the token. Optional `pruneExpiredEmailTokens()` for a daily QStash cron.",
+      "registryDependencies": [
+        "MUKE-coder/vibekit/db",
+        "MUKE-coder/vibekit/send-email"
+      ],
+      "files": [
+        {
+          "path": "email-verification.ts",
+          "type": "registry:lib",
+          "target": "~/lib/email-verification.ts"
+        }
+      ]
+    },
+    {
+      "name": "digest-scheduler",
+      "type": "registry:lib",
+      "title": "sendUserDigest + runDigestBatch",
+      "description": "Notification digest scheduler. Batches in-app notifications into a daily / weekly email so high-volume users aren't drowned. `runDigestBatch(cadence)` is the QStash cron entrypoint; `sendUserDigest(userId, cadence)` handles one user. Marks each included notification with `digestSentAt` so it's never re-emailed.",
+      "registryDependencies": [
+        "MUKE-coder/vibekit/db",
+        "MUKE-coder/vibekit/send-email",
+        "MUKE-coder/vibekit/monitoring"
+      ],
+      "files": [
+        {
+          "path": "digest-scheduler.ts",
+          "type": "registry:lib",
+          "target": "~/lib/digest-scheduler.ts"
+        }
+      ]
     }
   ]
 }

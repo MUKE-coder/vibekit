@@ -106,6 +106,19 @@
           "target": "~/lib/monitoring.ts"
         }
       ]
+    },
+    {
+      "name": "db",
+      "type": "registry:lib",
+      "title": "db (Prisma client singleton)",
+      "description": "Prisma client cached on `globalThis` so Next.js dev hot-reload doesn't open a fresh connection pool on every save. Imports from `./generated/prisma` (matching the no-src `output = '../lib/generated/prisma'` convention). One place to wire extensions (soft-delete, audit, tenantScope).",
+      "files": [
+        {
+          "path": "db.ts",
+          "type": "registry:lib",
+          "target": "~/lib/db.ts"
+        }
+      ]
     }
   ]
 }

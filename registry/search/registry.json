@@ -115,6 +115,40 @@
           "target": "~/components/recently-viewed.tsx"
         }
       ]
+    },
+    {
+      "name": "saved-views",
+      "type": "registry:component",
+      "title": "SavedViews (named filter+sort+columns combos)",
+      "description": "User-saved views — name + URL query string per page key, with create / rename / delete / set-default. Composes for free with `useTableState`, `useFilters`, `useColumnPreferences` because everything is already URL-driven. Pair with a `SavedView` Prisma table keyed by (ownerId, viewKey).",
+      "dependencies": ["lucide-react", "@tanstack/react-query"],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "dropdown-menu",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "saved-views.tsx",
+          "type": "registry:component",
+          "target": "~/components/saved-views.tsx"
+        }
+      ]
+    },
+    {
+      "name": "quick-filters",
+      "type": "registry:component",
+      "title": "QuickFilters (preset chips)",
+      "description": "Preset filter chips above a list (All / Open / High priority / Stale > 7d). Different from `FilterBar` (every facet) and `SavedViews` (user-defined) — these are the *predefined* segments that come with the page. Optional `counts` prop renders server-supplied numeric badges per segment.",
+      "registryDependencies": ["badge"],
+      "files": [
+        {
+          "path": "quick-filters.tsx",
+          "type": "registry:component",
+          "target": "~/components/quick-filters.tsx"
+        }
+      ]
     }
   ]
 }

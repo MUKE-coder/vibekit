@@ -114,6 +114,44 @@
           "target": "~/components/maintenance-mode.tsx"
         }
       ]
+    },
+    {
+      "name": "data-export",
+      "type": "registry:lib",
+      "title": "exportUserData (GDPR archive)",
+      "description": "GDPR 'download my data' export. Collects records across the requested Prisma models, ZIPs them as JSON, uploads the archive to R2/S3 with a `userId/{timestamp}.zip` key, and emails a 7-day signed download link. Designed to run as a QStash background job.",
+      "dependencies": ["archiver", "@aws-sdk/client-s3"],
+      "registryDependencies": [
+        "MUKE-coder/vibekit/db",
+        "MUKE-coder/vibekit/signed-url",
+        "MUKE-coder/vibekit/send-email",
+        "MUKE-coder/vibekit/monitoring"
+      ],
+      "files": [
+        {
+          "path": "data-export.ts",
+          "type": "registry:lib",
+          "target": "~/lib/data-export.ts"
+        }
+      ]
+    },
+    {
+      "name": "account-deletion",
+      "type": "registry:lib",
+      "title": "scheduleAccountDeletion + purgeExpiredAccounts",
+      "description": "Soft-delete → 30-day grace period → permanent purge flow. `scheduleAccountDeletion(userId)` marks the row and emails confirmation; `cancelAccountDeletion(userId)` undoes the request while the window is open; `purgeExpiredAccounts()` is the daily QStash cron that hard-deletes the user + every cascadeModels row in a single transaction.",
+      "registryDependencies": [
+        "MUKE-coder/vibekit/db",
+        "MUKE-coder/vibekit/send-email",
+        "MUKE-coder/vibekit/monitoring"
+      ],
+      "files": [
+        {
+          "path": "account-deletion.ts",
+          "type": "registry:lib",
+          "target": "~/lib/account-deletion.ts"
+        }
+      ]
     }
   ]
 }

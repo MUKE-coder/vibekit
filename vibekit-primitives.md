@@ -31,7 +31,7 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 
 ---
 
-## Shipped — 115 items 🎉
+## Shipped — 128 items 🎉
 
 ### Auth & Session
 
@@ -365,7 +365,7 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 
 ---
 
-## Full roadmap (35 items pending — 77% complete)
+## Full roadmap (22 items pending — 85% complete)
 
 Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-library-150.md). Items are tagged with the implementation phase and current status. The "Phase" column drives the build order in future sessions.
 
@@ -373,7 +373,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 >
 > Items marked `(pattern)` are documented in a framework guide (multi-tenant.md, audit-log.md, etc.) — they're ready to graduate to installable primitives by extracting the source.
 
-### 1. Auth & Session (10) — 9/10 shipped
+### 1. Auth & Session (10) — 10/10 shipped ✨ COMPLETE
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -383,12 +383,12 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 4 | ✅ | AuthGuard | 5 | shipped |
 | 5 | ✅ | RoleGate | 1 | shipped as `role-gate` |
 | 6 | ✅ | usePermissions | 5 | shipped |
-| 7 | ⏳ | Impersonation system | 6+ | Larger — admin "login as user" |
+| 7 | ✅ | Impersonation system | 9 | shipped as `impersonation` (signed cookie + 2h ceiling + audit + resolveImpersonatedUser) |
 | 8 | ✅ | Session refresh manager | 5 | shipped as `use-session-refresh` |
 | 9 | ✅ | TwoFactorSetup | 8 | shipped as `two-factor-setup` (3-step: QR → verify → backup codes) |
 | 10 | ✅ | Device/session list | 8 | shipped as `device-list` (UA-detected device icon, revoke one + revoke-others) |
 
-### 2. Data Fetching & Caching (12) — 10/12 shipped
+### 2. Data Fetching & Caching (12) — 11/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -399,7 +399,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 15 | ✅ | useOptimisticMutation | 3 | shipped |
 | 16 | ✅ | usePaginatedQuery | 3 | shipped |
 | 17 | ✅ | useInfiniteScroll | 4 | shipped |
-| 18 | ⏳ | Stale-while-revalidate Redis layer | 8+ | |
+| 18 | ✅ | Stale-while-revalidate Redis layer | 9 | shipped as `use-swr-cache` (withSwrCache + invalidateSwr, in-process stampede dedupe) |
 | 19 | ✅ | prefetchOnHover | 7 | shipped |
 | 20 | ⏳ | Request deduplication | — | React Query already handles |
 | 21 | ✅ | useDebouncedQuery | 3 | shipped |
@@ -456,7 +456,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 57 | ✅ | CopyButton | 1 | shipped |
 | 58 | ✅ | Banner / announcement | 6 | shipped |
 
-### 6. File & Media (8) — 6/8 shipped
+### 6. File & Media (8) — 7/8 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -466,21 +466,21 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 62 | ✅ | FilePreview | 4 | shipped |
 | 63 | ✅ | Signed URL generator | 6 | shipped (R2/S3 PUT + GET) |
 | 64 | ✅ | Gallery / lightbox | 8 | shipped as `gallery` (responsive grid + keyboard-nav lightbox + optional download) |
-| 65 | ⏳ | CSV import wizard | 7+ | Upload → map → validate → import |
+| 65 | ✅ | CSV import wizard | 9 | shipped as `csv-import` (4-step Upload → Map → Validate → Import, client-side parser) |
 | 66 | ⏳ | Dropzone | (registry) | Shipped via JB File Storage UI |
 
-### 7. Documents & Export (6) — 3/6 shipped
+### 7. Documents & Export (6) — 4/6 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 67 | ⏳ | PDFDocument templates | (registry) | Shipped as `printable-templates` |
 | 68 | ✅ | exportToExcel | 4 | shipped (lazy-loaded xlsx) |
 | 69 | ✅ | exportToCSV | 4 | shipped |
-| 70 | ⏳ | generateInvoicePDF | 8+ | (extends printable-templates) |
+| 70 | ✅ | generateInvoicePDF | 9 | shipped as `invoice-pdf` (@react-pdf/renderer, paid/due/overdue status, line-items, totals) |
 | 71 | ✅ | Print stylesheet + PrintButton | 7 | shipped as `print-button` |
 | 72 | ⏳ | Report builder | 8+ | Config → PDF/Excel |
 
-### 8. Notifications & Email (8) — 6/8 shipped
+### 8. Notifications & Email (8) — 8/8 shipped ✨ COMPLETE
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -490,8 +490,8 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 76 | ✅ | notify(userId, type, data) | 6 | shipped (defineNotify — typed, prefs-aware, in-app + email) |
 | 77 | ✅ | Notification preferences UI | 8 | shipped as `notification-preferences` (channel × type Switch matrix, debounced autosave) |
 | 78 | ⏳ | NotificationBell | (registry) | Shipped as part of `notification-center` |
-| 79 | ⏳ | Email verification flow | 7+ | (covered partially by Better Auth UI) |
-| 80 | ⏳ | Digest scheduler | 7+ | Batches into daily/weekly |
+| 79 | ✅ | Email verification flow | 9 | shipped as `email-verification` (hashed single-use 24h tokens + sendEmailVerification + verifyEmailToken + cron pruner) |
+| 80 | ✅ | Digest scheduler | 9 | shipped as `digest-scheduler` (per-cadence batch, marks digestSentAt, QStash-friendly) |
 
 ### 9. Payments & Billing (6) — 2/6 shipped
 
@@ -516,11 +516,11 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 92 | ⏳ | Org/workspace switcher | (registry) | Shipped as part of `org-team-ui` |
 | 104 | ✅ | ThemeToggle | 6 | shipped (dropdown + cycle variants — also counted in State/Hooks/DX) |
 
-### 11. Utilities & Infra (8) — 5/8 shipped
+### 11. Utilities & Infra (8) — 6/8 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 93 | ⏳ | db singleton | (pattern) | master_prompt.md → Prisma section |
+| 93 | ✅ | db singleton | 9 | shipped as `db` (Prisma client on `globalThis`, HMR-safe, dev/prod log levels) |
 | 94 | ⏳ | tenantScope helper | (pattern) | multi-tenant.md → scopedDb |
 | 95 | ⏳ | Audit log system | (pattern) | audit-log.md → recordAudit + UI |
 | 96 | ✅ | formatters | 1 | shipped |
@@ -546,30 +546,30 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 111 | ✅ | ClientOnly / NoSSR | 2 | shipped as `client-only` |
 | 112 | ✅ | invariant / assert / exhaustive | 2 | shipped as `invariant` |
 
-### 13. Search, Filtering & Views (10) — 7/10 shipped
+### 13. Search, Filtering & Views (10) — 9/10 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 113 | ✅ | GlobalSearch | 6 | shipped (⌘K palette, debounced, grouped, recents) |
 | 114 | ✅ | useFilters | 5 | shipped (typed URL-synced; multi/bool/range/single) |
 | 115 | ✅ | FilterBar | 8 | shipped (FilterBar.Multi / Single / Bool / DateRange / NumRange — reads/writes `useFilters`) |
-| 116 | ⏳ | Saved views | 5+ | Named filter+sort+column combos |
+| 116 | ✅ | Saved views | 9 | shipped as `saved-views` (per-page-key URL snapshots, create/rename/delete/set-default) |
 | 117 | ✅ | SearchInput | 4 | shipped |
 | 118 | ⏳ | Faceted filter counts | 5+ | Server-side counts |
 | 119 | ✅ | buildPrismaWhere | 4 | shipped (with buildPrismaOrderBy) |
 | 120 | ✅ | SortDropdown | 4 | shipped |
 | 121 | ✅ | Recently viewed | 8 | shipped as `recently-viewed` (cross-entity localStorage history, type filter, capped at 20) |
-| 122 | ⏳ | Quick filters / segments | 5+ | Preset filters |
+| 122 | ✅ | Quick filters / segments | 9 | shipped as `quick-filters` (preset chip row above lists, optional server-counts) |
 
-### 14. Realtime & Collaboration (8) — 6/8 shipped
+### 14. Realtime & Collaboration (8) — 8/8 shipped ✨ COMPLETE
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 123 | ✅ | SSE/WebSocket manager | 7 | shipped as `sse-channel` (server route + useSseChannel client) |
 | 124 | ✅ | usePresence | 7 | shipped (heartbeat + polled member list) |
-| 125 | ⏳ | Live cursors / live updates | 8+ | |
+| 125 | ✅ | Live cursors / live updates | 9 | shipped as `live-cursors` (throttled publish, 5s stale, deterministic colour-from-id) |
 | 126 | ✅ | TypingIndicator | 8 | shipped (`useTypingPublisher` + `<TypingIndicator>` — debounced start/stop on `useChannel`) |
-| 127 | ⏳ | Comments with mentions | 9+ | |
+| 127 | ✅ | Comments with mentions | 9 | shipped as `comments-thread` (keyboard mention picker, live updates over useChannel, `@[Name](id)` storage) |
 | 128 | ✅ | useChannel | 8 | shipped (transport-agnostic pub/sub backed by `useSseChannel` + POST egress) |
 | 129 | ✅ | Collaborative lock | 8 | shipped (`useCollaborativeLock` + `<LockBanner>` + `<LockBadge>` — acquire/release/takeover) |
 | 130 | ✅ | Activity broadcast | 8 | shipped as `activity-broadcast` (server-side parallel-sink fanout via Promise.allSettled) |
@@ -587,7 +587,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 137 | ✅ | HeatmapCalendar | 7 | shipped (configurable thresholds + tooltips + click handler) |
 | 138 | ✅ | FunnelChart | 7 | shipped (auto per-stage conversion %, Recharts-based) |
 
-### 16. Security, Compliance & Ops (12) — 10/12 shipped
+### 16. Security, Compliance & Ops (12) — 12/12 shipped ✨ COMPLETE
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -595,8 +595,8 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 140 | ✅ | Input sanitizer | 6 | shipped (sanitizeHtml + strict + sanitizeUrl, isomorphic) |
 | 141 | ✅ | Idempotency middleware | 4 | shipped |
 | 142 | ✅ | Webhook signature verifier | 4 | shipped |
-| 143 | ⏳ | Data export (GDPR) | 8+ | "Export all my data" |
-| 144 | ⏳ | Account deletion flow | 8+ | Soft → grace → purge |
+| 143 | ✅ | Data export (GDPR) | 9 | shipped as `data-export` (zip-of-JSON per-model, R2/S3 upload, 7-day signed link email) |
+| 144 | ✅ | Account deletion flow | 9 | shipped as `account-deletion` (soft → 30-day grace → cascade purge, confirmation email) |
 | 145 | ✅ | Health-check endpoints | 4 | shipped (healthz + readyz) |
 | 146 | ✅ | Seed + factory system | 5 | shipped as `seed-factory` |
 | 147 | ✅ | Background job runner | 6 | shipped as `background-jobs` (Upstash QStash, signature verified, Zod-validated payload) |
@@ -616,11 +616,12 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 - **Phase 6** (✅ shipped — 15 items): file uploads vertical complete (signed-url + upload-file + image-upload), notify() (in-app + email helper), reset-password-email, security-headers (CSP/HSTS/CSRF), input-sanitizer, background-jobs (QStash + cron), global-search (⌘K palette), date-range-picker, editable-cell, theme-toggle, modal (imperative stack-aware), banner, global-loading-bar — closes Feedback (12/12 ✨) and Layout (5/6).
 - **Phase 7** (✅ shipped — 14 items): caching layer (cache-redis + use-polling + prefetch-on-hover), payments (stripe-webhook-handler + billing-portal — new category), realtime (sse-channel + use-presence — new category), charts (donut-chart + funnel-chart + heatmap-calendar — closes the dashboard chart surface), activity-timeline, use-async-validation, print-button, maintenance-mode. **100-item milestone crossed (67%).**
 - **Phase 8** (✅ shipped — 15 items): auth chrome completes (two-factor-setup + device-list — Auth at 9/10), FormFileUpload, useColumnPreferences, gallery (lightbox), notification-preferences UI, invoice-email, monitoring wrapper, FilterBar (compound API) + recently-viewed (Search at 7/10), realtime collaboration grows from 2/8 to 6/8 (useChannel + typing-indicator + collaborative-lock + activity-broadcast), chart-card (Charts at 7/8). **115-item milestone (77%).**
-- **Phase 9+** (the long tail — ~25 truly greenfield items left, ~10 more graduate from `(registry)` / `(pattern)`): impersonation, GDPR data export, account deletion flow, CSV import wizard, virtualised DataGrid, Comments with mentions, Live cursors, stale-while-revalidate Redis layer, generateInvoicePDF, Report builder, Org/workspace switcher (graduates), Digest scheduler, Email verification flow, saved views, faceted filter counts.
+- **Phase 9** (✅ shipped — 13 items): closes four categories at once — **Auth (10/10 ✨)** via impersonation; **Notifications & Email (8/8 ✨)** via email-verification + digest-scheduler; **Realtime & Collaboration (8/8 ✨)** via live-cursors + comments-thread; **Security/Ops (12/12 ✨)** via data-export (GDPR) + account-deletion. Also: `db` Prisma singleton, `use-swr-cache` (stale-while-revalidate), `csv-import` wizard, `invoice-pdf` (@react-pdf/renderer), `saved-views`, `quick-filters`. **128-item milestone (85%).**
+- **Phase 10+** (the final stretch — ~15 truly greenfield items left, ~7 more graduate from `(registry)` / `(pattern)`): tenantScope helper, audit-log system, virtualised DataGrid, report builder, faceted filter counts, Org/workspace switcher (graduates), TagInput (graduates), Form wrapper (graduates), shared Zod schemas (graduates), Dropzone (graduates), cn() (handled by shadcn init).
 
 Each phase is a couple of dedicated sessions of focused work. The roadmap above is the canonical tracker — update item status as things ship.
 
-**Progress:** 115 / 150 shipped (77%) 🎉. Of the ~35 pending items, ~10 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~25. **Feedback** (12/12 ✨) is the first complete category; Auth (9/10), Tables (10/12), Data Fetching (10/12), Layout (5/6 + theme-toggle), State/Hooks/DX (11/12), Charts (7/8), Security/Ops (10/12), and Realtime (6/8) are nearly there.
+**Progress:** 128 / 150 shipped (85%) 🎉. Of the ~22 pending items, ~7 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~15. **Four complete categories ✨:** Auth (10/10), Notifications & Email (8/8), Realtime & Collaboration (8/8), Security/Ops (12/12), Feedback (12/12). Nearly there: Tables (10/12), Data Fetching (11/12), Search (9/10), Charts (7/8), File & Media (7/8), Documents (4/6), State/Hooks/DX (11/12), Layout (5/6 + theme-toggle), Utilities (6/8).
 
 ---
 
@@ -642,4 +643,4 @@ Migration of existing 32 components from the legacy approach is out of scope rig
 
 ---
 
-_Last updated: 2026-06-02 · Phase 8 shipped · 115/150 (77%) · Phase 9+ queued_
+_Last updated: 2026-06-02 · Phase 9 shipped · 128/150 (85%) · Phase 10+ queued_

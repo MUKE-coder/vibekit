@@ -42,6 +42,20 @@
           "target": "~/components/print-button.tsx"
         }
       ]
+    },
+    {
+      "name": "invoice-pdf",
+      "type": "registry:lib",
+      "title": "generateInvoicePdf (@react-pdf/renderer)",
+      "description": "Server-side PDF invoice generator. Renders a React tree directly to a PDF buffer via @react-pdf/renderer — no headless browser. Built-in layout: header with status badge (paid / due / overdue), parties block, issued/due dates, line-items table, subtotal/tax/total, optional notes. Returns a Buffer so you can stream it from a route handler or upload to storage.",
+      "dependencies": ["@react-pdf/renderer"],
+      "files": [
+        {
+          "path": "invoice-pdf.ts",
+          "type": "registry:lib",
+          "target": "~/lib/invoice-pdf.ts"
+        }
+      ]
     }
   ]
 }

@@ -75,6 +75,26 @@
           "target": "~/components/gallery.tsx"
         }
       ]
+    },
+    {
+      "name": "csv-import",
+      "type": "registry:component",
+      "title": "CsvImport (4-step wizard)",
+      "description": "Upload → Map → Validate → Import wizard. Parses CSV client-side (handles quoted fields + embedded quotes), auto-guesses column mappings, runs per-field `validate(value)` and required checks, then POSTs the mapped rows to your handler. Server response can include per-row error info that's rendered in the final step.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "progress",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "csv-import.tsx",
+          "type": "registry:component",
+          "target": "~/components/csv-import.tsx"
+        }
+      ]
     }
   ]
 }

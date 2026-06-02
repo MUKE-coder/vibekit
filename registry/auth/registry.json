@@ -128,6 +128,20 @@
           "target": "~/components/device-list.tsx"
         }
       ]
+    },
+    {
+      "name": "impersonation",
+      "type": "registry:lib",
+      "title": "startImpersonation + stopImpersonation + resolveImpersonatedUser",
+      "description": "Admin 'log in as user' helpers. Sets a strict, signed httpOnly cookie with a 2-hour ceiling; refuses self / owner targets; records start + stop in monitoring + optional auditLog. `resolveImpersonatedUser(actor)` wraps your auth resolver so `currentUser` returns the target while the actor's real session stays intact.",
+      "registryDependencies": ["MUKE-coder/vibekit/db", "MUKE-coder/vibekit/monitoring"],
+      "files": [
+        {
+          "path": "impersonation.ts",
+          "type": "registry:lib",
+          "target": "~/lib/impersonation.ts"
+        }
+      ]
     }
   ]
 }

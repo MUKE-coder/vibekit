@@ -125,6 +125,20 @@
           "target": "~/components/prefetch-on-hover.tsx"
         }
       ]
+    },
+    {
+      "name": "use-swr-cache",
+      "type": "registry:lib",
+      "title": "withSwrCache (stale-while-revalidate Redis)",
+      "description": "Stale-while-revalidate cache layer on Upstash Redis. Returns the cached value instantly even when stale, then refreshes in the background. In-process Map dedupes parallel callers so a cold cache never stampedes the origin. `invalidateSwr(key)` busts on mutation.",
+      "dependencies": ["@upstash/redis"],
+      "files": [
+        {
+          "path": "use-swr-cache.ts",
+          "type": "registry:lib",
+          "target": "~/lib/use-swr-cache.ts"
+        }
+      ]
     }
   ]
 }
