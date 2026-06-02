@@ -27,6 +27,46 @@
           "target": "~/lib/env.ts"
         }
       ]
+    },
+    {
+      "name": "client-only",
+      "type": "registry:component",
+      "title": "ClientOnly",
+      "description": "Defers rendering of children until after mount. Drop-in dodge for hydration mismatches when a child reads window / localStorage / navigator / Date.now() / Math.random().",
+      "files": [
+        {
+          "path": "client-only.tsx",
+          "type": "registry:component",
+          "target": "~/components/client-only.tsx"
+        }
+      ]
+    },
+    {
+      "name": "invariant",
+      "type": "registry:lib",
+      "title": "invariant / assert / exhaustive",
+      "description": "Dev-time assertion helpers with TypeScript narrowing. Replaces `if (!x) throw new Error()` boilerplate, narrows nullable values in-place, and catches missing switch cases at the type level.",
+      "files": [
+        {
+          "path": "invariant.ts",
+          "type": "registry:lib",
+          "target": "~/lib/invariant.ts"
+        }
+      ]
+    },
+    {
+      "name": "rate-limit",
+      "type": "registry:lib",
+      "title": "rateLimit (Upstash)",
+      "description": "Per-route rate limiter backed by Upstash Ratelimit. Uses the framework's locked Redis env vars. Cached limiter instances per (tokens, window) combination — call from any route without re-instantiating clients.",
+      "dependencies": ["@upstash/ratelimit", "@upstash/redis"],
+      "files": [
+        {
+          "path": "rate-limit.ts",
+          "type": "registry:lib",
+          "target": "~/lib/rate-limit.ts"
+        }
+      ]
     }
   ]
 }

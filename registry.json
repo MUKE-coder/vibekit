@@ -4,9 +4,11 @@
   "homepage": "https://github.com/MUKE-coder/vibekit",
   "include": [
     "registry/auth/registry.json",
+    "registry/forms/registry.json",
     "registry/tables/registry.json",
     "registry/feedback/registry.json",
     "registry/hooks/registry.json",
+    "registry/layout/registry.json",
     "registry/utilities/registry.json"
   ]
 }

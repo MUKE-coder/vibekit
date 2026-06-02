@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "parse-form-data",
+      "type": "registry:lib",
+      "title": "parseRequestBody + safeParseRequestBody + parseSearchParams",
+      "description": "Server-side Zod validators for route handlers. Returns typed data or a 422 NextResponse with RHF-shaped field errors. Use the same Zod schema on the client form for one source of truth.",
+      "dependencies": ["zod"],
+      "files": [
+        {
+          "path": "parse-form-data.ts",
+          "type": "registry:lib",
+          "target": "~/lib/parse-form-data.ts"
+        }
+      ]
+    }
+  ]
+}

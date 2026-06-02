@@ -28,6 +28,33 @@
           "target": "~/components/role-gate.tsx"
         }
       ]
+    },
+    {
+      "name": "require-auth",
+      "type": "registry:lib",
+      "title": "requireAuth + getOptionalUser",
+      "description": "Server-side auth guards for route handlers and server components. requireAuth throws 401 if there's no session; getOptionalUser returns null without throwing. Assumes a Better Auth instance at @/lib/auth.",
+      "files": [
+        {
+          "path": "require-auth.ts",
+          "type": "registry:lib",
+          "target": "~/lib/require-auth.ts"
+        }
+      ]
+    },
+    {
+      "name": "require-role",
+      "type": "registry:lib",
+      "title": "requireRole",
+      "description": "Server-side role guard that throws 403 (ForbiddenError) when the current user's role isn't in the allowed list. Composes with requireAuth.",
+      "registryDependencies": ["MUKE-coder/vibekit/require-auth"],
+      "files": [
+        {
+          "path": "require-role.ts",
+          "type": "registry:lib",
+          "target": "~/lib/require-role.ts"
+        }
+      ]
     }
   ]
 }

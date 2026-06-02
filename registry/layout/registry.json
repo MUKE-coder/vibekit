@@ -1,0 +1,46 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "avatar",
+      "type": "registry:component",
+      "title": "Avatar + AvatarGroup",
+      "description": "Avatar with auto-initials fallback, optional status dot (online/away/busy/offline), and size tokens. Plus AvatarGroup for stacked overlap with overflow `+N`. Wraps the shadcn primitive — no fallback boilerplate at call sites.",
+      "registryDependencies": ["avatar"],
+      "files": [
+        {
+          "path": "avatar.tsx",
+          "type": "registry:component",
+          "target": "~/components/avatar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "registry:component",
+      "title": "PageHeader",
+      "description": "Standard top-of-page header with title, optional description, eyebrow, breadcrumbs slot, and right-aligned actions slot. Responsive (actions stack below title on mobile).",
+      "files": [
+        {
+          "path": "page-header.tsx",
+          "type": "registry:component",
+          "target": "~/components/page-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumbs",
+      "type": "registry:component",
+      "title": "Breadcrumbs",
+      "description": "Breadcrumbs auto-generated from the current pathname (or pass `items` to override). Supports labelOverrides for dynamic segments and a custom separator.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "breadcrumbs.tsx",
+          "type": "registry:component",
+          "target": "~/components/breadcrumbs.tsx"
+        }
+      ]
+    }
+  ]
+}

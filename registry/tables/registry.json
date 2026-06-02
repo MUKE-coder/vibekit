@@ -14,6 +14,21 @@
           "target": "~/hooks/use-table-state.ts"
         }
       ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:component",
+      "title": "StatCard",
+      "description": "KPI card with value, label, optional trend (up/down/neutral with coloured arrow), icon slot, sparkline slot, and a built-in loading skeleton. Drop a row of these on every dashboard.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["card", "skeleton"],
+      "files": [
+        {
+          "path": "stat-card.tsx",
+          "type": "registry:component",
+          "target": "~/components/stat-card.tsx"
+        }
+      ]
     }
   ]
 }

@@ -39,6 +39,71 @@
           "target": "~/hooks/use-clipboard.ts"
         }
       ]
+    },
+    {
+      "name": "use-debounce",
+      "type": "registry:hook",
+      "title": "useDebounce + useDebouncedCallback",
+      "description": "Value-debouncing hook and a callback-debouncing companion (with a cancel() method). Latest fn / args win. Universal for search inputs, autosave, expensive computations.",
+      "files": [
+        {
+          "path": "use-debounce.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-debounce.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-throttle",
+      "type": "registry:hook",
+      "title": "useThrottle + useThrottledCallback",
+      "description": "Value-throttling and callback-throttling hooks for scroll/mouse-rate signals where every change isn't worth a render or invocation.",
+      "files": [
+        {
+          "path": "use-throttle.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-throttle.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-event-listener",
+      "type": "registry:hook",
+      "title": "useEventListener",
+      "description": "Typed event listener hook with auto-cleanup. Overloads for window / document / element-ref targets. Captures the latest handler in a ref so consumers never need to memoise.",
+      "files": [
+        {
+          "path": "use-event-listener.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-event-listener.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-intersection-observer",
+      "type": "registry:hook",
+      "title": "useIntersectionObserver",
+      "description": "Generic visibility hook returning { ref, entry, isIntersecting }. Optional freezeOnceVisible for one-shot reveals (lazy-load, scroll-triggered animations, view tracking).",
+      "files": [
+        {
+          "path": "use-intersection-observer.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-intersection-observer.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-previous",
+      "type": "registry:hook",
+      "title": "usePrevious",
+      "description": "Returns the previous render's value. Tiny but constantly needed (compare props, animate on change, log transitions).",
+      "files": [
+        {
+          "path": "use-previous.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-previous.ts"
+        }
+      ]
     }
   ]
 }
