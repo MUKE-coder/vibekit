@@ -44,6 +44,49 @@
           "target": "~/components/date-range-picker.tsx"
         }
       ]
+    },
+    {
+      "name": "donut-chart",
+      "type": "registry:component",
+      "title": "DonutChart",
+      "description": "Donut/pie chart with built-in centre label slot, optional legend (with counts), and a theme-token-friendly default palette. Recharts-based.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "donut-chart.tsx",
+          "type": "registry:component",
+          "target": "~/components/donut-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "funnel-chart",
+      "type": "registry:component",
+      "title": "FunnelChart",
+      "description": "Conversion funnel chart with auto per-stage percentage labels and tooltip showing % of previous and % of top. Recharts-based.",
+      "dependencies": ["recharts"],
+      "files": [
+        {
+          "path": "funnel-chart.tsx",
+          "type": "registry:component",
+          "target": "~/components/funnel-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-calendar",
+      "type": "registry:component",
+      "title": "HeatmapCalendar (GitHub-style activity grid)",
+      "description": "Contribution-style heatmap with date-fns date math, configurable thresholds + cell size, per-cell tooltip, and an optional click handler. Use for activity feeds, deploys, commits, audit-log events, any 'did X happen today' signal.",
+      "dependencies": ["date-fns"],
+      "registryDependencies": ["tooltip"],
+      "files": [
+        {
+          "path": "heatmap-calendar.tsx",
+          "type": "registry:component",
+          "target": "~/components/heatmap-calendar.tsx"
+        }
+      ]
     }
   ]
 }

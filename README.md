@@ -260,7 +260,7 @@ pnpm dlx shadcn@latest add MUKE-coder/vibekit/empty-state
 pnpm dlx shadcn@latest add MUKE-coder/vibekit/formatters
 ```
 
-Phases 1–6 shipped (86 items so far — past the halfway mark of the 150 roadmap). Roadmap of all 150 in [`vibekit-primitives.md`](./vibekit-primitives.md). Browse all from the CLI:
+Phases 1–7 shipped (100 items so far — two-thirds of the 150 roadmap 🎉). Roadmap of all 150 in [`vibekit-primitives.md`](./vibekit-primitives.md). Browse all from the CLI:
 
 ```bash
 pnpm dlx shadcn@latest list MUKE-coder/vibekit

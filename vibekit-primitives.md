@@ -31,7 +31,7 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 
 ---
 
-## Shipped — 86 items
+## Shipped — 100 items 🎉
 
 ### Auth & Session
 
@@ -309,9 +309,63 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 |---|---|---|---|
 | ✅ | **theme-toggle** | `MUKE-coder/vibekit/theme-toggle` | next-themes-backed toggle — dropdown (Light/Dark/System) or cycle variant, mount-gated to dodge SSR mismatch |
 
+### Data Fetching (Phase 7 — caching layer complete)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **cache-redis** | `MUKE-coder/vibekit/cache-redis` | cacheGet / cacheSet / `withCache(key, ttl, fn)` / `invalidateCache(...patterns)` + tag helpers |
+| ✅ | **use-polling** | `MUKE-coder/vibekit/use-polling` | Polling manager that pauses on hidden tabs; usePolling (query key) + usePollingFn (callback) |
+| ✅ | **prefetch-on-hover** | `MUKE-coder/vibekit/prefetch-on-hover` | RQ prefetch on hover/focus with cooldown throttle; wrapper + hook variants |
+
+### Forms (Phase 7)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **use-async-validation** | `MUKE-coder/vibekit/use-async-validation` | Debounced async field validation with AbortController cancellation; pair with RHF setError |
+
+### Payments (Phase 7 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **stripe-webhook-handler** | `MUKE-coder/vibekit/stripe-webhook-handler` | Typed Stripe webhook router — signature verification, dispatch by type, idempotency via your stripeEvent table |
+| ✅ | **billing-portal** | `MUKE-coder/vibekit/billing-portal` | createBillingPortalSession + route-handler factory — one-line bounce to Stripe's hosted customer portal |
+
+### Documents (Phase 7)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **print-button** | `MUKE-coder/vibekit/print-button` | PrintButton + usePrint; targetId option prints just one element via scoped @media print rule |
+
+### Realtime (Phase 7 — new category)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **sse-channel** | `MUKE-coder/vibekit/sse-channel` | defineSseRoute server helper (heartbeat + cleanup on abort) + useSseChannel client subscriber with auto-reconnect |
+| ✅ | **use-presence** | `MUKE-coder/vibekit/use-presence` | Active-viewer presence — heartbeat + polled member list, returns { users, others, isLoading } |
+
+### Charts (Phase 7)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **donut-chart** | `MUKE-coder/vibekit/donut-chart` | Donut/pie chart with centre-label slot, legend, theme-token palette |
+| ✅ | **funnel-chart** | `MUKE-coder/vibekit/funnel-chart` | Conversion funnel with auto per-stage % conversion labels |
+| ✅ | **heatmap-calendar** | `MUKE-coder/vibekit/heatmap-calendar` | GitHub-style contribution grid with configurable thresholds + per-cell tooltip + click handler |
+
+### Tables (Phase 7)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **activity-timeline** | `MUKE-coder/vibekit/activity-timeline` | Vertical audit/activity feed with sticky date-group headers, actor avatars, custom icon + detail slot per entry |
+
+### Security & Ops (Phase 7)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **maintenance-mode** | `MUKE-coder/vibekit/maintenance-mode` | Full-page lockout + admin banner + server-safe env check |
+
 ---
 
-## Full roadmap (64 items pending — 57% complete)
+## Full roadmap (50 items pending — 67% complete)
 
 Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-library-150.md). Items are tagged with the implementation phase and current status. The "Phase" column drives the build order in future sessions.
 
@@ -334,24 +388,24 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 9 | ⏳ | TwoFactorSetup | 6+ | TOTP enrollment UI |
 | 10 | ⏳ | Device/session list | 6+ | Active sessions UI |
 
-### 2. Data Fetching & Caching (12) — 6/12 shipped
+### 2. Data Fetching & Caching (12) — 10/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 11 | ✅ | apiClient | 3 | shipped as `api-client` |
 | 12 | ✅ | createQueryKeys | 3 | shipped as `query-keys` |
-| 13 | ⏳ | cacheGet / cacheSet / withCache | 5+ | (pattern — master_prompt.md REDIS CACHING) |
-| 14 | ⏳ | invalidateCache | 5+ | Tag-based wildcard |
+| 13 | ✅ | cacheGet / cacheSet / withCache | 7 | shipped as `cache-redis` |
+| 14 | ✅ | invalidateCache | 7 | shipped (wildcards via SCAN + tag helpers) |
 | 15 | ✅ | useOptimisticMutation | 3 | shipped |
 | 16 | ✅ | usePaginatedQuery | 3 | shipped |
 | 17 | ✅ | useInfiniteScroll | 4 | shipped |
-| 18 | ⏳ | Stale-while-revalidate Redis layer | 5+ | |
-| 19 | ⏳ | prefetchOnHover | 5+ | |
+| 18 | ⏳ | Stale-while-revalidate Redis layer | 8+ | |
+| 19 | ✅ | prefetchOnHover | 7 | shipped |
 | 20 | ⏳ | Request deduplication | — | React Query already handles |
 | 21 | ✅ | useDebouncedQuery | 3 | shipped |
-| 22 | ⏳ | Polling manager | 5+ | Pauses on tab hidden |
+| 22 | ✅ | Polling manager | 7 | shipped as `use-polling` (pauses on hidden) |
 
-### 3. Forms & Validation (12) — 7/12 shipped (no Phase 6 additions)
+### 3. Forms & Validation (12) — 8/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -365,10 +419,10 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 30 | ✅ | parseFormData (server) | 2 | shipped as `parse-form-data` |
 | 31 | ✅ | useUnsavedChanges | 3 | shipped |
 | 32 | ✅ | FormAutosave | 5 | shipped |
-| 33 | ⏳ | Field async validation | 6+ | Debounced uniqueness checks |
+| 33 | ✅ | Field async validation | 7 | shipped as `use-async-validation` |
 | 34 | ⏳ | TagInput | (registry) | Shipped as `advanced-form-elements` |
 
-### 4. Tables & Data Display (12) — 8/12 shipped
+### 4. Tables & Data Display (12) — 9/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -383,7 +437,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 43 | ⏳ | Column resize/reorder persistence | 7+ | |
 | 44 | ⏳ | DataGrid virtualized | 7+ | TanStack Virtual |
 | 45 | ✅ | StatCard | 2 | shipped |
-| 46 | ⏳ | Timeline (vertical activity feed) | 7+ | Different from alternating-timeline (already shipped) |
+| 46 | ✅ | Timeline (vertical activity feed) | 7 | shipped as `activity-timeline` |
 
 ### 5. Feedback & Overlays (12) — 12/12 shipped ✨ COMPLETE
 
@@ -415,16 +469,16 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 65 | ⏳ | CSV import wizard | 7+ | Upload → map → validate → import |
 | 66 | ⏳ | Dropzone | (registry) | Shipped via JB File Storage UI |
 
-### 7. Documents & Export (6) — 2/6 shipped
+### 7. Documents & Export (6) — 3/6 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 67 | ⏳ | PDFDocument templates | (registry) | Shipped as `printable-templates` |
 | 68 | ✅ | exportToExcel | 4 | shipped (lazy-loaded xlsx) |
 | 69 | ✅ | exportToCSV | 4 | shipped |
-| 70 | ⏳ | generateInvoicePDF | 5+ | (extends printable-templates) |
-| 71 | ⏳ | Print stylesheet + PrintButton | 5+ | |
-| 72 | ⏳ | Report builder | 5+ | Config → PDF/Excel |
+| 70 | ⏳ | generateInvoicePDF | 8+ | (extends printable-templates) |
+| 71 | ✅ | Print stylesheet + PrintButton | 7 | shipped as `print-button` |
+| 72 | ⏳ | Report builder | 8+ | Config → PDF/Excel |
 
 ### 8. Notifications & Email (8) — 4/8 shipped
 
@@ -439,14 +493,14 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 79 | ⏳ | Email verification flow | 7+ | (covered partially by Better Auth UI) |
 | 80 | ⏳ | Digest scheduler | 7+ | Batches into daily/weekly |
 
-### 9. Payments & Billing (6) — 0/6 shipped
+### 9. Payments & Billing (6) — 2/6 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 81 | ⏳ | Stripe webhook handler | 3 | (partial via Stripe UI; standalone helper useful) |
+| 81 | ✅ | Stripe webhook handler | 7 | shipped (typed event router with idempotency) |
 | 82 | ⏳ | PricingTable | (registry) | Shipped as `saas-billing` |
 | 83 | ⏳ | CheckoutButton | (registry) | Shipped via Stripe UI |
-| 84 | ⏳ | Billing portal link | 3 | One-click to Stripe customer portal |
+| 84 | ✅ | Billing portal link | 7 | shipped as `billing-portal` |
 | 85 | ⏳ | useSubscription | (registry) | Shipped as `saas-subscription` |
 | 86 | ⏳ | Usage metering | (registry) | Shipped as part of `saas-subscription` |
 
@@ -507,33 +561,33 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 121 | ⏳ | Recently viewed | 5+ | Cross-entity history |
 | 122 | ⏳ | Quick filters / segments | 5+ | Preset filters |
 
-### 14. Realtime & Collaboration (8) — 0/8 shipped
+### 14. Realtime & Collaboration (8) — 2/8 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 123 | ⏳ | SSE/WebSocket manager | 4 | Single multiplexed connection |
-| 124 | ⏳ | usePresence | 4 | Active viewers via Redis |
-| 125 | ⏳ | Live cursors / live updates | 4 | |
-| 126 | ⏳ | TypingIndicator | 4 | |
-| 127 | ⏳ | Comments with mentions | 4 | |
-| 128 | ⏳ | useChannel | 4 | Transport-agnostic |
-| 129 | ⏳ | Collaborative lock | 4 | |
-| 130 | ⏳ | Activity broadcast | 4 | |
+| 123 | ✅ | SSE/WebSocket manager | 7 | shipped as `sse-channel` (server route + useSseChannel client) |
+| 124 | ✅ | usePresence | 7 | shipped (heartbeat + polled member list) |
+| 125 | ⏳ | Live cursors / live updates | 8+ | |
+| 126 | ⏳ | TypingIndicator | 8+ | |
+| 127 | ⏳ | Comments with mentions | 8+ | |
+| 128 | ⏳ | useChannel | 8+ | Transport-agnostic |
+| 129 | ⏳ | Collaborative lock | 8+ | |
+| 130 | ⏳ | Activity broadcast | 8+ | |
 
-### 15. Dashboards & Charts (8) — 3/8 shipped
+### 15. Dashboards & Charts (8) — 6/8 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 131 | ⏳ | ChartCard | (registry) | Shipped as part of `charts-grid` |
 | 132 | ⏳ | LineChart / BarChart / AreaChart | (registry) | Shipped as part of `charts-grid` |
-| 133 | ⏳ | DonutChart / PieChart | (registry) | Shipped as part of `charts-grid` |
+| 133 | ✅ | DonutChart / PieChart | 7 | shipped as `donut-chart` (with centre label, legend, theme palette) |
 | 134 | ✅ | Sparkline | 5 | shipped |
 | 135 | ✅ | MetricGrid | 5 | shipped (with trend + comparison + sparkline slot + skeleton) |
 | 136 | ✅ | DateRangePicker (dashboard) | 6 | shipped (presets + 2-month custom calendar) |
-| 137 | ⏳ | HeatmapCalendar | 4 | GitHub-style contribution grid |
-| 138 | ⏳ | FunnelChart | 4 | Conversion funnel |
+| 137 | ✅ | HeatmapCalendar | 7 | shipped (configurable thresholds + tooltips + click handler) |
+| 138 | ✅ | FunnelChart | 7 | shipped (auto per-stage conversion %, Recharts-based) |
 
-### 16. Security, Compliance & Ops (12) — 9/12 shipped
+### 16. Security, Compliance & Ops (12) — 10/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
@@ -541,13 +595,13 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 140 | ✅ | Input sanitizer | 6 | shipped (sanitizeHtml + strict + sanitizeUrl, isomorphic) |
 | 141 | ✅ | Idempotency middleware | 4 | shipped |
 | 142 | ✅ | Webhook signature verifier | 4 | shipped |
-| 143 | ⏳ | Data export (GDPR) | 7+ | "Export all my data" |
-| 144 | ⏳ | Account deletion flow | 7+ | Soft → grace → purge |
+| 143 | ⏳ | Data export (GDPR) | 8+ | "Export all my data" |
+| 144 | ⏳ | Account deletion flow | 8+ | Soft → grace → purge |
 | 145 | ✅ | Health-check endpoints | 4 | shipped (healthz + readyz) |
 | 146 | ✅ | Seed + factory system | 5 | shipped as `seed-factory` |
 | 147 | ✅ | Background job runner | 6 | shipped as `background-jobs` (Upstash QStash, signature verified, Zod-validated payload) |
 | 148 | ✅ | Cron scheduler | 6 | shipped (jobs.enqueue with `cron` option uses QStash Schedules) |
-| 149 | ⏳ | Maintenance mode | 7+ | Flag-driven |
+| 149 | ✅ | Maintenance mode | 7 | shipped (full-page lockout + admin banner + env check) |
 | 150 | ✅ | env validator | 1 | shipped as `env-validator` |
 
 ---
@@ -560,11 +614,12 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 - **Phase 4** (✅ shipped — 14 items): the shell completes (app-shell, sidebar, tab-nav), search/filtering (search-input, sort-dropdown, build-prisma-where), document export (CSV + lazy-xlsx), file preview, security/ops (idempotency, webhook-verifier, health-endpoints), use-infinite-scroll, toast preset.
 - **Phase 5** (✅ shipped — 15 items): auth chrome completes (auth-guard, use-permissions, use-session-refresh), table chain completes (server-table-fetcher), useFilters, useKeyboardShortcuts, FormAutosave, Drawer, Tooltip, MetricGrid + Sparkline (charts category new), feature-flags, soft-delete, seed-factory, React Email templates (BaseLayout + Welcome).
 - **Phase 6** (✅ shipped — 15 items): file uploads vertical complete (signed-url + upload-file + image-upload), notify() (in-app + email helper), reset-password-email, security-headers (CSP/HSTS/CSRF), input-sanitizer, background-jobs (QStash + cron), global-search (⌘K palette), date-range-picker, editable-cell, theme-toggle, modal (imperative stack-aware), banner, global-loading-bar — closes Feedback (12/12 ✨) and Layout (5/6).
-- **Phase 7+** (the long tail — ~45 truly greenfield items left, ~20 more graduate from `(registry)` / `(pattern)`): impersonation, 2FA, realtime collaboration (SSE/WebSocket, presence, typing, comments, locks, activity broadcast), GDPR export, virtualized grid, gallery/lightbox, CSV import wizard, saved views, faceted filter counts, HeatmapCalendar/FunnelChart, FormFileUpload, notification preferences UI, more React Email templates (invoice/notification), column resize persistence, Stripe webhook handler, account deletion flow, maintenance mode, monitoring wrapper, the cache layer (withCache/invalidateCache/stale-while-revalidate), usePresence, useChannel, prefetchOnHover, polling manager, async field validation, generateInvoicePDF, more.
+- **Phase 7** (✅ shipped — 14 items): caching layer (cache-redis + use-polling + prefetch-on-hover), payments (stripe-webhook-handler + billing-portal — new category), realtime (sse-channel + use-presence — new category), charts (donut-chart + funnel-chart + heatmap-calendar — closes the dashboard chart surface), activity-timeline, use-async-validation, print-button, maintenance-mode. **100-item milestone crossed (67%).**
+- **Phase 8+** (the long tail — ~35 truly greenfield items left, ~15 more graduate from `(registry)` / `(pattern)`): impersonation, 2FA, GDPR export, account deletion flow, monitoring wrapper, gallery/lightbox, CSV import wizard, virtualised grid, FormFileUpload, notification preferences UI, more React Email templates (invoice/notification), TwoFactorSetup, Device/session list, column resize persistence, saved views, faceted filter counts, GlobalSearch enhancements, useChannel, TypingIndicator, Comments with mentions, Live cursors, Collaborative lock, Activity broadcast, stale-while-revalidate Redis layer, generateInvoicePDF, Report builder, Org/workspace switcher (graduates from registry), Digest scheduler, Email verification flow.
 
 Each phase is a couple of dedicated sessions of focused work. The roadmap above is the canonical tracker — update item status as things ship.
 
-**Progress:** 86 / 150 shipped (57%). Of the ~64 pending items, ~18 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~46, queued for Phase 7+ across multiple focused sessions. **Feedback category is now COMPLETE** (12/12).
+**Progress:** 100 / 150 shipped (67%) 🎉. Of the ~50 pending items, ~15 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~35. **Feedback** (12/12 ✨) is the first complete category; Tables (9/12), Data Fetching (10/12), Layout (5/6 + theme-toggle), State/Hooks/DX (11/12), Auth (7/10), and Security/Ops (10/12) are nearly there.
 
 ---
 
@@ -586,4 +641,4 @@ Migration of existing 32 components from the legacy approach is out of scope rig
 
 ---
 
-_Last updated: 2026-05-18 · Phase 6 shipped · Phase 7+ queued_
+_Last updated: 2026-05-18 · Phase 7 shipped · 100/150 (67%) · Phase 8+ queued_

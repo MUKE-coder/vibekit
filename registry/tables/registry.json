@@ -104,6 +104,20 @@
           "target": "~/components/editable-cell.tsx"
         }
       ]
+    },
+    {
+      "name": "activity-timeline",
+      "type": "registry:component",
+      "title": "ActivityTimeline (vertical audit / activity feed)",
+      "description": "Vertical activity feed with sticky date-group headers (Today / Yesterday / date), connecting rail, actor avatars/initials, custom icon slot per entry, and optional detail block. Different from alternating-timeline (marketing) — this is the in-app audit feed.",
+      "dependencies": ["date-fns"],
+      "files": [
+        {
+          "path": "activity-timeline.tsx",
+          "type": "registry:component",
+          "target": "~/components/activity-timeline.tsx"
+        }
+      ]
     }
   ]
 }

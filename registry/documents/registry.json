@@ -27,6 +27,21 @@
           "target": "~/lib/export-to-excel.ts"
         }
       ]
+    },
+    {
+      "name": "print-button",
+      "type": "registry:component",
+      "title": "PrintButton + usePrint",
+      "description": "Print button + scoped print-stylesheet hook. Print the whole page, or pass `targetId` to print only one element via a temporary @media print rule. Cleans up the stylesheet after `afterprint`.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "print-button.tsx",
+          "type": "registry:component",
+          "target": "~/components/print-button.tsx"
+        }
+      ]
     }
   ]
 }

@@ -97,6 +97,20 @@
           "target": "~/components/form-autosave.tsx"
         }
       ]
+    },
+    {
+      "name": "use-async-validation",
+      "type": "registry:hook",
+      "title": "useAsyncValidation",
+      "description": "Debounced async field validation for 'is this email taken?' / 'is this slug available?' checks. Cancels in-flight requests when the value changes (latest wins). Pair with RHF setError / clearErrors so the result merges with Zod sync errors.",
+      "registryDependencies": ["MUKE-coder/vibekit/use-debounce"],
+      "files": [
+        {
+          "path": "use-async-validation.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-async-validation.ts"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "stripe-webhook-handler",
+      "type": "registry:lib",
+      "title": "defineStripeWebhookHandler",
+      "description": "Typed Stripe webhook router. Verifies the signature via stripe.webhooks.constructEvent, dispatches by event.type, persists processed event ids for idempotency. Returns 5xx on handler error so Stripe retries.",
+      "dependencies": ["stripe"],
+      "files": [
+        {
+          "path": "stripe-webhook-handler.ts",
+          "type": "registry:lib",
+          "target": "~/lib/stripe-webhook-handler.ts"
+        }
+      ]
+    },
+    {
+      "name": "billing-portal",
+      "type": "registry:lib",
+      "title": "createBillingPortalSession + defineBillingPortalRoute",
+      "description": "Bounce users into Stripe's hosted Customer Portal — they manage subscriptions, payment methods, download invoices, no in-app billing UI required. Includes a route-handler factory.",
+      "dependencies": ["stripe"],
+      "files": [
+        {
+          "path": "billing-portal.ts",
+          "type": "registry:lib",
+          "target": "~/lib/billing-portal.ts"
+        }
+      ]
+    }
+  ]
+}

@@ -83,6 +83,48 @@
           "target": "~/hooks/use-infinite-scroll.ts"
         }
       ]
+    },
+    {
+      "name": "cache-redis",
+      "type": "registry:lib",
+      "title": "cacheGet / cacheSet / withCache / invalidateCache / tag helpers",
+      "description": "Upstash Redis cache wrappers. withCache(key, ttl, fn) handles the cache-or-fetch pattern; invalidateCache(...keysOrPatterns) supports `*` wildcards via SCAN; tagKey/invalidateTag give cheap mass-invalidation. Errors never break the request.",
+      "dependencies": ["@upstash/redis"],
+      "files": [
+        {
+          "path": "cache-redis.ts",
+          "type": "registry:lib",
+          "target": "~/lib/cache-redis.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-polling",
+      "type": "registry:hook",
+      "title": "usePolling + usePollingFn",
+      "description": "Polling manager that pauses while the tab is hidden, refetches immediately on focus. usePolling invalidates a React Query key; usePollingFn runs a callback directly.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-polling.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-polling.ts"
+        }
+      ]
+    },
+    {
+      "name": "prefetch-on-hover",
+      "type": "registry:component",
+      "title": "PrefetchOnHover + usePrefetchOnHover",
+      "description": "Prefetch React Query data on hover / focus so the user lands on a warm cache. Component wrapper + hook variant; both throttle via a cooldown so 100 list rows don't fire 100 prefetches.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "prefetch-on-hover.tsx",
+          "type": "registry:component",
+          "target": "~/components/prefetch-on-hover.tsx"
+        }
+      ]
     }
   ]
 }

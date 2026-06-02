@@ -17,6 +17,8 @@
     "registry/file-media/registry.json",
     "registry/security/registry.json",
     "registry/charts/registry.json",
-    "registry/notifications/registry.json"
+    "registry/notifications/registry.json",
+    "registry/payments/registry.json",
+    "registry/realtime/registry.json"
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "sse-channel",
+      "type": "registry:lib",
+      "title": "defineSseRoute (server) + useSseChannel (client)",
+      "description": "Server-Sent Events helpers. defineSseRoute returns a route handler with heartbeat ping every 15s + cleanup on client abort. useSseChannel is the client subscriber with auto-reconnect + exponential back-off + JSON-parsing.",
+      "files": [
+        {
+          "path": "sse-channel.ts",
+          "type": "registry:lib",
+          "target": "~/lib/sse-channel.ts"
+        },
+        {
+          "path": "use-sse-channel.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-sse-channel.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-presence",
+      "type": "registry:hook",
+      "title": "usePresence (Upstash Redis-backed)",
+      "description": "Active-viewer presence — beats a heartbeat endpoint on a configurable interval AND when the tab regains focus, polls a members endpoint for the live list. Returns `{ users, others, isLoading }`. Server endpoints sketched in the file's JSDoc.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-presence.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-presence.ts"
+        }
+      ]
+    }
+  ]
+}
