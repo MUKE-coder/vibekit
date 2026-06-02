@@ -40,7 +40,7 @@ const externalGuides = [
   { name: "Audit log (hash-chained)", href: `${SITE.github}/blob/main/audit-log.md`, blurb: "Tamper-evident audit log pattern for SOC2 / compliance." },
   { name: "AI & RAG", href: `${SITE.github}/blob/main/ai-guide.md`, blurb: "Vercel AI SDK + pgvector in Neon + Upstash rate-limit + credit packs." },
   { name: "Agent tooling", href: `${SITE.github}/blob/main/agent-tooling.md`, blurb: "ui-ux-pro-max-skill + 21st.dev Magic MCP — user-level installs that compound VibeKit's value." },
-  { name: "VibeKit Primitives (150)", href: `${SITE.github}/blob/main/vibekit-primitives.md`, blurb: "GitHub-registry library of hooks, helpers, and small components. 141 shipped 🎉 (Phases 1–10, 94% — nine categories complete). Install via `MUKE-coder/vibekit/<name>`." },
+  { name: "VibeKit Primitives (150)", href: `${SITE.github}/blob/main/vibekit-primitives.md`, blurb: "GitHub-registry library of hooks, helpers, and small components. 150 / 150 ✨ — all sixteen categories complete. 144 via GitHub registry (`MUKE-coder/vibekit/<name>`) + 6 graduated to JB legacy." },
   { name: "Pre-deploy review", href: `${SITE.github}/blob/main/pre-deploy-review.md`, blurb: "Senior-level audit prompt to run before going live." },
   { name: "Prompt engineering", href: `${SITE.github}/blob/main/prompt-engineering.md`, blurb: "5-part formula, token economy, rescue system." },
   { name: "Troubleshooting", href: `${SITE.github}/blob/main/troubleshooting.md`, blurb: "Symptoms → fixes when AI gets stuck." },

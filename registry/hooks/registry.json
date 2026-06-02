@@ -117,6 +117,45 @@
           "target": "~/hooks/use-keyboard-shortcuts.ts"
         }
       ]
+    },
+    {
+      "name": "use-async",
+      "type": "registry:hook",
+      "title": "useAsync (one-off promise → { data, error, loading, refetch })",
+      "description": "Run a one-off async function and track loading / error / data. For smaller cases where pulling in React Query is overkill (autocomplete probe, lazy Drawer content, settings-page lookup). Latest-call-wins so stale results never flash back.",
+      "files": [
+        {
+          "path": "use-async.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-async.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-mounted",
+      "type": "registry:hook",
+      "title": "useIsMounted + useMountedRef",
+      "description": "SSR-safe 'am I on the client?' hooks. `useIsMounted()` returns `false` until after `useEffect` fires — a lighter alternative to `<ClientOnly>` for one-off dodges. `useMountedRef()` returns a ref for async callbacks that need to check 'am I still here?' before calling setState.",
+      "files": [
+        {
+          "path": "use-mounted.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-mounted.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-toggle",
+      "type": "registry:hook",
+      "title": "useToggle",
+      "description": "Boolean state with `{ value, toggle, on, off, set }`. Stable references so it's safe to pass into memoised children. Used everywhere — dialog open state, sidebar collapse, 'show advanced', filter panels.",
+      "files": [
+        {
+          "path": "use-toggle.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-toggle.ts"
+        }
+      ]
     }
   ]
 }
