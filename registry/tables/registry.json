@@ -29,6 +29,51 @@
           "target": "~/components/stat-card.tsx"
         }
       ]
+    },
+    {
+      "name": "column-header",
+      "type": "registry:component",
+      "title": "ColumnHeader (sortable table header)",
+      "description": "Sortable table column header with direction indicator and a small dropdown for Ascending / Descending / Hide. Pairs with useTableState for URL-driven sort.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "dropdown-menu"],
+      "files": [
+        {
+          "path": "column-header.tsx",
+          "type": "registry:component",
+          "target": "~/components/column-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "data-table-toolbar",
+      "type": "registry:component",
+      "title": "DataTableToolbar",
+      "description": "Standard toolbar shown above every DataTable: search input, faceted filter buttons (multi-select with badge counts), column-visibility toggle, export button, reset, and slot for primary actions.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "input", "dropdown-menu", "badge"],
+      "files": [
+        {
+          "path": "data-table-toolbar.tsx",
+          "type": "registry:component",
+          "target": "~/components/data-table-toolbar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bulk-actions-bar",
+      "type": "registry:component",
+      "title": "BulkActionsBar",
+      "description": "Floating action bar at the bottom of the viewport, visible when rows are selected. Shows count, action slots, and a clear button. Auto-hides at zero selection; Escape clears.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "bulk-actions-bar.tsx",
+          "type": "registry:component",
+          "target": "~/components/bulk-actions-bar.tsx"
+        }
+      ]
     }
   ]
 }

@@ -5,8 +5,10 @@
   "include": [
     "registry/auth/registry.json",
     "registry/forms/registry.json",
+    "registry/data-fetching/registry.json",
     "registry/tables/registry.json",
     "registry/feedback/registry.json",
+    "registry/email/registry.json",
     "registry/hooks/registry.json",
     "registry/layout/registry.json",
     "registry/utilities/registry.json"

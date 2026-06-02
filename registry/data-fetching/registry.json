@@ -1,0 +1,74 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "api-client",
+      "type": "registry:lib",
+      "title": "api / createApiClient + ApiError",
+      "description": "Typed fetch wrapper with base URL, default headers, JSON serialisation, query-param injection, and an `ApiError` class with status/data populated from non-2xx responses. Drop-in for React Query / server actions.",
+      "files": [
+        {
+          "path": "api-client.ts",
+          "type": "registry:lib",
+          "target": "~/lib/api-client.ts"
+        }
+      ]
+    },
+    {
+      "name": "query-keys",
+      "type": "registry:lib",
+      "title": "entityKeys + createQueryKeys",
+      "description": "Factory for consistent React Query keys per entity. Each entity gets `.all` / `.lists()` / `.list(filters)` / `.details()` / `.detail(id)` so you can invalidate by scope. Pair with createQueryKeys(['invoices','contacts'] as const) for type-safe app-wide keys.",
+      "files": [
+        {
+          "path": "query-keys.ts",
+          "type": "registry:lib",
+          "target": "~/lib/query-keys.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-optimistic-mutation",
+      "type": "registry:hook",
+      "title": "useOptimisticMutation",
+      "description": "React Query useMutation wrapper with optimistic update, automatic rollback on error, and success/error toast hooks. Pass queryKey + applyOptimistic to opt in to optimistic updates; pass invalidateKeys to refresh related list queries after the server confirms.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-optimistic-mutation.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-optimistic-mutation.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-paginated-query",
+      "type": "registry:hook",
+      "title": "usePaginatedQuery",
+      "description": "React Query abstraction over the framework's server-side pagination shape `{ data, total, page, pageSize, totalPages }`. Exposes setPage / nextPage / prevPage / hasNext / hasPrev. Uses keepPreviousData so tables don't blank on page change.",
+      "dependencies": ["@tanstack/react-query"],
+      "files": [
+        {
+          "path": "use-paginated-query.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-paginated-query.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-debounced-query",
+      "type": "registry:hook",
+      "title": "useDebouncedQuery",
+      "description": "Search-style query with built-in input debounce. Returns the raw input (controlled) AND the debounced value used for the fetch. Composes with use-debounce; cancels stale requests via React Query.",
+      "dependencies": ["@tanstack/react-query"],
+      "registryDependencies": ["MUKE-coder/vibekit/use-debounce"],
+      "files": [
+        {
+          "path": "use-debounced-query.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-debounced-query.ts"
+        }
+      ]
+    }
+  ]
+}

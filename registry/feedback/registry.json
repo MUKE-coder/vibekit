@@ -57,6 +57,35 @@
           "target": "~/components/copy-button.tsx"
         }
       ]
+    },
+    {
+      "name": "error-boundary",
+      "type": "registry:component",
+      "title": "ErrorBoundary + DefaultFallback",
+      "description": "React error boundary with a styled default fallback (matches design tokens), a retry callback, optional resetKey to clear errors on route/data change, and an onError hook for monitoring (Sentry / captureException).",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "error-boundary.tsx",
+          "type": "registry:component",
+          "target": "~/components/error-boundary.tsx"
+        }
+      ]
+    },
+    {
+      "name": "skeletons",
+      "type": "registry:component",
+      "title": "Layout-matched skeletons (Table / CardGrid / DetailPage / Form / StatRow)",
+      "description": "Pre-built skeleton variants matching standard page layouts. Drop in as <Suspense> fallbacks so the page silhouette stays in place while data loads.",
+      "registryDependencies": ["skeleton"],
+      "files": [
+        {
+          "path": "skeletons.tsx",
+          "type": "registry:component",
+          "target": "~/components/skeletons.tsx"
+        }
+      ]
     }
   ]
 }

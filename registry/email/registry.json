@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "name": "send-email",
+      "type": "registry:lib",
+      "title": "sendEmail (Resend)",
+      "description": "Typed wrapper around Resend with React Email / HTML / plain-text body support and a dev-preview mode (logs the payload instead of sending). Reads from RESEND_API_KEY + RESEND_FROM_EMAIL env vars the framework already locks.",
+      "dependencies": ["resend"],
+      "files": [
+        {
+          "path": "send-email.ts",
+          "type": "registry:lib",
+          "target": "~/lib/send-email.ts"
+        }
+      ]
+    }
+  ]
+}

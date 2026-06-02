@@ -14,6 +14,74 @@
           "target": "~/lib/parse-form-data.ts"
         }
       ]
+    },
+    {
+      "name": "field",
+      "type": "registry:component",
+      "title": "Field (one-row form field)",
+      "description": "Single-component wrapper that handles FormField + FormItem + FormLabel + FormControl + FormDescription + FormMessage scaffolding for any text/email/number input or textarea. Pulls `control` from useFormContext so consumers don't pass it.",
+      "dependencies": ["react-hook-form"],
+      "registryDependencies": ["input", "textarea", "https://vibekit.desishub.com/r/form.json"],
+      "files": [
+        {
+          "path": "field.tsx",
+          "type": "registry:component",
+          "target": "~/components/field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "form-combobox",
+      "type": "registry:component",
+      "title": "FormCombobox (async searchable select)",
+      "description": "Searchable combobox bound to RHF. Supports static options OR an async loader keyed by query. Stores the selected value in form state; shows the label in the trigger. Replaces plain <select> for any dropdown with >5 options.",
+      "dependencies": ["react-hook-form", "lucide-react"],
+      "registryDependencies": [
+        "button",
+        "command",
+        "popover",
+        "https://vibekit.desishub.com/r/form.json"
+      ],
+      "files": [
+        {
+          "path": "form-combobox.tsx",
+          "type": "registry:component",
+          "target": "~/components/form-combobox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "form-date-picker",
+      "type": "registry:component",
+      "title": "FormDatePicker",
+      "description": "Calendar-in-popover date picker bound to RHF. Stores a Date in form state. Replaces native <input type=\"date\"> (terrible cross-browser UX). Configurable date format + fromDate/toDate bounds.",
+      "dependencies": ["react-hook-form", "date-fns", "lucide-react"],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "https://vibekit.desishub.com/r/form.json"
+      ],
+      "files": [
+        {
+          "path": "form-date-picker.tsx",
+          "type": "registry:component",
+          "target": "~/components/form-date-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "use-unsaved-changes",
+      "type": "registry:hook",
+      "title": "useUnsavedChanges",
+      "description": "Warns the user before navigating away when a form is dirty. Two protection layers: beforeunload (refresh/close) + anchor click capture (internal Next.js links). Lets meta/ctrl-click pass through for new-tab opens.",
+      "files": [
+        {
+          "path": "use-unsaved-changes.ts",
+          "type": "registry:hook",
+          "target": "~/hooks/use-unsaved-changes.ts"
+        }
+      ]
     }
   ]
 }

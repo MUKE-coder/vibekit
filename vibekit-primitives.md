@@ -31,7 +31,7 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 
 ---
 
-## Shipped — 27 items
+## Shipped — 42 items
 
 ### Auth & Session
 
@@ -95,9 +95,49 @@ pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-current-user
 | ✅ | **invariant** | `MUKE-coder/vibekit/invariant` | `invariant`, `assert`, `exhaustive` — dev-time assertions with TS narrowing |
 | ✅ | **rate-limit** | `MUKE-coder/vibekit/rate-limit` | Upstash Ratelimit wrapper with cached limiters per (tokens, window) |
 
+### Forms (Phase 3 — wrappers on top of the Form fallback)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **field** | `MUKE-coder/vibekit/field` | One-row labeled field. Handles FormField/FormItem/FormLabel/FormControl/FormDescription/FormMessage scaffolding for any text/email/number input or textarea |
+| ✅ | **form-combobox** | `MUKE-coder/vibekit/form-combobox` | Searchable combobox with static OR async options — bound to RHF |
+| ✅ | **form-date-picker** | `MUKE-coder/vibekit/form-date-picker` | Calendar-in-popover, RHF-bound, configurable format + bounds |
+| ✅ | **use-unsaved-changes** | `MUKE-coder/vibekit/use-unsaved-changes` | Warns before navigation when a form is dirty (beforeunload + anchor click capture) |
+
+### Data Fetching (Phase 3)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **api-client** | `MUKE-coder/vibekit/api-client` | Typed fetch wrapper + ApiError class, default headers, query-param injection |
+| ✅ | **query-keys** | `MUKE-coder/vibekit/query-keys` | `entityKeys` / `createQueryKeys` factory for consistent invalidation-friendly React Query keys |
+| ✅ | **use-optimistic-mutation** | `MUKE-coder/vibekit/use-optimistic-mutation` | useMutation wrapper with optimistic update, rollback on error, toast hooks |
+| ✅ | **use-paginated-query** | `MUKE-coder/vibekit/use-paginated-query` | Server-side pagination over the framework's `{ data, total, page, pageSize, totalPages }` shape |
+| ✅ | **use-debounced-query** | `MUKE-coder/vibekit/use-debounced-query` | Search-style query with built-in input debounce + keepPreviousData |
+
+### Email (Phase 3)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **send-email** | `MUKE-coder/vibekit/send-email` | Typed Resend wrapper supporting React Email / HTML / plain-text, dev-preview mode |
+
+### Tables — chrome (Phase 3)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **column-header** | `MUKE-coder/vibekit/column-header` | Sortable header with direction indicator + dropdown (Ascending / Descending / Hide) |
+| ✅ | **data-table-toolbar** | `MUKE-coder/vibekit/data-table-toolbar` | Search + faceted filters + column-visibility + export + reset + actions slot |
+| ✅ | **bulk-actions-bar** | `MUKE-coder/vibekit/bulk-actions-bar` | Floating action bar on row selection. Auto-hides at zero, Escape clears |
+
+### Feedback (Phase 3)
+
+| Status | Item | Install | What it does |
+|---|---|---|---|
+| ✅ | **error-boundary** | `MUKE-coder/vibekit/error-boundary` | React error boundary with styled default fallback, retry, resetKey, onError hook |
+| ✅ | **skeletons** | `MUKE-coder/vibekit/skeletons` | Layout-matched skeleton bundle (TableSkeleton, CardGridSkeleton, DetailPageSkeleton, FormSkeleton, StatRowSkeleton) |
+
 ---
 
-## Full roadmap (123 items pending — 18% complete)
+## Full roadmap (108 items pending — 28% complete)
 
 Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-library-150.md). Items are tagged with the implementation phase and current status. The "Phase" column drives the build order in future sessions.
 
@@ -120,73 +160,73 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 9 | ⏳ | TwoFactorSetup | 4 | TOTP enrollment UI |
 | 10 | ⏳ | Device/session list | 4 | Active sessions UI |
 
-### 2. Data Fetching & Caching (12) — 0/12 shipped
+### 2. Data Fetching & Caching (12) — 5/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 11 | ⏳ | apiClient | 2 | Typed fetch wrapper |
-| 12 | ⏳ | createQueryKeys | 2 | React Query key factory |
-| 13 | ⏳ | cacheGet / cacheSet / withCache | 2 | (pattern — master_prompt.md REDIS CACHING) |
-| 14 | ⏳ | invalidateCache | 2 | Tag-based wildcard |
-| 15 | ⏳ | useOptimisticMutation | 2 | React Query wrapper |
-| 16 | ⏳ | usePaginatedQuery | 3 | Cursor/offset abstraction |
-| 17 | ⏳ | useInfiniteScroll | 3 | IntersectionObserver |
-| 18 | ⏳ | Stale-while-revalidate Redis layer | 3 | |
-| 19 | ⏳ | prefetchOnHover | 3 | |
+| 11 | ✅ | apiClient | 3 | shipped as `api-client` |
+| 12 | ✅ | createQueryKeys | 3 | shipped as `query-keys` |
+| 13 | ⏳ | cacheGet / cacheSet / withCache | 4 | (pattern — master_prompt.md REDIS CACHING) |
+| 14 | ⏳ | invalidateCache | 4 | Tag-based wildcard |
+| 15 | ✅ | useOptimisticMutation | 3 | shipped |
+| 16 | ✅ | usePaginatedQuery | 3 | shipped |
+| 17 | ⏳ | useInfiniteScroll | 4 | IntersectionObserver-based |
+| 18 | ⏳ | Stale-while-revalidate Redis layer | 4 | |
+| 19 | ⏳ | prefetchOnHover | 4 | |
 | 20 | ⏳ | Request deduplication | — | React Query already handles |
-| 21 | ⏳ | useDebouncedQuery | 2 | Debounce + cancellation |
-| 22 | ⏳ | Polling manager | 3 | Pauses on tab hidden |
+| 21 | ✅ | useDebouncedQuery | 3 | shipped |
+| 22 | ⏳ | Polling manager | 4 | Pauses on tab hidden |
 
-### 3. Forms & Validation (12) — 2/12 shipped (Form fallback + parse-form-data)
+### 3. Forms & Validation (12) — 6/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 23 | ✅ | Form wrapper | (registry) | Shipped at `vibekit.desishub.com/r/form.json` — shadcn fallback |
-| 24 | ⏳ | FormField | 3 | Connects label/input/error/description |
-| 25 | ⏳ | FormSelect / FormCombobox | 3 | Async-loading + search |
-| 26 | ⏳ | FormDatePicker / FormDateRange | 3 | Calendar + ISO output |
-| 27 | ⏳ | FormFileUpload | 3 | R2/UploadThing integration |
+| 24 | ✅ | FormField (one-row labeled field) | 3 | shipped as `field` |
+| 25 | ✅ | FormSelect / FormCombobox | 3 | shipped as `form-combobox` (async + static) |
+| 26 | ✅ | FormDatePicker | 3 | shipped (FormDateRange = Phase 4) |
+| 27 | ⏳ | FormFileUpload | 4 | R2/UploadThing integration |
 | 28 | ⏳ | FormMultiStep | (registry) | Shipped as `multi-step-form` in JB registry |
 | 29 | ⏳ | Shared Zod schemas | (pattern) | master_prompt.md FORM RULES |
 | 30 | ✅ | parseFormData (server) | 2 | shipped as `parse-form-data` |
-| 31 | ⏳ | useUnsavedChanges | 3 | beforeunload + router intercept |
-| 32 | ⏳ | FormAutosave | 3 | Debounced auto-save |
-| 33 | ⏳ | Field async validation | 3 | Debounced uniqueness checks |
+| 31 | ✅ | useUnsavedChanges | 3 | shipped |
+| 32 | ⏳ | FormAutosave | 4 | Debounced auto-save |
+| 33 | ⏳ | Field async validation | 4 | Debounced uniqueness checks |
 | 34 | ⏳ | TagInput | (registry) | Shipped as `advanced-form-elements` |
 
-### 4. Tables & Data Display (12) — 3/12 shipped
+### 4. Tables & Data Display (12) — 6/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
 | 35 | ⏳ | DataTable | (registry) | Shipped as JB Data Table |
 | 36 | ✅ | useTableState | 1 | shipped |
-| 37 | ⏳ | ColumnHeader | 3 | |
-| 38 | ⏳ | Bulk actions bar | 3 | |
-| 39 | ⏳ | DataTableToolbar | 3 | |
+| 37 | ✅ | ColumnHeader | 3 | shipped |
+| 38 | ✅ | Bulk actions bar | 3 | shipped as `bulk-actions-bar` |
+| 39 | ✅ | DataTableToolbar | 3 | shipped |
 | 40 | ✅ | EmptyState | 1 | shipped |
-| 41 | ⏳ | Server-side table fetcher | 3 | Helper that consumes useTableState output |
-| 42 | ⏳ | EditableCell | 3 | Inline-edit |
+| 41 | ⏳ | Server-side table fetcher | 4 | Helper that consumes useTableState output |
+| 42 | ⏳ | EditableCell | 4 | Inline-edit |
 | 43 | ⏳ | Column resize/reorder persistence | 4 | |
 | 44 | ⏳ | DataGrid virtualized | 4 | TanStack Virtual |
 | 45 | ✅ | StatCard | 2 | shipped |
-| 46 | ⏳ | Timeline (vertical activity feed) | 3 | Different from alternating-timeline (already shipped) |
+| 46 | ⏳ | Timeline (vertical activity feed) | 4 | Different from alternating-timeline (already shipped) |
 
-### 5. Feedback & Overlays (12) — 4/12 shipped
+### 5. Feedback & Overlays (12) — 6/12 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 47 | ⏳ | toast system | 2 | Pre-configured Sonner |
+| 47 | ⏳ | toast system | 4 | Pre-configured Sonner |
 | 48 | ✅ | ConfirmDialog + useConfirm | 1 | shipped |
-| 49 | ⏳ | Modal / useModal | 3 | Stack-aware, URL-driven |
-| 50 | ⏳ | Drawer | 2 | Mobile-responsive bottom sheet |
+| 49 | ⏳ | Modal / useModal | 4 | Stack-aware, URL-driven |
+| 50 | ⏳ | Drawer | 4 | Mobile-responsive bottom sheet |
 | 51 | ⏳ | CommandPalette | (registry) | Shipped as `command-palette` |
 | 52 | ✅ | LoadingButton | 1 | shipped |
-| 53 | ⏳ | Skeleton library | 2 | Matched per layout |
-| 54 | ⏳ | ErrorBoundary + fallback | 2 | |
-| 55 | ⏳ | Global loading bar | 3 | nprogress-style |
-| 56 | ⏳ | Tooltip standardized | 2 | Wrapping shadcn Tooltip |
+| 53 | ✅ | Skeleton library | 3 | shipped as `skeletons` (Table/CardGrid/DetailPage/Form/StatRow) |
+| 54 | ✅ | ErrorBoundary + fallback | 3 | shipped |
+| 55 | ⏳ | Global loading bar | 4 | nprogress-style |
+| 56 | ⏳ | Tooltip standardized | 4 | Wrapping shadcn Tooltip |
 | 57 | ✅ | CopyButton | 1 | shipped |
-| 58 | ⏳ | Banner / announcement | 3 | Dismissible with persistence |
+| 58 | ⏳ | Banner / announcement | 4 | Dismissible with persistence |
 
 ### 6. File & Media (8) — 0/8 shipped
 
@@ -212,17 +252,17 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 | 71 | ⏳ | Print stylesheet + PrintButton | 3 | |
 | 72 | ⏳ | Report builder | 4 | Config → PDF/Excel |
 
-### 8. Notifications & Email (8) — 0/8 shipped
+### 8. Notifications & Email (8) — 1/8 shipped
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 73 | ⏳ | React Email templates | 3 | Base + welcome / reset / invoice / notification |
-| 74 | ⏳ | sendEmail | 3 | Typed Resend wrapper |
+| 73 | ⏳ | React Email templates | 4 | Base + welcome / reset / invoice / notification |
+| 74 | ✅ | sendEmail | 3 | shipped (Resend wrapper with dev-preview) |
 | 75 | ⏳ | In-app notification system | (registry) | Shipped as `notification-center` |
-| 76 | ⏳ | notify(userId, type, data) | 3 | One-call in-app + email |
+| 76 | ⏳ | notify(userId, type, data) | 4 | One-call in-app + email |
 | 77 | ⏳ | Notification preferences UI | 4 | |
 | 78 | ⏳ | NotificationBell | (registry) | Shipped as part of `notification-center` |
-| 79 | ⏳ | Email verification flow | 3 | (covered partially by Better Auth UI) |
+| 79 | ⏳ | Email verification flow | 4 | (covered partially by Better Auth UI) |
 | 80 | ⏳ | Digest scheduler | 4 | Batches into daily/weekly |
 
 ### 9. Payments & Billing (6) — 0/6 shipped
@@ -341,12 +381,12 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 
 - **Phase 1** (✅ shipped — 12 items): foundational hooks, URL state, feedback primitives, formatters, env validator. The compounders.
 - **Phase 2** (✅ shipped — 15 items): server auth guards (requireAuth/requireRole), server Zod validator (parse-form-data), Upstash rate-limit, the small universal hooks (useDebounce/useThrottle/useEventListener/useIntersectionObserver/usePrevious), the standard layout chrome (Avatar+AvatarGroup, PageHeader, Breadcrumbs), StatCard, ClientOnly, invariant.
-- **Phase 3** (~25 items pending): Form library (FormField/FormSelect/FormCombobox/FormDatePicker/FormFileUpload/FormAutosave/useUnsavedChanges), data-fetching wrappers (apiClient, createQueryKeys, useOptimisticMutation, usePaginatedQuery, useInfiniteScroll, useDebouncedQuery), file/media (uploadFile, ImageUpload, signed URLs, Avatar — done), email (sendEmail, React Email templates, notify), Stripe webhook handler, data-table chrome (ColumnHeader, DataTableToolbar, Bulk actions bar, server-side table fetcher), Timeline (vertical activity feed), Drawer, Skeleton library, ErrorBoundary, Tooltip standardized, AppShell + Sidebar + TabNav, AuthGuard, usePermissions, useKeyboardShortcuts.
-- **Phase 4** (the long tail — ~80 items): impersonation, 2FA, realtime collaboration, GDPR export, background jobs, virtualized grid, gallery/lightbox, CSV import wizard, savedViews, presence/typing, heatmap, etc.
+- **Phase 3** (✅ shipped — 15 items): Form wrappers (field/form-combobox/form-date-picker/use-unsaved-changes), data-fetching suite (api-client/query-keys/use-optimistic-mutation/use-paginated-query/use-debounced-query), email (send-email), data-table chrome (column-header/data-table-toolbar/bulk-actions-bar), error-boundary, skeletons.
+- **Phase 4** (the long tail — ~110 items pending, ~50 truly greenfield after subtracting `(registry)` + `(pattern)` items): impersonation, 2FA, realtime collaboration (SSE/WebSocket, presence, typing, comments, locks, activity broadcast), GDPR export, background jobs, virtualized grid, gallery/lightbox, CSV import wizard, savedViews, faceted filter counts, Sparkline/MetricGrid/HeatmapCalendar/FunnelChart, AppShell/Sidebar/TabNav, AuthGuard/usePermissions, useKeyboardShortcuts, FormFileUpload/FormAutosave, ImageUpload, signed URLs, in-app notify(), React Email base + welcome/reset/invoice templates, server-side table fetcher, EditableCell, Drawer, Modal, Toast preset, Global loading bar, Tooltip standardized, Banner, Stripe webhook handler, Cron scheduler, Background job runner, CSRF/security headers, input sanitizer, idempotency middleware, webhook signature verifier, health-check endpoints, seed-factory system, maintenance mode, soft-delete + restore, monitoring wrapper, feature flags, the cache layer (withCache/invalidateCache/stale-while-revalidate), usePresence, useChannel, more.
 
 Each phase is a couple of dedicated sessions of focused work. The roadmap above is the canonical tracker — update item status as things ship.
 
-**Progress:** 27 / 150 shipped (18%). Total items minus already-in-registry-or-pattern: ~110 unique greenfield items left, of which Phase 3 covers ~25.
+**Progress:** 42 / 150 shipped (28%). Of the ~108 pending items, ~30 already exist as `(registry)` or `(pattern)` entries — they graduate to GitHub-registry installs when re-touched. Net greenfield items left: ~80, all queued for Phase 4 (which will run as multiple focused sessions, not one batch).
 
 ---
 
@@ -368,4 +408,4 @@ Migration of existing 32 components from the legacy approach is out of scope rig
 
 ---
 
-_Last updated: 2026-05-18 · Phase 2 of 4 shipped_
+_Last updated: 2026-05-18 · Phase 3 of 4 shipped_
