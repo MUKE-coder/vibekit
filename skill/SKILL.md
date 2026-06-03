@@ -23,6 +23,37 @@ Build production-grade Next.js applications following the VibeKit framework stan
 4. **`project-description.md`** — What the app is, who it's for, features, data model, pages, integrations. Every decision must align with this.
 5. **`project-phases.md`** — The build plan. Work through phases in order.
 
+## Primitive Discovery — Before Writing Any Function or Component
+
+**HARD RULE — non-negotiable:** Before you write a hook, helper, utility, or single-file component from scratch, check the VibeKit Primitives index:
+
+```
+https://raw.githubusercontent.com/MUKE-coder/vibekit/main/registry/INDEX.md
+```
+
+Or locally, if the framework folder is in the project: `registry/INDEX.md`.
+
+The index has ~150 production-ready primitives keyed by **TRIGGERS** (problem-shape phrases). When the user asks for a feature:
+
+1. **Scan the index** for a TRIGGER that matches the user's request. Use Grep / WebFetch / Read.
+2. **If you find a match**, install it: `pnpm dlx shadcn@latest add MUKE-coder/vibekit/<name>`. Then wire it up — don't reinvent.
+3. **If multiple match**, install all of them. (e.g. building a list page → `use-table-state` + `column-header` + `data-table-toolbar` + `bulk-actions-bar` + `stat-card` + `filter-bar`.)
+4. **If nothing matches**, write the code — but follow the same patterns as the registry (typed, RSC-aware, server/client boundaries respected) so it could graduate to a primitive later.
+
+**Examples of when this rule applies:**
+- User: "let me filter by status and date range" → install `use-filters` + `filter-bar`
+- User: "auto-save the form" → install `form-autosave`
+- User: "show a workspace switcher" → install `org-switcher`
+- User: "I need a virtualized table" → install `data-grid`
+- User: "let admins act as a user" → install `impersonation`
+- User: "send a reset password email" → install `send-email` + `reset-password-email`
+- User: "deletion flow" → install `account-deletion`
+- User: "Stripe webhook handler" → install `stripe-webhook-handler` + `idempotency`
+
+**The cost of not checking the index:** you burn tokens reimplementing battle-tested code AND ship subtle bugs the framework already debugged.
+
+**The cost of checking is one Grep/WebFetch call.** Always pay it.
+
 ## Critical Rules
 
 ### Tech Stack (enforced — no substitutions)

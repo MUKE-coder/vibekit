@@ -41,6 +41,8 @@ const externalGuides = [
   { name: "AI & RAG", href: `${SITE.github}/blob/main/ai-guide.md`, blurb: "Vercel AI SDK + pgvector in Neon + Upstash rate-limit + credit packs." },
   { name: "Agent tooling", href: `${SITE.github}/blob/main/agent-tooling.md`, blurb: "ui-ux-pro-max-skill + 21st.dev Magic MCP — user-level installs that compound VibeKit's value." },
   { name: "VibeKit Primitives (150)", href: `${SITE.github}/blob/main/vibekit-primitives.md`, blurb: "GitHub-registry library of hooks, helpers, and small components. 150 / 150 ✨ — all sixteen categories complete. 144 via GitHub registry (`MUKE-coder/vibekit/<name>`) + 6 graduated to JB legacy." },
+  { name: "Primitives discovery index", href: `${SITE.github}/blob/main/registry/INDEX.md`, blurb: "Flat searchable index of all 150 primitives with TRIGGER phrases. Agents grep this file before writing from scratch. Wired into the SKILL.md + AGENTS.md rules — and accessible via /vibekit-find." },
+  { name: "Demo / smoke-test app", href: `${SITE.github}/tree/main/demo`, blurb: "A real Next.js app that installs and exercises every primitive. Every release passes through this before tagging — catches install-time + render bugs the registry never sees on its own." },
   { name: "Pre-deploy review", href: `${SITE.github}/blob/main/pre-deploy-review.md`, blurb: "Senior-level audit prompt to run before going live." },
   { name: "Prompt engineering", href: `${SITE.github}/blob/main/prompt-engineering.md`, blurb: "5-part formula, token economy, rescue system." },
   { name: "Troubleshooting", href: `${SITE.github}/blob/main/troubleshooting.md`, blurb: "Symptoms → fixes when AI gets stuck." },

@@ -267,6 +267,18 @@ pnpm dlx shadcn@latest list MUKE-coder/vibekit
 pnpm dlx shadcn@latest view MUKE-coder/vibekit/use-table-state
 ```
 
+### Discovery for AI agents
+
+The big problem with a 150-item registry: agents don't know it exists. They generate from training data instead of installing what's already built. VibeKit fixes this at three layers:
+
+- **[`registry/INDEX.md`](./registry/INDEX.md)** — a flat, grep-friendly catalogue. Every primitive listed with **TRIGGER** phrases (problem-shape keywords) so agents pattern-match before writing code.
+- **[`skill/SKILL.md`](./skill/SKILL.md)** + **[`skill/AGENTS.md`](./skill/AGENTS.md)** — hard rule in the agent's auto-loaded rules: *"Before writing any hook / helper / single-file component, grep `registry/INDEX.md`."* Examples baked in: "filter by status + date range" → install `use-filters` + `filter-bar`. "auto-save the form" → install `form-autosave`. Etc.
+- **`/vibekit-find <query>`** — Claude Code slash command at [`.claude/commands/vibekit-find.md`](./.claude/commands/vibekit-find.md). The agent runs grep against INDEX.md and returns top 5 install commands.
+
+### Smoke-test app
+
+The audit pass found 22 install-time / first-render bugs that the registry never sees on its own. The [`demo/`](./demo) folder is a real Next.js app that installs and exercises every primitive — every release passes through `pnpm tsc --noEmit && pnpm build` on the demo before tagging. See [`demo/README.md`](./demo/README.md) for the page-to-primitive mapping and [`demo/PHASES.md`](./demo/PHASES.md) for the build phases.
+
 ---
 
 ## Contributing

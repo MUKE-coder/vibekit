@@ -23,7 +23,10 @@ const tree = `vibekit/
 ├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
 ├── vibekit-primitives.md        ← Roadmap: 150 primitives — 100% complete ✨ (144 GitHub + 6 JB legacy)
 ├── registry.json                ← Root index for the GitHub registry
-└── registry/                    ← Source for installable primitives (auth, hooks, ...)`;
+├── registry/                    ← Source for 144 installable primitives (auth, hooks, ...)
+│   └── INDEX.md                 ← Searchable index with TRIGGERS — agents grep this before writing code
+├── skill/                       ← Agent rules (SKILL.md, AGENTS.md) — auto-discover primitives
+└── demo/                        ← Smoke-test app: installs + exercises every primitive`;
 
 const copyFiles = [
   { file: "master_prompt.md", purpose: "Claude Code reads this first — tech stack + coding rules" },

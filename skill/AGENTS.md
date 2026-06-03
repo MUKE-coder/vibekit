@@ -34,9 +34,26 @@ You are building a production-grade Next.js application following the VibeKit fr
 
 1. **`master_prompt.md`** — Your coding standards, tech stack rules, and Prisma v7 patterns. Follow EXACTLY. Non-negotiable.
 2. **`design-style-guide.md`** — The customized visual design system for THIS project. Every component you build must follow these tokens (colors, typography, spacing, radius, shadows, component specs).
-3. **`jb-components.md`** — Reference for JB components. Before building auth, file uploads, data tables, checkout, blogs, or API docs from scratch — check this file for an existing component and install it first.
-4. **`project-description.md`** — What the app is, who it's for, features, data model, pages, integrations. Every decision must align with this.
-5. **`project-phases.md`** — The build plan. Work through phases in order.
+3. **`jb-components.md`** — Reference for JB components (feature units: auth UI, file storage, kanban, etc.).
+4. **`registry/INDEX.md`** (or `https://raw.githubusercontent.com/MUKE-coder/vibekit/main/registry/INDEX.md`) — VibeKit Primitives discovery index. ~150 small reusable hooks, utilities, and single-file components keyed by problem-shape TRIGGERS. **Before writing any hook / helper / single-file component from scratch, grep this file for a match.**
+5. **`project-description.md`** — What the app is, who it's for, features, data model, pages, integrations. Every decision must align with this.
+6. **`project-phases.md`** — The build plan. Work through phases in order.
+
+### Primitive Discovery — Non-negotiable
+
+When the user asks for a feature, scan `registry/INDEX.md` for matching **TRIGGERS** before writing code. Install matches: `pnpm dlx shadcn@latest add MUKE-coder/vibekit/<name>`. Examples:
+
+- "filter by status + date range" → `use-filters` + `filter-bar`
+- "auto-save the form" → `form-autosave`
+- "workspace switcher" → `org-switcher`
+- "virtualized table" → `data-grid`
+- "admin login-as-user" → `impersonation`
+- "Stripe webhook handler" → `stripe-webhook-handler` + `idempotency`
+- "real-time live cursors" → `live-cursors` + `use-channel` + `sse-channel`
+- "GDPR data export" → `data-export`
+- "account deletion grace period" → `account-deletion`
+
+If multiple primitives match, install all. If nothing matches, write the code — and follow the registry's patterns so it could graduate to a primitive later.
 
 ## Critical Rules
 
