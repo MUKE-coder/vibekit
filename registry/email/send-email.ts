@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { Resend } from "resend";
 
 /**
@@ -39,7 +40,7 @@ interface BaseEmailInput {
 }
 
 type EmailInputWithReact = BaseEmailInput & {
-  react: React.ReactElement;
+  react: ReactElement;
   html?: never;
   text?: never;
 };

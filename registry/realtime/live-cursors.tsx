@@ -71,56 +71,53 @@ export function LiveCursors({
   const [peers, setPeers] = React.useState<Record<string, CursorState>>({});
   const lastPublishRef = React.useRef(0);
 
-  const { publish, lastMessage } = useChannel<{
-    type: "cursor.move" | "cursor.leave";
-    id: string;
-    name: string;
-    x: number;
-    y: number;
-  }>(channelName);
+  const channel = useChannel(channelName);
+
+  type CursorPayload = { id: string; name: string; x: number; y: number };
 
   React.useEffect(() => {
-    if (!lastMessage) return;
-    if (lastMessage.id === me.id) return;
-    setPeers((prev) => {
-      const next = { ...prev };
-      if (lastMessage.type === "cursor.leave") {
-        delete next[lastMessage.id];
-      } else {
-        next[lastMessage.id] = {
-          id: lastMessage.id,
-          name: lastMessage.name,
-          x: lastMessage.x,
-          y: lastMessage.y,
-          lastSeen: Date.now(),
-        };
-      }
-      return next;
+    const offMove = channel.subscribe<CursorPayload>("cursor.move", (data) => {
+      if (!data || data.id === me.id) return;
+      setPeers((prev) => ({
+        ...prev,
+        [data.id]: { id: data.id, name: data.name, x: data.x, y: data.y, lastSeen: Date.now() },
+      }));
     });
-  }, [lastMessage, me.id]);
+    const offLeave = channel.subscribe<{ id: string }>("cursor.leave", (data) => {
+      if (!data || data.id === me.id) return;
+      setPeers((prev) => {
+        const next = { ...prev };
+        delete next[data.id];
+        return next;
+      });
+    });
+    return () => {
+      offMove();
+      offLeave();
+    };
+  }, [channel, me.id]);
 
   React.useEffect(() => {
-    const target = containerRef?.current ?? window;
+    const target: EventTarget = containerRef?.current ?? window;
     const onMove = (event: Event) => {
       const e = event as MouseEvent;
       const now = Date.now();
       if (now - lastPublishRef.current < publishIntervalMs) return;
       lastPublishRef.current = now;
-      const x = e.pageX;
-      const y = e.pageY;
-      publish({ type: "cursor.move", id: me.id, name: me.name, x, y });
+      void channel.publish<CursorPayload>("cursor.move", { id: me.id, name: me.name, x: e.pageX, y: e.pageY });
     };
     target.addEventListener("mousemove", onMove);
 
-    const beforeUnload = () => publish({ type: "cursor.leave", id: me.id, name: me.name, x: 0, y: 0 });
+    const beforeUnload = () => {
+      void channel.publish<{ id: string }>("cursor.leave", { id: me.id });
+    };
     window.addEventListener("beforeunload", beforeUnload);
 
     return () => {
       target.removeEventListener("mousemove", onMove);
       window.removeEventListener("beforeunload", beforeUnload);
-      beforeUnload();
     };
-  }, [containerRef, me.id, me.name, publish, publishIntervalMs]);
+  }, [containerRef, me.id, me.name, channel, publishIntervalMs]);
 
   React.useEffect(() => {
     const id = setInterval(() => {

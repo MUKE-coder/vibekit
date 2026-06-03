@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MutableRefObject } from "react";
 
 /**
  * `useIsMounted()` — returns `false` on the server / first render, then
@@ -30,7 +30,7 @@ export function useIsMounted(): boolean {
   return mounted;
 }
 
-export function useMountedRef(): React.MutableRefObject<boolean> {
+export function useMountedRef(): MutableRefObject<boolean> {
   const ref = useRef(true);
   useEffect(() => {
     ref.current = true;

@@ -71,13 +71,18 @@
     {
       "name": "feature-flags",
       "type": "registry:lib",
-      "title": "defineFlags + useFlag + FlagsProvider",
-      "description": "Lightweight feature flags. Static FEATURE_* env flags + optional dynamic evaluator for per-user/org runtime checks. Client side uses a snapshot via <FlagsProvider> + useFlag().",
+      "title": "defineFlags + isEnabled + FlagsProvider + useFlag",
+      "description": "Lightweight feature flags. Static FEATURE_* env flags + optional dynamic evaluator for per-user/org runtime checks. Server lib `feature-flags.ts` (defineFlags / isEnabled / isEnabledSync) is RSC-safe (no React import). Companion client component `flags-provider.tsx` ships <FlagsProvider> + useFlag() for client subtrees.",
       "files": [
         {
-          "path": "feature-flags.tsx",
+          "path": "feature-flags.ts",
           "type": "registry:lib",
-          "target": "~/lib/feature-flags.tsx"
+          "target": "~/lib/feature-flags.ts"
+        },
+        {
+          "path": "flags-provider.tsx",
+          "type": "registry:component",
+          "target": "~/components/flags-provider.tsx"
         }
       ]
     },

@@ -22,7 +22,10 @@ import { Redis } from "@upstash/redis";
  * gracefully if no `Idempotency-Key` header is present.
  */
 
-const redis = Redis.fromEnv();
+let redisClient: Redis | null = null;
+function getRedis(): Redis {
+  return (redisClient ??= Redis.fromEnv());
+}
 
 interface IdempotencyOptions {
   /** TTL in seconds. Default: 86400 (24h). */
@@ -53,7 +56,7 @@ export async function withIdempotency(
   const cacheKey = `${prefix}:${req.method}:${url.pathname}:${key}`;
 
   // Have we seen this key before?
-  const cached = await redis.get<CachedResponse>(cacheKey);
+  const cached = await getRedis().get<CachedResponse>(cacheKey);
   if (cached) {
     return new Response(cached.body, {
       status: cached.status,
@@ -71,7 +74,7 @@ export async function withIdempotency(
 
   // Only cache successful, deterministic responses (2xx)
   if (res.status >= 200 && res.status < 300) {
-    await redis.set(cacheKey, { status: res.status, headers: headersOut, body }, { ex: ttlSeconds });
+    await getRedis().set(cacheKey, { status: res.status, headers: headersOut, body }, { ex: ttlSeconds });
   }
 
   return res;

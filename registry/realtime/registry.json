@@ -37,7 +37,7 @@
       "name": "use-channel",
       "type": "registry:hook",
       "title": "useChannel (transport-agnostic pub/sub)",
-      "description": "Subscribe / publish on a named realtime channel, backed by `useSseChannel` for ingress and a simple POST to `/api/channels/:name` for egress. Returns `{ publish, lastMessage, status }`. Foundation for typing, comments, live cursors, lock takeovers.",
+      "description": "Subscribe / publish on a named realtime channel, backed by `useSseChannel` for ingress and a configurable POST endpoint for egress. Returns `{ subscribe(event, handler), publish(event, data) }` — handler-based, multiple event types per channel. Foundation for typing, comments, live cursors, lock takeovers.",
       "registryDependencies": ["MUKE-coder/vibekit/sse-channel"],
       "files": [
         {

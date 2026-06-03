@@ -130,8 +130,13 @@ export function DateRangePicker({
                 else if (next?.from) onChange({ from: next.from, to: next.from });
               }}
               numberOfMonths={2}
-              fromDate={fromDate}
-              toDate={toDate}
+              startMonth={fromDate}
+              endMonth={toDate}
+              disabled={
+                fromDate || toDate
+                  ? { ...(fromDate && { before: fromDate }), ...(toDate && { after: toDate }) }
+                  : undefined
+              }
             />
           </div>
         </div>

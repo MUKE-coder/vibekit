@@ -12,8 +12,10 @@
  *   formatBytes(1536)                       // "1.5 KB"
  */
 
-const DEFAULT_LOCALE =
-  typeof navigator !== "undefined" && navigator.language ? navigator.language : "en-US";
+// SSR-stable: always "en-US" so server and client render the same string.
+// To switch locales, pass `options.locale` explicitly OR override this
+// constant in your project's lib/formatters.ts after install.
+const DEFAULT_LOCALE = "en-US";
 
 // ── Currency ──────────────────────────────────────────────────────────
 

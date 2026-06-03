@@ -17,7 +17,10 @@ import { db } from "@/lib/db";
  * another dependency (Resend, S3, etc.), append another check below.
  */
 
-const redis = Redis.fromEnv();
+let redisClient: Redis | null = null;
+function getRedis(): Redis {
+  return (redisClient ??= Redis.fromEnv());
+}
 
 type CheckStatus = "ok" | "degraded" | "down";
 
@@ -40,7 +43,7 @@ async function checkDb(): Promise<CheckResult> {
 async function checkRedis(): Promise<CheckResult> {
   const start = Date.now();
   try {
-    await redis.ping();
+    await getRedis().ping();
     return { status: "ok", latencyMs: Date.now() - start };
   } catch (err) {
     return { status: "down", latencyMs: Date.now() - start, error: (err as Error).message };

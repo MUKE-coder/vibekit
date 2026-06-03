@@ -7,6 +7,7 @@
       "title": "Sparkline",
       "description": "Tiny inline trend chart for stat cards / table cells / dashboard widgets. Line or area variant, optional tooltip, renders responsively into its parent. Built on Recharts.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "sparkline.tsx",
@@ -51,6 +52,7 @@
       "title": "DonutChart",
       "description": "Donut/pie chart with built-in centre label slot, optional legend (with counts), and a theme-token-friendly default palette. Recharts-based.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "donut-chart.tsx",
@@ -65,6 +67,7 @@
       "title": "FunnelChart",
       "description": "Conversion funnel chart with auto per-stage percentage labels and tooltip showing % of previous and % of top. Recharts-based.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "funnel-chart.tsx",
@@ -109,6 +112,7 @@
       "title": "LineChart (themed Recharts)",
       "description": "Themed line chart with sensible defaults — muted gridlines, lightweight tooltip, theme-token palette, dashed comparison series support. Generic over the row shape so `series[].key` is type-safe. Pair with `<ChartCard>` for the shell + fullscreen + loading/empty states.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "line-chart.tsx",
@@ -123,6 +127,7 @@
       "title": "BarChart (vertical / horizontal / stacked)",
       "description": "Themed bar chart. Vertical (default) or horizontal layout, grouped or stacked. Theme-token palette, optional rounded bar tops, axis tickFormatter slots. Generic over the row shape so `series[].key` is type-safe.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "bar-chart.tsx",
@@ -137,6 +142,7 @@
       "title": "AreaChart (gradient fill, stackable)",
       "description": "Themed area chart with a soft gradient fill — the dashboard staple for revenue / signups / traffic over time. Stacked or single, monotone / step / linear curve, theme-token palette, per-series colour override.",
       "dependencies": ["recharts"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "area-chart.tsx",

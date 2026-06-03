@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useSseChannel } from "@/hooks/use-sse-channel";
 
 /**
@@ -95,13 +95,6 @@ export function useChannel(channelName: string, options: UseChannelOptions = {})
     },
     [channelName, publishEndpoint],
   );
-
-  // Drop handlers when unmounted (the SSE hook already disconnects)
-  useEffect(() => {
-    return () => {
-      handlersRef.current.clear();
-    };
-  }, []);
 
   return useMemo<Channel>(() => ({ subscribe, publish }), [subscribe, publish]);
 }

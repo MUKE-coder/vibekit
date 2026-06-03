@@ -39,7 +39,6 @@ interface ColumnHeaderProps {
  */
 export function ColumnHeader({ label, sort = null, onSort, onHide, className }: ColumnHeaderProps) {
   const Icon = sort === "asc" ? ArrowUp : sort === "desc" ? ArrowDown : ArrowUpDown;
-  const nextDir: "asc" | "desc" = sort === "asc" ? "desc" : "asc";
 
   if (!onSort && !onHide) {
     return (
@@ -62,7 +61,7 @@ export function ColumnHeader({ label, sort = null, onSort, onHide, className }: 
       <DropdownMenuContent align="start">
         {onSort ? (
           <>
-            <DropdownMenuItem onClick={() => onSort(nextDir === "asc" ? "asc" : "desc")}>
+            <DropdownMenuItem onClick={() => onSort("asc")}>
               <ArrowUp className="mr-2 h-3.5 w-3.5 text-muted-foreground" aria-hidden />
               Ascending
             </DropdownMenuItem>

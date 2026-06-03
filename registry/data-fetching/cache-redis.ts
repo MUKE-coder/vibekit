@@ -119,6 +119,7 @@ export async function invalidateCache(...keysOrPatterns: string[]): Promise<void
  *   await invalidateTag("tag:invoices:lists");
  */
 export async function tagKey(tag: string, ...keys: string[]): Promise<void> {
+  if (keys.length === 0) return;
   try {
     await getClient().sadd(tag, keys[0], ...keys.slice(1));
   } catch {

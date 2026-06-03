@@ -24,7 +24,10 @@ import { Redis } from "@upstash/redis";
  * helper from many routes without instantiating Redis clients all over.
  */
 
-const redis = Redis.fromEnv();
+let redisClient: Redis | null = null;
+function getRedis(): Redis {
+  return (redisClient ??= Redis.fromEnv());
+}
 const cache = new Map<string, Ratelimit>();
 
 export type RateWindow =
@@ -48,7 +51,7 @@ function getLimiter({ tokens, window, analytics = true, prefix = "ratelimit" }: 
   let limiter = cache.get(key);
   if (!limiter) {
     limiter = new Ratelimit({
-      redis,
+      redis: getRedis(),
       limiter: Ratelimit.slidingWindow(tokens, window),
       analytics,
       prefix,

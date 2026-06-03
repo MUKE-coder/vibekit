@@ -52,13 +52,18 @@ import { cn } from "@/lib/utils";
  *   </FilterBar>
  */
 
+// NOTE: methods use shorthand syntax (not arrow-typed properties) so the
+// parameter positions are bivariant under strictFunctionTypes. That lets
+// the generic return shape of `useFilters({ schema })` (where each
+// field's value type is keyed on Schema[K]) flow into FilterBar's
+// loosened signature without TS rejecting it.
 type UseFiltersReturn = {
   state: Record<string, unknown>;
-  set: (key: string, value: unknown) => void;
-  toggle: (key: string, item: string) => void;
-  clear: (key: string) => void;
-  reset: () => void;
-  isActive: (key: string) => boolean;
+  set(key: string, value: unknown): void;
+  toggle(key: string, item: string): void;
+  clear(key: string): void;
+  reset(): void;
+  isActive(key: string): boolean;
   activeCount: number;
 };
 
@@ -78,7 +83,7 @@ interface FilterBarProps {
   hideClearAll?: boolean;
 }
 
-export function FilterBar({ filters, children, className, hideClearAll }: FilterBarProps) {
+function FilterBarRoot({ filters, children, className, hideClearAll }: FilterBarProps) {
   return (
     <FilterBarCtx.Provider value={filters}>
       <div className={cn("flex flex-wrap items-center gap-2", className)}>
@@ -387,8 +392,10 @@ function FilterSingle({
   );
 }
 
-FilterBar.Multi = FilterMulti;
-FilterBar.Bool = FilterBool;
-FilterBar.DateRange = FilterDateRange;
-FilterBar.NumRange = FilterNumRange;
-FilterBar.Single = FilterSingle;
+export const FilterBar = Object.assign(FilterBarRoot, {
+  Multi: FilterMulti,
+  Bool: FilterBool,
+  DateRange: FilterDateRange,
+  NumRange: FilterNumRange,
+  Single: FilterSingle,
+});

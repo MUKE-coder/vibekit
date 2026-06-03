@@ -75,6 +75,15 @@ export function ChartCard({
 }: ChartCardProps) {
   const [fullscreen, setFullscreen] = React.useState(false);
 
+  React.useEffect(() => {
+    if (!fullscreen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullscreen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [fullscreen]);
+
   return (
     <>
       <Card

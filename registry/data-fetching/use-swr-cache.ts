@@ -24,7 +24,10 @@
 
 import { Redis } from "@upstash/redis";
 
-const redis = Redis.fromEnv();
+let redisClient: Redis | null = null;
+function getRedis(): Redis {
+  return (redisClient ??= Redis.fromEnv());
+}
 
 interface Entry<T> {
   value: T;
@@ -45,7 +48,7 @@ export async function withSwrCache<T>(
   loader: () => Promise<T>,
   { fresh, stale }: SwrOptions,
 ): Promise<T> {
-  const cached = await redis.get<Entry<T>>(key);
+  const cached = await getRedis().get<Entry<T>>(key);
   const now = Date.now();
 
   if (cached && now - cached.storedAt < fresh * 1000) {
@@ -80,7 +83,7 @@ function revalidate<T>(key: string, loader: () => Promise<T>, stale: number): Pr
 async function fetchAndStore<T>(key: string, loader: () => Promise<T>, stale: number): Promise<T> {
   const value = await loader();
   const entry: Entry<T> = { value, storedAt: Date.now() };
-  await redis.set(key, entry, { ex: stale });
+  await getRedis().set(key, entry, { ex: stale });
   return value;
 }
 
@@ -88,5 +91,5 @@ async function fetchAndStore<T>(key: string, loader: () => Promise<T>, stale: nu
 export async function invalidateSwr(key: string | string[]): Promise<void> {
   const keys = Array.isArray(key) ? key : [key];
   if (keys.length === 0) return;
-  await redis.del(...keys);
+  await getRedis().del(...keys);
 }

@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "./generated/prisma";
 
 /**
  * Soft-delete helpers for Prisma. Convention: every model that supports

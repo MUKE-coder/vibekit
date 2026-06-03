@@ -73,17 +73,25 @@ export function CommentsThread({
 
   const { data: comments = [], isLoading } = useQuery({ queryKey, queryFn: loadComments });
 
-  const { lastMessage, publish } = useChannel<{ type: "comment.created" | "comment.deleted"; id: string }>(channelName);
+  const channel = useChannel(channelName);
 
   React.useEffect(() => {
-    if (!lastMessage) return;
-    qc.invalidateQueries({ queryKey });
-  }, [lastMessage, qc, queryKey]);
+    const offCreated = channel.subscribe<{ id: string }>("comment.created", () => {
+      qc.invalidateQueries({ queryKey });
+    });
+    const offDeleted = channel.subscribe<{ id: string }>("comment.deleted", () => {
+      qc.invalidateQueries({ queryKey });
+    });
+    return () => {
+      offCreated();
+      offDeleted();
+    };
+  }, [channel, qc, queryKey]);
 
   const create = useMutation({
     mutationFn: async (input: { body: string; mentions: string[] }) => {
       const c = await createComment(input.body, input.mentions);
-      publish({ type: "comment.created", id: c.id });
+      void channel.publish("comment.created", { id: c.id });
       return c;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey }),
@@ -92,7 +100,7 @@ export function CommentsThread({
   const remove = useMutation({
     mutationFn: async (id: string) => {
       await deleteComment(id);
-      publish({ type: "comment.deleted", id });
+      void channel.publish("comment.deleted", { id });
     },
     onSuccess: () => qc.invalidateQueries({ queryKey }),
   });
@@ -228,8 +236,11 @@ function Composer({ me, searchMentions, onSubmit, pending }: ComposerProps) {
         e.preventDefault();
         setHoverIndex((i) => Math.max(i - 1, 0));
       } else if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        pickMention(suggestions[hoverIndex]);
+        const picked = suggestions[hoverIndex];
+        if (picked) {
+          e.preventDefault();
+          pickMention(picked);
+        }
       } else if (e.key === "Escape") {
         setMentionQuery(null);
       }

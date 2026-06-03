@@ -107,6 +107,7 @@
       "title": "MaintenanceMode + MaintenanceBanner + isInMaintenanceMode",
       "description": "Full-page lockout for maintenance windows + slim admin banner + server-safe env check. Drives off MAINTENANCE_MODE env (or wire to a feature flag). Pair with an allowlist so admins keep access.",
       "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "maintenance-mode.tsx",

@@ -100,10 +100,13 @@ export async function purgeExpiredAccounts(options: PurgeOptions = {}): Promise<
     try {
       await db.$transaction(async (tx) => {
         for (const model of cascade) {
-          await (tx as unknown as Record<string, { deleteMany: (a: object) => Promise<unknown> }>)
-            [model]
-            ?.deleteMany({ where: { userId: user.id } })
-            .catch(() => {});
+          const delegate = (tx as unknown as Record<string, { deleteMany: (a: object) => Promise<unknown> } | undefined>)[model];
+          if (!delegate) continue;
+          try {
+            await delegate.deleteMany({ where: { userId: user.id } });
+          } catch {
+            /* model may not have userId — skip */
+          }
         }
         await tx.user.delete({ where: { id: user.id } });
       });

@@ -28,8 +28,6 @@
  *   const enabled = useFlag("newPricing"); // reads from <FlagsProvider>
  */
 
-import * as React from "react";
-
 export type FlagContext = Record<string, string | number | boolean | null | undefined>;
 
 interface DefineFlagsInput<Keys extends readonly string[]> {
@@ -78,26 +76,12 @@ export function defineFlags<Keys extends readonly string[]>(input: DefineFlagsIn
   return { keys, isEnabled, isEnabledSync };
 }
 
-/* ─────────────── Client-side hook + provider ─────────────── */
-
-type FlagsSnapshot = Record<string, boolean>;
-const FlagsContext = React.createContext<FlagsSnapshot>({});
+export type FlagsSnapshot = Record<string, boolean>;
 
 /**
- * Wrap the app (or a sub-tree) with a flags snapshot. The provider value
- * is the resolved-server-side flags object — typically computed in a
- * server component and passed down.
- *
- *   // app/layout.tsx (server)
- *   const snapshot = await flags.snapshotFor(user);   // user implements this
- *   <FlagsProvider value={snapshot}>{children}</FlagsProvider>
+ * For the client-side <FlagsProvider> + useFlag(), see
+ * `flags-provider.tsx` — they live in a separate file with "use client"
+ * so React Server Components can safely import `defineFlags` /
+ * `isEnabled` from this file without dragging React.createContext into
+ * the RSC tree.
  */
-export function FlagsProvider({ value, children }: { value: FlagsSnapshot; children: React.ReactNode }) {
-  return <FlagsContext.Provider value={value}>{children}</FlagsContext.Provider>;
-}
-
-/** Read a flag in a client component. Returns false if the flag isn't in the snapshot. */
-export function useFlag(key: string): boolean {
-  const snap = React.useContext(FlagsContext);
-  return Boolean(snap[key]);
-}

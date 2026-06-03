@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { addDays, eachDayOfInterval, format, getDay, startOfDay, subDays } from "date-fns";
+import { addDays, eachDayOfInterval, format, getDay, startOfDay, subDays, subMonths } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -96,7 +96,7 @@ export function HeatmapCalendar({
   // Build a week-aligned grid ending at endDate
   const grid = React.useMemo(() => {
     const end = endDate ? startOfDay(endDate) : startOfDay(new Date());
-    const start = subDays(end, monthsBack * 30);
+    const start = subMonths(end, monthsBack);
     // Pad to Sunday-start week
     const paddedStart = subDays(start, getDay(start));
     const days = eachDayOfInterval({ start: paddedStart, end });

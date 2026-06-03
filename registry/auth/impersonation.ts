@@ -79,13 +79,13 @@ export async function startImpersonation({ actorId, targetId, reason }: StartArg
 
   captureMessage("impersonation.start", "warn", { actorId, targetId, reason });
 
-  await db.auditLog
-    ?.create?.({
+  try {
+    await db.auditLog?.create?.({
       data: { action: "impersonation.start", actorId, targetId, meta: { reason } },
-    })
-    .catch(() => {
-      /* audit log table optional — log via monitoring instead */
     });
+  } catch {
+    /* audit log table optional — already logged via monitoring above */
+  }
 }
 
 export async function stopImpersonation(): Promise<ImpersonationState | null> {
@@ -99,11 +99,13 @@ export async function stopImpersonation(): Promise<ImpersonationState | null> {
       targetId: state.targetId,
       durationSec: Math.round((Date.now() - new Date(state.startedAt).getTime()) / 1000),
     });
-    await db.auditLog
-      ?.create?.({
+    try {
+      await db.auditLog?.create?.({
         data: { action: "impersonation.stop", actorId: state.actorId, targetId: state.targetId, meta: {} },
-      })
-      .catch(() => {});
+      });
+    } catch {
+      /* audit log table optional */
+    }
   }
 
   return state;

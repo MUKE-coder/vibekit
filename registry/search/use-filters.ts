@@ -92,8 +92,10 @@ export function useFilters<Schema extends FilterSchema>({
         case "numRange": {
           const minStr = params.get(`${key}.min`);
           const maxStr = params.get(`${key}.max`);
-          const min = minStr !== null ? Number(minStr) : (spec.defaults?.min ?? null);
-          const max = maxStr !== null ? Number(maxStr) : (spec.defaults?.max ?? null);
+          const minRaw = minStr !== null ? Number(minStr) : (spec.defaults?.min ?? null);
+          const maxRaw = maxStr !== null ? Number(maxStr) : (spec.defaults?.max ?? null);
+          const min = typeof minRaw === "number" && Number.isFinite(minRaw) ? minRaw : null;
+          const max = typeof maxRaw === "number" && Number.isFinite(maxRaw) ? maxRaw : null;
           out[key as keyof Schema] = { min, max } as ValueOf<typeof spec>;
           break;
         }
