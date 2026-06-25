@@ -12,7 +12,7 @@
 4. [The 5-Part Pro Prompt Formula](#the-5-part-pro-prompt-formula)
 5. [Context Loading — The Most Powerful Technique](#context-loading)
 6. [The PRD Method — Guide AI Through an Entire Project](#the-prd-method)
-7. [Prompt Templates by Situation](#prompt-templates-by-situation)
+7. [Prompt Templates by Situation](#prompt-templates-by-situation) — incl. **Redesigning from a Dribbble/image reference**
 8. [The Claude Code vs V0 Decision Framework](#lovable-vs-v0-decision-framework)
 9. [Anti-Patterns — What Never to Do](#anti-patterns)
 10. [Advanced Techniques](#advanced-techniques)
@@ -426,6 +426,38 @@ The component should:
 
 Output only the React component code. No explanation needed.
 ```
+
+### Redesigning From a Dribbble / Mobbin / Figma Reference Image
+
+Use this when you've found a section on Dribbble, Mobbin, a competitor site, or a Figma export and want Claude (Code or any agent) to rebuild it **with pixel-perfect accuracy**. The image is the spec — every detail must appear in the code.
+
+In Claude Code, drag the image into the chat and run `/redesign-from-image` (no arguments needed). For other agents, drag the image in and paste the template below.
+
+```
+Redesign the exact section shown in the image with pixel-perfect accuracy. Follow these strict rules:
+
+1. Layout & Structure — Replicate the exact layout, spacing, padding, margins, alignment, and positioning of every element. Do not add, remove, or rearrange any section, block, or component.
+
+2. Typography — Match the exact font sizes, font weights, line heights, letter spacing, and text hierarchy. Preserve all text content exactly as shown.
+
+3. Colors — Use the exact colors for backgrounds, text, borders, icons, buttons, and any decorative elements. Extract colors precisely from the image. If they conflict with `design-style-guide.md`, ask me before substituting.
+
+4. Patterns & Textures — Recreate any background patterns, gradients, overlays, noise textures, or decorative shapes exactly as they appear.
+
+5. Components & UI Elements — Replicate every button, card, icon, image placeholder, input, tag, badge, or divider with the exact same style, shape, size, and visual treatment. Reuse shadcn primitives and matching items from `registry/INDEX.md` rather than reinventing.
+
+6. Imagery & Icons — Match icon styles, sizes, and placements. Use placeholder images that match the exact dimensions and aspect ratios shown (with explicit width/height on every `next/image` to prevent CLS).
+
+7. Effects & Details — Include any shadows, border radius, borders, hover states, focus rings, or other visual effects visible in the image.
+
+8. No Additions or Omissions — Do not add anything not visible in the image. Do not skip any detail, no matter how small.
+
+Before writing any code, describe what you see in the image (section type, layout, typography, extracted colors, components, effects). Wait for me to confirm before building.
+```
+
+**Why the "describe first, build second" rule:** the image is one input but the agent's interpretation of it is another. Cheap to catch a misread color or wrong layout BEFORE 200 lines of JSX get written. The `/redesign-from-image` slash command enforces this two-step flow automatically.
+
+**When NOT to use this template:** if you want loose inspiration (different layout, looser color match) use a normal prompt instead. This template is for **exact replication**.
 
 ---
 

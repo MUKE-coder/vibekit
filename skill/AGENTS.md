@@ -57,6 +57,23 @@ If multiple primitives match, install all. If nothing matches, write the code �
 
 ## Critical Rules
 
+### Rebuilding From a Reference Image (Dribbble, Mobbin, Figma, screenshot)
+When the user attaches an image and asks you to "rebuild this", "match this design", "redesign this section", "make it look like this", or similar, apply this two-step flow:
+
+**Step 1 — Describe the image first, then wait for confirmation.** Before writing any code, write a structured description: section type, layout, typography (font, weight, size, tracking), extracted colors (hex), components visible (buttons, cards, badges, dividers), imagery & icons, effects (shadow, radius, gradient, hover). Reconcile the extracted colors against `design-style-guide.md` — if they conflict with the project palette, ask the user whether to keep the literal color or map to the project token.
+
+**Step 2 — Build with pixel-perfect rules:**
+1. **Layout & Structure** — replicate exact layout, spacing, padding, margins, alignment, positioning. Do not add, remove, or rearrange anything.
+2. **Typography** — match exact font sizes, weights, line heights, letter spacing, hierarchy. Preserve text content verbatim.
+3. **Colors** — use exact backgrounds, text, borders, icons, buttons (or mapped project tokens after reconciliation).
+4. **Patterns & Textures** — recreate gradients, overlays, noise, decorative shapes exactly.
+5. **Components & UI Elements** — replicate every button, card, icon, input, tag, badge, divider with the same style, shape, size. Reuse shadcn primitives + matching items from `registry/INDEX.md` rather than reinventing.
+6. **Imagery & Icons** — match icon styles, sizes, placements. Placeholder images at exact aspect ratios with explicit `width`/`height` to prevent CLS.
+7. **Effects & Details** — include all shadows, border-radius, borders, hover, focus states visible in the image.
+8. **No Additions or Omissions** — do not add anything not visible. Do not skip any detail no matter how small.
+
+Claude Code users have this packaged as the `/redesign-from-image` slash command (in `.claude/commands/`).
+
 ### Tech Stack (enforced — no substitutions)
 - **Framework:** Next.js 16 (App Router), TypeScript 5.9
 - **Styling:** Tailwind CSS v4 + shadcn/ui

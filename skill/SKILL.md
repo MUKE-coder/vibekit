@@ -90,6 +90,9 @@ The single most-broken design pattern in AI-built UIs. Fix it:
 - The contrast must be obvious at a glance from 2 metres away
 - Applies to: pricing cards, payment-method pickers, plan choosers, multi-step form options, filter chips, tab buttons
 
+### Rebuilding From a Reference Image (Dribbble, Mobbin, Figma, screenshot)
+When the user attaches an image and asks you to "rebuild this", "match this design", "redesign this section", "make it look like this", or similar — run the **`/redesign-from-image`** slash command (defined in `.claude/commands/redesign-from-image.md`). It enforces a strict two-step flow: (1) describe what you see in the image and wait for confirmation, (2) build with pixel-perfect rules (layout, typography, colors, components, effects all matched exactly, nothing added or omitted). Reconcile extracted colors with `design-style-guide.md` tokens; install matching primitives from `registry/INDEX.md` instead of reinventing.
+
 ### Image-First Rule (80/20 — IMAGES outnumber ICONS 4:1)
 The biggest tell of an AI-built UI is "lonely Lucide icons everywhere." Audit every page — if a card's only visual is a 24px Lucide icon, that's a violation.
 
