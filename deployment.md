@@ -549,4 +549,4 @@ Run through every item after your first production deployment.
 
 ---
 
-*Part of the [VibeKit Framework](../README.md) — github.com/MUKE-coder/vibekit*
+*Part of the [VibeKit Framework](./README.md) — github.com/MUKE-coder/vibekit*

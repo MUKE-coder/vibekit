@@ -19,27 +19,32 @@ interface LoadingButtonProps extends ButtonProps {
  *   const [saving, setSaving] = useState(false);
  *   <LoadingButton loading={saving} loadingText="Saving…" onClick={...}>Save</LoadingButton>
  */
-export const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
-  ({ loading = false, loadingText, disabled, children, className, ...props }, ref) => {
-    return (
-      <Button
-        {...props}
-        ref={ref}
-        disabled={disabled || loading}
-        className={cn(className)}
-        aria-busy={loading || undefined}
-      >
-        {loading ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-            {loadingText ?? children}
-          </>
-        ) : (
-          children
-        )}
-      </Button>
-    );
-  },
-);
-
-LoadingButton.displayName = "LoadingButton";
+// No `forwardRef`: React 19 passes `ref` as an ordinary prop, so it arrives in
+// `...props` (via ButtonProps) and is forwarded to <Button> by the spread.
+// Wrapping in forwardRef would instead try to hand a ref to <Button> out-of-band.
+export function LoadingButton({
+  loading = false,
+  loadingText,
+  disabled,
+  children,
+  className,
+  ...props
+}: LoadingButtonProps) {
+  return (
+    <Button
+      {...props}
+      disabled={disabled || loading}
+      className={cn(className)}
+      aria-busy={loading || undefined}
+    >
+      {loading ? (
+        <>
+          <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+          {loadingText ?? children}
+        </>
+      ) : (
+        children
+      )}
+    </Button>
+  );
+}

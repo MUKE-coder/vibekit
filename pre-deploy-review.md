@@ -172,6 +172,33 @@ For each vulnerability:
 - Provide secure implementation
 - Reference OWASP guidelines if applicable
 
+## 5. COPY INTEGRITY & DESIGN JUDGMENT
+
+### Fabricated Claims (treat as Critical — this is a liability issue, not a style issue):
+
+Scan every user-facing page — landing, pricing, marketing sections, emails, PDF templates — for quantitative or factual claims that were INVENTED rather than supplied by me. Flag each one:
+- Conversion or performance metrics ("+47% conversion", "saves 12 hours a week", "3× more bookings")
+- Social proof counts ("trusted by 50,000+ teams", "2M invoices processed")
+- Benchmarks and comparisons ("10× faster", "99.99% uptime", "sub-50ms")
+- Testimonials — invented quotes, names, roles, companies, or avatars
+- Customer or partner logos I never named
+- Pricing, plan limits, trial lengths, or money-back guarantees I never specified
+- Awards, press mentions, funding, or compliance badges (SOC 2, HIPAA, GDPR)
+
+These ship as factual claims by my business on the public web. Unlike a placeholder image, a fabricated statistic looks finished, so nobody catches it. For each one found, report the file path + line number and replace it with a visible placeholder (`—` plus a "metric to confirm" label) or remove the element. Do not substitute a different invented number.
+
+### Default-Nav Prompt (judgment call — flag for a decision, do NOT auto-"fix"):
+
+Look at the `<nav>` on the marketing pages. Does it match the generic AI-default shape — wordmark far left, 4–5 links centered, a single button far right, a hairline bottom border, sticky?
+
+If yes, surface it as a question rather than a defect: *this is the shape every AI-generated site converges on — is it the deliberate choice here, or the default that got left in?* It is a perfectly good nav for many products. The point is that it should be chosen, not inherited. Note any product-specific reason to diverge (a search-first product, an app with a workspace switcher, a brand with a strong logotype that deserves more room).
+
+### Transition & Motion Hygiene:
+- Any className containing `transition-all` — replace with an explicit property list (`transition-[transform,border-color,box-shadow]`, `transition-colors`, `transition-opacity`)
+- Interactive components missing any of the eight required states: default, hover, focus-visible, active, disabled, loading, error, success
+- Missing `overflow-x: clip` on both `html` and `body`
+- Grid tracks containing images declared as bare `1fr` instead of `minmax(0, 1fr)`
+
 ## OUTPUT FORMAT
 
 Structure your review as:
@@ -210,6 +237,8 @@ After the review, write the findings to `pre-deploy-review-report.md` at the pro
 3. Address every **High Priority** issue within the first week of launch.
 4. Schedule **Medium Priority** issues for the next iteration.
 5. Re-run this prompt after each major feature addition or before each public release.
+
+> Honest-copy and default-nav review checks adapted from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors).
 
 ---
 

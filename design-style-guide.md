@@ -197,6 +197,25 @@ shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.15)  // Focus rings only
 
 ## 7. Component Specifications
 
+### 7.0 The Eight-State Contract
+
+**Every interactive component spec below must define all eight states.** A spec that stops at hover and focus is incomplete.
+
+| State | Requirement |
+|---|---|
+| `default` | Resting appearance — bg, border, text, radius |
+| `hover` | Pointer affordance. Never the only affordance (touch devices have no hover) |
+| `focus-visible` | `shadow-focus` ring, always visible, never removed without a replacement |
+| `active` | Pressed feedback — `scale(0.98)` or a darker step, 100ms |
+| `disabled` | `neutral-200` bg / `neutral-400` text, `aria-disabled`, still legible |
+| `loading` | Spinner replaces icon, label stays, element width does not change |
+| `error` | `error-600` border + message text below (`13px`, `error-600`). Never colour alone |
+| `success` | `success-600` border or check icon, clears after ~2s or on next edit |
+
+`error` and `success` are the two most commonly omitted. Inputs, selects, comboboxes, file uploads, and any form-submitting button need both.
+
+---
+
 ### 7.1 Buttons
 
 **Primary Button**
@@ -622,6 +641,47 @@ For neutrals, use Tailwind's built-in `zinc` scale directly (`text-zinc-700`, `b
 - Tables: horizontal scroll wrapper below `md` (`overflow-x-auto`) OR card conversion
 
 **Test every page at 375px before considering it done.** The most common responsive bugs (overflow, tiny touch targets, broken nav) all appear at 375px first.
+
+**Layout-safety mechanics — the five rules that prevent 90% of mobile breakage:**
+
+1. **`overflow-x: clip` on BOTH `html` and `body`** — not just one. Setting it on a single element leaves the other free to scroll, so the horizontal scrollbar still appears. `clip` rather than `hidden`, because `hidden` creates a scroll container and silently breaks `position: sticky` on descendants.
+2. **No clickable text may wrap to two lines** in nav items or CTA buttons. A wrapped label doubles the control's height, breaks the nav baseline, and makes the tap target ambiguous. Shorten the copy or reduce the item count — never let it wrap.
+3. **Any grid track containing an image needs `minmax(0, 1fr)`, never bare `1fr`.** A bare `1fr` track resolves to `minmax(auto, 1fr)`, and `auto` refuses to shrink below the content's intrinsic size — so a wide image forces the whole grid past the viewport and produces horizontal overflow. `minmax(0, 1fr)` lets the track shrink.
+4. **Display-size headings need `overflow-wrap: anywhere; min-width: 0`.** At 375px a single long word (a product name, a URL, a compound noun) in a 48px+ heading will overflow the viewport with no break opportunity.
+5. **Section headers collapse to a single column on mobile.** The desktop "title left / action right" split leaves both halves too narrow below `sm` — stack them.
+
+```css
+/* globals.css */
+html,
+body {
+  overflow-x: clip; /* both — one alone is not enough */
+}
+
+/* Grid tracks that hold images */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* NOT repeat(3, 1fr) */
+  gap: 24px;
+}
+
+/* Display headings */
+h1,
+h2,
+.display {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+```
+
+```tsx
+{/* Section header — stacks below sm, splits above */}
+<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  <h2 className="text-2xl font-semibold">Invoices</h2>
+  <Button>New invoice</Button>
+</div>
+```
+
+> Layout-safety, honest-copy and state-contract rules adapted from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors).
 
 ## 16. Accessibility
 - Color contrast: `4.5:1` for body text, `3:1` for large text and UI components

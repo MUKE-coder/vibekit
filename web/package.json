@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "description": "VibeKit Framework landing site — vibekit.desishub.com",
+  "//packageManager": "Pinned because the sharp build-script allowance in pnpm-workspace.yaml uses the v11 `allowBuilds` key; pnpm 10 spells it `onlyBuiltDependencies` and would fail install.",
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "predev": "node scripts/sync-prompts.mjs",
     "prebuild": "node scripts/sync-prompts.mjs",

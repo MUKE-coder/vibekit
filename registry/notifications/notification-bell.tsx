@@ -132,7 +132,31 @@ export function NotificationBell({
             </li>
           ) : (
             items.map((n) => {
-              const Wrapper = n.href ? Link : "div";
+              const onActivate = () => {
+                if (!n.readAt) readOne.mutate(n.id);
+                setOpen(false);
+              };
+              const rowClass = "flex items-start gap-2 px-3 py-2 text-sm hover:bg-muted";
+              const rowBody = (
+                <>
+                  <span
+                    className={cn(
+                      "mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full",
+                      n.readAt ? "bg-transparent" : "bg-primary",
+                    )}
+                    aria-hidden
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-medium text-foreground">{n.title}</span>
+                    {n.body ? (
+                      <span className="block truncate text-xs text-muted-foreground">{n.body}</span>
+                    ) : null}
+                    <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-muted-foreground">
+                      {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
+                    </span>
+                  </span>
+                </>
+              );
               return (
                 <li
                   key={n.id}
@@ -141,31 +165,18 @@ export function NotificationBell({
                     !n.readAt && "bg-primary/5",
                   )}
                 >
-                  <Wrapper
-                    {...(n.href ? { href: n.href } : {})}
-                    onClick={() => {
-                      if (!n.readAt) readOne.mutate(n.id);
-                      setOpen(false);
-                    }}
-                    className="flex items-start gap-2 px-3 py-2 text-sm hover:bg-muted"
-                  >
-                    <span
-                      className={cn(
-                        "mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full",
-                        n.readAt ? "bg-transparent" : "bg-primary",
-                      )}
-                      aria-hidden
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-medium text-foreground">{n.title}</span>
-                      {n.body ? (
-                        <span className="block truncate text-xs text-muted-foreground">{n.body}</span>
-                      ) : null}
-                      <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-muted-foreground">
-                        {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
-                      </span>
-                    </span>
-                  </Wrapper>
+                  {/* Branch on the element rather than picking a dynamic
+                      `Wrapper` component: <Link> requires `href`, and a
+                      `Link | "div"` union widens it back to optional. */}
+                  {n.href ? (
+                    <Link href={n.href} onClick={onActivate} className={rowClass}>
+                      {rowBody}
+                    </Link>
+                  ) : (
+                    <div onClick={onActivate} className={rowClass}>
+                      {rowBody}
+                    </div>
+                  )}
                 </li>
               );
             })

@@ -1,5 +1,10 @@
 # VibeKit — Agent Rules Installation
 
+> **The fast path is `npx vibekit-framework init`** — it detects your agent, writes the
+> right rules file, and installs the three framework files alongside it. See
+> [`cli/README.md`](../cli/README.md). Everything below is the manual
+> equivalent, kept for people who want to see exactly what lands where.
+
 This folder ships TWO files that contain the same rules in two formats:
 
 | File | For | Format |
@@ -189,12 +194,12 @@ ln -sf AGENTS.md GEMINI.md
 
 ## Updating the rules
 
-The rules content changes as the framework evolves. To pull the latest version, re-run the same `curl` command for your agent. The new file overwrites the old one — your project files are untouched.
+The rules content changes as the framework evolves. To pull the latest version, re-run `npx vibekit-framework init --force`, or re-run the same `curl` command for your agent. The new file overwrites the old one — your project files are untouched.
 
 ---
 
 ## Where this fits in the VibeKit workflow
 
-Install the rules in **Module 03 — Initialize the project** of the [tutorial](https://vibekit.desishub.com/tutorial), right after copying `master_prompt.md` and the other framework files into your project root. It's a one-line `curl` you run once per project, per agent.
+Install the rules in **Module 03 — Initialize the project** of the [tutorial](https://vibekit.desishub.com/tutorial). `npx vibekit-framework init` does this step *and* copies `master_prompt.md`, `jb-components.md` and `pre-deploy-review.md` into your project root in one command — the manual commands on this page are the fallback if you'd rather do it by hand or need a target the CLI doesn't cover yet.
 
 If you skip this step, VibeKit still works — the agent reads the framework files manually when you paste `prompt.md` (the build prompt). Installing the rules just makes them load automatically without a long paste.

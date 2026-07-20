@@ -62,13 +62,13 @@ export function CTA() {
               Open the planning prompt, describe your idea, and let Claude Code build it phase by phase — with a stack that's locked, audited, and production-ready.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-              <Button href={SITE.github} variant="accent" size="lg">
-                Get VibeKit on GitHub
+              <Button href="/docs/quickstart" variant="accent" size="lg">
+                Get started
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button href={`${SITE.github}/blob/main/CLAUDE_PROMPT.md`} variant="outline" size="lg">
+              <Button href={SITE.github} variant="outline" size="lg">
                 <Github className="h-4 w-4" />
-                Read the planning prompt
+                View on GitHub
               </Button>
             </div>
           </div>

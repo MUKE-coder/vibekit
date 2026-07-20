@@ -115,8 +115,11 @@ export function ModalRoot() {
         >
           <DialogContent
             className={cn(entry.size ? SIZE_CLASS[entry.size] : SIZE_CLASS.md, "max-h-[85vh] overflow-y-auto")}
-            onEscapeKeyDown={(e) => entry.preventOutsideClose && e.preventDefault()}
-            onPointerDownOutside={(e) => entry.preventOutsideClose && e.preventDefault()}
+            // Radix dispatches native DOM events here, not React synthetic ones:
+            // onEscapeKeyDown gets a KeyboardEvent, onPointerDownOutside a
+            // CustomEvent (PointerDownOutsideEvent).
+            onEscapeKeyDown={(e: KeyboardEvent) => entry.preventOutsideClose && e.preventDefault()}
+            onPointerDownOutside={(e: Event) => entry.preventOutsideClose && e.preventDefault()}
           >
             {entry.render({ close: () => close(entry.id), id: entry.id })}
           </DialogContent>

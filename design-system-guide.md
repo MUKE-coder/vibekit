@@ -181,12 +181,19 @@ Every well-designed app uses two fonts: a **display font** (headings, brand mome
 
 **Adding a custom font in Claude Code:**
 ```
-Add the Google Font [font name] to the project.
-Import it in the root layout.
-Set it as the default font family in tailwind.config.ts.
+Add the Google Font [font name] to the project via next/font/google.
+Load it in the root layout and expose it as a CSS variable (e.g. --font-display).
+Register it in globals.css inside the @theme block:
+  @theme { --font-display: var(--font-display), ui-sans-serif, system-ui; }
 Use it for all headings (h1, h2, h3) and the brand name.
 Keep Inter for body text.
 ```
+
+> **Tailwind v4 — do not create `tailwind.config.ts`.** VibeKit targets Tailwind
+> v4, which is CSS-first: fonts, colors, and spacing are declared in the
+> `@theme` block in `globals.css`. A `tailwind.config.ts` is ignored unless
+> explicitly imported, so configuring a font there silently has no effect.
+> See [`design-style-guide.md`](./design-style-guide.md) for the full token set.
 
 ### Typography Scale
 
@@ -373,4 +380,4 @@ Before shipping any page, check for these:
 
 ---
 
-*Part of the [VibeKit Framework](../README.md) — github.com/MUKE-coder/vibekit*
+*Part of the [VibeKit Framework](./README.md) — github.com/MUKE-coder/vibekit*

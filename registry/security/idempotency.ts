@@ -42,6 +42,11 @@ interface CachedResponse {
   body: string;
 }
 
+/** Marker written by the winning request while its handler is still running. */
+const IN_FLIGHT = "__in_flight__";
+
+type Slot = CachedResponse | typeof IN_FLIGHT;
+
 export async function withIdempotency(
   req: Request,
   handler: () => Promise<Response>,
@@ -55,26 +60,47 @@ export async function withIdempotency(
   const url = new URL(req.url);
   const cacheKey = `${prefix}:${req.method}:${url.pathname}:${key}`;
 
-  // Have we seen this key before?
-  const cached = await getRedis().get<CachedResponse>(cacheKey);
-  if (cached) {
-    return new Response(cached.body, {
-      status: cached.status,
-      headers: { ...cached.headers, "Idempotent-Replay": "true" },
-    });
+  // Claim the key ATOMICALLY before doing any work. A read-then-write check
+  // leaves a window where two concurrent retries both miss the cache and both
+  // run the handler — creating the duplicate order this helper exists to stop.
+  const claimed = await getRedis().set(cacheKey, IN_FLIGHT, { nx: true, ex: ttlSeconds });
+
+  if (!claimed) {
+    // Someone else owns this key: either finished (replay it) or still running (409).
+    const existing = await getRedis().get<Slot>(cacheKey);
+    if (existing && existing !== IN_FLIGHT) {
+      return new Response(existing.body, {
+        status: existing.status,
+        headers: { ...existing.headers, "Idempotent-Replay": "true" },
+      });
+    }
+    return new Response(
+      JSON.stringify({ error: "A request with this Idempotency-Key is already in progress" }),
+      { status: 409, headers: { "Content-Type": "application/json", "Retry-After": "1" } },
+    );
   }
 
-  // First time — run the handler and capture the response
-  const res = await handler();
+  // We own the key — run the handler and capture the response.
+  let res: Response;
+  try {
+    res = await handler();
+  } catch (err) {
+    // Release the claim so a retry can legitimately proceed.
+    await getRedis().del(cacheKey);
+    throw err;
+  }
   const body = await res.clone().text();
   const headersOut: Record<string, string> = {};
   res.headers.forEach((value, k) => {
     headersOut[k] = value;
   });
 
-  // Only cache successful, deterministic responses (2xx)
+  // Only cache successful, deterministic responses (2xx). On a non-2xx, drop the
+  // claim so the caller can retry the same key rather than being stuck on 409.
   if (res.status >= 200 && res.status < 300) {
     await getRedis().set(cacheKey, { status: res.status, headers: headersOut, body }, { ex: ttlSeconds });
+  } else {
+    await getRedis().del(cacheKey);
   }
 
   return res;

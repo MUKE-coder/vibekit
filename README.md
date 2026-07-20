@@ -144,14 +144,36 @@ Claude will generate:
 
 Save all 4 files into your project root folder.
 
-### Step 6 — Copy the framework files
+### Step 6 — Run `npx vibekit-framework init`
 
-Copy these 2 files from this repository into your project root:
+From your project root:
 
-- [`master_prompt.md`](./master_prompt.md) — Tech stack rules, Prisma v7 patterns, coding standards (rename to `CLAUDE.md` for auto-loading)
-- [`jb-components.md`](./jb-components.md) — JB component registry reference (when to use each)
+```bash
+npx vibekit-framework init
+```
 
-**Pro tip:** Claude Code auto-loads a `CLAUDE.md` file at the project root. Rename (or symlink) `master_prompt.md` → `CLAUDE.md` so it's loaded automatically every session — no more copy-pasting.
+One command installs everything you'd otherwise copy by hand:
+
+| Installed | What it is |
+|---|---|
+| [`master_prompt.md`](./master_prompt.md) | Tech stack rules, Prisma v7 patterns, coding standards |
+| [`jb-components.md`](./jb-components.md) | JB component registry reference (when to use each) |
+| [`pre-deploy-review.md`](./pre-deploy-review.md) | The pre-deploy security audit prompt |
+| Your agent's rules file | Auto-loads the framework rules every session |
+
+It detects your agent (Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI,
+Aider, Continue, Cody, Junie), never overwrites files you've edited, and is safe
+to re-run after an upgrade. Useful flags:
+
+```bash
+npx vibekit-framework init --agent all    # write every agent's rules file
+npx vibekit-framework init --global       # Claude skill in ~/.claude, not the project
+npx vibekit-framework init --force        # overwrite existing files
+npx vibekit-framework init --yes          # no prompts (CI)
+```
+
+Full CLI docs: [`cli/README.md`](./cli/README.md). Prefer to install by hand?
+Copy the three files above yourself and follow [`skill/README.md`](./skill/README.md).
 
 ### Step 7 — Start building with Claude Code
 
@@ -172,8 +194,8 @@ vibekit/
 ├── README.md                    ← You are here
 ├── CLAUDE_PROMPT.md             ← Paste this into Claude to plan your project
 │
-├── CLAUDE.md                    ← 🔥 Rename master_prompt.md → CLAUDE.md for auto-loading
-├── master_prompt.md             ← Coding standards for Claude Code (copy to your project + rename to CLAUDE.md for auto-load)
+├── CLAUDE.md                    ← Rules for agents working ON this repo (not for your project)
+├── master_prompt.md             ← Coding standards for your project (installed by `npx vibekit-framework init`)
 ├── design-style-guide.md        ← Design style guide template (Claude customizes per project)
 ├── jb-components.md             ← JB component registry reference (copy to your project)
 ├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf/Redis/WebVitals audit
@@ -191,8 +213,21 @@ vibekit/
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
 ├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
 ├── vibekit-primitives.md        ← Roadmap: 150 primitives — 100% production coverage ✨ (144 via GitHub registry + 6 graduated to JB legacy)
+├── nextjs-reusable-library-150.md ← The 150-item source list the registry was built from
+├── vibekit-code-review.md       ← Code-review prompt
+├── CONTRIBUTING.md              ← How to add a primitive to the registry
+│
 ├── registry.json                ← Root index for the GitHub registry
-└── registry/                    ← Source for installable primitives (auth/hooks/utilities/...)
+├── registry/                    ← Source for installable primitives (auth/hooks/utilities/...)
+│   └── INDEX.md                 ← Discovery index: every primitive + its TRIGGER phrases
+├── cli/                         ← `npx vibekit-framework init` — installs the framework into a project
+├── skill/                       ← SKILL.md + AGENTS.md (the agent rules the CLI installs)
+├── setup-prompts/               ← Per-OS environment-check prompts (macos/windows/linux)
+├── web/                         ← vibekit.desishub.com — the landing + docs site
+├── demo/                        ← Smoke-test app that installs every primitive
+├── public-templates/            ← Starter templates
+├── articles/                    ← Long-form writeups
+└── .claude/commands/            ← /vibekit-find, /redesign-from-image
 ```
 
 ### Files to copy into your project

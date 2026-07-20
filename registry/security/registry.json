@@ -34,6 +34,7 @@
       "title": "healthz + readyz",
       "description": "Liveness (/api/healthz, always 200) and readiness (/api/readyz, 200 only when DB + Redis are reachable) handlers. Drop into app/api/healthz/route.ts and app/api/readyz/route.ts.",
       "dependencies": ["@upstash/redis"],
+      "registryDependencies": ["MUKE-coder/vibekit/db"],
       "files": [
         {
           "path": "healthz.ts",
@@ -105,7 +106,7 @@
       "name": "maintenance-mode",
       "type": "registry:component",
       "title": "MaintenanceMode + MaintenanceBanner + isInMaintenanceMode",
-      "description": "Full-page lockout for maintenance windows + slim admin banner + server-safe env check. Drives off MAINTENANCE_MODE env (or wire to a feature flag). Pair with an allowlist so admins keep access.",
+      "description": "Full-page lockout for maintenance windows + slim admin banner + server-safe env check. Drives off MAINTENANCE_MODE env (or wire to a feature flag). Pair with an allowlist so admins keep access. The env check ships as a separate server-only lib module so it isn't inlined as undefined in the client bundle.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["button"],
       "files": [
@@ -113,6 +114,11 @@
           "path": "maintenance-mode.tsx",
           "type": "registry:component",
           "target": "~/components/maintenance-mode.tsx"
+        },
+        {
+          "path": "maintenance-mode-server.ts",
+          "type": "registry:lib",
+          "target": "~/lib/maintenance-mode.ts"
         }
       ]
     },

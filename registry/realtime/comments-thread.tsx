@@ -187,22 +187,32 @@ function Composer({ me, searchMentions, onSubmit, pending }: ComposerProps) {
   const [hoverIndex, setHoverIndex] = React.useState(0);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
+  // Keep the latest searchMentions in a ref. WHY: the documented usage passes an
+  // inline arrow (`searchMentions={async (q) => …}`), so it's a new identity every
+  // render. With it in the dep array below, each resolved fetch → setSuggestions →
+  // render → new identity → refetch, hammering /api/users/search in a loop.
+  const searchMentionsRef = React.useRef(searchMentions);
+  React.useEffect(() => {
+    searchMentionsRef.current = searchMentions;
+  }, [searchMentions]);
+
   React.useEffect(() => {
     if (mentionQuery === null) {
       setSuggestions([]);
       return;
     }
+    // `cancelled` also drops out-of-order responses: a slow request for "an"
+    // must not overwrite the results for the newer query "andr".
     let cancelled = false;
-    searchMentions(mentionQuery).then((result) => {
-      if (!cancelled) {
-        setSuggestions(result);
-        setHoverIndex(0);
-      }
+    searchMentionsRef.current(mentionQuery).then((result) => {
+      if (cancelled) return;
+      setSuggestions(result);
+      setHoverIndex(0);
     });
     return () => {
       cancelled = true;
     };
-  }, [mentionQuery, searchMentions]);
+  }, [mentionQuery]);
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>): void {
     const next = e.target.value;

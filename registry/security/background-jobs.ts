@@ -65,9 +65,16 @@ function getReceiver(): Receiver {
   return _receiver;
 }
 
+/**
+ * QStash duration literal — seconds as a bare number, or a `<n><unit>` string.
+ * Typed as a template literal (not `string`) so a typo like "5min" is a compile
+ * error here rather than a 400 from QStash at runtime.
+ */
+export type JobDelay = number | `${bigint}s` | `${bigint}m` | `${bigint}h` | `${bigint}d`;
+
 interface EnqueueOptions {
-  /** QStash delay string ("60s", "5m", "1h", "1d") OR ISO timestamp. */
-  delay?: string;
+  /** Delay before the job runs: `60` (seconds), or "60s" / "5m" / "1h" / "1d". */
+  delay?: JobDelay;
   /** Number of QStash-side retries on 5xx. Default: 3. */
   retries?: number;
   /** Cron schedule for recurring jobs ("0 9 * * *"). Mutually exclusive with `delay`. */

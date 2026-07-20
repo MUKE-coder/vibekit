@@ -13,7 +13,8 @@ import { cn } from "@/lib/utils";
  *
  * USAGE (in root layout, server component):
  *
- *   import { MaintenanceMode, isInMaintenanceMode } from "@/components/maintenance-mode";
+ *   import { isInMaintenanceMode } from "@/lib/maintenance-mode";
+ *   import { MaintenanceMode, MaintenanceBanner } from "@/components/maintenance-mode";
  *
  *   export default async function RootLayout({ children }) {
  *     const session = await auth.api.getSession(...);
@@ -36,12 +37,13 @@ import { cn } from "@/lib/utils";
  *
  * Drives off `MAINTENANCE_MODE=true` (env), or pass `enabled` directly
  * if you wire it to a feature flag.
+ *
+ * WHY the env check lives in `@/lib/maintenance-mode` and not here: this
+ * module is `"use client"`, so a non-`NEXT_PUBLIC_` var like
+ * `MAINTENANCE_MODE` would be inlined as `undefined` in the client bundle,
+ * and a server layout importing from here would get a client reference
+ * rather than a callable function — maintenance mode would never engage.
  */
-
-/** Server-safe check. Returns true when MAINTENANCE_MODE env is set. */
-export function isInMaintenanceMode(): boolean {
-  return process.env.MAINTENANCE_MODE === "true" || process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true";
-}
 
 interface MaintenanceModeProps {
   /** Override the default copy with a project-specific message. */

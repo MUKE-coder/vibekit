@@ -27,7 +27,15 @@
 import { Prisma } from "./generated/prisma";
 import { db } from "@/lib/db";
 
+// `findUnique`/`findUniqueOrThrow` MUST be scoped too: the `/things/[id]` detail
+// page is exactly the cross-tenant read this wrapper exists to stop. Prisma only
+// accepts unique fields in a findUnique `where`, so a plain `orgId` filter is
+// rejected — these are rewritten to `findFirst` below instead.
 const READ_ACTIONS = new Set(["findMany", "findFirst", "findFirstOrThrow", "count", "aggregate", "groupBy"]);
+const UNIQUE_ACTIONS = new Map([
+  ["findUnique", "findFirst"],
+  ["findUniqueOrThrow", "findFirstOrThrow"],
+]);
 const WRITE_ACTIONS_INJECT_DATA = new Set(["create", "createMany"]);
 const UPDATE_DELETE = new Set(["update", "updateMany", "delete", "deleteMany", "upsert"]);
 
@@ -61,7 +69,28 @@ export function scopedDb(orgId: string, options: ScopeOptions = {}): typeof db {
         async $allOperations({ model, operation, args, query }) {
           if (!isScoped(model)) return query(args);
 
-          const a = (args as Record<string, unknown>) ?? {};
+          // Clone rather than mutate: when `args` is nullish (`findMany()` with no
+          // arguments) mutating a `?? {}` fallback would write the org filter to a
+          // throwaway object and leak every tenant's rows.
+          const a: Record<string, unknown> = { ...((args as Record<string, unknown>) ?? {}) };
+
+          const asFindFirst = UNIQUE_ACTIONS.get(operation);
+          if (asFindFirst) {
+            const where = (a.where as Record<string, unknown> | undefined) ?? {};
+            a.where = { ...where, [column]: orgId };
+            // Re-dispatch through the non-unique equivalent so the extra filter is
+            // legal. This re-enters the extension as `findFirst`, which re-applies
+            // the same filter idempotently — no recursion, no bypass.
+            type Delegate = Record<string, (a: unknown) => unknown>;
+            const delegateName = model!.charAt(0).toLowerCase() + model!.slice(1);
+            const delegate = (db as unknown as Record<string, Delegate>)[delegateName];
+            if (!delegate?.[asFindFirst]) {
+              throw new Error(
+                `tenant-scope: cannot scope ${operation} on ${model} — no ${asFindFirst} delegate. Use ${asFindFirst} directly.`,
+              );
+            }
+            return delegate[asFindFirst](a);
+          }
 
           if (READ_ACTIONS.has(operation) || UPDATE_DELETE.has(operation)) {
             const where = (a.where as Record<string, unknown> | undefined) ?? {};
@@ -87,7 +116,8 @@ export function scopedDb(orgId: string, options: ScopeOptions = {}): typeof db {
             a.create = { ...create, [column]: orgId };
           }
 
-          return query(args);
+          // Pass the scoped clone, not the original `args`.
+          return query(a as typeof args);
         },
       },
     },

@@ -70,6 +70,21 @@ export async function exportUserData(userId: string, options: ExportOptions): Pr
   const chunks: Buffer[] = [];
   zip.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
 
+  // `finalize()` resolves once the input is queued, NOT once the compressed
+  // output has been flushed — concatenating the chunks right after it yields a
+  // truncated (unopenable) archive. Wait for the stream to actually end, and
+  // surface archiver errors instead of silently shipping a corrupt export.
+  const archiveDone = new Promise<void>((resolve, reject) => {
+    zip.on("end", resolve);
+    zip.on("close", resolve);
+    zip.on("error", reject);
+    zip.on("warning", (err) => {
+      // ENOENT-class warnings are non-fatal; anything else is.
+      if (err.code === "ENOENT") logger.warn("data-export.archive-warning", { userId, err });
+      else reject(err);
+    });
+  });
+
   zip.append(JSON.stringify({ exportedAt: new Date().toISOString(), userId }, null, 2), {
     name: "metadata.json",
   });
@@ -77,6 +92,7 @@ export async function exportUserData(userId: string, options: ExportOptions): Pr
     zip.append(JSON.stringify(records, null, 2), { name: `${model}.json` });
   }
   await zip.finalize();
+  await archiveDone;
   const buf = Buffer.concat(chunks);
 
   const key = `${options.prefix ?? "exports"}/${userId}/${Date.now()}.zip`;

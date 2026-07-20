@@ -136,6 +136,11 @@ function FileUploadInner({
     if (!filesList) return;
     setError(null);
     const files = Array.from(filesList);
+    // `items` is captured at render time and does NOT update between awaits in
+    // this loop, so `onChange([...items, entry])` per iteration would overwrite
+    // the previous file instead of appending. Accumulate locally instead —
+    // dropping 3 files must keep all 3 in form state.
+    const accumulated: UploadedFile[] = [...items];
 
     for (const file of files) {
       if (accept) {
@@ -167,7 +172,9 @@ function FileUploadInner({
           contentType: result.contentType,
         };
         if (multiple) {
-          onChange([...items, entry]);
+          accumulated.push(entry);
+          // Push the running accumulator so the UI updates after each upload.
+          onChange([...accumulated]);
         } else {
           onChange(entry);
         }

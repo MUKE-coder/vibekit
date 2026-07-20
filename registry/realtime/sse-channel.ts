@@ -83,29 +83,48 @@ export function defineSseRoute(options: DefineSseRouteOptions) {
 
         const heartbeat = setInterval(() => write(`event: ping\ndata: ${Date.now()}\n\n`), heartbeatMs);
 
-        let unsubscribe: () => void = () => {};
+        let unsubscribe: (() => void) | null = null;
+        let torndown = false;
+
+        function teardown() {
+          // `unsubscribe` may still be null here (abort fired mid-`subscribe`);
+          // the post-await check below calls teardown again once it's set.
+          if (unsubscribe) {
+            const fn = unsubscribe;
+            unsubscribe = null;
+            try {
+              fn();
+            } catch {
+              /* ignore */
+            }
+          }
+          if (torndown) return;
+          torndown = true;
+          closed = true;
+          clearInterval(heartbeat);
+          try {
+            controller.close();
+          } catch {
+            /* ignore */
+          }
+        }
+
+        // Registered BEFORE awaiting `subscribe`: a client that disconnects
+        // during that await has already fired `abort`, and a listener added
+        // afterwards never runs — leaking the heartbeat interval and the
+        // pub/sub subscription for the lifetime of the process.
+        req.signal.addEventListener("abort", teardown);
+
         try {
           unsubscribe = await subscribe(send, req);
         } catch (err) {
           send({ type: "error", data: { message: (err as Error).message } });
         }
 
-        // Close when the client disconnects
-        req.signal.addEventListener("abort", () => {
-          if (closed) return;
-          closed = true;
-          clearInterval(heartbeat);
-          try {
-            unsubscribe();
-          } catch {
-            /* ignore */
-          }
-          try {
-            controller.close();
-          } catch {
-            /* ignore */
-          }
-        });
+        // ...and because `abort` may have fired while we were awaiting above
+        // (teardown then ran against a no-op unsubscribe), re-check and tear
+        // down the subscription we just created.
+        if (req.signal.aborted) teardown();
       },
     });
 

@@ -21,7 +21,7 @@
 - **device-list** | `MUKE-coder/vibekit/device-list` | TRIGGERS: "active sessions", "manage devices", "sign out all devices", "session management UI"
 - **impersonation** | `MUKE-coder/vibekit/impersonation` | TRIGGERS: "log in as user", "admin impersonation", "support agent view as customer", "act as user"
 
-## 2. Data Fetching & Caching (12 items)
+## 2. Data Fetching & Caching (10 items)
 
 - **api-client** | `MUKE-coder/vibekit/api-client` | TRIGGERS: "typed fetch wrapper", "API client", "ApiError class", "JSON fetch utility"
 - **query-keys** | `MUKE-coder/vibekit/query-keys` | TRIGGERS: "React Query key factory", "createQueryKeys", "entity-based query keys"
@@ -36,7 +36,7 @@
 - *Request deduplication*: handled by React Query itself — `useQuery` with the same key shares the in-flight request.
 - *Form wrapper (shadcn)*: install from `https://vibekit.desishub.com/r/form.json` (shadcn removed it upstream).
 
-## 3. Forms & Validation (12 items)
+## 3. Forms & Validation (10 items)
 
 - **parse-form-data** | `MUKE-coder/vibekit/parse-form-data` | TRIGGERS: "validate request body with Zod", "parseSearchParams", "422 with field errors", "server-side form validation"
 - **field** | `MUKE-coder/vibekit/field` | TRIGGERS: "labeled form field", "single-line RHF field", "<Field name=...>", "FormItem + FormLabel + FormMessage scaffolding"
@@ -51,7 +51,7 @@
 - *FormMultiStep*: install from JB legacy — `vibekit.desishub.com/r/multi-step-form.json`
 - *Shadcn Form*: install from `vibekit.desishub.com/r/form.json` (removed from upstream shadcn).
 
-## 4. Tables & Data Display (12 items)
+## 4. Tables & Data Display (10 items)
 
 - **use-table-state** | `MUKE-coder/vibekit/use-table-state` | TRIGGERS: "table with sorting + filtering + pagination", "URL-synced table state", "shareable filter links"
 - **stat-card** | `MUKE-coder/vibekit/stat-card` | TRIGGERS: "KPI card", "metric card with trend arrow", "dashboard tile"
@@ -71,17 +71,17 @@
 - **confirm-dialog** | `MUKE-coder/vibekit/confirm-dialog` | TRIGGERS: "confirm before deleting", "imperative confirm()", "destructive action dialog"
 - **loading-button** | `MUKE-coder/vibekit/loading-button` | TRIGGERS: "button with spinner", "loading prop on Button", "submit button with pending state"
 - **copy-button** | `MUKE-coder/vibekit/copy-button` | TRIGGERS: "copy to clipboard button", "click-to-copy with check icon"
-- **toast-system** | `MUKE-coder/vibekit/toast-system` | TRIGGERS: "toast notification", "sonner preset", "toast.success / toast.error"
+- **toast** | `MUKE-coder/vibekit/toast` | TRIGGERS: "toast notification", "sonner preset", "toast.success / toast.error"
 - **modal** | `MUKE-coder/vibekit/modal` | TRIGGERS: "imperative modal", "useModal()", "stack-aware modal manager"
 - **drawer** | `MUKE-coder/vibekit/drawer` | TRIGGERS: "side panel", "bottom sheet on mobile", "responsive drawer"
 - **skeletons** | `MUKE-coder/vibekit/skeletons` | TRIGGERS: "loading skeleton", "TableSkeleton / CardGridSkeleton / DetailPageSkeleton", "shimmer placeholders"
 - **error-boundary** | `MUKE-coder/vibekit/error-boundary` | TRIGGERS: "error boundary", "fallback on render error", "<ErrorBoundary>"
 - **global-loading-bar** | `MUKE-coder/vibekit/global-loading-bar` | TRIGGERS: "top loading bar", "router transition indicator", "NProgress-style"
-- **tooltip-standardized** | `MUKE-coder/vibekit/tooltip-standardized` | TRIGGERS: "tooltip with delay", "standard hover hint"
+- **tooltip** | `MUKE-coder/vibekit/tooltip` | TRIGGERS: "tooltip with delay", "standard hover hint"
 - **banner** | `MUKE-coder/vibekit/banner` | TRIGGERS: "announcement banner", "top-of-page alert", "dismissible info bar"
 - *CommandPalette (alternative)*: install from JB legacy `vibekit.desishub.com/r/command-palette.json` — for the multi-entity ⌘K palette use `global-search` from this registry.
 
-## 6. File & Media (8 items)
+## 6. File & Media (7 items)
 
 - **upload-file** | `MUKE-coder/vibekit/upload-file` | TRIGGERS: "upload file from browser", "XHR with progress + abort", "presigned PUT helper"
 - **image-upload** | `MUKE-coder/vibekit/image-upload` | TRIGGERS: "image upload with preview", "drag-drop image", "avatar uploader"
@@ -91,7 +91,7 @@
 - **csv-import** | `MUKE-coder/vibekit/csv-import` | TRIGGERS: "CSV import wizard", "upload → map → validate → import", "bulk import users from CSV"
 - **dropzone** | `MUKE-coder/vibekit/dropzone` | TRIGGERS: "drag-drop zone", "generic file picker with accept + max-size", "Dropzone component"
 
-## 7. Documents & Export (6 items)
+## 7. Documents & Export (5 items)
 
 - **export-to-csv** | `MUKE-coder/vibekit/export-to-csv` | TRIGGERS: "download as CSV", "exportToCSV", "client-side CSV export"
 - **export-to-excel** | `MUKE-coder/vibekit/export-to-excel` | TRIGGERS: "download as Excel", "xlsx export", "lazy-loaded xlsx"
@@ -100,7 +100,7 @@
 - **report-builder** | `MUKE-coder/vibekit/report-builder` | TRIGGERS: "generate PDF or Excel from data", "buildReport()", "config-driven report"
 - *PDFDocument templates (JB)*: install from `vibekit.desishub.com/r/printable-templates.json`
 
-## 8. Notifications & Email (8 items)
+## 8. Notifications & Email (9 items)
 
 - **send-email** | `MUKE-coder/vibekit/send-email` | TRIGGERS: "send transactional email", "Resend wrapper", "sendEmail()"
 - **react-email-templates** | `MUKE-coder/vibekit/react-email-templates` | TRIGGERS: "React Email template", "BaseLayout + Welcome email"
@@ -113,7 +113,7 @@
 - **notification-bell** | `MUKE-coder/vibekit/notification-bell` | TRIGGERS: "bell icon with unread badge", "topbar notifications dropdown"
 - *Notification center (JB)*: install from `vibekit.desishub.com/r/notification-center.json`
 
-## 9. Payments & Billing (6 items)
+## 9. Payments & Billing (2 items)
 
 - **stripe-webhook-handler** | `MUKE-coder/vibekit/stripe-webhook-handler` | TRIGGERS: "Stripe webhook", "subscription event router", "idempotent payment events"
 - **billing-portal** | `MUKE-coder/vibekit/billing-portal` | TRIGGERS: "manage billing button", "Stripe customer portal link"
@@ -122,7 +122,7 @@
 - *useSubscription (JB)*: install from `vibekit.desishub.com/r/saas-subscription.json`
 - *Usage metering (JB)*: part of `saas-subscription`
 
-## 10. Layout & Navigation (7 items, 6 + theme-toggle bonus)
+## 10. Layout & Navigation (8 items)
 
 - **app-shell** | `MUKE-coder/vibekit/app-shell` | TRIGGERS: "app layout with sidebar", "dashboard shell", "collapsible sidebar shell"
 - **sidebar** | `MUKE-coder/vibekit/sidebar` | TRIGGERS: "sidebar nav", "left navigation", "config-driven sidebar"
@@ -133,7 +133,7 @@
 - **theme-toggle** | `MUKE-coder/vibekit/theme-toggle` | TRIGGERS: "dark mode toggle", "theme switch", "light/dark/system dropdown"
 - **org-switcher** | `MUKE-coder/vibekit/org-switcher` | TRIGGERS: "workspace switcher", "organization dropdown", "switch between orgs"
 
-## 11. Utilities & Infra (8 items)
+## 11. Utilities & Infra (11 items)
 
 - **formatters** | `MUKE-coder/vibekit/formatters` | TRIGGERS: "format currency / date / number / percent / bytes", "Intl wrappers", "consistent string format"
 - **env-validator** | `MUKE-coder/vibekit/env-validator` | TRIGGERS: "validate env vars", "Zod env schema", "fail fast on missing env"
@@ -147,7 +147,7 @@
 - **tenant-scope** | `MUKE-coder/vibekit/tenant-scope` | TRIGGERS: "multi-tenant scope", "scopedDb(orgId)", "auto-filter by orgId", "B2B SaaS Prisma"
 - **audit-log** | `MUKE-coder/vibekit/audit-log` | TRIGGERS: "audit log", "recordAudit()", "withAudit middleware", "track who changed what"
 
-## 12. State, Hooks & DX (15 items)
+## 12. State, Hooks & DX (12 items)
 
 - **use-local-storage** | `MUKE-coder/vibekit/use-local-storage` | TRIGGERS: "localStorage state", "persisted boolean/object", "SSR-safe localStorage"
 - **use-media-query** | `MUKE-coder/vibekit/use-media-query` | TRIGGERS: "useMediaQuery", "useBreakpoint", "isMobile / isDesktop"
@@ -187,7 +187,7 @@
 - **live-cursors** | `MUKE-coder/vibekit/live-cursors` | TRIGGERS: "live cursors", "see others' mouse position", "Figma-style cursors"
 - **comments-thread** | `MUKE-coder/vibekit/comments-thread` | TRIGGERS: "comments thread", "@ mentions", "threaded comments with live updates"
 
-## 15. Dashboards & Charts (8 items)
+## 15. Dashboards & Charts (10 items)
 
 - **sparkline** | `MUKE-coder/vibekit/sparkline` | TRIGGERS: "sparkline", "tiny inline chart", "trend in a card"
 - **metric-grid** | `MUKE-coder/vibekit/metric-grid` | TRIGGERS: "KPI grid", "metric cards with comparison", "dashboard top row"
@@ -200,7 +200,7 @@
 - **bar-chart** | `MUKE-coder/vibekit/bar-chart` | TRIGGERS: "bar chart", "grouped/stacked bars", "horizontal bar chart"
 - **area-chart** | `MUKE-coder/vibekit/area-chart` | TRIGGERS: "area chart", "gradient-fill time series", "stacked area"
 
-## 16. Security, Compliance & Ops (12 items)
+## 16. Security, Compliance & Ops (10 items)
 
 - **idempotency** | `MUKE-coder/vibekit/idempotency` | TRIGGERS: "Idempotency-Key", "withIdempotency middleware", "prevent double-charge"
 - **webhook-verifier** | `MUKE-coder/vibekit/webhook-verifier` | TRIGGERS: "verify HMAC webhook", "Stripe / Slack / partner signature check"

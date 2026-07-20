@@ -1095,7 +1095,7 @@ CARD ANATOMY (canonical pattern — copy this for EVERY card)
 DEFAULT card:
 
 ```tsx
-<div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-sm">
+<div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-[transform,border-color,box-shadow] duration-150 hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-sm">
   {/* ALWAYS top: visual element (image / illustration / 3D icon — NOT a bare lucide icon) */}
   <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[color:var(--bg-subtle)]">
     <img src="/illustrations/feature-x.svg" alt="..." className="h-full w-full object-cover" />
@@ -1137,6 +1137,58 @@ This applies to: pricing cards, payment-method selectors, plan choosers, multi-s
 CHIPS / PILLS for filter or category selection:
 - Unselected: `rounded-full border border-[color:var(--border)] bg-transparent px-3 py-1.5 text-[12px]`
 - Selected: `bg-[color:var(--text-primary)] text-[color:var(--text-inverse)] border-transparent`
+
+──────────────────────────────────────────────────────
+THE EIGHT-STATE CONTRACT (every interactive component)
+──────────────────────────────────────────────────────
+
+Every interactive component — button, input, select, checkbox, card-as-button, chip, tab, link, icon button — must have ALL EIGHT states specified before it ships. Not "hover and focus and we'll see". All eight.
+
+| State | Must define |
+|---|---|
+| `default` | Resting appearance — border, bg, text, radius |
+| `hover` | Pointer over the element (never the ONLY affordance — touch has no hover) |
+| `focus-visible` | Keyboard ring: `focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2`. NEVER `outline: none` without a replacement |
+| `active` | Pressed: `active:scale-[0.98]`, 100ms |
+| `disabled` | `opacity-50 pointer-events-none`, `aria-disabled` — and it must still be readable |
+| `loading` | Spinner replaces the icon, label stays, width does NOT change, element is non-interactive |
+| `error` | Danger border + message text below. Never colour alone — always an icon or text |
+| `success` | Confirmation border/icon, auto-clears after ~2s or on next edit |
+
+`error` and `success` are the two agents skip most often. A form input with no error state is a form input that lies to the user, and a save button with no success state makes people click twice.
+
+RULE: If a component spec you write cannot answer "what does this look like in state X" for all eight, the component is NOT done.
+
+──────────────────────────────────────────────────────
+COPY + CLAIMS — NEVER INVENT DATA
+──────────────────────────────────────────────────────
+
+You are writing copy that ships on a REAL marketing page for a REAL business. Every number on it reads as a factual claim by the user, not as filler text you left behind.
+
+NEVER invent a quantitative or factual claim the user did not supply. Specifically NEVER fabricate:
+- Conversion / performance metrics — "+47% conversion", "3× more bookings", "saves 12 hours a week"
+- Social proof counts — "trusted by 50,000+ teams", "2M invoices processed", "joined by 10k founders"
+- Benchmarks and comparisons — "10× faster than the competition", "99.99% uptime", "sub-50ms responses"
+- Testimonials — invented quotes, names, job titles, companies, or avatars
+- Customer / partner logos — never render a real company's mark the user did not name
+- Pricing, plan limits, trial lengths, or money-back guarantees
+- Awards, certifications, compliance badges (SOC 2, HIPAA, GDPR), press mentions, funding
+
+WHY THIS MATTERS: unlike a placeholder image, a fabricated statistic is invisible as a placeholder. It looks finished, so it ships. The user then has an unverifiable factual claim about their own product live on the public web — a real advertising-standards and liability exposure, created by an agent that was only trying to make a section look complete.
+
+INSTEAD — make the gap VISIBLE so the user must fill it:
+
+```tsx
+{/* METRIC TO CONFIRM — do not ship until the user supplies the real figure */}
+<div className="text-[40px] font-semibold tabular-nums text-[color:var(--text-primary)]">—</div>
+<div className="mt-1 text-[13px] text-[color:var(--text-tertiary)]">Metric to confirm</div>
+```
+
+For testimonial and logo blocks: build the layout, leave the slots visibly empty with a "Testimonial to add" / "Logo to add" label. Never seed them with plausible-looking fakes.
+
+If a section's design depends on numbers you don't have, ASK the user for them, or choose a section variant that doesn't need them. Do not close the gap with invention.
+
+RULE: Before finishing any marketing page, re-read every number on it. If it did not come from the user, it must be `—` or removed.
 
 ──────────────────────────────────────────────────────
 BUTTONS
@@ -1769,12 +1821,29 @@ RULES:
 
 WRONG:
 ```tsx
-<div style={{ top: 0 }} className="transition-all duration-300 hover:top-[-2px]" />
+<div style={{ top: 0 }} className="transition-[top] duration-300 hover:top-[-2px]" />
 ```
 RIGHT:
 ```tsx
 <div className="transition-transform duration-150 hover:-translate-y-0.5" />
 ```
+
+──────────────────────────────────────────────────────
+TRANSITION PROPERTIES — NAME THEM, NEVER `transition-all`
+──────────────────────────────────────────────────────
+
+NEVER `transition-all`. ALWAYS list the exact properties being animated.
+
+`transition-all` subscribes the element to EVERY animatable property — including layout-affecting ones. On a card that also does `hover:-translate-y-0.5`, the browser is now transitioning padding, width, height, margin and font-size alongside the transform, so any incidental change to those (a reflow, a font swap, a sibling resizing) gets animated too. The result is visible jank on exactly the components users hover most.
+
+RULES:
+- Card hover (lift + border + shadow): `transition-[transform,border-color,box-shadow] duration-150`
+- Colour-only changes (links, ghost buttons, nav items): `transition-colors duration-150`
+- Movement-only changes: `transition-transform duration-150`
+- Opacity-only changes (primary button hover): `transition-opacity duration-150`
+- If you need more than three properties in one `transition-[...]`, the component is doing too much on hover — simplify it.
+
+RULE: If any className in the codebase contains `transition-all`, the component is NOT done.
 
 ──────────────────────────────────────────────────────
 TIMING + EASING (canonical)
@@ -1848,11 +1917,13 @@ Every clickable / focusable element must have:
 - A disabled state when applicable (`disabled:opacity-50 disabled:pointer-events-none`)
 - A 150ms transition between states
 
-Cards: `hover:-translate-y-0.5 hover:border-border-strong hover:shadow-sm transition-all`
+Cards: `hover:-translate-y-0.5 hover:border-border-strong hover:shadow-sm transition-[transform,border-color,box-shadow] duration-150`
 Links: `hover:text-text-primary transition-colors` (underline-offset-4 if underlined)
 Inputs: `focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20 transition-colors`
 
 A button with no hover state, no focus ring, and no transition is a sign the agent gave up. Don't.
+
+> Honest-copy, state-contract and transition-property rules adapted from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DATA FETCHING — REACT QUERY

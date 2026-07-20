@@ -122,8 +122,16 @@ export function FormCombobox<T = string, V extends FieldValues = FieldValues>(
 interface ComboboxInnerProps<T> {
   options?: ComboboxOption<T>[];
   loadOptions?: (query: string) => Promise<T[]>;
-  getOptionLabel?: (item: ComboboxOption<T> | T) => string;
-  getOptionValue?: (item: ComboboxOption<T> | T) => unknown;
+  /**
+   * Accessors are declared in METHOD syntax on purpose. The list this component
+   * renders is heterogeneous — `ComboboxOption<T>` in static mode, bare `T` in
+   * async mode — so the parameter has to be `unknown` here. Method-syntax
+   * parameters are bivariant, which lets the caller's narrower signature
+   * (`(opt: ComboboxOption<T>) => string` or `(item: T) => string`) be assigned;
+   * arrow-property syntax would be strictly contravariant and reject both.
+   */
+  getOptionLabel?(item: unknown): string;
+  getOptionValue?(item: unknown): unknown;
   value: unknown;
   onChange: (value: unknown) => void;
   isAsync: boolean;
@@ -152,16 +160,12 @@ function ComboboxInner<T>({
   // Default extractors
   const labelOf = React.useCallback(
     (item: unknown) =>
-      getOptionLabel
-        ? getOptionLabel(item as ComboboxOption<T> | T)
-        : (item as ComboboxOption<T>).label,
+      getOptionLabel ? getOptionLabel(item) : (item as ComboboxOption<T>).label,
     [getOptionLabel],
   );
   const valueOf = React.useCallback(
     (item: unknown) =>
-      getOptionValue
-        ? getOptionValue(item as ComboboxOption<T> | T)
-        : (item as ComboboxOption<T>).value,
+      getOptionValue ? getOptionValue(item) : (item as ComboboxOption<T>).value,
     [getOptionValue],
   );
 
