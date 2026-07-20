@@ -144,12 +144,12 @@ Claude will generate:
 
 Save all 4 files into your project root folder.
 
-### Step 6 — Run `npx @vibekit/cli init`
+### Step 6 — Run `npx vibekit-framework init`
 
 From your project root:
 
 ```bash
-npx @vibekit/cli init
+npx vibekit-framework init
 ```
 
 One command installs everything you'd otherwise copy by hand:
@@ -166,10 +166,10 @@ Aider, Continue, Cody, Junie), never overwrites files you've edited, and is safe
 to re-run after an upgrade. Useful flags:
 
 ```bash
-npx @vibekit/cli init --agent all    # write every agent's rules file
-npx @vibekit/cli init --global       # Claude skill in ~/.claude, not the project
-npx @vibekit/cli init --force        # overwrite existing files
-npx @vibekit/cli init --yes          # no prompts (CI)
+npx vibekit-framework init --agent all    # write every agent's rules file
+npx vibekit-framework init --global       # Claude skill in ~/.claude, not the project
+npx vibekit-framework init --force        # overwrite existing files
+npx vibekit-framework init --yes          # no prompts (CI)
 ```
 
 Full CLI docs: [`cli/README.md`](./cli/README.md). Prefer to install by hand?
@@ -195,7 +195,7 @@ vibekit/
 ├── CLAUDE_PROMPT.md             ← Paste this into Claude to plan your project
 │
 ├── CLAUDE.md                    ← Rules for agents working ON this repo (not for your project)
-├── master_prompt.md             ← Coding standards for your project (installed by `npx @vibekit/cli init`)
+├── master_prompt.md             ← Coding standards for your project (installed by `npx vibekit-framework init`)
 ├── design-style-guide.md        ← Design style guide template (Claude customizes per project)
 ├── jb-components.md             ← JB component registry reference (copy to your project)
 ├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf/Redis/WebVitals audit
@@ -220,7 +220,7 @@ vibekit/
 ├── registry.json                ← Root index for the GitHub registry
 ├── registry/                    ← Source for installable primitives (auth/hooks/utilities/...)
 │   └── INDEX.md                 ← Discovery index: every primitive + its TRIGGER phrases
-├── cli/                         ← `npx @vibekit/cli init` — installs the framework into a project
+├── cli/                         ← `npx vibekit-framework init` — installs the framework into a project
 ├── skill/                       ← SKILL.md + AGENTS.md (the agent rules the CLI installs)
 ├── setup-prompts/               ← Per-OS environment-check prompts (macos/windows/linux)
 ├── web/                         ← vibekit.desishub.com — the landing + docs site
