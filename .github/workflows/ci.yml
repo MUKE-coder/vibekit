@@ -67,9 +67,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # No version pin here on purpose — action-setup reads `packageManager`
+      # from web/package.json, so CI uses the same pnpm as local and Vercel.
+      # Pinning a different major here would break the sharp allowBuilds key.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 22
