@@ -3,7 +3,7 @@
 One command to set up the VibeKit framework in a project.
 
 ```bash
-npx vibekit init
+npx @vibekit/cli init
 ```
 
 It installs:
@@ -23,13 +23,13 @@ half-complete if any one is missed.
 ## Usage
 
 ```bash
-npx vibekit init                    # interactive — detects your agent
-npx vibekit init --agent cursor     # skip the prompt
-npx vibekit init --agent all        # write every agent's rules file
-npx vibekit init --global           # Claude skill to ~/.claude, not the project
-npx vibekit init --yes              # accept defaults, no prompts (CI)
-npx vibekit init --force            # overwrite existing files
-npx vibekit init --dir ./my-app     # target a different directory
+npx @vibekit/cli init                    # interactive — detects your agent
+npx @vibekit/cli init --agent cursor     # skip the prompt
+npx @vibekit/cli init --agent all        # write every agent's rules file
+npx @vibekit/cli init --global           # Claude skill to ~/.claude, not the project
+npx @vibekit/cli init --yes              # accept defaults, no prompts (CI)
+npx @vibekit/cli init --force            # overwrite existing files
+npx @vibekit/cli init --dir ./my-app     # target a different directory
 ```
 
 ## Supported agents

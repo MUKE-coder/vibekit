@@ -1,6 +1,9 @@
 {
-  "name": "vibekit-cli",
+  "name": "@vibekit/cli",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Scaffold the VibeKit framework into a project — installs the agent rules and the framework files in one command.",
   "type": "module",
   "bin": {

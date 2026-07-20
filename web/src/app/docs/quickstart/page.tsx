@@ -45,7 +45,7 @@ const steps = [
   },
   {
     n: 5,
-    title: "Run npx vibekit init",
+    title: "Run npx @vibekit/cli init",
     body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md (the security audit prompt — embedded below), and the rules file for your agent, so they auto-load every session. It detects your agent, never overwrites your edits, and is safe to re-run.",
   },
   {
@@ -154,7 +154,7 @@ export default function Quickstart() {
                       <CopyBlock
                         filename="terminal"
                         label="Run in your project root"
-                        code={"npx vibekit init"}
+                        code={"npx @vibekit/cli init"}
                       />
 
                       <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">

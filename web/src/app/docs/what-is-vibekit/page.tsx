@@ -90,7 +90,7 @@ export default function WhatIsVibeKit() {
               <li>Open Claude (claude.ai), paste the prompt, append your app idea.</li>
               <li>Answer 6–10 questions about features, data, integrations, and design.</li>
               <li>Receive 4 generated files. Save them in your project root.</li>
-              <li>Run <code>npx vibekit init</code> — installs <code>master_prompt.md</code>, <code>jb-components.md</code>, <code>pre-deploy-review.md</code> and your agent&rsquo;s rules file.</li>
+              <li>Run <code>npx @vibekit/cli init</code> — installs <code>master_prompt.md</code>, <code>jb-components.md</code>, <code>pre-deploy-review.md</code> and your agent&rsquo;s rules file.</li>
               <li>Open Claude Code and paste <code>prompt.md</code>. Claude Code builds phase by phase, stopping for confirmation between phases.</li>
               <li>Before deploying, run <code>pre-deploy-review.md</code> for a senior-level audit covering performance, security, and resource usage.</li>
             </ol>

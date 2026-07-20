@@ -3,7 +3,7 @@
 > **Scope:** these are the rules for agents working **on this repository**.
 > They are *not* the rules VibeKit ships to user projects — those live in
 > [`master_prompt.md`](./master_prompt.md) and [`skill/SKILL.md`](./skill/SKILL.md),
-> and are installed into a user's project by `npx vibekit init`.
+> and are installed into a user's project by `npx @vibekit/cli init`.
 
 ## What this repo is
 
@@ -15,7 +15,7 @@ important thing to know before changing anything.
 | Root `*.md` | **The actual product** — prompts consumed by LLM agents | Nothing automatic. Read carefully. |
 | `registry/` | 144 shadcn-installable primitives in 17 categories | `typecheck/` + `scripts/validate-registry.mjs` |
 | `web/` | Next 16 + React 19 + Tailwind v4 marketing/docs site | `pnpm build` (must stay green) |
-| `cli/` | `npx vibekit init` | `npm test` in `cli/` (11 tests) |
+| `cli/` | `npx @vibekit/cli init` | `npm test` in `cli/` (11 tests) |
 | `typecheck/` | Compiles every primitive against shims of a real app | `npm run typecheck` |
 | `public-templates/` | 14 starter templates | Not built here |
 
