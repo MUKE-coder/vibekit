@@ -27,11 +27,61 @@ import { cn } from "@/lib/utils";
  *     onComplete={() => router.push("/settings/security?2fa=enabled")}
  *   />
  *
- * The QR code renders from `provisioningUri` (otpauth://...) — pass any QR
- * SVG library you like, or use the inline fallback (img with quickchart.io).
- * For production you SHOULD serve the QR yourself; the inline fallback is
- * a convenience for getting started.
+ * The QR code renders from `provisioningUri` (otpauth://...), encoded LOCALLY
+ * via the `qrcode` package. It is never sent to a third-party image service:
+ * the provisioning URI embeds the TOTP shared secret, so handing it to an
+ * external host (or letting it land in a CDN access log) would let that host
+ * generate valid codes for every user who enrolls.
+ *
+ * Pass `renderQr` to swap in your own QR component.
  */
+
+/**
+ * Encodes the otpauth:// URI to a data-URI QR entirely in the browser. The
+ * secret never leaves the page.
+ */
+function LocalQr({ uri, brandName }: { uri: string; brandName: string }) {
+  const [dataUrl, setDataUrl] = React.useState<string | null>(null);
+  const [failed, setFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    import("qrcode")
+      .then((qr) => qr.toDataURL(uri, { width: 196, margin: 1 }))
+      .then((url) => {
+        if (!cancelled) setDataUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [uri]);
+
+  if (failed) {
+    return (
+      <p className="text-sm text-muted-foreground">
+        Could not render the QR code. Enter the secret below manually instead.
+      </p>
+    );
+  }
+
+  if (!dataUrl) {
+    return <div className="h-[196px] w-[196px] animate-pulse rounded-md border border-border bg-muted" />;
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- data: URI, no optimisation needed
+    <img
+      alt={`2FA QR for ${brandName}`}
+      width={196}
+      height={196}
+      src={dataUrl}
+      className="rounded-md border border-border"
+    />
+  );
+}
 
 interface TwoFactorSetupProps {
   /** Server call: starts the enrollment, returns the provisioning URI + manual secret. */
@@ -179,15 +229,7 @@ function Scan({
         {renderQr ? (
           renderQr(provisioning.provisioningUri)
         ) : (
-          // Fallback QR via quickchart.io — replace with your own QR component
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            alt={`2FA QR for ${brandName}`}
-            width={196}
-            height={196}
-            src={`https://quickchart.io/qr?text=${encodeURIComponent(provisioning.provisioningUri)}&size=196`}
-            className="rounded-md border border-border"
-          />
+          <LocalQr uri={provisioning.provisioningUri} brandName={brandName} />
         )}
         <div className="w-full">
           <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground">

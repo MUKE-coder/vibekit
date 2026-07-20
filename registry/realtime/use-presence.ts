@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 /**
@@ -68,9 +68,18 @@ export function usePresence(options: UsePresenceOptions) {
     enablePolling = true,
   } = options;
 
+  // Callers pass `me` as an inline object literal, so it's a new identity every
+  // render. Keep it in a ref and depend on its primitive fields (below) —
+  // otherwise the heartbeat effect tears down and re-runs on every render,
+  // firing a POST per render instead of one every `heartbeatMs`.
+  const meRef = useRef(me);
+  meRef.current = me;
+  const meId = me?.id;
+  const meName = me?.name;
+
   // Heartbeat — fires immediately on mount, then on an interval, and on focus
   useEffect(() => {
-    if (!me) return;
+    if (!meId) return;
 
     let id: ReturnType<typeof setInterval> | null = null;
 
@@ -80,7 +89,7 @@ export function usePresence(options: UsePresenceOptions) {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ channel, me }),
+          body: JSON.stringify({ channel, me: meRef.current }),
         });
       } catch {
         /* presence is best-effort */
@@ -99,18 +108,18 @@ export function usePresence(options: UsePresenceOptions) {
       if (id) clearInterval(id);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [channel, me, heartbeatEndpoint, heartbeatMs]);
+    // meId / meName are the primitive parts of `me`; the body reads the live
+    // object from meRef so a changed avatar still ships on the next beat.
+  }, [channel, meId, meName, heartbeatEndpoint, heartbeatMs]);
 
-  // Member list — React Query so it integrates with the rest of the cache
-  const [now, setNow] = useState(0);
-  useEffect(() => {
-    if (!enablePolling) return;
-    const id = setInterval(() => setNow((n) => n + 1), pollMs);
-    return () => clearInterval(id);
-  }, [enablePolling, pollMs]);
-
+  // Member list — React Query so it integrates with the rest of the cache.
+  // WHY a stable key + refetchInterval: keying on a ticking counter minted a
+  // brand-new cache entry every poll, so `data` was undefined on each new key
+  // (the avatar list blanked and refilled every 5s) and the cache grew forever.
   const { data, isLoading } = useQuery({
-    queryKey: ["presence", channel, now],
+    queryKey: ["presence", channel],
+    refetchInterval: enablePolling ? pollMs : false,
+    refetchIntervalInBackground: false,
     queryFn: async () => {
       const res = await fetch(
         `${membersEndpoint}?channel=${encodeURIComponent(channel)}`,

@@ -75,12 +75,22 @@ export function useOptimisticMutation<TData = unknown, TVariables = void>(
     onSuccessToast,
     onErrorToast,
     toast = defaultToast(),
+    // Pulled out of `rest` so the composed handlers below are the ones that
+    // actually run — see the spread-order note on the useMutation config.
+    onError: callerOnError,
+    onSuccess: callerOnSuccess,
+    onSettled: callerOnSettled,
     ...rest
   } = options;
 
   const qc = useQueryClient();
 
   return useMutation<TData, AnyError, TVariables, { previous: unknown }>({
+    // `...rest` goes FIRST: object spread is last-write-wins, so spreading it
+    // after the handlers below would let a caller-supplied `onError` replace
+    // our rollback and strand the optimistic value in the cache forever
+    // (the UI would show a save that never happened).
+    ...rest,
     mutationFn,
     onMutate: async (variables) => {
       if (!queryKey || !applyOptimistic) return { previous: undefined };
@@ -89,7 +99,11 @@ export function useOptimisticMutation<TData = unknown, TVariables = void>(
       qc.setQueryData(queryKey, (prev: unknown) => applyOptimistic(variables, prev));
       return { previous };
     },
-    onError: (error, variables, context) => {
+    // Args are forwarded with a rest spread rather than destructured and
+    // re-passed: React Query's handler arity has changed between minors (v5 added
+    // a fourth parameter), and re-passing a fixed three silently dropped it.
+    onError: (...args) => {
+      const [error, variables, context] = args;
       // Roll back optimistic update
       if (queryKey && context && "previous" in context) {
         qc.setQueryData(queryKey, context.previous);
@@ -98,22 +112,23 @@ export function useOptimisticMutation<TData = unknown, TVariables = void>(
         const msg = typeof onErrorToast === "function" ? onErrorToast(error, variables) : onErrorToast;
         toast.error?.(msg);
       }
-      rest.onError?.(error, variables, context);
+      // Caller's handler runs AFTER the rollback, never instead of it.
+      callerOnError?.(...args);
     },
-    onSuccess: (data, variables, context) => {
+    onSuccess: (...args) => {
+      const [data, variables] = args;
       if (onSuccessToast) {
         const msg = typeof onSuccessToast === "function" ? onSuccessToast(data, variables) : onSuccessToast;
         toast.success?.(msg);
       }
-      rest.onSuccess?.(data, variables, context);
+      callerOnSuccess?.(...args);
     },
     onSettled: async (...args) => {
       if (queryKey) await qc.invalidateQueries({ queryKey });
       if (invalidateKeys) {
         await Promise.all(invalidateKeys.map((k) => qc.invalidateQueries({ queryKey: k })));
       }
-      rest.onSettled?.(...args);
+      await callerOnSettled?.(...args);
     },
-    ...rest,
   });
 }

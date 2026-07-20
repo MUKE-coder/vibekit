@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same branch makes the in-flight run obsolete.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  registry-typecheck:
+    name: Registry typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: typecheck/package-lock.json
+
+      # `npm ci` so CI compiles against the exact dependency versions the
+      # harness was verified with — a silent minor bump in a typings package
+      # would otherwise show up as phantom registry errors.
+      - name: Install
+        working-directory: typecheck
+        run: npm ci --no-audit --no-fund
+
+      # The registry is shipped as copy-paste files that live outside any
+      # TypeScript project, so nothing used to compile them. Every bug in the
+      # last audit — an unsigned auth cookie, three render loops, two data
+      # leaks — reached main because of that. This job is the compiler.
+      - name: Typecheck every primitive
+        working-directory: typecheck
+        run: npm run typecheck
+
+  registry-integrity:
+    name: Registry integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate registry manifests and INDEX.md
+        run: node scripts/validate-registry.mjs
+
+  cli:
+    name: CLI tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test
+        working-directory: cli
+        run: npm test
+
+  web:
+    name: Web build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - name: Install
+        working-directory: web
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        working-directory: web
+        run: pnpm build

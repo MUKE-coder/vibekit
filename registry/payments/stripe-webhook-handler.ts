@@ -9,7 +9,14 @@ import { NextResponse } from "next/server";
  *      verification needs the unparsed bytes)
  *   2. Verify the signature via `stripe.webhooks.constructEvent`
  *   3. Dispatch to a typed handler keyed by event type
- *   4. Idempotency check (skip events whose id is already in the DB)
+ *   4. ATOMIC idempotency claim (skip events already claimed)
+ *
+ * Idempotency note: Stripe delivers at-least-once and retries. A
+ * check-then-later-write pair leaves a window where two concurrent deliveries
+ * of `checkout.session.completed` both pass the check and both grant the
+ * subscription. `claimEvent` must therefore be a single atomic insert that
+ * returns false when the row already exists — rely on the primary-key conflict,
+ * not a prior read.
  *
  *   // lib/stripe.ts
  *   import { defineStripeWebhookHandler } from "@/lib/stripe-webhook-handler";
@@ -24,8 +31,18 @@ import { NextResponse } from "next/server";
  *       "invoice.payment_failed": async (event) => { ... },
  *       "customer.subscription.deleted": async (event) => { ... },
  *     },
- *     isProcessed: (id) => db.stripeEvent.findUnique({ where: { id } }).then(Boolean),
- *     markProcessed: (id, type) => db.stripeEvent.create({ data: { id, type } }),
+ *     // Atomic: the unique PK makes the second concurrent insert throw.
+ *     claimEvent: async (id, type) => {
+ *       try {
+ *         await db.stripeEvent.create({ data: { id, type } });
+ *         return true;            // we own this event
+ *       } catch (e) {
+ *         if ((e as { code?: string }).code === "P2002") return false; // already claimed
+ *         throw e;
+ *       }
+ *     },
+ *     // Called when the handler throws, so Stripe's retry can re-claim it.
+ *     releaseEvent: (id) => db.stripeEvent.delete({ where: { id } }).catch(() => {}),
  *   });
  *
  *   // app/api/webhooks/stripe/route.ts
@@ -51,10 +68,19 @@ type Handler<T extends Stripe.Event = Stripe.Event> = (event: T) => Promise<void
 interface DefineStripeWebhookOptions {
   /** Map of event-type → handler. Unhandled types are ignored (return 200). */
   handlers: Partial<Record<EventTypeMap, Handler>>;
-  /** Check if we've already processed this event id. */
-  isProcessed: (eventId: string) => Promise<boolean>;
-  /** Persist that this event id has been processed (must be idempotent itself). */
-  markProcessed: (eventId: string, type: string) => Promise<void> | void;
+  /**
+   * ATOMICALLY claim this event id. Returns true if this call won the claim,
+   * false if the event was already claimed (i.e. a duplicate delivery).
+   * Must be a single atomic operation — an insert relying on a unique
+   * constraint, or Redis `SET NX`. A read-then-write pair reintroduces the race.
+   */
+  claimEvent: (eventId: string, type: string) => Promise<boolean>;
+  /**
+   * Optional: undo a claim when the handler throws, so Stripe's retry can
+   * re-process the event. Without it a transient handler failure permanently
+   * blocks that event.
+   */
+  releaseEvent?: (eventId: string) => Promise<void> | void;
   /** Override Stripe SDK options (apiVersion, etc.). */
   stripeOptions?: Stripe.StripeConfig;
 }
@@ -98,8 +124,11 @@ export function defineStripeWebhookHandler(options: DefineStripeWebhookOptions) 
       );
     }
 
-    // Idempotency — skip events we've already processed
-    if (await options.isProcessed(event.id)) {
+    // Claim BEFORE running the handler. Two concurrent deliveries of the same
+    // event race here, and exactly one wins; the loser returns 200 without
+    // re-running the side effect.
+    const won = await options.claimEvent(event.id, event.type);
+    if (!won) {
       return NextResponse.json({ received: true, replay: true });
     }
 
@@ -109,7 +138,13 @@ export function defineStripeWebhookHandler(options: DefineStripeWebhookOptions) 
         await handler(event);
       } catch (err) {
         console.error(`[stripe-webhook:${event.type}]`, err);
-        // 500 → Stripe will retry. Don't markProcessed.
+        // Release the claim so Stripe's retry can re-process this event.
+        try {
+          await options.releaseEvent?.(event.id);
+        } catch (releaseErr) {
+          console.error(`[stripe-webhook:release:${event.id}]`, releaseErr);
+        }
+        // 500 → Stripe will retry.
         return NextResponse.json(
           { error: `Handler failed: ${(err as Error).message}` },
           { status: 500 },
@@ -117,7 +152,6 @@ export function defineStripeWebhookHandler(options: DefineStripeWebhookOptions) 
       }
     }
 
-    await options.markProcessed(event.id, event.type);
     return NextResponse.json({ received: true });
   };
 }

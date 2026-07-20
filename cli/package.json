@@ -1,0 +1,38 @@
+{
+  "name": "vibekit-cli",
+  "version": "0.1.0",
+  "description": "Scaffold the VibeKit framework into a project — installs the agent rules and the framework files in one command.",
+  "type": "module",
+  "bin": {
+    "vibekit": "bin/vibekit.mjs"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md"
+  ],
+  "scripts": {
+    "bundle": "node scripts/bundle.mjs",
+    "prepack": "node scripts/bundle.mjs",
+    "test": "node --test \"test/**/*.test.mjs\""
+  },
+  "keywords": [
+    "vibekit",
+    "claude-code",
+    "cursor",
+    "ai-agents",
+    "nextjs",
+    "scaffolding"
+  ],
+  "homepage": "https://vibekit.desishub.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MUKE-coder/vibekit.git",
+    "directory": "cli"
+  },
+  "license": "MIT"
+}

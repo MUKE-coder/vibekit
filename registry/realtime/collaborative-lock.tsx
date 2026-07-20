@@ -121,15 +121,30 @@ export function useCollaborativeLock(channelName: string, options: UseCollaborat
     await acquire();
   }, [acquire]);
 
-  // Release on unmount (page navigation, tab close)
+  // Release on unmount (page navigation, tab close).
+  // WHY the refs + empty deps: callers pass `me` as an inline object, so with
+  // [state, channel, me] the cleanup ran on EVERY render while the lock was
+  // held — clearing the heartbeat and publishing "lock.released" one render
+  // after acquiring it. This must fire on real unmount only, so it reads the
+  // latest state/me/channel from refs instead of depending on them.
+  const stateRef = React.useRef(state);
+  stateRef.current = state;
+  const meRef = React.useRef(me);
+  meRef.current = me;
+  const channelRef = React.useRef(channel);
+  channelRef.current = channel;
+
   React.useEffect(() => {
     return () => {
-      if (state === "locked-by-me") {
-        if (heartbeat.current) clearInterval(heartbeat.current);
-        void channel.publish("lock.released", { holder: me });
+      if (heartbeat.current) {
+        clearInterval(heartbeat.current);
+        heartbeat.current = null;
+      }
+      if (stateRef.current === "locked-by-me") {
+        void channelRef.current.publish("lock.released", { holder: meRef.current });
       }
     };
-  }, [state, channel, me]);
+  }, []);
 
   return { state, holder, acquire, release, takeover };
 }

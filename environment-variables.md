@@ -445,4 +445,4 @@ Instead of adding one by one, you can bulk-import:
 
 ---
 
-*Part of the [VibeKit Framework](../README.md) — github.com/MUKE-coder/vibekit*
+*Part of the [VibeKit Framework](./README.md) — github.com/MUKE-coder/vibekit*

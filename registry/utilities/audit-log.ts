@@ -138,9 +138,60 @@ export async function getAuditLog(args: GetAuditLogArgs) {
   });
 }
 
+/**
+ * Keys whose VALUES must never reach the audit table. The audit log is exempt
+ * from tenant scoping and is surfaced to admins in the paired viewer, so
+ * logging raw mutation args would persist password hashes and session tokens
+ * in plaintext-readable form — e.g. `db.user.create({ data: { passwordHash } })`.
+ *
+ * Matching is case-insensitive and substring-based so `hashedPassword`,
+ * `stripeSecretKey`, `refresh_token`, etc. are all caught.
+ */
+const REDACTED_KEY_PATTERNS = [
+  "password",
+  "token",
+  "secret",
+  "apikey",
+  "api_key",
+  "credential",
+  "authorization",
+  "sessionid",
+  "session_id",
+  "privatekey",
+  "private_key",
+  "otp",
+  "twofactor",
+  "backupcode",
+  "creditcard",
+  "cardnumber",
+  "cvv",
+  "ssn",
+];
+
+const REDACTED = "[redacted]";
+
+function shouldRedact(key: string): boolean {
+  const k = key.toLowerCase().replace(/[-_\s]/g, "");
+  return REDACTED_KEY_PATTERNS.some((p) => k.includes(p.replace(/[-_]/g, "")));
+}
+
+/** Recursively replaces sensitive values with a marker. Depth-capped to avoid cycles. */
+function redact(value: unknown, depth = 0): unknown {
+  if (depth > 8) return REDACTED;
+  if (Array.isArray(value)) return value.map((v) => redact(v, depth + 1));
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      out[k] = shouldRedact(k) ? REDACTED : redact(v, depth + 1);
+    }
+    return out;
+  }
+  return value;
+}
+
 function safeJson(value: unknown): Prisma.InputJsonValue {
   try {
-    return JSON.parse(JSON.stringify(value));
+    return JSON.parse(JSON.stringify(redact(value)));
   } catch {
     return {};
   }

@@ -108,11 +108,11 @@ export default function PerformancePage() {
               AI-built apps are slow by default — bloated bundles, uncached queries, dual animation frameworks, and layout-shifting images. VibeKit encodes performance as hard rules that the agent cannot skip.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button href={SITE.github} variant="accent" size="lg">
-                Start building
+              <Button href="/docs/quickstart" variant="accent" size="lg">
+                Get started
                 <ArrowUpRight className="ml-1.5 h-4 w-4" />
               </Button>
-              <Button href="/docs/quickstart" variant="outline" size="lg">
+              <Button href="/docs" variant="outline" size="lg">
                 Read the docs
               </Button>
             </div>
@@ -242,7 +242,7 @@ export default function PerformancePage() {
           >
             <div className="reveal mt-8 flex flex-wrap justify-center gap-4">
               <Button href="/docs/quickstart" variant="accent" size="lg">
-                Start building
+                Get started
                 <ArrowUpRight className="ml-1.5 h-4 w-4" />
               </Button>
               <Button href={SITE.github} variant="outline" size="lg">

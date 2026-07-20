@@ -161,7 +161,15 @@ export function GlobalSearch({
   }, [results]);
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    // shouldFilter={false}: results are ALREADY filtered by the server. cmdk's
+    // default client-side filter would then re-filter them by literal substring
+    // and hide legitimate matches (fuzzy/synonym/typo-tolerant hits, matches on
+    // fields not rendered in the item text).
+    //
+    // NOTE: shadcn's stock <CommandDialog> spreads its props onto <Dialog>, not
+    // <Command>. If yours does that, forward it in components/ui/command.tsx:
+    //   function CommandDialog({ shouldFilter, ...props }) → <Command shouldFilter={shouldFilter}>
+    <CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
       <CommandInput
         placeholder={placeholder}
         value={query}

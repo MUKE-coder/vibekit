@@ -35,6 +35,18 @@ interface UseTableStateOptions {
   filterKeys?: string[];
 }
 
+/**
+ * URL params are attacker/typo-controlled. `Math.max(1, Number("abc"))` is
+ * `NaN` (Math.max propagates NaN), which flows straight into `skip: NaN` and
+ * makes Prisma throw a 500. Anything non-finite or < 1 falls back to `fallback`.
+ */
+function positiveInt(raw: string | null, fallback: number): number {
+  if (raw === null || raw.trim() === "") return fallback; // `Number(null)` is 0, not NaN
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 1) return fallback;
+  return Math.floor(n);
+}
+
 export function useTableState(options: UseTableStateOptions = {}) {
   const { defaultPageSize = 20, defaultSort = null, defaultDir = "desc", filterKeys = [] } =
     options;
@@ -50,8 +62,8 @@ export function useTableState(options: UseTableStateOptions = {}) {
       if (raw) filters[key] = raw.split(",").filter(Boolean);
     }
     return {
-      page: Math.max(1, Number(params.get("page") ?? 1)),
-      pageSize: Math.max(1, Number(params.get("pageSize") ?? defaultPageSize)),
+      page: positiveInt(params.get("page"), 1),
+      pageSize: positiveInt(params.get("pageSize"), defaultPageSize),
       sort: params.get("sort") ?? defaultSort,
       dir: (params.get("dir") as "asc" | "desc") ?? defaultDir,
       q: params.get("q") ?? "",

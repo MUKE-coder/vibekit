@@ -49,14 +49,19 @@ export function sanitizeHtmlStrict(input: string): string {
 }
 
 /**
- * Sanitise a URL. Allows http, https, mailto, tel. Returns "" for
- * anything else (including `javascript:` which is the classic XSS
- * vector for unsanitised hrefs).
+ * Sanitise a URL. Allows http, https, mailto, tel, same-origin relative
+ * paths and fragments. Returns "" for anything else — including
+ * `javascript:` (the classic XSS vector for unsanitised hrefs) and
+ * protocol-relative `//host` (open redirect).
  */
 export function sanitizeUrl(input: string): string {
   if (!input) return "";
   const trimmed = input.trim();
-  // Relative URLs are fine
+  // Protocol-relative URLs (`//evil.com`, and `/\evil.com` which browsers
+  // normalise the same way) LOOK relative but navigate off-site — the classic
+  // open-redirect bypass. A safe relative URL has exactly ONE leading slash.
+  if (/^\/[/\\]/.test(trimmed)) return "";
+  // Relative URLs and fragments are fine
   if (trimmed.startsWith("/") || trimmed.startsWith("#")) return trimmed;
   try {
     const url = new URL(trimmed);

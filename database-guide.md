@@ -421,4 +421,4 @@ Never test migrations on your production database. Always test on `dev` first.
 
 ---
 
-*Part of the [VibeKit Framework](../README.md) — github.com/MUKE-coder/vibekit*
+*Part of the [VibeKit Framework](./README.md) — github.com/MUKE-coder/vibekit*

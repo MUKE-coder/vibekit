@@ -97,14 +97,14 @@ export function AreaChart<Row extends Record<string, unknown>>({
             fontSize={11}
             tickLine={false}
             axisLine={false}
-            tickFormatter={xFormat as (v: unknown) => string | undefined}
+            tickFormatter={xFormat}
           />
           <YAxis
             stroke="hsl(var(--muted-foreground))"
             fontSize={11}
             tickLine={false}
             axisLine={false}
-            tickFormatter={yFormat as (v: number) => string | undefined}
+            tickFormatter={yFormat}
             width={60}
           />
           <Tooltip

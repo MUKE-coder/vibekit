@@ -1,5 +1,6 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
 
 /**
  * Time-limited presigned URLs for R2 / S3 objects. Use these so your
@@ -59,7 +60,21 @@ function getBucket(): string {
   return bucket;
 }
 
-/** Generate a presigned GET URL for a private object. */
+/**
+ * Generate a presigned GET URL for a private object.
+ *
+ * ⚠️ SECURITY — THIS FUNCTION PERFORMS NO AUTHORIZATION. It will happily sign
+ * a URL for ANY key in the bucket, and the resulting URL bypasses your app
+ * entirely. The CALLER MUST verify the current user is allowed to read `key`
+ * before calling — otherwise any user who can guess or enumerate a key
+ * (`avatars/u_124.png`, `exports/<other-user-id>/...`) gets a working link.
+ *
+ *   const file = await db.file.findFirst({ where: { key, ownerId: session.user.id } });
+ *   if (!file) throw new Error("Not found");     // ← do this FIRST
+ *   const url = await getPresignedDownloadUrl(file.key);
+ *
+ * Never pass a raw `key` straight from a request body or query param.
+ */
 export async function getPresignedDownloadUrl(
   key: string,
   options: { expiresIn?: number } = {},
@@ -78,25 +93,77 @@ interface PresignedUploadOptions {
   contentType: string;
   /** URL TTL in seconds. Default: 600. */
   expiresIn?: number;
-  /** Max content length to enforce (bytes). Optional. */
-  maxSizeBytes?: number;
 }
 
-/** Generate a presigned PUT URL the browser can use to upload directly. */
+/**
+ * Generate a presigned PUT URL the browser can use to upload directly.
+ *
+ * ⚠️ A presigned PUT CANNOT enforce a size *cap*. SigV4 signs `content-length`
+ * as an EXACT value, not a maximum — signing a 10 MB limit would make every
+ * upload that isn't exactly 10,000,000 bytes fail with
+ * `403 SignatureDoesNotMatch`. That's why no size option exists here.
+ *
+ * To actually enforce a maximum, use `createPresignedUploadPost` below, which
+ * uses POST policy conditions (`["content-length-range", 0, max]`) — the only
+ * presigned mechanism S3/R2 offers that expresses a range.
+ */
 export async function getPresignedUploadUrl(
   options: PresignedUploadOptions,
 ): Promise<{ url: string; key: string }> {
   const { keyPrefix = "uploads", filename, contentType, expiresIn = 600 } = options;
-  const ext = filename.includes(".") ? filename.slice(filename.lastIndexOf(".")) : "";
-  const key = `${keyPrefix.replace(/\/$/, "")}/${crypto.randomUUID()}${ext}`;
+  const key = buildKey(keyPrefix, filename);
 
   const command = new PutObjectCommand({
     Bucket: getBucket(),
     Key: key,
     ContentType: contentType,
-    ContentLength: options.maxSizeBytes,
   });
 
   const url = await getSignedUrl(getClient(), command, { expiresIn });
   return { url, key };
+}
+
+/**
+ * Presigned POST — the size-enforcing alternative to `getPresignedUploadUrl`.
+ * Returns `{ url, fields, key }`; the browser must send a `multipart/form-data`
+ * POST with every entry of `fields` appended BEFORE the file:
+ *
+ *   const { url, fields, key } = await createPresignedUploadPost({
+ *     filename: "scan.pdf",
+ *     contentType: "application/pdf",
+ *     maxSizeBytes: 10_000_000,
+ *   });
+ *
+ *   const form = new FormData();
+ *   Object.entries(fields).forEach(([k, v]) => form.append(k, v));
+ *   form.append("file", file);                  // must be LAST
+ *   await fetch(url, { method: "POST", body: form });
+ *
+ * S3/R2 rejects anything over `maxSizeBytes` with 400 EntityTooLarge — the cap
+ * is enforced by the storage provider, not by trusting the client.
+ */
+export async function createPresignedUploadPost(
+  options: PresignedUploadOptions & { maxSizeBytes: number },
+): Promise<{ url: string; fields: Record<string, string>; key: string }> {
+  const { keyPrefix = "uploads", filename, contentType, expiresIn = 600, maxSizeBytes } = options;
+  const key = buildKey(keyPrefix, filename);
+
+  const { url, fields } = await createPresignedPost(getClient(), {
+    Bucket: getBucket(),
+    Key: key,
+    Expires: expiresIn,
+    Conditions: [
+      ["content-length-range", 0, maxSizeBytes],
+      ["eq", "$Content-Type", contentType],
+    ],
+    Fields: { "Content-Type": contentType },
+  });
+
+  return { url, fields, key };
+}
+
+/** Randomised object key that preserves the original extension only. */
+function buildKey(keyPrefix: string, filename: string): string {
+  const ext = filename.includes(".") ? filename.slice(filename.lastIndexOf(".")) : "";
+  return `${keyPrefix.replace(/\/$/, "")}/${crypto.randomUUID()}${ext}`;
 }

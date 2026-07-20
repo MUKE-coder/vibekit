@@ -5,9 +5,11 @@
  *   import { generateInvoicePdf } from "@/lib/invoice-pdf";
  *
  *   // app/api/invoices/[id]/pdf/route.ts
- *   export async function GET(_: Request, { params }: { params: { id: string } }) {
+ *   // Next 15+: route `params` is a Promise and must be awaited.
+ *   export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+ *     const { id } = await params;
  *     const invoice = await db.invoice.findUniqueOrThrow({
- *       where: { id: params.id },
+ *       where: { id },
  *       include: { items: true, customer: true, org: true },
  *     });
  *     const pdf = await generateInvoicePdf({
@@ -204,5 +206,8 @@ function InvoiceDocument({ data }: { data: InvoicePdfData }) {
 }
 
 export async function generateInvoicePdf(data: InvoicePdfData): Promise<Buffer> {
-  return renderToBuffer(React.createElement(InvoiceDocument, { data }));
+  // Called directly rather than via createElement: renderToBuffer requires a
+  // ReactElement<DocumentProps> — i.e. a <Document> element. Wrapping it in a
+  // component element would type the props as { data }, not DocumentProps.
+  return renderToBuffer(InvoiceDocument({ data }));
 }

@@ -6,7 +6,11 @@ import { Loader2, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-interface SearchInputProps extends Omit<React.ComponentProps<typeof Input>, "type"> {
+// Extends the native input attributes rather than `ComponentProps<typeof Input>`:
+// shadcn's <Input> accepts every native input prop, and depending on the local
+// Input's declaration (some carry an index signature) `Omit` can collapse the
+// named props to `unknown`, silently untyping every destructured prop below.
+interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Show a spinner inside the input. Pass `true` while fetching. */
   loading?: boolean;
   /** Show a clear (X) button when the value is non-empty. */

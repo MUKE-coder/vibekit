@@ -45,9 +45,14 @@ export function useFormAutosave<V extends FieldValues>(
   const { delay = 800, enabled = true } = options;
   const [status, setStatus] = React.useState<AutosaveStatus>({ state: "idle" });
 
-  // Track every change so the debounced effect re-runs
-  const values = form.watch();
-  const debouncedValues = useDebounce(values, delay);
+  // Track every change so the debounced effect re-runs.
+  // WHY the JSON string: `form.watch()` returns a NEW object identity on every
+  // render. Feeding that object straight into useDebounce makes the debounce
+  // store it as state → re-render → new identity → new timer, forever. A
+  // serialised snapshot is a primitive, so it only changes when values actually
+  // change. Read the real values with `getValues()` inside the effect.
+  const serialisedValues = JSON.stringify(form.watch());
+  const debouncedSerialised = useDebounce(serialisedValues, delay);
 
   // Skip the very first run so we don't save on mount
   const initial = React.useRef(true);
@@ -59,11 +64,14 @@ export function useFormAutosave<V extends FieldValues>(
   }, [save]);
 
   React.useEffect(() => {
-    if (!enabled) return;
+    // Consume the mount run before the `enabled` check — useDebounce seeds its
+    // state with the initial snapshot, so this effect always fires once on mount
+    // with unchanged values and must never save.
     if (initial.current) {
       initial.current = false;
       return;
     }
+    if (!enabled) return;
 
     // Skip if there are validation errors — wait for them to clear
     if (Object.keys(form.formState.errors).length > 0) {
@@ -75,12 +83,15 @@ export function useFormAutosave<V extends FieldValues>(
     }
 
     let cancelled = false;
+    // Read live values here rather than deserialising the debounced string —
+    // JSON round-tripping would flatten Dates/undefined and break rich fields.
+    const snapshot = form.getValues();
     (async () => {
       setStatus({ state: "saving" });
       try {
-        await saveRef.current(debouncedValues as V);
+        await saveRef.current(snapshot);
         if (cancelled) return;
-        form.reset(debouncedValues as V, { keepValues: true });
+        form.reset(snapshot, { keepValues: true });
         setStatus({ state: "saved", at: new Date() });
       } catch (err) {
         if (cancelled) return;
@@ -93,7 +104,7 @@ export function useFormAutosave<V extends FieldValues>(
     };
     // Re-run on debounced value change only
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValues, enabled]);
+  }, [debouncedSerialised, enabled]);
 
   return status;
 }

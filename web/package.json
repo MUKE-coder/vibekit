@@ -29,6 +29,10 @@
     "gsap": "^3.13.0",
     "@gsap/react": "^2.1.2"
   },
+  "pnpm": {
+    "//": "sharp ships prebuilt binaries and needs no postinstall build. Declaring this stops pnpm 10+ from failing `install` with ERR_PNPM_IGNORED_BUILDS on a fresh clone or in CI.",
+    "onlyBuiltDependencies": []
+  },
   "devDependencies": {
     "typescript": "^5.9.3",
     "@types/node": "^22",

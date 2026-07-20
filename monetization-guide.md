@@ -371,4 +371,4 @@ Fix: Check Stripe → Developers → Webhooks → your endpoint → Recent deliv
 
 ---
 
-*Part of the [VibeKit Framework](../README.md) — github.com/MUKE-coder/vibekit*
+*Part of the [VibeKit Framework](./README.md) — github.com/MUKE-coder/vibekit*

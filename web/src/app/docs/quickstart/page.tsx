@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -45,8 +45,8 @@ const steps = [
   },
   {
     n: 5,
-    title: "Copy the framework files + install the /vibekit skill",
-    body: "Copy three files from the GitHub repo into your project root: master_prompt.md (the coding constitution), jb-components.md (component registry reference), and pre-deploy-review.md (the security audit prompt — embedded below). Then install the /vibekit Claude Code skill — one curl command — so the rules auto-load in every session.",
+    title: "Run npx vibekit init",
+    body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md (the security audit prompt — embedded below), and the rules file for your agent, so they auto-load every session. It detects your agent, never overwrites your edits, and is safe to re-run.",
   },
   {
     n: 6,
@@ -90,6 +90,26 @@ export default function Quickstart() {
             </p>
           </header>
 
+          {/* Step 0 — environment pre-flight. Lives on its own page because it's
+              OS-specific; linking it here stops people hitting step 6 with no pnpm. */}
+          <Link
+            href="/setup"
+            className="mt-10 flex items-start gap-4 rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition-colors hover:border-[color:var(--border-strong)]"
+          >
+            <div className="font-mono text-[28px] font-light leading-none text-[color:var(--text-tertiary)] tabular-nums">
+              00
+            </div>
+            <div className="min-w-0 flex-1">
+              <h2 className="font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">
+                First time? Check your environment
+                <ArrowUpRight className="ml-1.5 inline h-3.5 w-3.5 text-[color:var(--accent)]" />
+              </h2>
+              <p className="mt-2 text-[14.5px] leading-relaxed text-[color:var(--text-secondary)]">
+                A one-paste prompt that scans your machine for Node, pnpm, git and gh, then tells you exactly what to install. Takes a minute and saves a broken step 6.
+              </p>
+            </div>
+          </Link>
+
           {/* Steps + embedded prompts */}
           <ol className="mt-10 space-y-10">
             {steps.map((s) => (
@@ -131,46 +151,60 @@ export default function Quickstart() {
                   {/* Inline framework files for step 5 */}
                   {s.n === 5 ? (
                     <div className="mt-5 space-y-4">
+                      <CopyBlock
+                        filename="terminal"
+                        label="Run in your project root"
+                        code={"npx vibekit init"}
+                      />
+
                       <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
                         <h3 className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
-                          Files to download into your project root
+                          What it installs
                         </h3>
                         <ul className="mt-3 space-y-2">
                           {[
-                            { file: "master_prompt.md", purpose: "Coding constitution Claude/your agent reads" },
+                            { file: "master_prompt.md", purpose: "Coding constitution your agent reads" },
                             { file: "jb-components.md", purpose: "When to install which JB component" },
                             { file: "pre-deploy-review.md", purpose: "Security audit prompt for step 7" },
+                            { file: "your agent's rules file", purpose: "Auto-loads the rules every session" },
                           ].map((f) => (
                             <li key={f.file} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                              <a
-                                href={`https://github.com/MUKE-coder/vibekit/blob/main/${f.file}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-mono text-[13px] text-[color:var(--accent)] underline underline-offset-4 hover:no-underline"
-                              >
-                                {f.file}
-                              </a>
+                              <span className="font-mono text-[13px] text-[color:var(--accent)]">{f.file}</span>
                               <span className="text-[13px] text-[color:var(--text-secondary)]">{f.purpose}</span>
                             </li>
                           ))}
                         </ul>
                         <p className="mt-4 text-[12.5px] text-[color:var(--text-tertiary)]">
-                          Tip: <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">git clone https://github.com/MUKE-coder/vibekit.git</code>, then copy these three files into your project.
+                          It detects your agent — Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI, Aider, Continue, Cody or Junie. Pass <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--agent all</code> to write every rules file, or <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--global</code> to install the Claude skill for every project. Re-running never overwrites your edits.
                         </p>
                       </div>
 
-                      {/* Agent rules install — works with every major AI agent */}
-                      <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
-                        <h3 className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--accent)]">
-                          + Install the VibeKit rules for your AI agent
-                        </h3>
+                      {/* Manual fallback for anyone who can't or won't run the CLI */}
+                      <details className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
+                        <summary className="cursor-pointer font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
+                          Prefer to install by hand?
+                        </summary>
                         <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--text-primary)]">
-                          One curl command. Auto-loads the framework rules into your agent so you don't have to paste long prompts every session. Pick your agent below.
+                          Copy{" "}
+                          {["master_prompt.md", "jb-components.md", "pre-deploy-review.md"].map((f, i, arr) => (
+                            <span key={f}>
+                              <a
+                                href={`https://github.com/MUKE-coder/vibekit/blob/main/${f}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-mono text-[13px] text-[color:var(--accent)] underline underline-offset-4 hover:no-underline"
+                              >
+                                {f}
+                              </a>
+                              {i < arr.length - 1 ? ", " : " "}
+                            </span>
+                          ))}
+                          into your project root, then install the rules file for your agent:
                         </p>
                         <div className="mt-4">
                           <AgentInstallTabs />
                         </div>
-                      </div>
+                      </details>
                     </div>
                   ) : null}
 

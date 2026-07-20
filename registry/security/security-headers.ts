@@ -80,6 +80,16 @@ function isCsrfBypassed(pathname: string, patterns: SecurityOptions["csrfBypass"
   );
 }
 
+/** Extracts just the origin from a Referer header, or null if unusable. */
+function refererOrigin(referer: string | null): string | null {
+  if (!referer) return null;
+  try {
+    return new URL(referer).origin;
+  } catch {
+    return null;
+  }
+}
+
 export function withSecurityHeaders(
   req: NextRequest,
   res: NextResponse,
@@ -89,10 +99,29 @@ export function withSecurityHeaders(
   if (STATE_CHANGING_METHODS.has(req.method) && !isCsrfBypassed(req.nextUrl.pathname, options.csrfBypass)) {
     const origin = req.headers.get("origin");
     const host = req.headers.get("host");
-    if (origin && host) {
+    const fetchSite = req.headers.get("sec-fetch-site");
+
+    if (!host) {
+      return NextResponse.json({ error: "Bad request: missing host" }, { status: 403 });
+    }
+
+    // Fail CLOSED. A missing Origin used to skip the check entirely, which let
+    // any client that simply omits the header through — exactly the request an
+    // attacker controls. Modern browsers always send Origin on state-changing
+    // requests; Sec-Fetch-Site is the fallback signal, and Referer the last one.
+    const sourceOrigin = origin ?? refererOrigin(req.headers.get("referer"));
+
+    if (!sourceOrigin) {
+      // No Origin and no Referer: only trust an explicit same-origin declaration.
+      if (fetchSite !== "same-origin" && fetchSite !== "none") {
+        return NextResponse.json(
+          { error: "Bad request: missing origin" },
+          { status: 403 },
+        );
+      }
+    } else {
       try {
-        const originHost = new URL(origin).host;
-        if (originHost !== host) {
+        if (new URL(sourceOrigin).host !== host) {
           return NextResponse.json(
             { error: "Bad request: origin mismatch" },
             { status: 403 },

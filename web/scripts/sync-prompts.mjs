@@ -13,6 +13,12 @@ const repoRoot = path.resolve(webRoot, "..");
 
 const filesToSync = ["CLAUDE_PROMPT.md", "pre-deploy-review.md"];
 
+// A missing prompt file used to be a warning, which meant a broken quickstart
+// page could ship on a green build. Collect failures and exit non-zero instead —
+// but only when the file isn't already present in web/ (a deploy whose project
+// root IS web/ has no repo root to copy from, and that's legitimate).
+const missing = [];
+
 let copied = 0;
 for (const file of filesToSync) {
   const source = path.join(repoRoot, file);
@@ -21,8 +27,10 @@ for (const file of filesToSync) {
     fs.copyFileSync(source, dest);
     copied++;
     console.log(`  ✓ synced ${file}`);
+  } else if (fs.existsSync(dest)) {
+    console.log(`  · ${file} already present in web/ — skipping`);
   } else {
-    console.warn(`  ! missing ${file} at ${source}`);
+    missing.push(`${file} (looked in ${source})`);
   }
 }
 
@@ -37,8 +45,19 @@ if (fs.existsSync(setupSrcDir)) {
     copied++;
     console.log(`  ✓ synced setup-prompts/${file}`);
   }
+} else if (fs.existsSync(setupDestDir) && fs.readdirSync(setupDestDir).some((f) => f.endsWith(".md"))) {
+  console.log(`  · setup-prompts/ already present in web/ — skipping`);
 } else {
-  console.warn(`  ! setup-prompts/ folder missing at ${setupSrcDir}`);
+  missing.push(`setup-prompts/ (looked in ${setupSrcDir})`);
+}
+
+if (missing.length > 0) {
+  console.error(`\n✖ sync-prompts: ${missing.length} required prompt source(s) missing:`);
+  for (const m of missing) console.error(`    - ${m}`);
+  console.error(
+    `\nThese files are the product — building without them ships a broken quickstart page.`,
+  );
+  process.exit(1);
 }
 
 console.log(`Synced ${copied} prompt file(s) into web/`);

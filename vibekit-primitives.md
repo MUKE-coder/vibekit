@@ -426,7 +426,7 @@ Lifted directly from [`nextjs-reusable-library-150.md`](./nextjs-reusable-librar
 
 | # | Status | Item | Phase | Notes |
 |---|---|---|---|---|
-| 35 | ✅ | DataTable | (registry) | shipped as `data-table` on JB registry — `pnpm dlx shadcn@latest add vibekit.desishub.com/r/data-table.json` (pair with GitHub-registry `data-grid` for virtualised variant) |
+| 35 | ✅ | DataTable | (registry) | shipped as `data-table` on JB registry — `pnpm dlx shadcn@latest add https://jb.desishub.com/r/data-table.json` (pair with GitHub-registry `data-grid` for virtualised variant) |
 | 36 | ✅ | useTableState | 1 | shipped |
 | 37 | ✅ | ColumnHeader | 3 | shipped |
 | 38 | ✅ | Bulk actions bar | 3 | shipped as `bulk-actions-bar` |

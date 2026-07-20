@@ -78,7 +78,7 @@ export function Hero() {
         </p>
 
         <div className="hero-cta mt-9 flex flex-wrap items-center justify-center gap-3">
-          <Button href="#get-started" variant="accent" size="lg">
+          <Button href="/docs/quickstart" variant="accent" size="lg">
             Get started
             <ArrowUpRight className="h-4 w-4" />
           </Button>

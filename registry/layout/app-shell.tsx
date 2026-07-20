@@ -47,7 +47,8 @@ interface AppShellContextValue {
   setCollapsed: (value: boolean) => void;
   mobileOpen: boolean;
   setMobileOpen: (value: boolean) => void;
-  isMobile: boolean;
+  /** `undefined` until the media query has resolved after mount. */
+  isMobile: boolean | undefined;
 }
 
 const AppShellContext = React.createContext<AppShellContextValue | null>(null);
@@ -71,7 +72,19 @@ export function AppShell({
 }: AppShellProps) {
   const [collapsed, setCollapsedStored] = useLocalStorage<boolean>(storageKey, defaultCollapsed);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = useMediaQuery("(max-width: 767px)");
+  const matchesMobile = useMediaQuery("(max-width: 767px)");
+
+  // useMediaQuery returns `false` on the server and on the first client render,
+  // so branching on it directly rendered the DESKTOP sidebar on mobile's first
+  // paint — i.e. no nav at all, since that <aside> is `hidden md:block`. Until
+  // the query resolves, `isMobile` is undefined and we render BOTH shells; their
+  // existing `md:block` / `md:hidden` classes pick the right one with zero JS,
+  // so the markup is identical on server and client (no hydration mismatch).
+  const [resolved, setResolved] = React.useState(false);
+  React.useEffect(() => {
+    setResolved(true);
+  }, []);
+  const isMobile = resolved ? matchesMobile : undefined;
 
   // Close mobile drawer on route changes (best-effort — listens for popstate + clicks)
   React.useEffect(() => {
@@ -94,8 +107,8 @@ export function AppShell({
       }}
     >
       <div className={cn("flex min-h-screen w-full bg-background", className)}>
-        {/* Desktop sidebar */}
-        {!isMobile && (
+        {/* Desktop sidebar — also rendered while isMobile is unknown (CSS hides it under md) */}
+        {isMobile !== true && (
           <aside
             style={{ width: sidebarWidth }}
             className="hidden shrink-0 border-r border-border bg-card transition-[width] duration-200 md:block"
@@ -104,8 +117,8 @@ export function AppShell({
           </aside>
         )}
 
-        {/* Mobile drawer */}
-        {isMobile && (
+        {/* Mobile drawer — also rendered while isMobile is unknown (CSS hides it at md+) */}
+        {isMobile !== false && (
           <>
             {mobileOpen && (
               <div
@@ -146,10 +159,12 @@ export function AppShell({
         <div className="flex min-w-0 flex-1 flex-col">
           {topbar !== undefined ? (
             <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-              {isMobile && (
+              {/* `md:hidden` keeps this correct during the pre-resolve render */}
+              {isMobile !== false && (
                 <Button
                   variant="ghost"
                   size="icon"
+                  className="md:hidden"
                   onClick={() => setMobileOpen(true)}
                   aria-label="Open menu"
                 >

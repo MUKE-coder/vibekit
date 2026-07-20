@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * Register keyboard shortcuts with a tiny, typed API. Composable across
@@ -46,8 +46,33 @@ interface UseKeyboardShortcutsOptions {
   target?: HTMLElement | null;
 }
 
-const IS_MAC =
-  typeof navigator !== "undefined" && /Mac|iP(hone|ad|od)/.test(navigator.platform);
+/**
+ * Platform detection, evaluated lazily. WHY not a module-scope const: this
+ * module is imported during SSR, where `navigator` doesn't exist — and even a
+ * guarded const would freeze at `false` on the server and then disagree with
+ * the client on macOS, producing a hydration mismatch in `formatShortcut`.
+ * Callers that render platform-specific glyphs should use `useIsMac()`, which
+ * resolves after mount so the first paint matches the server.
+ */
+function detectIsMac(): boolean {
+  if (typeof navigator === "undefined") return false;
+  // userAgentData.platform where available; navigator.platform is deprecated
+  // but remains the only broadly-supported fallback.
+  const platform =
+    (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ??
+    navigator.platform ??
+    navigator.userAgent;
+  return /Mac|iP(hone|ad|od)/.test(platform);
+}
+
+/** Non-Mac during SSR and first paint; flips after mount if we're on a Mac. */
+export function useIsMac(): boolean {
+  const [isMac, setIsMac] = useState(false);
+  useEffect(() => {
+    setIsMac(detectIsMac());
+  }, []);
+  return isMac;
+}
 
 function isEditableTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
@@ -92,6 +117,7 @@ export function useKeyboardShortcuts(
   options: UseKeyboardShortcutsOptions = {},
 ) {
   const { enabled = true, target } = options;
+  const isMac = useIsMac();
   const ref = useRef(shortcuts);
   useEffect(() => {
     ref.current = shortcuts;
@@ -103,14 +129,15 @@ export function useKeyboardShortcuts(
     for (const [raw, value] of Object.entries(shortcuts)) {
       const binding: ShortcutBinding = typeof value === "function" ? { handler: value } : value;
       const variants = raw.includes("mod")
-        ? [raw.replace(/mod/gi, IS_MAC ? "meta" : "ctrl")]
+        ? [raw.replace(/mod/gi, isMac ? "meta" : "ctrl")]
         : [raw];
       for (const v of variants) map.set(normaliseCombo(v), binding);
     }
     return map;
     // We re-derive each render so the latest keys are matched. The handler
-    // itself comes from the ref so consumers don't have to memoise.
-  }, [shortcuts]);
+    // itself comes from the ref so consumers don't have to memoise. `isMac`
+    // resolves after mount, which re-maps `mod` → ⌘ on macOS.
+  }, [shortcuts, isMac]);
 
   useEffect(() => {
     if (!enabled || typeof window === "undefined") return;
@@ -131,20 +158,28 @@ export function useKeyboardShortcuts(
   }, [enabled, normalised, target]);
 }
 
-/** UI helper — pretty-print a shortcut for help dialogs. */
-export function formatShortcut(combo: string): string {
+/**
+ * UI helper — pretty-print a shortcut for help dialogs.
+ *
+ * In a server-rendered page, pass `useIsMac()` so the markup matches on both
+ * sides of hydration:
+ *
+ *   const isMac = useIsMac();
+ *   <kbd>{formatShortcut("mod+k", isMac)}</kbd>
+ */
+export function formatShortcut(combo: string, isMac: boolean = detectIsMac()): string {
   return combo
     .split("+")
     .map((p) => {
       const k = p.toLowerCase();
-      if (k === "mod") return IS_MAC ? "⌘" : "Ctrl";
-      if (k === "meta") return IS_MAC ? "⌘" : "Win";
-      if (k === "ctrl") return IS_MAC ? "⌃" : "Ctrl";
-      if (k === "alt") return IS_MAC ? "⌥" : "Alt";
+      if (k === "mod") return isMac ? "⌘" : "Ctrl";
+      if (k === "meta") return isMac ? "⌘" : "Win";
+      if (k === "ctrl") return isMac ? "⌃" : "Ctrl";
+      if (k === "alt") return isMac ? "⌥" : "Alt";
       if (k === "shift") return "⇧";
       if (k === "escape") return "Esc";
       if (k === "enter" || k === "return") return "↵";
       return k.toUpperCase();
     })
-    .join(IS_MAC ? "" : "+");
+    .join(isMac ? "" : "+");
 }

@@ -5,7 +5,10 @@ import { Check, Copy } from "lucide-react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-interface CopyButtonProps extends Omit<ButtonProps, "onClick"> {
+// `onCopy` is omitted alongside `onClick`: the native `onCopy` is a
+// ClipboardEvent handler, while this component's `onCopy` receives the copied
+// string. `onClick` is owned by the component itself.
+interface CopyButtonProps extends Omit<ButtonProps, "onClick" | "onCopy"> {
   /** The string to copy to clipboard when the button is clicked. */
   value: string;
   /** Label shown next to the icon. Hide by passing null. Default: "Copy". */

@@ -21,7 +21,11 @@
       "type": "registry:lib",
       "title": "getPresignedDownloadUrl + getPresignedUploadUrl",
       "description": "Time-limited presigned URLs for private R2/S3 objects. Lazy-built S3 client; supports R2 via endpoint + forcePathStyle env. Download URLs serve private assets; upload URLs let the browser PUT directly (no server proxy).",
-      "dependencies": ["@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
+      "dependencies": [
+        "@aws-sdk/client-s3",
+        "@aws-sdk/s3-request-presigner",
+        "@aws-sdk/s3-presigned-post"
+      ],
       "files": [
         {
           "path": "signed-url.ts",

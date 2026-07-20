@@ -25,6 +25,21 @@ export function useIntersectionObserver<T extends Element = HTMLDivElement>(
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
   const frozen = useRef(false);
 
+  // WHY: `threshold` is commonly passed as an inline array (`{ threshold: [0, 0.5, 1] }`)
+  // and `root` as an element, both compared by identity in a dep array. Depending on
+  // them directly recreates the observer every render; `observe()` synchronously queues
+  // a callback → setEntry → render → new observer → "Maximum update depth exceeded".
+  // A serialised key changes only when the init genuinely changes.
+  const initKey = JSON.stringify({
+    root: !!observerInit.root,
+    rootMargin: observerInit.rootMargin,
+    threshold: observerInit.threshold,
+  });
+
+  // The effect reads the live init from a ref so the key can stay the only dependency.
+  const initRef = useRef(observerInit);
+  initRef.current = observerInit;
+
   useEffect(() => {
     if (!enabled) return;
     const node = ref.current;
@@ -37,11 +52,13 @@ export function useIntersectionObserver<T extends Element = HTMLDivElement>(
         frozen.current = true;
         observer.disconnect();
       }
-    }, observerInit);
+    }, initRef.current);
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [enabled, freezeOnceVisible, observerInit.root, observerInit.rootMargin, observerInit.threshold]);
+    // initKey stands in for the observer init — see note above.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, freezeOnceVisible, initKey]);
 
   return { ref, entry, isIntersecting: entry?.isIntersecting ?? false };
 }

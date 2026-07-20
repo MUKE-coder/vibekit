@@ -58,6 +58,17 @@ type ValueOf<S extends FilterSpec> = S extends MultiSpec
 
 type FilterState<Schema extends FilterSchema> = { [K in keyof Schema]: ValueOf<Schema[K]> };
 
+/**
+ * The union of every value a filter can hold — `ValueOf` distributes over the
+ * `FilterSpec` union. Used as the accumulator's value type while decoding: the
+ * decode loop walks `Object.entries(schema)`, which erases the key→kind
+ * correlation, so per-key precision is impossible *inside* the loop. Typing the
+ * accumulator with this union means every branch below is still fully
+ * typechecked (a `{ from, to }` built with the wrong shape is a real error),
+ * and only the final key→kind correlation needs re-asserting on return.
+ */
+type AnyFilterValue = ValueOf<FilterSpec>;
+
 interface UseFiltersOptions<Schema extends FilterSchema> {
   schema: Schema;
 }
@@ -70,23 +81,23 @@ export function useFilters<Schema extends FilterSchema>({
   const params = useSearchParams();
 
   const state = useMemo<FilterState<Schema>>(() => {
-    const out = {} as FilterState<Schema>;
-    for (const [key, spec] of Object.entries(schema)) {
+    const out: Record<string, AnyFilterValue> = {};
+    for (const [key, spec] of Object.entries(schema) as Array<[string, FilterSpec]>) {
       switch (spec.kind) {
         case "multi": {
           const raw = params.get(key);
-          out[key as keyof Schema] = (raw ? raw.split(",").filter(Boolean) : (spec.defaults ?? [])) as ValueOf<typeof spec>;
+          out[key] = raw ? raw.split(",").filter(Boolean) : (spec.defaults ?? []);
           break;
         }
         case "bool": {
           const raw = params.get(key);
-          out[key as keyof Schema] = (raw === null ? (spec.defaults ?? false) : raw === "true") as ValueOf<typeof spec>;
+          out[key] = raw === null ? (spec.defaults ?? false) : raw === "true";
           break;
         }
         case "dateRange": {
           const from = params.get(`${key}.from`) ?? spec.defaults?.from ?? null;
           const to = params.get(`${key}.to`) ?? spec.defaults?.to ?? null;
-          out[key as keyof Schema] = { from, to } as ValueOf<typeof spec>;
+          out[key] = { from, to };
           break;
         }
         case "numRange": {
@@ -96,17 +107,19 @@ export function useFilters<Schema extends FilterSchema>({
           const maxRaw = maxStr !== null ? Number(maxStr) : (spec.defaults?.max ?? null);
           const min = typeof minRaw === "number" && Number.isFinite(minRaw) ? minRaw : null;
           const max = typeof maxRaw === "number" && Number.isFinite(maxRaw) ? maxRaw : null;
-          out[key as keyof Schema] = { min, max } as ValueOf<typeof spec>;
+          out[key] = { min, max };
           break;
         }
         case "single": {
           const raw = params.get(key);
-          out[key as keyof Schema] = (raw ?? spec.defaults ?? null) as ValueOf<typeof spec>;
+          out[key] = raw ?? spec.defaults ?? null;
           break;
         }
       }
     }
-    return out;
+    // Single re-assertion: each branch above produced the value its own `kind`
+    // demands, but only the caller's literal `schema` ties key → kind.
+    return out as FilterState<Schema>;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, JSON.stringify(schema)]);
 

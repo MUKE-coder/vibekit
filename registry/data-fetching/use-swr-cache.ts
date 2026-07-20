@@ -56,7 +56,12 @@ export async function withSwrCache<T>(
   }
 
   if (cached) {
-    void revalidate(key, loader, stale);
+    // Fire-and-forget: nobody awaits this promise, so we MUST swallow the
+    // rejection here. `revalidate` rethrows (so awaited callers can handle
+    // it), and an unhandled rejection crashes the process on Node 18+
+    // (`--unhandled-rejections=throw` is the default). One failed background
+    // refresh must never take the server down — it's already been logged.
+    void revalidate(key, loader, stale).catch(() => {});
     return cached.value;
   }
 

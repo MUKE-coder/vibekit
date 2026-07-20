@@ -103,8 +103,8 @@
       "name": "two-factor-setup",
       "type": "registry:component",
       "title": "TwoFactorSetup (TOTP enrollment)",
-      "description": "3-step TOTP enrollment flow — scan QR / show secret, verify 6-digit code, display + copy + download backup codes. Wire the QR + verify endpoints to Better Auth's twoFactor plugin (or your own TOTP).",
-      "dependencies": ["lucide-react", "@tanstack/react-query"],
+      "description": "3-step TOTP enrollment flow — scan QR / show secret, verify 6-digit code, display + copy + download backup codes. The QR is encoded locally so the TOTP secret never reaches a third-party image service. Wire the QR + verify endpoints to Better Auth's twoFactor plugin (or your own TOTP).",
+      "dependencies": ["lucide-react", "@tanstack/react-query", "qrcode", "@types/qrcode"],
       "registryDependencies": ["button", "card", "input"],
       "files": [
         {

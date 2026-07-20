@@ -95,7 +95,7 @@ export function Nav() {
                 <Github className="h-4 w-4" />
                 GitHub
               </Button>
-              <Button href="#get-started" variant="accent" size="sm" className="hidden sm:inline-flex">
+              <Button href="/docs/quickstart" variant="accent" size="sm" className="hidden sm:inline-flex">
                 Get started
               </Button>
 
@@ -165,7 +165,7 @@ export function Nav() {
                 GitHub
               </Button>
               <Button
-                href="#get-started"
+                href="/docs/quickstart"
                 variant="accent"
                 size="md"
                 className="w-full"

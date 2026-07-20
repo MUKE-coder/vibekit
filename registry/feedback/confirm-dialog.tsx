@@ -54,23 +54,31 @@ interface PendingState extends ConfirmOptions {
 
 export function ConfirmDialogProvider({ children }: { children: React.ReactNode }) {
   const [pending, setPending] = React.useState<PendingState | null>(null);
+  // Mirrors `pending.resolve` so `confirm()` can settle an outstanding promise
+  // without depending on (stale) render state — and without doing side effects
+  // inside a state updater, which React may invoke twice in StrictMode.
+  const pendingResolve = React.useRef<((value: boolean) => void) | null>(null);
 
   const confirm = React.useCallback<ConfirmFn>(
     (options) =>
       new Promise<boolean>((resolve) => {
+        // Opening a second confirm while one is pending used to drop the first
+        // `resolve` on the floor — its caller's `await` (and any `finally`
+        // cleanup) would hang forever. Settle it as "cancelled" first.
+        pendingResolve.current?.(false);
+        pendingResolve.current = resolve;
         setPending({ ...options, resolve });
       }),
     [],
   );
 
-  const handleResolve = React.useCallback(
-    (value: boolean) => {
-      if (!pending) return;
-      pending.resolve(value);
-      setPending(null);
-    },
-    [pending],
-  );
+  const handleResolve = React.useCallback((value: boolean) => {
+    const resolve = pendingResolve.current;
+    if (!resolve) return;
+    pendingResolve.current = null;
+    resolve(value);
+    setPending(null);
+  }, []);
 
   return (
     <ConfirmContext.Provider value={confirm}>

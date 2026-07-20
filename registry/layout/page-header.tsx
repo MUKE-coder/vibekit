@@ -1,7 +1,9 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+// `title` is omitted from the native attributes: the DOM `title` is a string
+// (tooltip text), while this component's `title` is the rendered <h1> content.
+interface PageHeaderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** The page title (h1). */
   title: React.ReactNode;
   /** Optional subhead / description. */
