@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "zenith-analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ZENITH_PUBLIC } from "@/config/zenith";
 import { SITE } from "@/lib/utils";
 import "./globals.css";
 
@@ -127,6 +129,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
+        {/* Server-rendered so the ~1KB tracker snippet is inlined into the HTML.
+            Receives ZENITH_PUBLIC (backendUrl + siteKey only) — never
+            ZENITH_CONFIG, which holds the secrets. Do not move into a client
+            component or lazy-load it: the snippet finds its config via
+            document.currentScript, which only works for server-inlined script. */}
+        <Analytics config={ZENITH_PUBLIC} />
       </body>
     </html>
   );
