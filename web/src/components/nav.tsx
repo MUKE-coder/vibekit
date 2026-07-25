@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/performance", label: "Performance" },
   { href: "/components", label: "Components" },
   { href: "/templates", label: "Templates" },
+  { href: "/showcase", label: "Showcase" },
   { href: "/resources", label: "Resources" },
   { href: "/docs", label: "Docs" },
 ];

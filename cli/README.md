@@ -1,10 +1,19 @@
-# `vibekit` CLI
+# vibekit-framework
 
-One command to set up the VibeKit framework in a project.
+The one-command installer for [**VibeKit**](https://vibekit.desishub.com) — a
+framework for building production-grade Next.js apps with Claude Code or any AI
+agent, without burning tokens or shipping broken code.
 
 ```bash
 npx vibekit-framework init
 ```
+
+**How it fits:** VibeKit is a set of markdown prompts and reference guides your
+AI agent reads to build real apps. This package drops those files into your
+project and wires up your agent's rules so they load every session — the setup
+step of the [VibeKit workflow](https://vibekit.desishub.com/docs/quickstart).
+Full framework and docs: [vibekit.desishub.com](https://vibekit.desishub.com) ·
+[GitHub](https://github.com/MUKE-coder/vibekit).
 
 It installs:
 

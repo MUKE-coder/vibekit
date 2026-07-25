@@ -161,6 +161,19 @@ export default function Quickstart() {
                         code={"npx vibekit-framework init"}
                       />
 
+                      <p className="text-[13px] text-[color:var(--text-tertiary)]">
+                        Powered by the{" "}
+                        <a
+                          href="https://www.npmjs.com/package/vibekit-framework"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono text-[color:var(--accent)] underline underline-offset-4 hover:no-underline"
+                        >
+                          vibekit-framework
+                        </a>{" "}
+                        npm package — zero dependencies, runs offline, safe to re-run.
+                      </p>
+
                       <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
                         <h3 className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                           What it installs

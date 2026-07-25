@@ -4,9 +4,23 @@
 
 **By JB (Muke Johnbaptist) · [jb.desishub.com](https://jb.desishub.com) · Desishub Technologies**
 
+[![npm version](https://img.shields.io/npm/v/vibekit-framework?color=%234F46E5&label=vibekit-framework)](https://www.npmjs.com/package/vibekit-framework)
+[![npm downloads](https://img.shields.io/npm/dm/vibekit-framework?color=%234F46E5)](https://www.npmjs.com/package/vibekit-framework)
+[![license](https://img.shields.io/npm/l/vibekit-framework?color=%234F46E5)](./LICENSE)
+
+```bash
+npx vibekit-framework init
+```
+
 ---
 
 ## What Is VibeKit Framework?
+
+VibeKit ships in two halves that work together:
+
+1. **The framework** — a set of markdown prompts and reference guides that make your AI agent build production-grade Next.js apps (this repo, and the docs site at [vibekit.desishub.com](https://vibekit.desishub.com)).
+2. **The [`vibekit-framework`](https://www.npmjs.com/package/vibekit-framework) npm package** — the one-command installer that drops the framework into any project. `npx vibekit-framework init` copies `master_prompt.md`, `jb-components.md` and `pre-deploy-review.md` into your project root **and** installs the rules file for your agent (Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI, Aider, Continue, Cody or Junie) so they auto-load every session. Zero dependencies, runs offline, never overwrites your edits, safe to re-run. → [CLI docs](./cli/README.md)
+
 
 VibeKit Framework is a **planning + building system** for vibe coders who use Claude Code/any agent to build real Next.js applications. It gives you:
 

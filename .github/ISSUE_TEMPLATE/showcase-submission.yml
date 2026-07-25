@@ -1,0 +1,91 @@
+name: "🚀 Showcase submission"
+description: "Submit an app you built with VibeKit to be featured in the community showcase."
+title: "[Showcase]: <your project name>"
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for building with VibeKit! Fill this in and — once approved — your
+        project lands on the [showcase gallery](https://vibekit.desishub.com/showcase).
+
+        Please only submit projects **genuinely built with VibeKit**, and only
+        share links you're happy to make public.
+
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+      placeholder: "TaskFlow"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Live URL
+      description: "The deployed app (https://…). Must be publicly reachable."
+      placeholder: "https://taskflow.app"
+    validations:
+      required: true
+
+  - type: textarea
+    id: tagline
+    attributes:
+      label: One-line description
+      description: "What does it do? Keep it to a sentence."
+      placeholder: "A team task board with real-time updates and Stripe billing."
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Your name / handle
+      placeholder: "Jane Doe"
+    validations:
+      required: true
+
+  - type: input
+    id: author_url
+    attributes:
+      label: Your link (optional)
+      description: "Portfolio, GitHub, or X profile."
+      placeholder: "https://github.com/janedoe"
+    validations:
+      required: false
+
+  - type: textarea
+    id: stack
+    attributes:
+      label: Stack / notable features
+      description: "Comma-separated. Shown as chips on your card."
+      placeholder: "Next.js 16, Better Auth, Prisma, Stripe, Upstash Redis"
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: "Drag-and-drop an image here (a clean 16:10 shot of the app looks best). Optional but strongly recommended — cards with a screenshot get noticed."
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else? (optional)
+      description: "How VibeKit helped, what you'd tell other builders, etc."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: This app was genuinely built with VibeKit.
+          required: true
+        - label: The live URL is public and safe to share.
+          required: true
