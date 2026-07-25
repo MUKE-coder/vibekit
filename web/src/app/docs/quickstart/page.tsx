@@ -12,9 +12,9 @@ import { readPrompt } from "@/lib/read-prompt";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Quickstart — set up VibeKit in 7 steps",
+  title: "Quickstart — set up VibeKit in 8 steps",
   description:
-    "Step-by-step quickstart for VibeKit: copy the planning prompt, generate 4 project files, build with any agent, and run the pre-deploy review before launch. All prompts copyable inline.",
+    "Step-by-step quickstart for VibeKit: copy the planning prompt, generate 4 project files, build with any agent, then run the design and pre-deploy reviews before launch. All prompts copyable inline.",
   alternates: { canonical: "/docs/quickstart" },
   openGraph: {
     url: `${SITE.url}/docs/quickstart`,
@@ -47,7 +47,7 @@ const steps = [
   {
     n: 5,
     title: "Run npx vibekit-framework init",
-    body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md (the security audit prompt — embedded below), and the rules file for your agent, so they auto-load every session. It detects your agent, never overwrites your edits, and is safe to re-run.",
+    body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md and pre-design-review.md (the two audit prompts — embedded below), plus the rules file for your agent, so they auto-load every session. It also sets up the Playwright MCP so your agent can check its own UI in a real browser. It detects your agent, never overwrites your edits, and is safe to re-run.",
   },
   {
     n: 6,
@@ -56,8 +56,13 @@ const steps = [
   },
   {
     n: 7,
+    title: "Run the design review",
+    body: "Once the UI is built, paste the pre-design-review prompt (embedded below). It compares your app against your own design-style-guide.md plus universal design principles — hierarchy, spacing, type, color/contrast, states, accessibility — and writes a Critical / High / Medium report. With the Playwright MCP (installed in step 5) the agent reviews the rendered pages in a real browser, not just the code.",
+  },
+  {
+    n: 8,
     title: "Run pre-deploy review, then ship",
-    body: "Before deploying, paste the pre-deploy-review prompt (embedded below) into your agent. It writes a Critical / High / Medium report. Address every Critical issue, then deploy.",
+    body: "Before deploying, paste the pre-deploy-review prompt (embedded below) into your agent. It writes a Critical / High / Medium report on performance and security. Address every Critical issue, then deploy.",
   },
 ];
 
@@ -65,6 +70,7 @@ export default function Quickstart() {
   // Read prompts at build time
   const claudePrompt = readPrompt("CLAUDE_PROMPT.md");
   const preDeployReview = readPrompt("pre-deploy-review.md");
+  const preDesignReview = readPrompt("pre-design-review.md");
 
   return (
     <>
@@ -81,7 +87,7 @@ export default function Quickstart() {
 
           <header className="mt-8 border-b border-[color:var(--border)] pb-10">
             <div className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--accent)]">
-              Guide · 7 steps · ~10 min read
+              Guide · 8 steps · ~12 min read
             </div>
             <h1 className="mt-3 font-mono text-[clamp(2rem,5vw,3.5rem)] font-bold uppercase tracking-tight text-[color:var(--text-primary)]">
               Quickstart
@@ -182,7 +188,8 @@ export default function Quickstart() {
                           {[
                             { file: "master_prompt.md", purpose: "Coding constitution your agent reads" },
                             { file: "jb-components.md", purpose: "When to install which JB component" },
-                            { file: "pre-deploy-review.md", purpose: "Security audit prompt for step 7" },
+                            { file: "pre-design-review.md", purpose: "Design audit prompt for step 7" },
+                            { file: "pre-deploy-review.md", purpose: "Security + performance audit for step 8" },
                             { file: "your agent's rules file", purpose: "Auto-loads the rules every session" },
                           ].map((f) => (
                             <li key={f.file} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
@@ -203,7 +210,7 @@ export default function Quickstart() {
                         </summary>
                         <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--text-primary)]">
                           Copy{" "}
-                          {["master_prompt.md", "jb-components.md", "pre-deploy-review.md"].map((f, i, arr) => (
+                          {["master_prompt.md", "jb-components.md", "pre-design-review.md", "pre-deploy-review.md"].map((f, i, arr) => (
                             <span key={f}>
                               <a
                                 href={`https://github.com/MUKE-coder/vibekit/blob/main/${f}`}
@@ -225,8 +232,22 @@ export default function Quickstart() {
                     </div>
                   ) : null}
 
-                  {/* Inline pre-deploy prompt for step 7 */}
+                  {/* Inline pre-design prompt for step 7 */}
                   {s.n === 7 ? (
+                    <div className="mt-5">
+                      <CopyBlock
+                        filename="pre-design-review.md"
+                        label="Paste into your coding agent"
+                        code={preDesignReview}
+                      />
+                      <p className="mt-3 text-[13px] text-[color:var(--text-tertiary)]">
+                        Findings go to <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-1.5 py-0.5">pre-design-review-report.md</code>. Every fix uses your <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-1.5 py-0.5">design-style-guide.md</code> tokens.
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {/* Inline pre-deploy prompt for step 8 */}
+                  {s.n === 8 ? (
                     <div className="mt-5">
                       <CopyBlock
                         filename="pre-deploy-review.md"
@@ -272,7 +293,7 @@ export default function Quickstart() {
             "@context": "https://schema.org",
             "@type": "HowTo",
             name: "Set up VibeKit",
-            description: "Set up VibeKit and build a production-grade Next.js app with any AI coding agent in 7 steps.",
+            description: "Set up VibeKit and build a production-grade Next.js app with any AI coding agent in 8 steps.",
             totalTime: "PT15M",
             step: steps.map((s) => ({
               "@type": "HowToStep",

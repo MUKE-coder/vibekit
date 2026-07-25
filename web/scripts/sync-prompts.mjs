@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const webRoot = path.resolve(__dirname, "..");
 const repoRoot = path.resolve(webRoot, "..");
 
-const filesToSync = ["CLAUDE_PROMPT.md", "pre-deploy-review.md"];
+const filesToSync = ["CLAUDE_PROMPT.md", "pre-deploy-review.md", "pre-design-review.md"];
 
 // A missing prompt file used to be a warning, which meant a broken quickstart
 // page could ship on a green build. Collect failures and exit non-zero instead —
