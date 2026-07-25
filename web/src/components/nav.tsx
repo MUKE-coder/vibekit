@@ -17,6 +17,7 @@ const navLinks = [
   { href: "/templates", label: "Templates" },
   { href: "/showcase", label: "Showcase" },
   { href: "/resources", label: "Resources" },
+  { href: "/sponsor", label: "Sponsor" },
   { href: "/docs", label: "Docs" },
 ];
 

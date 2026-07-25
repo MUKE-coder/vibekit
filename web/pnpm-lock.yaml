@@ -47,6 +47,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.2.6(react@19.2.6)
+      stripe:
+        specifier: ^22.3.2
+        version: 22.3.2(@types/node@22.19.17)
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.5.0
@@ -830,6 +833,15 @@ packages:
   stats.js@0.17.0:
     resolution: {integrity: sha512-hNKz8phvYLPEcRkeG1rsGmV5ChMjKDAWU7/OJJdDErPBNChQXxCo3WZurGpnWc6gZhAzEPFad1aVgyOANH1sMw==}
 
+  stripe@22.3.2:
+    resolution: {integrity: sha512-O13QOvgEIQvDlTy6Ubb5kB980wpbhmoZNsgCXKILjCMZS67f+bW+6w99k3gnSi/N1lkryoj1WYdpGT5Wc5edjg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/node': '>=18'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
     engines: {node: '>= 12.0.0'}
@@ -1583,6 +1595,10 @@ snapshots:
       three: 0.171.0
 
   stats.js@0.17.0: {}
+
+  stripe@22.3.2(@types/node@22.19.17):
+    optionalDependencies:
+      '@types/node': 22.19.17
 
   styled-jsx@5.1.6(react@19.2.6):
     dependencies:

@@ -28,6 +28,7 @@ const cols = [
     label: "Community",
     links: [
       { name: "Showcase — built with VibeKit", href: "/showcase" },
+      { name: "Sponsor / buy a coffee", href: "/sponsor" },
       { name: "Join WhatsApp community", href: SITE.community },
       { name: "GitHub Discussions", href: `${SITE.github}/discussions` },
       { name: "Contribute a component", href: "/contribute" },
