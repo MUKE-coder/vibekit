@@ -39,4 +39,16 @@ export const showcaseProjects: ShowcaseProject[] = [
     tags: ["Next.js 16", "Tailwind v4", "shadcn/ui", "Docs site"],
     featured: true,
   },
+  {
+    // Submitted via the showcase issue form (#7) by the builder.
+    slug: "elaundrymart",
+    name: "eLaundryMart",
+    tagline:
+      "A multi-vendor laundry marketplace — real-time 9-stage order tracking, weight-based pricing, mobile-money & card checkout, and an installable PWA.",
+    url: "https://www.elaundrymart.com",
+    author: "Solomon A. Mutagaya",
+    authorUrl: "https://github.com/solomonmutagaya",
+    image: "/showcase/elaundrymart.png",
+    tags: ["Next.js 16", "Better Auth", "Pusher realtime", "PWA", "Prisma", "PostgreSQL"],
+  },
 ];
