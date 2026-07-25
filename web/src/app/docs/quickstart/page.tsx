@@ -229,6 +229,36 @@ export default function Quickstart() {
                           <AgentInstallTabs />
                         </div>
                       </details>
+
+                      {/* Troubleshooting: npx breaks when the Windows home path has a special char */}
+                      <details className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
+                        <summary className="cursor-pointer font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
+                          Windows: <code className="font-mono normal-case">npx</code> says &ldquo;Cannot find module&rdquo; or &ldquo;not recognized as a command&rdquo;?
+                        </summary>
+                        <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--text-primary)]">
+                          This happens when your Windows username has a special character like{" "}
+                          <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">&amp;</code>,{" "}
+                          <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">^</code>, or a space (e.g.{" "}
+                          <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">C:\Users\I&amp;I</code>). The command prompt mis-parses that path — it breaks{" "}
+                          <em>every</em> <code className="font-mono normal-case">npx</code> tool, not just this one. Two fixes:
+                        </p>
+                        <p className="mt-4 text-[13px] font-medium text-[color:var(--text-primary)]">
+                          1. Move npm&rsquo;s cache off that path (fixes <code className="font-mono normal-case">npx</code> for everything):
+                        </p>
+                        <div className="mt-2">
+                          <CopyBlock filename="terminal" label="Run once" code={"npm config set cache D:\\npm-cache"} />
+                        </div>
+                        <p className="mt-4 text-[13px] font-medium text-[color:var(--text-primary)]">
+                          2. Or install it into your project and run it with Node directly (skips <code className="font-mono normal-case">npx</code> entirely):
+                        </p>
+                        <div className="mt-2">
+                          <CopyBlock
+                            filename="terminal"
+                            label="From your project folder"
+                            code={"npm install vibekit-framework\nnode node_modules/vibekit-framework/bin/vibekit.mjs init"}
+                          />
+                        </div>
+                      </details>
                     </div>
                   ) : null}
 
