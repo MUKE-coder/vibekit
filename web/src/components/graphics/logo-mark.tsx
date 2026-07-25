@@ -1,37 +1,62 @@
 import { cn } from "@/lib/utils";
 
-export function LogoMark({ className, size = 28 }: { className?: string; size?: number }) {
+/**
+ * VibeKit logo mark — a self-contained rounded badge: an accent-tinted tile with
+ * a bold "V" and a spark, nodding to the constellation/orbital motif in the hero.
+ * Reads cleanly at 24–32px and works on both light and dark backgrounds because
+ * the badge supplies its own contrast.
+ */
+export function LogoMark({ className, size = 30 }: { className?: string; size?: number }) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 32 32"
       width={size}
       height={size}
       fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="square"
-      strokeLinejoin="miter"
-      className={cn("text-[color:var(--text-primary)]", className)}
+      className={cn("shrink-0", className)}
       aria-hidden="true"
     >
-      {/* Geometric "VK" — two angled strokes forming a V, with a vertical bar like a K */}
-      <path d="M 8 8 L 26 56 L 44 8" />
-      <path d="M 50 8 L 50 56" />
-      <path d="M 50 32 L 60 8" />
-      <path d="M 50 32 L 60 56" />
+      <defs>
+        <clipPath id="vk-clip">
+          <rect x="1" y="1" width="30" height="30" rx="9" />
+        </clipPath>
+      </defs>
+
+      {/* Badge — solid accent with light/shade overlays for depth (no color-mix,
+          so it can never fail to render). Overlays clipped to the rounded shape. */}
+      <g clipPath="url(#vk-clip)">
+        <rect x="1" y="1" width="30" height="30" fill="var(--accent)" />
+        <rect x="1" y="1" width="30" height="15" fill="#ffffff" opacity="0.14" />
+        <rect x="1" y="18" width="30" height="13" fill="#000000" opacity="0.10" />
+      </g>
+
+      {/* Bold "V" glyph */}
+      <path
+        d="M9.5 10.5 L16 22.5 L22.5 10.5"
+        stroke="#ffffff"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Spark — the "vibe" */}
+      <path
+        d="M23.4 6.6 l0.75 1.75 1.75 0.75 -1.75 0.75 -0.75 1.75 -0.75 -1.75 -1.75 -0.75 1.75 -0.75 z"
+        fill="#ffffff"
+      />
     </svg>
   );
 }
 
+/** The mark with a soft accent glow — used in the nav. */
 export function LogoBadge({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "grid h-7 w-7 place-items-center rounded-[6px] bg-[color:var(--text-primary)] text-[color:var(--text-inverse)]",
-        className
+        "inline-grid place-items-center rounded-[9px] shadow-[var(--shadow-glow)]",
+        className,
       )}
     >
-      <LogoMark size={16} className="text-[color:var(--text-inverse)]" />
+      <LogoMark size={30} />
     </span>
   );
 }
