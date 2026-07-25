@@ -1,6 +1,6 @@
 {
   "name": "vibekit-framework",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Scaffold the VibeKit framework into a project — installs the agent rules and the framework files in one command.",
   "type": "module",
   "bin": {

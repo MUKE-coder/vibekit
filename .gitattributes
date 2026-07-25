@@ -1,0 +1,12 @@
+# The published CLI bin MUST have LF line endings. A CRLF shebang
+# (`#!/usr/bin/env node\r`) breaks `npx` on macOS/Linux ("env: node\r: No such
+# file or directory") and mangles the Windows cmd-shim, producing
+# "Cannot find module" / "'…' is not recognized as an internal or external
+# command". Forcing eol=lf here means git checks these out as LF on every OS, so
+# `npm publish` from any machine packs LF.
+cli/bin/vibekit.mjs   text eol=lf
+cli/src/**            text eol=lf
+cli/scripts/**        text eol=lf
+
+# Shell scripts must stay LF to be executable.
+*.sh                  text eol=lf
