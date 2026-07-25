@@ -29,6 +29,9 @@ ${bold("Options")}
   --global        ${dim("Install the Claude Code skill to ~/.claude instead of the project")}
   --dir <path>    ${dim("Target directory (default: current directory)")}
   --force         ${dim("Overwrite files that already exist")}
+  --no-mcp        ${dim("Skip registering the Playwright MCP server")}
+  --no-skills     ${dim("Skip installing the ui-ux-pro-max Claude Code skill")}
+  --skills        ${dim("Install the skill even in non-interactive / CI runs")}
   -y, --yes       ${dim("Accept defaults, no prompts (for CI)")}
   -v, --version   ${dim("Print the version")}
   -h, --help      ${dim("Show this help")}
@@ -65,6 +68,15 @@ function parseArgs(argv) {
         break;
       case "--global":
         options.global = true;
+        break;
+      case "--no-mcp":
+        options.mcp = false;
+        break;
+      case "--no-skills":
+        options.skills = false;
+        break;
+      case "--skills":
+        options.skills = true;
         break;
       case "--agent":
         options.agent = argv[++i]?.toLowerCase();

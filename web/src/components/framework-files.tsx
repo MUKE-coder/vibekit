@@ -20,7 +20,7 @@ const tree = `vibekit/
 ├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2)
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
-├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
+├── agent-tooling.md             ← ui-ux-pro-max-skill + Playwright MCP (installed by init)
 ├── vibekit-primitives.md        ← Roadmap: 150 primitives — 100% complete ✨ (144 GitHub + 6 JB legacy)
 ├── registry.json                ← Root index for the GitHub registry
 ├── registry/                    ← Source for 144 installable primitives (auth, hooks, ...)

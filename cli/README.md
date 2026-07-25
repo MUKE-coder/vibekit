@@ -23,11 +23,26 @@ It installs:
 | `jb-components.md` | project root — component registry reference |
 | `pre-deploy-review.md` | project root — the pre-deploy security audit prompt |
 | Agent rules | your agent's auto-loaded path (see below) |
+| **Playwright MCP** | `.mcp.json` (+ `.cursor/mcp.json`) — a real browser so your agent can verify its own UI |
+| **ui-ux-pro-max skill** | `~/.claude/skills/` — senior-designer rules for Claude Code (best-effort clone) |
 
 This replaces quickstart step 5, which previously meant opening GitHub,
-downloading three files by hand, dropping them in the right folder, then running
-a separate `curl` command for the agent rules — four manual steps that silently
+downloading three files by hand, running a separate `curl` for the agent rules,
+then hand-installing an MCP and a skill — several manual steps that silently
 half-complete if any one is missed.
+
+### Playwright MCP & the ui-ux skill
+
+- **Playwright MCP** is registered by merging a project `.mcp.json` (and
+  `.cursor/mcp.json` for Cursor) — non-destructively, so your other MCP servers
+  are untouched. It gives the agent a real browser (navigate, click, fill, read
+  accessibility snapshots) so it can check the UI it just built. Skip with
+  `--no-mcp`. Restart your agent afterwards.
+- **ui-ux-pro-max skill** (Claude Code) is cloned from
+  [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+  into `~/.claude/skills/`. This is the one step that needs **git + network**, so
+  it's best-effort and non-fatal — and skipped in non-interactive/CI runs unless
+  you pass `--skills`. Skip entirely with `--no-skills`.
 
 ## Usage
 
@@ -39,6 +54,9 @@ npx vibekit-framework init --global           # Claude skill to ~/.claude, not t
 npx vibekit-framework init --yes              # accept defaults, no prompts (CI)
 npx vibekit-framework init --force            # overwrite existing files
 npx vibekit-framework init --dir ./my-app     # target a different directory
+npx vibekit-framework init --no-mcp           # don't register the Playwright MCP
+npx vibekit-framework init --no-skills        # don't install the ui-ux skill
+npx vibekit-framework init --skills           # install the skill even in CI
 ```
 
 ## Supported agents
@@ -62,9 +80,10 @@ command). Everything else gets `AGENTS.md` — the same rules, no frontmatter.
 - **Idempotent.** Re-running reports "already up to date" and changes nothing.
 - **Never clobbers your edits.** A file that exists with different content is
   left alone and listed in the summary; pass `--force` to overwrite.
-- **Offline.** The framework files are bundled into the package at publish time,
-  so `init` makes no network calls and installs the exact versions this CLI
-  version was tested against.
+- **Offline core.** The framework files are bundled at publish time and the MCP
+  config is plain file I/O, so the core install makes no network calls. The
+  **only** network step is cloning the ui-ux skill — it's best-effort, non-fatal,
+  and skipped in CI unless you pass `--skills`.
 - **Zero runtime dependencies.**
 
 ## Development

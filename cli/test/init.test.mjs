@@ -140,4 +140,87 @@ describe("vibekit CLI", () => {
       await rm(allDir, { recursive: true, force: true });
     }
   });
+
+  // ── Playwright MCP ────────────────────────────────────────────────────────
+
+  it("registers the Playwright MCP server in .mcp.json", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-mcp-"));
+    try {
+      // --no-skills so the test never touches the network.
+      const { code } = await vibekit(["init", "--dir", d, "--agent", "claude", "--yes", "--no-skills"]);
+      assert.equal(code, 0);
+      const cfg = JSON.parse(await readFile(path.join(d, ".mcp.json"), "utf8"));
+      assert.deepEqual(cfg.mcpServers.playwright, {
+        command: "npx",
+        args: ["@playwright/mcp@latest"],
+      });
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  it("also writes .cursor/mcp.json for the cursor agent", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-mcp-cursor-"));
+    try {
+      await vibekit(["init", "--dir", d, "--agent", "cursor", "--yes", "--no-skills"]);
+      assert.ok(existsSync(path.join(d, ".mcp.json")));
+      assert.ok(existsSync(path.join(d, ".cursor/mcp.json")));
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  it("merges MCP config without disturbing existing servers", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-mcp-merge-"));
+    try {
+      await writeFile(
+        path.join(d, ".mcp.json"),
+        JSON.stringify({ mcpServers: { mine: { command: "node" } }, keep: true }),
+        "utf8",
+      );
+      await vibekit(["init", "--dir", d, "--agent", "claude", "--yes", "--no-skills"]);
+      const cfg = JSON.parse(await readFile(path.join(d, ".mcp.json"), "utf8"));
+      assert.ok(cfg.mcpServers.mine, "existing server must be preserved");
+      assert.ok(cfg.mcpServers.playwright, "playwright must be added");
+      assert.equal(cfg.keep, true, "unrelated keys must be preserved");
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  it("does not clobber an unparseable .mcp.json", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-mcp-bad-"));
+    try {
+      const junk = "{ not valid json";
+      await writeFile(path.join(d, ".mcp.json"), junk, "utf8");
+      const { code, stdout } = await vibekit(["init", "--dir", d, "--agent", "claude", "--yes", "--no-skills"]);
+      assert.equal(code, 0);
+      assert.equal(await readFile(path.join(d, ".mcp.json"), "utf8"), junk);
+      assert.match(stdout, /couldn't parse/i);
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  it("--no-mcp skips MCP config entirely", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-nomcp-"));
+    try {
+      await vibekit(["init", "--dir", d, "--agent", "claude", "--yes", "--no-skills", "--no-mcp"]);
+      assert.ok(!existsSync(path.join(d, ".mcp.json")), ".mcp.json must not be created");
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  // ── ui-ux-pro-max skill ───────────────────────────────────────────────────
+
+  it("skips the skill in non-interactive runs without --skills (no network)", async () => {
+    const d = await mkdtemp(path.join(tmpdir(), "vibekit-skill-"));
+    try {
+      const { stdout } = await vibekit(["init", "--dir", d, "--agent", "claude", "--yes", "--no-mcp"]);
+      assert.match(stdout, /skipped in non-interactive mode/i);
+    } finally {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
 });

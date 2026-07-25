@@ -24,9 +24,9 @@ AGENT TOOLING (user-level — already installed on the user's machine if they fo
 
 If you (the agent) have access to these, use them:
 - **ui-ux-pro-max-skill** — a senior-designer rule pack. If present, defer to it for type rhythm, spacing, motion timing, hover states, anti-AI-slop polish on every component you generate.
-- **21st.dev Magic MCP** — gives you tools to search / preview / fetch from a catalog of polished React + Tailwind component snippets. When you need a marketing primitive that ISN'T in jb-components.md (an unusual hero variant, a specific testimonial layout, dashboard chrome, etc.), use the Magic MCP before writing from scratch. The framework registry covers structural primitives; the MCP covers the long tail.
+- **Playwright MCP** — gives you a real browser you drive over MCP: navigate, click, fill forms, and read the page's accessibility tree as structured snapshots. Use it to **verify your own UI work** — after you build or change a page, open it, confirm it renders, and click through the flow to catch broken states before the user sees them. The framework registry gives you the parts; Playwright MCP lets you check the result.
 
-Decision order when reaching for a component: (1) jb-components.md (battle-tested, installable), (2) 21st.dev Magic MCP (if available — long tail), (3) write from scratch using design-style-guide.md tokens. See agent-tooling.md for the rationale.
+Decision order when reaching for a component: (1) vibekit-primitives.md / jb-components.md (battle-tested, installable), (2) write from scratch using design-style-guide.md tokens, then (3) verify it in the browser with Playwright MCP if available. See agent-tooling.md for the rationale.
 
 If any of the four core files are missing, tell the user and do not proceed.
 

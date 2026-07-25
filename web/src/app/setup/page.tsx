@@ -6,9 +6,9 @@ import {
   CheckCircle2,
   GitBranch,
   Package,
+  MonitorPlay,
   Sparkles,
   Terminal,
-  Wand2,
 } from "lucide-react";
 import { CopyBlock } from "@/components/copy-block";
 import { Footer } from "@/components/footer";
@@ -142,9 +142,9 @@ export default function SetupPage() {
 
         {/* Step 0.5 — Agent superpowers */}
         <Section
-          eyebrow="STEP 0.5 · 5 MIN · AGENT TOOLING"
+          eyebrow="STEP 0.5 · AGENT TOOLING"
           title={<>Give your agent <em className="not-italic gradient-text">superpowers</em> before you build.</>}
-          description="Two installs that compound the framework's value: a UI/UX skill that locks senior-designer instincts into every conversation, and an MCP that gives the agent access to hundreds of polished components on demand. Both are user-level — install once, every project benefits."
+          description="Two tools compound the framework's value: a UI/UX skill that locks senior-designer instincts into every conversation, and a Playwright MCP that gives the agent a real browser to verify its own work. You don't set these up by hand — npx vibekit-framework init installs both for you. The commands below are the manual fallback."
           containerClassName="max-w-4xl"
         >
           <div className="grid gap-5 md:grid-cols-2">
@@ -158,7 +158,7 @@ export default function SetupPage() {
                   <div className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">Claude skill</div>
                   <h3 className="mt-1 font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">ui-ux-pro-max-skill</h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                    Senior-designer rules (type rhythm, spacing, motion, contrast, anti-AI-slop) auto-loaded on every Claude Code conversation.
+                    Senior-designer rules (type rhythm, spacing, motion, contrast, anti-AI-slop) auto-loaded on every Claude Code conversation. <span className="text-[color:var(--text-primary)]">Installed for you by <code className="font-mono text-[12px]">vibekit-framework init</code></span> — the command below is the manual fallback.
                   </p>
                 </div>
               </div>
@@ -181,17 +181,17 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
               </a>
             </div>
 
-            {/* 21st.dev Magic MCP card */}
+            {/* Playwright MCP card */}
             <div className="reveal flex flex-col gap-5 rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6">
               <div className="flex items-start gap-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-[color:var(--border)] bg-[color:var(--bg-subtle)] text-[color:var(--accent)]">
-                  <Wand2 className="h-4 w-4" />
+                  <MonitorPlay className="h-4 w-4" />
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">MCP server</div>
-                  <h3 className="mt-1 font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">21st.dev Magic</h3>
+                  <h3 className="mt-1 font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">Playwright MCP</h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                    Hundreds of polished React + Tailwind component snippets the agent can search and pull on demand — heroes, testimonials, dashboards, the long tail.
+                    A real browser the agent drives over MCP — navigate, click, fill forms, read the page's accessibility tree as structured snapshots. It <span className="text-[color:var(--text-primary)]">verifies its own UI work</span> instead of you checking by hand.
                   </p>
                 </div>
               </div>
@@ -199,31 +199,35 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
               <ol className="space-y-3 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
                 <li className="flex gap-3">
                   <span className="font-mono text-[11px] font-semibold text-[color:var(--accent)]">01</span>
-                  <span>Sign in at <a href="https://21st.dev" target="_blank" rel="noopener noreferrer" className="text-[color:var(--text-primary)] underline-offset-2 hover:underline">21st.dev</a>, open your dashboard, create an MCP API key.</span>
+                  <span><code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">vibekit-framework init</code> registers this in your project's <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">.mcp.json</code> for you.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-[11px] font-semibold text-[color:var(--accent)]">02</span>
-                  <span>Run the install below (substitute your key).</span>
+                  <span>To add it manually to Claude Code, run the command below.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-[11px] font-semibold text-[color:var(--accent)]">03</span>
-                  <span>Restart Claude Code. <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">/mcp</code> will list <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">magic</code>.</span>
+                  <span>Restart Claude Code. <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">/mcp</code> will list <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">playwright</code>.</span>
                 </li>
               </ol>
 
               <CopyBlock
                 label="Install (Claude Code)"
                 language="bash"
-                code={`claude mcp add magic --scope user --env API_KEY="YOUR_21ST_DEV_API_KEY" -- npx -y @21st-dev/magic@latest`}
+                code={`claude mcp add playwright npx @playwright/mcp@latest`}
               />
 
+              <p className="text-[12.5px] leading-relaxed text-[color:var(--text-tertiary)]">
+                Other agents (Cursor, Windsurf, VS Code) read the same standard config — a <code className="font-mono text-[12px]">playwright</code> server in <code className="font-mono text-[12px]">.mcp.json</code> running <code className="font-mono text-[12px]">npx @playwright/mcp@latest</code>.
+              </p>
+
               <a
-                href="https://21st.dev"
+                href="https://github.com/microsoft/playwright-mcp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-wider text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--text-primary)]"
               >
-                Get your API key
+                Playwright MCP docs
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </div>
@@ -234,7 +238,7 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
             <div className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[color:var(--accent)]" />
               <div className="text-[14px] leading-relaxed text-[color:var(--text-secondary)]">
-                <strong className="font-medium text-[color:var(--text-primary)]">Using Cursor / Cline / Windsurf / Codex?</strong> The skill is markdown — copy its content into your agent's rules file (e.g. <code className="font-mono text-[12px]">.cursor/rules/ui-ux-pro-max.mdc</code>). The MCP is open protocol — every modern agent supports it. See the per-agent install paths in{" "}
+                <strong className="font-medium text-[color:var(--text-primary)]">Using Cursor / Cline / Windsurf / Codex?</strong> The skill is markdown — copy its content into your agent's rules file (e.g. <code className="font-mono text-[12px]">.cursor/rules/ui-ux-pro-max.mdc</code>). The Playwright MCP is open protocol — every modern agent reads the same standard config (Cursor uses <code className="font-mono text-[12px]">.cursor/mcp.json</code>). See the per-agent install paths in{" "}
                 <Link href={`${SITE.github}/blob/main/agent-tooling.md`} className="text-[color:var(--text-primary)] underline-offset-2 hover:underline">
                   agent-tooling.md
                 </Link>

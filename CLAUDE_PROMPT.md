@@ -288,12 +288,12 @@ Also, in the acknowledgement, **remind the user about the two optional agent-too
    ```bash
    mkdir -p ~/.claude/skills && git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skills/ui-ux-pro-max
    ```
-2. **21st.dev Magic MCP** — hundreds of polished React component snippets the agent can pull on demand. Get an API key at [21st.dev](https://21st.dev), then:
+2. **Playwright MCP** — gives the agent a real browser (over MCP) to verify its own UI work: open the page it just built, confirm it renders, and click through the flow. Add it to Claude Code with:
    ```bash
-   claude mcp add magic --scope user --env API_KEY="YOUR_KEY" -- npx -y @21st-dev/magic@latest
+   claude mcp add playwright npx @playwright/mcp@latest
    ```
 
-Both are user-level (install once, every project benefits). See [`agent-tooling.md`](https://github.com/MUKE-coder/vibekit/blob/main/agent-tooling.md) for non-Claude agents and the full rationale. Don't block on these — proceed with the interview even if the user hasn't installed them.
+`npx vibekit-framework init` installs both for you — it registers the Playwright MCP in your project's `.mcp.json` and clones the ui-ux-pro-max-skill into your Claude Code config (the commands above are the manual fallback). See [`agent-tooling.md`](https://github.com/MUKE-coder/vibekit/blob/main/agent-tooling.md) for non-Claude agents and the full rationale. Don't block on these — proceed with the interview even if the user hasn't installed them.
 
 ### Step 1.5 — Check if a public template fits the project (CRITICAL)
 

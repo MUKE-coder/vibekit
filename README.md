@@ -107,20 +107,16 @@ The written version with copyable prompts is also on the site: [vibekit.desishub
 
 Before anything else, make sure your machine has Node 20+, pnpm 9+, git, and gh CLI installed. The fastest check: copy the OS-specific prompt from [`setup-prompts/`](./setup-prompts) (macOS / Windows / Linux) and paste it into your AI coding agent. It runs a single safe shell command and tells you exactly what's installed and what to fix — without touching your system. Or visit [vibekit.desishub.com/setup](https://vibekit.desishub.com/setup) for the full guide with one-click copy.
 
-### Step 0.5 — Give your agent superpowers (5 min, highly recommended)
+### Step 0.5 — Give your agent superpowers (installed for you)
 
-Two user-level installs that compound the framework's value on every project:
+Two tools compound the framework's value on every project:
 
-1. **`ui-ux-pro-max-skill`** — a Claude Code skill that auto-loads senior-designer rules (type rhythm, spacing, motion, contrast) into every conversation. Install:
-   ```bash
-   mkdir -p ~/.claude/skills && git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skills/ui-ux-pro-max
-   ```
-2. **21st.dev Magic MCP** — gives Claude access to hundreds of polished component snippets on demand. Sign in at [21st.dev](https://21st.dev), grab an MCP API key, then:
-   ```bash
-   claude mcp add magic --scope user --env API_KEY="YOUR_KEY" -- npx -y @21st-dev/magic@latest
-   ```
+1. **`ui-ux-pro-max-skill`** — a Claude Code skill that auto-loads senior-designer rules (type rhythm, spacing, motion, contrast) into every conversation.
+2. **Playwright MCP** — gives the agent a real browser via the Model Context Protocol. It can navigate, click, fill forms, and read the page's accessibility tree as structured snapshots — so **the agent can verify its own UI work** (open the page it just built, check it renders, exercise the flow) instead of you checking by hand.
 
-For non-Claude agents (Cursor, Cline, Codex, Windsurf), see [`agent-tooling.md`](./agent-tooling.md). Both installs are user-level — set up once, every VibeKit project benefits.
+**You don't install these manually — `npx vibekit-framework init` (Step 6) does it for you.** It registers the Playwright MCP by merging a project `.mcp.json` (non-destructively, opt out with `--no-mcp`), and clones the ui-ux-pro-max-skill into `~/.claude/skills/` for Claude Code (best-effort — needs git + network; opt out with `--no-skills`).
+
+For manual setup or non-Claude agents (Cursor, Cline, Codex, Windsurf), see [`agent-tooling.md`](./agent-tooling.md).
 
 ### Step 1 — Copy the planning prompt
 
@@ -225,7 +221,7 @@ vibekit/
 ├── multi-tenant.md              ← Orgs + RBAC + scoped queries (B2B SaaS)
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2 / compliance)
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
-├── agent-tooling.md             ← ui-ux-pro-max-skill + 21st.dev Magic MCP (user-level)
+├── agent-tooling.md             ← ui-ux-pro-max-skill + Playwright MCP (installed by init)
 ├── vibekit-primitives.md        ← Roadmap: 150 primitives — 100% production coverage ✨ (144 via GitHub registry + 6 graduated to JB legacy)
 ├── nextjs-reusable-library-150.md ← The 150-item source list the registry was built from
 ├── vibekit-code-review.md       ← Code-review prompt

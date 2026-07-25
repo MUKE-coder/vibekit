@@ -3,6 +3,8 @@ import path from "node:path";
 
 import { AGENTS, AGENT_KEYS, detectAgent } from "./agents.mjs";
 import { FRAMEWORK_FILES, displayPath, readTemplate, writeFileSafe } from "./files.mjs";
+import { installPlaywrightMcp } from "./mcp.mjs";
+import { installUiUxSkill, UIUX_MANUAL_CMD } from "./skills.mjs";
 import { bold, confirm, cyan, dim, fail, green, log, ok, select, skip, step, warn, isInteractive } from "./ui.mjs";
 
 /**
@@ -126,6 +128,56 @@ export async function init(options) {
     else {
       skip(`${agent.label} — ${shown} exists, left alone`);
       skippedPaths.push(shown);
+    }
+  }
+
+  // ── 3. Playwright MCP ───────────────────────────────────────────────────
+  // Gives the agent a real browser to verify its own UI work. Pure file I/O —
+  // writes/merges the project MCP config without touching any other server.
+  if (options.mcp !== false) {
+    log();
+    step(`Playwright MCP ${dim("→ browser automation for your agent")}`);
+    const mcpResults = await installPlaywrightMcp(cwd, targets, { force: options.force });
+    for (const { file, status } of mcpResults) {
+      if (status === "written") ok(`playwright ${dim(`→ ${file}`)}`);
+      else if (status === "identical") skip(`${file} — already configured`);
+      else if (status === "exists") {
+        skip(`${file} — a different "playwright" server is set, left alone`);
+        skippedPaths.push(file);
+      } else if (status === "unparseable") {
+        warn(`${file} — couldn't parse existing JSON, left untouched. Add the playwright server manually.`);
+      }
+    }
+    log(dim(`     Restart your agent, then it can drive a browser via @playwright/mcp.`));
+  }
+
+  // ── 4. ui-ux-pro-max skill (Claude Code) ────────────────────────────────
+  // A Claude Code skill (a git repo), so the install is a clone — the one step
+  // that needs the network. Best-effort and non-fatal: skipped in CI unless
+  // forced, and a failure just prints the manual command.
+  const wantSkill =
+    options.skills !== false &&
+    targets.includes("claude") &&
+    (isInteractive() || options.skills === true);
+
+  if (options.skills !== false && targets.includes("claude")) {
+    log();
+    step(`ui-ux-pro-max skill ${dim("→ senior-designer rules for Claude Code")}`);
+    if (!wantSkill) {
+      skip(`skipped in non-interactive mode — re-run with ${cyan("--skills")} to install`);
+    } else {
+      log(dim(`     cloning… (needs git + network)`));
+      const { status, dir } = installUiUxSkill();
+      if (status === "installed") ok(`ui-ux-pro-max ${dim(`→ ${dir}`)}`);
+      else if (status === "already") skip(`already installed at ${dim(dir)}`);
+      else {
+        warn(
+          status === "no-git"
+            ? `git not found — install it, then run:`
+            : `couldn't clone the skill. Install it manually:`,
+        );
+        log(`      ${dim(UIUX_MANUAL_CMD)}`);
+      }
     }
   }
 

@@ -1,8 +1,8 @@
 # Agent Tooling — Skills & MCPs that Make VibeKit Builds Better
 
-> Two installs that compound the framework's value: a **UI/UX skill** that locks design quality into every conversation, and an **MCP server** that gives the agent access to hundreds of polished component snippets.
+> Two tools that compound the framework's value: a **UI/UX skill** that locks design quality into every conversation, and an **MCP server** that gives the agent a real browser to verify its own work.
 >
-> Both are user-side installs (they live in your Claude / Cursor / Cline config, not in your project). Set them up ONCE on your machine and every VibeKit project benefits.
+> **`npx vibekit-framework init` installs both for you** — it registers the Playwright MCP in your project's `.mcp.json` and clones the ui-ux-pro-max-skill into your Claude Code config. This guide is the manual / other-agent fallback and the rationale behind them.
 
 ---
 
@@ -11,9 +11,9 @@
 | Tool | What it does | Who it benefits |
 |---|---|---|
 | **ui-ux-pro-max-skill** | Auto-loads senior-designer rules into every Claude Code conversation — typography, spacing, motion, contrast, modern aesthetics | Anyone who wants "this doesn't look AI-built" output without writing 1000 lines of design rules |
-| **21st.dev Magic MCP** | Lets the agent search / preview / fetch from 21st.dev's catalog of hundreds of polished React + Tailwind components mid-conversation | Anyone who'd otherwise paste shadcn snippets manually all day |
+| **Playwright MCP** | Gives the agent a real browser it drives over MCP — navigate, click, fill forms, read the page's accessibility tree as structured snapshots — so it can verify the UI it just built | Anyone who wants the agent to catch its own render bugs and broken flows before the user ever sees them |
 
-Combined effect: the agent has **opinionated design taste** (skill) + **a huge gallery of vetted parts** (MCP). VibeKit's master_prompt locks the stack; these two raise the visual ceiling.
+Combined effect: the agent has **opinionated design taste** (skill) + **the ability to check its own work in a real browser** (MCP). VibeKit's master_prompt locks the stack; these two raise the visual ceiling and close the feedback loop.
 
 ---
 
@@ -22,6 +22,8 @@ Combined effect: the agent has **opinionated design taste** (skill) + **a huge g
 ### What it is
 
 A Claude Code skill from [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — a markdown rule pack the agent auto-loads on every conversation. It encodes senior-designer instincts: type scales, spacing rhythm, motion timing, contrast ratios, "this is AI slop" anti-patterns.
+
+> **`npx vibekit-framework init` installs this for you** (Claude Code target only) by cloning the skill into `~/.claude/skills/ui-ux-pro-max`. It's best-effort — it needs git + a network connection, and it's skipped in non-interactive / CI runs unless you pass `--skills`. Opt out entirely with `--no-skills`. The manual steps below are the fallback and the path for other agents.
 
 ### Install (Claude Code)
 
@@ -52,61 +54,59 @@ VibeKit's master_prompt locks the stack (Next.js 16, Prisma v7, framer-motion, e
 
 ---
 
-## 2. 21st.dev Magic MCP
+## 2. Playwright MCP
 
 ### What it is
 
-An MCP (Model Context Protocol) server from [21st.dev](https://21st.dev) that lets your agent search, preview, and fetch components from 21st.dev's catalog mid-build. Instead of "give me a hero section" producing generic shadcn output, the agent can pull from a curated library of hundreds of polished hero/pricing/testimonial/dashboard parts.
+An MCP (Model Context Protocol) server from Microsoft — [`@playwright/mcp`](https://github.com/microsoft/playwright-mcp) — that gives your agent a real browser. Over MCP it can navigate to a URL, click, type, fill forms, and read back the page's **accessibility tree as structured snapshots** (no vision model needed — it works from the semantic structure of the page).
 
-Free tier covers most usage; the API key is just to identify you.
+The point for VibeKit: instead of the agent building a page and you manually opening it to see if it renders, **the agent verifies its own work** — it opens the page it just built, confirms it renders, and clicks through the flow to catch broken states before you ever see them.
 
-### Setup
+> **`npx vibekit-framework init` sets this up for you** by merging a project-level `.mcp.json` (and `.cursor/mcp.json` when your agent is Cursor). The merge is non-destructive — it never disturbs other MCP servers — and idempotent. Opt out with `--no-mcp`. The steps below are the manual fallback.
 
-**Step 1: Get an API key**
+### Standard config
 
-1. Go to [21st.dev](https://21st.dev)
-2. Sign in (GitHub OAuth)
-3. Go to your dashboard → **API** section
-4. Create a new API key for MCP use
-5. Copy it — it looks like a long hex string
+The server needs no API key. The standard `.mcp.json` (in your project root) is:
 
-**Step 2: Install the MCP into Claude Code**
-
-```bash
-claude mcp add magic --scope user --env API_KEY="PASTE_YOUR_API_KEY_HERE" -- npx -y @21st-dev/magic@latest
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
 ```
 
-Substitute `PASTE_YOUR_API_KEY_HERE` with the key from step 1. `--scope user` means the MCP is available in every Claude Code session, not just one project.
+**Prereqs:** Node.js 20+ and an MCP client.
 
-**Step 3: Restart Claude Code**
+### Install (Claude Code)
 
-The MCP shows up in the `/mcp` command list. The agent can now use `magic.search`, `magic.preview`, `magic.add` (or whatever the server exposes) during a conversation.
+```bash
+claude mcp add playwright npx @playwright/mcp@latest
+```
+
+Restart Claude Code. The server shows up in the `/mcp` command list, and the agent can drive the browser during a conversation.
 
 ### Setup (other agents)
 
-MCPs are an open protocol. The same `@21st-dev/magic` server works wherever the agent supports MCPs:
+MCPs are an open protocol, and every modern MCP client reads the same standard config shape shown above:
 
-- **Cursor**: Settings → MCP → Add server → `npx -y @21st-dev/magic@latest` with env `API_KEY=...`
+- **Cursor**: writes to `.cursor/mcp.json` (same `mcpServers` block)
+- **VS Code**: add the same `playwright` server entry to your MCP config
+- **Windsurf**: Settings → MCPs → add the same command + args
 - **Cline**: `cline_mcp_settings.json` (see Cline's MCP docs)
-- **Codex CLI**: `codex.toml` MCP section
-- **Windsurf**: Settings → MCPs
 
-The install command shape and per-agent config file changes, but the package + env var pattern is identical.
+The config file location changes per agent; the `command` + `args` are identical everywhere.
 
 ### Why it pairs well with VibeKit
 
-VibeKit's **Component Registry** (the 32 JB + in-house components) is the *known* set — auth, payments, kanban, charts, marketing primitives. It covers the big, structural primitives.
-
-21st.dev Magic MCP is the *long tail* — when the agent needs an unusual hero variant, a specific testimonial layout, a dashboard chrome the registry doesn't ship, it has a huge gallery to pull from on demand. Together: predictable structural building blocks + on-demand variety for everything else.
+VibeKit's **Component Registry** gives the agent battle-tested structural primitives to assemble; the ui-ux-pro-max-skill gives it design taste. Playwright MCP closes the loop: after the agent wires those parts into a page, it can **open that page in a real browser and check the result** — does it render, does the form submit, does the selected state actually show — catching render bugs and broken flows before the user does.
 
 ### Security note
 
-Treat the API key like any secret:
-- Don't commit it
-- Use a different key per machine if you can
-- Rotate if you accidentally paste it somewhere public
-
-The `--scope user` install means the key lives in your Claude Code user config (e.g. `~/.claude/mcp.json` or similar), NOT in your project's git history.
+The standard config above is safe to commit. One aside: the server also exposes a `browser_run_code_unsafe` tool that is RCE-equivalent — the standard config does **not** enable it, so leave it off unless you fully understand the risk.
 
 ---
 
@@ -115,7 +115,7 @@ The `--scope user` install means the key lives in your Claude Code user config (
 | Need | Use |
 |---|---|
 | Auth, file uploads, Stripe checkout, data tables, kanban, charts, multi-step forms, command palette, notification center | **VibeKit registry** — battle-tested, installable, source visible in `jb-components.md` |
-| Marketing hero, testimonial, pricing tier, dashboard chrome, feature grid you can't find in the registry | **21st.dev Magic MCP** — pull a component on demand |
+| Verify the UI actually works — open the page just built, click through the flow, check the accessibility tree renders as expected | **Playwright MCP** — drive a real browser to check its own work |
 | Final-mile polish on any UI (spacing, motion, type, hover states) | **ui-ux-pro-max-skill** — applies passively in the background |
 
 The agent uses all three. It doesn't pick one.
@@ -125,21 +125,21 @@ The agent uses all three. It doesn't pick one.
 ## Recommended install order
 
 1. **Phase 0** (machine setup, [/setup](https://vibekit.desishub.com/setup)) — Node, pnpm, git, gh
-2. **Phase 0.5** (this guide) — install ui-ux-pro-max-skill + 21st.dev Magic MCP
+2. **Phase 0.5** — done for you by `npx vibekit-framework init`: it registers the Playwright MCP and clones the ui-ux-pro-max-skill. Only reach for this guide if you're setting them up manually or on a non-Claude agent.
 3. **Step 1** ([CLAUDE_PROMPT.md](./CLAUDE_PROMPT.md)) — paste planning prompt into Claude
 4. **Phase 1 onwards** — build your project
 
-The Phase 0.5 installs are user-level. Set them up once, benefit forever.
+The Playwright MCP lives in your project's `.mcp.json`; the skill is user-level. Set up once (by `init`), benefit forever.
 
 ---
 
 ## Reference
 
 - **ui-ux-pro-max-skill:** [github.com/nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
-- **21st.dev:** [21st.dev](https://21st.dev) — sign in, grab an MCP API key
-- **MCP package:** [`@21st-dev/magic`](https://www.npmjs.com/package/@21st-dev/magic)
+- **Playwright MCP:** [github.com/microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) — docs, config, and tool list
+- **MCP package:** [`@playwright/mcp`](https://www.npmjs.com/package/@playwright/mcp)
 - **Claude Code MCP docs:** see `claude mcp --help` or [docs.claude.com/en/docs/claude-code](https://docs.claude.com/en/docs/claude-code)
 
 ---
 
-_Last updated: 2026-05-18_
+_Last updated: 2026-07-25_
