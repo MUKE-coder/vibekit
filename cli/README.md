@@ -21,7 +21,8 @@ It installs:
 |---|---|
 | `master_prompt.md` | project root — the coding constitution |
 | `jb-components.md` | project root — component registry reference |
-| `pre-deploy-review.md` | project root — the pre-deploy security audit prompt |
+| `pre-deploy-review.md` | project root — the pre-deploy security + performance audit prompt |
+| `pre-design-review.md` | project root — the UI/UX design audit prompt (against your style guide) |
 | Agent rules | your agent's auto-loaded path (see below) |
 | **Playwright MCP** | `.mcp.json` (+ `.cursor/mcp.json`) — a real browser so your agent can verify its own UI |
 | **ui-ux-pro-max skill** | `~/.claude/skills/` — senior-designer rules for Claude Code (best-effort clone) |

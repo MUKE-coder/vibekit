@@ -168,7 +168,8 @@ One command installs everything you'd otherwise copy by hand:
 |---|---|
 | [`master_prompt.md`](./master_prompt.md) | Tech stack rules, Prisma v7 patterns, coding standards |
 | [`jb-components.md`](./jb-components.md) | JB component registry reference (when to use each) |
-| [`pre-deploy-review.md`](./pre-deploy-review.md) | The pre-deploy security audit prompt |
+| [`pre-deploy-review.md`](./pre-deploy-review.md) | The pre-deploy security + performance audit prompt |
+| [`pre-design-review.md`](./pre-design-review.md) | The UI/UX design audit prompt (checks the app against your style guide) |
 | Your agent's rules file | Auto-loads the framework rules every session |
 
 It detects your agent (Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI,
@@ -209,6 +210,7 @@ vibekit/
 ├── design-style-guide.md        ← Design style guide template (Claude customizes per project)
 ├── jb-components.md             ← JB component registry reference (copy to your project)
 ├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf/Redis/WebVitals audit
+├── pre-design-review.md         ← Paste into your agent after a UI is built — design audit vs your style guide
 │
 ├── prompt-engineering.md        ← Token economy, prompt formula, rescue system
 ├── deployment.md                ← Vercel, Netlify, VPS, Cloudflare, SSL
@@ -280,6 +282,18 @@ Before shipping to production, run [`pre-deploy-review.md`](./pre-deploy-review.
 - **Resource consumption** — memory leaks, unclosed streams, missing timeouts
 
 Claude Code writes the findings to `pre-deploy-review-report.md`. Address every Critical issue before deploying. This is a phase task in every VibeKit project.
+
+## Pre-Design Review
+
+The visual counterpart to the code review. Run [`pre-design-review.md`](./pre-design-review.md) after a UI is built to audit **how the app looks and feels** — it compares the built screens against your own `design-style-guide.md` **and** a set of universal design principles (synthesized from Nielsen Norman Group, the Webflow design-system checklist, and classic design fundamentals):
+
+- **System fidelity** — colors/type/spacing/components that drift from your style guide
+- **Hierarchy, layout, whitespace, typography, color & contrast (WCAG AA)**
+- **Interaction states** — the eight-state contract (hover, focus, loading, error, success, …)
+- **Accessibility & responsive safety** — keyboard, focus rings, 375px, no horizontal scroll
+- **Copy integrity** — flags fabricated metrics/testimonials (a liability, treated as Critical)
+
+With the **Playwright MCP** (installed by `npx vibekit-framework init`), the agent opens the rendered pages in a real browser and judges the actual result, not just the JSX. Findings go to `pre-design-review-report.md`; fixes use your design tokens.
 
 ---
 

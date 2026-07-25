@@ -82,7 +82,7 @@ describe("vibekit CLI", () => {
     const { code } = await vibekit(["init", "--dir", dir, "--agent", "claude", "--yes"]);
     assert.equal(code, 0);
 
-    for (const f of ["master_prompt.md", "jb-components.md", "pre-deploy-review.md"]) {
+    for (const f of ["master_prompt.md", "jb-components.md", "pre-deploy-review.md", "pre-design-review.md"]) {
       assert.ok(existsSync(path.join(dir, f)), `${f} should exist`);
     }
     assert.ok(existsSync(path.join(dir, ".claude/skills/vibekit/SKILL.md")));

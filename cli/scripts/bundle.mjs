@@ -22,6 +22,7 @@ const SOURCES = [
   ["master_prompt.md", "master_prompt.md"],
   ["jb-components.md", "jb-components.md"],
   ["pre-deploy-review.md", "pre-deploy-review.md"],
+  ["pre-design-review.md", "pre-design-review.md"],
   ["skill/SKILL.md", "SKILL.md"],
   ["skill/AGENTS.md", "AGENTS.md"],
 ];

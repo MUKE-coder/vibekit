@@ -16,7 +16,8 @@ export const TEMPLATES_DIR = path.resolve(__dirname, "..", "templates");
 export const FRAMEWORK_FILES = [
   { name: "master_prompt.md", purpose: "The coding constitution — rules the agent must follow" },
   { name: "jb-components.md", purpose: "Component registry reference" },
-  { name: "pre-deploy-review.md", purpose: "Security audit prompt for pre-deploy review" },
+  { name: "pre-deploy-review.md", purpose: "Security + performance audit prompt (before deploy)" },
+  { name: "pre-design-review.md", purpose: "UI/UX design audit prompt (against your style guide)" },
 ];
 
 /** Expands a leading `~` to the user's home directory. */
