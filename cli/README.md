@@ -87,6 +87,33 @@ command). Everything else gets `AGENTS.md` — the same rules, no frontmatter.
   and skipped in CI unless you pass `--skills`.
 - **Zero runtime dependencies.**
 
+## Troubleshooting
+
+### `npx` fails with "Cannot find module … \bin\vibekit.mjs" / "is not recognized as a command"
+
+If your Windows username (and so your home folder) contains a special character
+like `&`, `^`, `(`, or a space — e.g. `C:\Users\I&I\…` — `npx` builds a command
+line that `cmd` mis-parses (it treats `&` as a separator), and **every** npx tool
+breaks for that account, not just this one. Two fixes:
+
+**A. Move npm's cache off the special-character path** (fixes `npx` for everything):
+
+```bash
+npm config set cache D:\npm-cache
+npx vibekit-framework init
+```
+
+**B. Install it into your project and run it with `node` directly** (bypasses
+`npx` and the shim entirely — your project path has no special characters):
+
+```bash
+npm install vibekit-framework
+node node_modules/vibekit-framework/bin/vibekit.mjs init
+```
+
+Both avoid the `&`-in-path that trips up `cmd`. The permanent fix is a Windows
+username without special characters, but that's rarely worth it.
+
 ## Development
 
 ```bash
