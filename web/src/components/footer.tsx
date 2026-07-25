@@ -5,6 +5,7 @@ const cols = [
   {
     label: "Framework",
     links: [
+      { name: "Beginner's guide (PDF)", href: "/vibekit-beginners-guide.pdf", download: true },
       { name: "Tutorial — TaskFlow course", href: "/tutorial" },
       { name: "Quickstart", href: "/docs/quickstart" },
       { name: "Components", href: "/components" },
@@ -57,22 +58,26 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => {
                   const external = link.href.startsWith("http");
+                  const linkClass =
+                    "text-[14px] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors";
                   return (
                     <li key={link.name}>
-                      {external ? (
+                      {"download" in link && link.download ? (
+                        // Static asset — a plain anchor with download, not next/link.
+                        <a href={link.href} download className={linkClass}>
+                          {link.name}
+                        </a>
+                      ) : external ? (
                         <a
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[14px] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors"
+                          className={linkClass}
                         >
                           {link.name}
                         </a>
                       ) : (
-                        <Link
-                          href={link.href}
-                          className="text-[14px] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors"
-                        >
+                        <Link href={link.href} className={linkClass}>
                           {link.name}
                         </Link>
                       )}

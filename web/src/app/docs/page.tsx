@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/footer";
+import { GuideDownload } from "@/components/guide-download";
 import { Nav } from "@/components/nav";
 import { Section } from "@/components/section";
 import { SITE } from "@/lib/utils";
@@ -59,6 +60,8 @@ export default function DocsHub() {
           description="The framework lives in two places: this site (which you can read straight through), and the GitHub repo (which contains the actual prompts and reference guides Claude Code uses)."
           containerClassName="max-w-5xl"
         >
+          <GuideDownload variant="inline" className="reveal mb-8" />
+
           <div className="grid gap-3 sm:grid-cols-2">
             {guides.map((g) => (
               <Link

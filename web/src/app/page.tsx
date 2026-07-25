@@ -6,6 +6,7 @@ import { CTA } from "@/components/cta";
 import { Footer } from "@/components/footer";
 import { FourFiles } from "@/components/four-files";
 import { FrameworkFiles } from "@/components/framework-files";
+import { GuideDownload } from "@/components/guide-download";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
 import { HowItWorksFlow } from "@/components/how-it-works-flow";
@@ -29,6 +30,7 @@ export default function HomePage() {
         <Problems />
         <HowItWorks />
         <FourFiles />
+        <GuideDownload variant="band" />
         <Stack />
         <FrameworkFiles />
         <PreDeploy />

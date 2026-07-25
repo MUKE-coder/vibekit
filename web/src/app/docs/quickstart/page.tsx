@@ -6,6 +6,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { CopyBlock } from "@/components/copy-block";
+import { GuideDownload } from "@/components/guide-download";
 import { AgentInstallTabs } from "@/components/agent-install-tabs";
 import { readPrompt } from "@/lib/read-prompt";
 import { SITE } from "@/lib/utils";
@@ -89,6 +90,9 @@ export default function Quickstart() {
               From a one-line idea to a deployed Next.js app, with an opinionated workflow that prevents the usual AI failure modes. <strong className="font-medium text-[color:var(--text-primary)]">No GitHub round-trip needed</strong> — every prompt is copyable right here.
             </p>
           </header>
+
+          {/* Prefer a linear read? The PDF guide covers the same path end to end. */}
+          <GuideDownload variant="inline" className="mt-10" />
 
           {/* Step 0 — environment pre-flight. Lives on its own page because it's
               OS-specific; linking it here stops people hitting step 6 with no pnpm. */}

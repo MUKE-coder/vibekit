@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Footer } from "@/components/footer";
+import { GuideDownload } from "@/components/guide-download";
 import { Nav } from "@/components/nav";
 import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
@@ -176,6 +177,11 @@ export default function TutorialPage() {
               <Button href={SITE.community} variant="outline" size="lg">
                 Join the community
               </Button>
+            </div>
+
+            {/* Prefer to read first? The beginner's guide covers this whole path. */}
+            <div className="mx-auto mt-8 max-w-xl text-left">
+              <GuideDownload variant="inline" />
             </div>
           </div>
 

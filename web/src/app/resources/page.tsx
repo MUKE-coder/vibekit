@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Section } from "@/components/section";
+import { GuideDownload } from "@/components/guide-download";
 import { ResourcesBrowser } from "@/components/resources-browser";
 import { resources } from "@/lib/resources-data";
 import { SITE } from "@/lib/utils";
@@ -35,6 +36,8 @@ export default function ResourcesPage() {
           description="Hand-picked from the awesome-shadcn-ui list and our own builds. Registries, blocks, templates, themes, animations, AI primitives, deployment platforms — all curated for production use."
           containerClassName="max-w-6xl"
         >
+          <GuideDownload variant="inline" className="reveal mb-10" />
+
           <ResourcesBrowser />
 
           <p className="mt-12 text-center text-[13px] text-[color:var(--text-tertiary)]">
