@@ -1923,7 +1923,48 @@ Inputs: `focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-acc
 
 A button with no hover state, no focus ring, and no transition is a sign the agent gave up. Don't.
 
-> Honest-copy, state-contract and transition-property rules adapted from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors).
+
+MARKETING-PAGE ANTI-SLOP (landing pages, heroes, marketing sections ONLY)
+──────────────────────────────────────────────────────
+These fight the specific patterns an LLM defaults to when it tries to "look
+designed." They apply to the app's MARKETING surface — NOT to dashboards, data
+tables, admin, or product UI, where consistent repetition is correct and the
+design-style-guide.md tokens rule everything.
+
+- NO em-dashes in any user-facing copy. The `—` is the #1 AI tell in generated
+  UIs. Headlines, eyebrows, buttons, body, captions, alt text: use a period,
+  comma, colon, parentheses, or a plain hyphen `-`. (This is about rendered copy,
+  not your code comments.)
+- NO section-number or status eyebrows: `00 / INDEX`, `001 · Capabilities`,
+  `06 · How it works`, `V0.6`, `BETA`, `INVITE-ONLY`. Name the topic plainly or
+  drop the label.
+- Eyebrow restraint: at most ~1 uppercase `tracking-wider` label per 3 sections.
+  Not one above every heading. The headline alone is usually enough.
+- Hero fits the first viewport: headline ≤ 2 lines, subtext ≤ ~20 words, primary
+  CTA visible without scrolling. A 4-line headline is a font-size error, not a
+  copy-length one. No trust micro-strips or taglines crammed into the hero — move
+  them to a section below.
+- NO three equal feature cards in a row (the generic default). Vary composition;
+  cap "left-image/right-text" zigzag at 2 in a row; a bento grid has exactly as
+  many cells as items (no empty tiles). An ~8-section page uses ≥ 4 layout families.
+- NO fake product previews built from `<div>` rectangles (fake task lists,
+  terminals, dashboards). Use a real screenshot/image or omit it. Logo walls use
+  real SVG brand logos, not `<span>Acme</span>` text wordmarks. (Pairs with the
+  IMAGE-FIRST rule above.)
+- NO decoration tells: weather/locale/time strips, scroll cues (`↓ scroll`),
+  decorative status dots on every item, hero-bottom mono strips
+  (`BRAND. MOTION. SPATIAL.`), or version footers (`v1.4.2`) on a marketing page.
+- Motion must be motivated (hierarchy / feedback / storytelling / state) — not
+  "because GSAP is available." Max one marquee per page. NEVER
+  `window.addEventListener("scroll", …)`; use IntersectionObserver / GSAP
+  ScrollTrigger.
+
+Note: VibeKit deliberately does NOT adopt Taste's stack opinions (avoid Inter,
+avoid Lucide, per-page design-system swapping). VibeKit standardizes on
+lucide-react and the ONE locked design-style-guide.md — that is the source of
+truth for tokens everywhere, marketing surface included.
+
+> Honest-copy, state-contract and transition-property rules adapted from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors). Marketing-page anti-tells adapted from [Taste Skill](https://github.com/Leonxlnx/taste-skill) (MIT © 2026 Leon Lin / Leonxlnx).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DATA FETCHING — REACT QUERY

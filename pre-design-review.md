@@ -138,6 +138,41 @@ disabled · loading · error · success. `error` and `success` are the ones that
 - Is the `<nav>` the AI-default shape (wordmark-left · 4–5 centered links · one button-right ·
   hairline border)? If so, surface it as a question: deliberate, or inherited default?
 
+### P. Marketing / landing-page anti-tells (only for marketing surfaces, NOT dashboards/tables)
+These are the specific signatures an LLM reaches for when it tries to "look designed." They
+apply to landing pages, marketing sections, portfolios, and hero areas — NOT to product UI
+(dashboards, data tables, admin, multi-step forms), where consistent repetition is correct.
+On marketing surfaces, flag each:
+- **Em-dashes in user-facing copy.** The single most common AI tell. Scan every visible string
+  — headlines, eyebrows, buttons, body, captions, alt text — for `—` (or `–` as a separator).
+  Replace with a period, comma, colon, parentheses, or a plain hyphen. (This is about the
+  rendered UI copy, not code comments or these docs.)
+- **Section-number / status eyebrows.** `00 / INDEX`, `001 · Capabilities`, `06 · How it works`,
+  `V0.6`, `BETA`, `INVITE-ONLY` above a heading. Name the topic in plain words or drop it.
+- **Eyebrow overuse.** A small uppercase `tracking-wider` label above *every* section. Cap it:
+  at most one per ~3 sections; the headline alone usually suffices.
+- **Hero overflow.** Hero should fit the first viewport: headline ≤ 2 lines, subtext ≤ ~20 words,
+  the primary CTA visible without scrolling. A 4-line headline is a font-size error.
+- **Hero clutter.** Trust micro-strips ("Used by teams at…"), taglines under the CTAs, or a
+  logo wall stuffed *inside* the hero. Move those to their own section below.
+- **Three equal feature cards** in a row — the generic default. Vary composition (asymmetric,
+  2-col zigzag capped at 2 in a row, bento with real cell-count = item-count).
+- **Layout repetition.** The same section layout family reused down the page. A ~8-section page
+  should use ≥ 4 distinct layout families.
+- **Fake previews.** A product "screenshot" built from `<div>` rectangles (fake task lists,
+  terminals, dashboards). Use a real screenshot/image or omit it.
+- **Text wordmarks in a logo wall.** `<span>Acme</span>` rows instead of real SVG brand logos.
+- **Decoration tells.** Weather/locale/time strips ("LIS 14:23 · 18°C"), scroll cues
+  ("↓ scroll"), decorative status dots on every item, hero-bottom mono strips
+  (`BRAND. MOTION. SPATIAL.`), version footers (`v1.4.2`, `Build 0048`) on a marketing page.
+- **"Jane Doe" data.** Generic names (John Doe), startup-slop brands (Acme/Nexus), and
+  fake-precise stats the brand never claimed (`99.99%`, `4.1×`) — overlaps rule N.
+- **Cute-but-broken copy.** Re-read every string; flag AI-hallucinated wordplay, forced
+  metaphors, or performative-craftsman labels ("Field notes", "On our desks"). Plain beats cute.
+- **Unmotivated motion.** Animation with no job (hierarchy / feedback / storytelling / state).
+  Also: more than one marquee per page, and any `window.addEventListener("scroll", …)` — use
+  `IntersectionObserver` / GSAP ScrollTrigger instead.
+
 ## SEVERITY RUBRIC
 
 - **Critical** — breaks usability or ships a falsehood: fabricated claims; body text failing
@@ -193,6 +228,10 @@ so I can address them iteratively.
 > Ehlers' "6-Point Checklist for an Effective Design." Layout-safety, honest-copy and
 > eight-state rules are shared with VibeKit's `design-style-guide.md` and adapted in part
 > from [Hallmark](https://github.com/nutlope/hallmark) (MIT © 2026 Hallmark contributors).
+> The marketing-page anti-tells in section P are adapted from the production-tested catalog in
+> [Taste Skill](https://github.com/Leonxlnx/taste-skill) (MIT © 2026 Leon Lin / Leonxlnx) —
+> its stack-specific opinions (avoid Inter, avoid Lucide, per-page variance) are intentionally
+> NOT adopted, because VibeKit standardizes on one locked design system + lucide-react.
 
 ---
 

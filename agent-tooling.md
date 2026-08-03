@@ -133,13 +133,48 @@ The Playwright MCP lives in your project's `.mcp.json`; the skill is user-level.
 
 ---
 
+## Optional: Taste Skill — for the marketing/landing surface only
+
+[Taste Skill](https://github.com/Leonxlnx/taste-skill) (MIT, by Leon Lin) is an
+open-source "anti-slop frontend" skill: a big, production-tested catalog of the
+specific patterns an LLM defaults to when it tries to look designed (em-dashes,
+section-number eyebrows, fake `<div>` screenshots, weather strips, three equal
+cards, and so on). VibeKit has already **baked its best, non-conflicting rules
+into `master_prompt.md` and `pre-design-review.md`** (see the "marketing-page
+anti-slop" blocks), so you don't need to install anything to get most of the value.
+
+If you want the full skill anyway, treat it as a **landing-page-only** tool:
+
+```bash
+npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
+```
+
+Use it with care — it is **not** a drop-in for VibeKit builds:
+
+- **Scope:** Taste is for landing pages / portfolios / heroes. It explicitly is
+  *not* for dashboards, data tables, or multi-step product UI — which is most of
+  what VibeKit builds. Apply it to the marketing surface, not the app.
+- **Don't run it alongside `ui-ux-pro-max-skill`** on the same task — two large,
+  opinionated design skills loaded at once give the agent contradictory rules.
+- **It conflicts with VibeKit on three axes, on purpose:** Taste discourages
+  **Inter** (VibeKit's default) and **Lucide** (VibeKit mandates `lucide-react`),
+  and pushes per-page *variance* / swapping design systems per brief — the
+  opposite of VibeKit's ONE locked `design-style-guide.md`. If you use Taste,
+  VibeKit's `design-style-guide.md` still wins on tokens, fonts, and icons.
+
+The safe default is to **not** install it and rely on the ported rules — they
+give you the anti-tells without the conflicts.
+
+---
+
 ## Reference
 
 - **ui-ux-pro-max-skill:** [github.com/nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
 - **Playwright MCP:** [github.com/microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) — docs, config, and tool list
 - **MCP package:** [`@playwright/mcp`](https://www.npmjs.com/package/@playwright/mcp)
 - **Claude Code MCP docs:** see `claude mcp --help` or [docs.claude.com/en/docs/claude-code](https://docs.claude.com/en/docs/claude-code)
+- **Taste Skill (optional):** [github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) — best rules already ported into VibeKit's design docs
 
 ---
 
-_Last updated: 2026-07-25_
+_Last updated: 2026-08-03_
