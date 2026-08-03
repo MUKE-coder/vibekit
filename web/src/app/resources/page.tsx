@@ -9,12 +9,12 @@ import { resources } from "@/lib/resources-data";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Resources — curated shadcn/ui ecosystem",
+  title: "Resources - curated shadcn/ui ecosystem",
   description:
     "Searchable index of the best shadcn/ui registries, blocks, templates, themes, animation libraries, AI primitives, and tools. Curated from awesome-shadcn-ui for production builders.",
   alternates: { canonical: "/resources" },
   openGraph: {
-    title: "VibeKit Resources — curated shadcn/ui ecosystem",
+    title: "VibeKit Resources - curated shadcn/ui ecosystem",
     description: "Hand-picked registries, blocks, templates, animations, AI primitives, and tools.",
     url: `${SITE.url}/resources`,
     images: ["/og.png"],
@@ -33,7 +33,7 @@ export default function ResourcesPage() {
               Everything that pairs well with <em className="not-italic gradient-text">VibeKit</em>.
             </>
           }
-          description="Hand-picked from the awesome-shadcn-ui list and our own builds. Registries, blocks, templates, themes, animations, AI primitives, deployment platforms — all curated for production use."
+          description="Hand-picked from the awesome-shadcn-ui list and our own builds. Registries, blocks, templates, themes, animations, AI primitives, deployment platforms - all curated for production use."
           containerClassName="max-w-6xl"
         >
           <GuideDownload variant="inline" className="reveal mb-10" />

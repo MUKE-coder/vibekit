@@ -46,7 +46,7 @@
   --bg-elevated: #FFFFFF;
   --text-primary: #0A0A09;
   --text-secondary: #4A4A45;
-  --text-tertiary: #8A8A85;
+  --text-tertiary: #6C6C66;
   --text-disabled: #C4C0B7;
   --text-inverse: #FAFAF7;
   --border: #E2DFD7;
@@ -77,7 +77,7 @@
   --bg-elevated: #0E0E0E;
   --text-primary: #FAFAFA;
   --text-secondary: #A0A0A0;
-  --text-tertiary: #6B6B6B;
+  --text-tertiary: #8C8C8C;
   --text-disabled: #3A3A3A;
   --text-inverse: #050505;
   --border: #1E1E1E;
@@ -121,7 +121,7 @@ html, body {
   transition: background var(--transition-base), color var(--transition-base);
 }
 
-body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 
 ::selection { background: var(--accent); color: var(--accent-fg); }
 

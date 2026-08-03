@@ -26,7 +26,7 @@ export async function generateMetadata({
   const c = getComponentBySlug(slug);
   if (!c) return { title: "Component not found" };
 
-  const title = `${c.name} — VibeKit component`;
+  const title = `${c.name} - VibeKit component`;
   const description = c.tagline;
 
   return {
@@ -232,13 +232,13 @@ export default async function ComponentDetailPage({
                   <Link
                     key={r.slug}
                     href={`/components/${r.slug}`}
-                    className="group rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition-all hover:border-[color:var(--border-strong)]"
+                    className="group rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition hover:border-[color:var(--border-strong)]"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                         {r.categoryLabel}
                       </span>
-                      <ArrowUpRight className="h-3.5 w-3.5 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                      <ArrowUpRight className="h-3.5 w-3.5 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
                     </div>
                     <h4 className="mt-2 font-mono text-[13px] uppercase text-[color:var(--text-primary)]">
                       {r.name}

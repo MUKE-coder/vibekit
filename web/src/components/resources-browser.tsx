@@ -100,13 +100,13 @@ export function ResourcesBrowser() {
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
+              className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                   {r.categoryLabel}
                 </span>
-                <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
               </div>
               <h3 className="mt-3 font-mono text-[14px] font-medium uppercase tracking-tight text-[color:var(--text-primary)]">
                 {r.name}

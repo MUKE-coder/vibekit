@@ -55,7 +55,7 @@ export const resources: Resource[] = [
   {
     "slug": "chanhdai-blocks",
     "name": "chanhdai blocks",
-    "description": "Modern blocks and components by chanhdai — Apple-style hello effects, sliders, hero sections, and more.",
+    "description": "Modern blocks and components by chanhdai - Apple-style hello effects, sliders, hero sections, and more.",
     "url": "https://chanhdai.com/blocks",
     "category": "blocks",
     "categoryLabel": "Blocks",
@@ -83,7 +83,7 @@ export const resources: Resource[] = [
   {
     "slug": "jb-component-registry-desishub",
     "name": "JB Component Registry (Desishub)",
-    "description": "JB's curated registry — Better Auth UI, Stripe UI, File Storage UI, Data Table, MDX Blog, DGateway Shop, and more. Battle-tested in client work.",
+    "description": "JB's curated registry - Better Auth UI, Stripe UI, File Storage UI, Data Table, MDX Blog, DGateway Shop, and more. Battle-tested in client work.",
     "url": "https://jb.desishub.com/",
     "category": "registries",
     "categoryLabel": "Registry",
@@ -110,7 +110,7 @@ export const resources: Resource[] = [
   {
     "slug": "21st-dev-agent-elements",
     "name": "21st.dev-agent-elements",
-    "description": "Open-source registry of agent UI primitives — chat shell, tool-call cards (Bash, Edit, Search, Todo, Plan), clarifying questions, input bar, streaming markdown. Built on React 19, Tailwind v4, and the Vercel AI SDK.",
+    "description": "Open-source registry of agent UI primitives - chat shell, tool-call cards (Bash, Edit, Search, Todo, Plan), clarifying questions, input bar, streaming markdown. Built on React 19, Tailwind v4, and the Vercel AI SDK.",
     "url": "https://agent-elements.21st.dev",
     "category": "components",
     "categoryLabel": "Components",
@@ -657,7 +657,7 @@ export const resources: Resource[] = [
   {
     "slug": "dy-comps",
     "name": "dy-comps",
-    "description": "shacn/ui & Framer Motion React components — flexible, responsive & easy to drop into any project.",
+    "description": "shacn/ui & Framer Motion React components - flexible, responsive & easy to drop into any project.",
     "url": "https://dycomps.oimmi.com/",
     "category": "components",
     "categoryLabel": "Components",
@@ -1109,7 +1109,7 @@ export const resources: Resource[] = [
   {
     "slug": "loading-ui",
     "name": "loading-ui",
-    "description": "Curated, copy-friendly spinners, loaders, and loading-state animations for the web—free and open source.",
+    "description": "Curated, copy-friendly spinners, loaders, and loading-state animations for the web-free and open source.",
     "url": "https://loading-ui.com/",
     "category": "components",
     "categoryLabel": "Components",
@@ -1684,7 +1684,7 @@ export const resources: Resource[] = [
   {
     "slug": "scificn-ui",
     "name": "scificn-ui",
-    "description": "A retro sci-fi UI design system inspired by classic starship consoles and alien computer terminals, featuring modular HUD components, neon data grids, tactical panels, and cinematic interface elements that blend 70s–80s futurism with modern usability.",
+    "description": "A retro sci-fi UI design system inspired by classic starship consoles and alien computer terminals, featuring modular HUD components, neon data grids, tactical panels, and cinematic interface elements that blend 70s-80s futurism with modern usability.",
     "url": "https://github.com/baxy5/scificn-ui",
     "category": "components",
     "categoryLabel": "Components",
@@ -2032,7 +2032,7 @@ export const resources: Resource[] = [
   {
     "slug": "shadcn-fintech",
     "name": "shadcn-fintech",
-    "description": "Premium fintech dashboard with 10 pages — drag-and-drop layout, 3D credit cards, live investment ticker, spending heatmap, actionable notifications, and dark mode. Built with Next.js 16, shadcn/ui, and Tailwind CSS v4.",
+    "description": "Premium fintech dashboard with 10 pages - drag-and-drop layout, 3D credit cards, live investment ticker, spending heatmap, actionable notifications, and dark mode. Built with Next.js 16, shadcn/ui, and Tailwind CSS v4.",
     "url": "https://github.com/abderrahimghazali/shadcn-fintech",
     "category": "components",
     "categoryLabel": "Components",
@@ -2918,7 +2918,7 @@ export const resources: Resource[] = [
   {
     "slug": "efferd",
     "name": "efferd",
-    "description": "ready-to-use shadcn blocks that just work — modern, responsive, and built for speed.",
+    "description": "ready-to-use shadcn blocks that just work - modern, responsive, and built for speed.",
     "url": "http://efferd.com/",
     "category": "registries",
     "categoryLabel": "Registry",
@@ -3373,7 +3373,7 @@ export const resources: Resource[] = [
   {
     "slug": "devtools",
     "name": "devtools",
-    "description": "28 free browser-based developer utilities built with Next.js and shadcn/ui — JSON formatter, regex tester, JWT decoder, hash generator, UUID generator, diff checker, and more. 100% client-side, no signup.",
+    "description": "28 free browser-based developer utilities built with Next.js and shadcn/ui - JSON formatter, regex tester, JWT decoder, hash generator, UUID generator, diff checker, and more. 100% client-side, no signup.",
     "url": "https://devtools.davrapps.dev",
     "category": "tools",
     "categoryLabel": "Tool",
@@ -3399,7 +3399,7 @@ export const resources: Resource[] = [
   {
     "slug": "dialectcn",
     "name": "dialectcn",
-    "description": "A living catalog of shadcn presets — brand-inspired, community-submitted, and occasionally random. Pick one, copy the code, ship the UI.",
+    "description": "A living catalog of shadcn presets - brand-inspired, community-submitted, and occasionally random. Pick one, copy the code, ship the UI.",
     "url": "https://dialectcn.xyz/",
     "category": "tools",
     "categoryLabel": "Tool",
@@ -4547,7 +4547,7 @@ export const resources: Resource[] = [
   {
     "slug": "astro-erudite",
     "name": "astro-erudite",
-    "description": "An opinionated, unstyled static blogging template—built with Astro, Tailwind, and shadcn/ui.",
+    "description": "An opinionated, unstyled static blogging template-built with Astro, Tailwind, and shadcn/ui.",
     "url": "https://github.com/jktrn/astro-erudite",
     "category": "templates",
     "categoryLabel": "Template",
@@ -5353,7 +5353,7 @@ export const resources: Resource[] = [
   {
     "slug": "metal-jakub-antalik",
     "name": "Metal",
-    "description": "Animated liquid-metal shader effect by Jakub Antalik — drop-in WebGL backdrop for hero sections that want a premium, fluid-chrome look.",
+    "description": "Animated liquid-metal shader effect by Jakub Antalik - drop-in WebGL backdrop for hero sections that want a premium, fluid-chrome look.",
     "url": "https://metal.jakubantalik.com/",
     "category": "animation",
     "categoryLabel": "Animation",
@@ -5368,7 +5368,7 @@ export const resources: Resource[] = [
   {
     "slug": "styleui-fabrika",
     "name": "StyleUI",
-    "description": "Handmade UI templates and layouts by Ras Mic + the Fabrika team — production-ready starters like Notio and Axis for marketing sites and SaaS landing pages.",
+    "description": "Handmade UI templates and layouts by Ras Mic + the Fabrika team - production-ready starters like Notio and Axis for marketing sites and SaaS landing pages.",
     "url": "https://styleui.dev/",
     "category": "templates",
     "categoryLabel": "Template",
@@ -5383,7 +5383,7 @@ export const resources: Resource[] = [
   {
     "slug": "ali-imam-components",
     "name": "Ali Imam Components",
-    "description": "Personal component library and showcase by Ali Imam — copy-paste shadcn-style primitives and motion bits used across his portfolio work.",
+    "description": "Personal component library and showcase by Ali Imam - copy-paste shadcn-style primitives and motion bits used across his portfolio work.",
     "url": "https://aliimam.in/docs/components",
     "category": "components",
     "categoryLabel": "Components",
@@ -5397,7 +5397,7 @@ export const resources: Resource[] = [
   {
     "slug": "watermelon-ui",
     "name": "Watermelon UI",
-    "description": "Watermelon UI — a fresh shadcn-style component registry with copy-paste blocks and primitives for modern Next.js apps.",
+    "description": "Watermelon UI - a fresh shadcn-style component registry with copy-paste blocks and primitives for modern Next.js apps.",
     "url": "https://ui.watermelon.sh/",
     "category": "components",
     "categoryLabel": "Components",
@@ -5411,7 +5411,7 @@ export const resources: Resource[] = [
   {
     "slug": "dotmatrix-loaders",
     "name": "Dot Matrix",
-    "description": "55+ free, open-source animated loaders (Neon Drift, Pulse Ladder, Helix Glow, etc.) built with React, TypeScript, Tailwind, and shadcn — drop-in loading states with personality.",
+    "description": "55+ free, open-source animated loaders (Neon Drift, Pulse Ladder, Helix Glow, etc.) built with React, TypeScript, Tailwind, and shadcn - drop-in loading states with personality.",
     "url": "https://dotmatrix.zzzzshawn.cloud/",
     "category": "animation",
     "categoryLabel": "Animation",
@@ -5426,7 +5426,7 @@ export const resources: Resource[] = [
   {
     "slug": "componentry-harshjdhv",
     "name": "Componentry",
-    "description": "Growing collection of animated React primitives by Harsh Jain — text animations, interactive components, hero backgrounds, and visual effects for modern motion-heavy UIs.",
+    "description": "Growing collection of animated React primitives by Harsh Jain - text animations, interactive components, hero backgrounds, and visual effects for modern motion-heavy UIs.",
     "url": "https://www.componentry.fun/docs",
     "category": "animation",
     "categoryLabel": "Animation",
@@ -5441,7 +5441,7 @@ export const resources: Resource[] = [
   {
     "slug": "balloons-js",
     "name": "balloons-js",
-    "description": "Tiny JS library by Artur Bień that fires balloon and text-balloon animations across the page — instant celebration effect for sign-ups, purchases, and milestones.",
+    "description": "Tiny JS library by Artur Bień that fires balloon and text-balloon animations across the page - instant celebration effect for sign-ups, purchases, and milestones.",
     "url": "https://arturbien.github.io/balloons-js/",
     "category": "animation",
     "categoryLabel": "Animation",

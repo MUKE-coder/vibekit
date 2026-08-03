@@ -85,7 +85,7 @@ export function CommunityBanner() {
               </h2>
 
               <p className="community-body mt-4 max-w-xl text-[15.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                Indie hackers, freelancers, founders — we trade screenshots, debug agent loops together, and share what's working in the framework. Drop in to ask anything.
+                Indie hackers, freelancers, founders - we trade screenshots, debug agent loops together, and share what's working in the framework. Drop in to ask anything.
               </p>
 
               {/* Quick benefits */}
@@ -109,14 +109,14 @@ export function CommunityBanner() {
                 ))}
               </ul>
 
-              {/* CTAs — rendered statically (no entrance animation) so they
+              {/* CTAs - rendered statically (no entrance animation) so they
                   ALWAYS show, regardless of scroll-trigger timing. */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a
                   href={SITE.community}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(37,211,102,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(37,211,102,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{ backgroundColor: WHATSAPP_GREEN }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = WHATSAPP_GREEN_HOVER;
@@ -142,7 +142,7 @@ export function CommunityBanner() {
               </div>
             </div>
 
-            {/* Right column — visual */}
+            {/* Right column - visual */}
             <div className="hidden md:block">
               <div className="relative grid h-32 w-32 place-items-center">
                 <div

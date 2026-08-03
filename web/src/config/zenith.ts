@@ -3,14 +3,14 @@ import type { ZenithConfig } from "zenith-analytics";
 // PUBLIC by design: both values ship inside the tracking snippet on every page,
 // and the site key only authorizes writing events. The <Analytics /> component
 // renders on the server and inlines these into the HTML, so they need NO
-// NEXT_PUBLIC_ prefix — they never travel as client-read env vars.
+// NEXT_PUBLIC_ prefix - they never travel as client-read env vars.
 export const ZENITH_PUBLIC = {
   backendUrl: process.env.ZENITH_URL || "https://analytics.gritframework.dev",
   siteKey: process.env.ZENITH_SITE_KEY || "zk_the_public_site_key",
 };
 
 // The public half plus the three secrets. Server-side only. The secrets have no
-// fallback values — absent from the environment means undefined, which the
+// fallback values - absent from the environment means undefined, which the
 // readiness guard below detects. Never add fallbacks for the secret three.
 export const ZENITH_CONFIG: Partial<ZenithConfig> = {
   ...ZENITH_PUBLIC,
@@ -23,7 +23,7 @@ export const ZENITH_CONFIG: Partial<ZenithConfig> = {
 };
 
 // createZenithRoute validates its config at module load and throws on missing
-// secrets — correct for a production deploy, fatal for a local build without
+// secrets - correct for a production deploy, fatal for a local build without
 // env vars. The dashboard route mounts the real handler only when this is true.
 export function zenithDashboardReady(): boolean {
   return Boolean(

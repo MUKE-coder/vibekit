@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     location: "Kampala",
     initial: "BB",
     quote:
-      "Shipped my client portal in 4 days vs my usual 3 weeks. The phase-by-phase build means I never get lost mid-project — I just know what's next.",
+      "Shipped my client portal in 4 days vs my usual 3 weeks. The phase-by-phase build means I never get lost mid-project - I just know what's next.",
     highlight: "4 days vs 3 weeks",
   },
   {
@@ -44,7 +44,7 @@ const testimonials: Testimonial[] = [
     role: "Senior Engineer",
     initial: "KM",
     quote:
-      "I've used Cursor for 8 months. VibeKit's master_prompt.md turned it into a different tool — finally consistent code across every project.",
+      "I've used Cursor for 8 months. VibeKit's master_prompt.md turned it into a different tool - finally consistent code across every project.",
   },
   {
     name: "Wasswa Collin",
@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
     role: "Product Engineer",
     initial: "KJ",
     quote:
-      "The 4 generated files are the magic. project-phases.md is basically a real PRD — clients trust it more than my own scoping docs.",
+      "The 4 generated files are the magic. project-phases.md is basically a real PRD - clients trust it more than my own scoping docs.",
   },
   {
     name: "Waturo Richard",
@@ -162,17 +162,17 @@ export function Testimonials() {
             Real builders. <em className="not-italic gradient-text">Real shipping.</em>
           </h2>
           <p className="mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-            VibeKit is used by indie hackers, founders, and agencies across East Africa and beyond — anyone who'd rather ship than configure.
+            VibeKit is used by indie hackers, founders, and agencies across East Africa and beyond - anyone who'd rather ship than configure.
           </p>
         </div>
       </div>
 
-      {/* Row 1 — left to right */}
+      {/* Row 1 - left to right */}
       <div className="mt-14 [--marquee-duration:55s]">
         <Marquee items={row1} direction="left" />
       </div>
 
-      {/* Row 2 — right to left, slower */}
+      {/* Row 2 - right to left, slower */}
       <div className="mt-5 [--marquee-duration:70s]">
         <Marquee items={row2} direction="right" />
       </div>

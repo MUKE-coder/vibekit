@@ -3,7 +3,7 @@ import { createZenithRoute } from "zenith-analytics/next";
 import { ZENITH_CONFIG, zenithDashboardReady } from "@/config/zenith";
 
 // Without this, Next could statically render the route at build time and serve
-// every visitor the same cached page — fatal for a password gate.
+// every visitor the same cached page - fatal for a password gate.
 export const dynamic = "force-dynamic";
 
 const notConfigured = () =>

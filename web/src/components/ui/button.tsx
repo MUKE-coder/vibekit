@@ -4,7 +4,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 import { cn } from "@/lib/utils";
 
 const buttonStyles = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-full)] font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-full)] font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {

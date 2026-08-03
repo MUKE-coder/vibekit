@@ -28,7 +28,7 @@ const timelineData: TimelineItem[] = [
     id: 2,
     title: "Interview",
     date: "Step 02",
-    content: "Open Claude (claude.ai), paste the prompt, append your app idea. Answer 6–10 targeted questions about features, data, integrations, and design.",
+    content: "Open Claude (claude.ai), paste the prompt, append your app idea. Answer 6-10 targeted questions about features, data, integrations, and design.",
     category: "Plan",
     icon: MessageSquare,
     relatedIds: [1, 3],
@@ -39,7 +39,7 @@ const timelineData: TimelineItem[] = [
     id: 3,
     title: "4 files",
     date: "Step 03",
-    content: "Claude generates project-description.md, project-phases.md, design-style-guide.md, and prompt.md. These are agent-agnostic — drop them into any coding agent.",
+    content: "Claude generates project-description.md, project-phases.md, design-style-guide.md, and prompt.md. These are agent-agnostic - drop them into any coding agent.",
     category: "Plan",
     icon: FileCheck,
     relatedIds: [2, 4],
@@ -61,7 +61,7 @@ const timelineData: TimelineItem[] = [
     id: 5,
     title: "Build with agent",
     date: "Step 05",
-    content: "Open ANY coding agent that reads files — Claude Code, Cursor, Kiro Code, Antigravity, Windsurf, Cline, Aider. Paste prompt.md. The agent reads everything and starts Phase 1, stopping for confirmation between phases.",
+    content: "Open ANY coding agent that reads files - Claude Code, Cursor, Kiro Code, Antigravity, Windsurf, Cline, Aider. Paste prompt.md. The agent reads everything and starts Phase 1, stopping for confirmation between phases.",
     category: "Build",
     icon: PenLine,
     relatedIds: [4, 6],
@@ -98,7 +98,7 @@ export function HowItWorks() {
       id="how"
       eyebrow="THE WORKFLOW"
       title={<>Plan once. Build with <em className="not-italic gradient-text">any agent</em>.</>}
-      description="VibeKit generates 4 universal files that work with every coding agent that reads files — Claude Code, Cursor, Kiro Code, Antigravity, Windsurf, Cline, Aider, or anything else with a CLAUDE.md / .rules / project context."
+      description="VibeKit generates 4 universal files that work with every coding agent that reads files - Claude Code, Cursor, Kiro Code, Antigravity, Windsurf, Cline, Aider, or anything else with a CLAUDE.md / .rules / project context."
       containerClassName="max-w-6xl"
     >
       <RadialOrbitalTimeline timelineData={timelineData} />

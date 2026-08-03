@@ -156,7 +156,7 @@ export default function RadialOrbitalTimeline({
     >
       {/* Subtle grid backdrop */}
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-60" aria-hidden />
-      {/* Center radial glow — pulls eye to the core */}
+      {/* Center radial glow - pulls eye to the core */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden
@@ -171,7 +171,7 @@ export default function RadialOrbitalTimeline({
         className="relative h-full w-full flex items-center justify-center"
         style={{ perspective: "1000px" }}
       >
-        {/* Central core — vibrant SVG monogram */}
+        {/* Central core - vibrant SVG monogram */}
         <div className="absolute z-10 flex h-24 w-24 items-center justify-center" aria-hidden>
           {/* Outer ping rings */}
           <span
@@ -246,7 +246,7 @@ export default function RadialOrbitalTimeline({
         </div>
 
         {/* Orbital ring */}
-        {/* Visual ring — sized off the dynamic radius */}
+        {/* Visual ring - sized off the dynamic radius */}
         <div
           className="absolute rounded-full border border-[color:var(--border-strong)]/40"
           style={{ width: radius * 2, height: radius * 2 }}
@@ -273,7 +273,7 @@ export default function RadialOrbitalTimeline({
               ref={(el) => {
                 nodeRefs.current[item.id] = el;
               }}
-              className="absolute cursor-pointer transition-all duration-700"
+              className="absolute cursor-pointer transition duration-700"
               style={nodeStyle}
               onClick={(e) => {
                 e.stopPropagation();
@@ -299,7 +299,7 @@ export default function RadialOrbitalTimeline({
               {/* Node circle */}
               <div
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-300",
+                  "flex h-10 w-10 items-center justify-center rounded-full border-2 transition duration-300",
                   isExpanded
                     ? "scale-150 border-[color:var(--text-primary)] bg-[color:var(--text-primary)] text-[color:var(--text-inverse)] shadow-lg"
                     : isRelated
@@ -313,7 +313,7 @@ export default function RadialOrbitalTimeline({
               {/* Label */}
               <div
                 className={cn(
-                  "absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider transition-all duration-300",
+                  "absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider transition duration-300",
                   isExpanded
                     ? "scale-110 text-[color:var(--text-primary)]"
                     : "text-[color:var(--text-secondary)]"

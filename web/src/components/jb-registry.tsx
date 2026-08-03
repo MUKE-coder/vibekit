@@ -4,7 +4,7 @@ import { Section } from "./section";
 import { Button } from "./ui/button";
 import { components } from "@/lib/components-data";
 
-// Curated featured set — the most commonly installed JB + in-house components.
+// Curated featured set - the most commonly installed JB + in-house components.
 // The full list lives at /components.
 const featuredSlugs = [
   "better-auth-ui",
@@ -31,14 +31,14 @@ export function JBRegistry() {
       id="features"
       eyebrow={`Component registry · ${components.length} components`}
       title={<>Don't write what already exists. <em className="not-italic gradient-text">Install it.</em></>}
-      description="Production-ready shadcn components for every primitive — auth, tables, forms, file uploads, e-commerce, kanban, charts, org/team UI. Claude Code (and Cursor, Cline, Codex) checks the registry before writing from scratch, saving 60–80% of tokens."
+      description="Production-ready shadcn components for every primitive - auth, tables, forms, file uploads, e-commerce, kanban, charts, org/team UI. Claude Code (and Cursor, Cline, Codex) checks the registry before writing from scratch, saving 60-80% of tokens."
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((c) => (
           <Link
             key={c.slug}
             href={`/components/${c.slug}`}
-            className="reveal group flex items-start justify-between gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
+            className="reveal group flex items-start justify-between gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
           >
             <div>
               <div className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
@@ -51,7 +51,7 @@ export function JBRegistry() {
                 {c.tagline}
               </p>
             </div>
-            <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
           </Link>
         ))}
       </div>

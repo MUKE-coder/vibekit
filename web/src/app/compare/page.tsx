@@ -7,7 +7,7 @@ import { Section } from "@/components/section";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Compare — VibeKit vs other approaches",
+  title: "Compare - VibeKit vs other approaches",
   description:
     "Side-by-side comparisons of VibeKit against popular AI coding agents and Next.js starters. See where each approach wins.",
   alternates: { canonical: "/compare" },
@@ -18,7 +18,7 @@ const comparisons = [
   {
     slug: "claude-code-vs-cursor-vs-cline",
     title: "Claude Code vs Cursor vs Cline",
-    blurb: "Three top AI coding agents — feature, cost, and workflow comparison. All three work with VibeKit.",
+    blurb: "Three top AI coding agents - feature, cost, and workflow comparison. All three work with VibeKit.",
   },
   {
     slug: "vibekit-vs-create-next-app",
@@ -35,7 +35,7 @@ export default function CompareHub() {
         <Section
           eyebrow="COMPARISONS"
           title={<>Side-by-side, <em className="not-italic gradient-text">no marketing fluff</em>.</>}
-          description="Every approach has tradeoffs. These pages show them honestly — when VibeKit wins, when something else does."
+          description="Every approach has tradeoffs. These pages show them honestly - when VibeKit wins, when something else does."
           containerClassName="max-w-4xl"
         >
           <div className="grid gap-3 sm:grid-cols-2">
@@ -43,13 +43,13 @@ export default function CompareHub() {
               <Link
                 key={c.slug}
                 href={`/compare/${c.slug}`}
-                className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]"
+                className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                     Compare
                   </span>
-                  <ArrowUpRight className="h-4 w-4 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                  <ArrowUpRight className="h-4 w-4 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
                 </div>
                 <h2 className="mt-3 font-mono text-[18px] uppercase tracking-tight text-[color:var(--text-primary)]">
                   {c.title}

@@ -12,7 +12,7 @@ import { readPrompt } from "@/lib/read-prompt";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Quickstart — set up VibeKit in 8 steps",
+  title: "Quickstart - set up VibeKit in 8 steps",
   description:
     "Step-by-step quickstart for VibeKit: copy the planning prompt, generate 4 project files, build with any agent, then run the design and pre-deploy reviews before launch. All prompts copyable inline.",
   alternates: { canonical: "/docs/quickstart" },
@@ -36,8 +36,8 @@ const steps = [
   },
   {
     n: 3,
-    title: "Answer 6–10 questions",
-    body: "Claude will interview you about features, user roles, data model, monetization, file uploads, email, and visual design. Answer honestly — vague answers produce vague output.",
+    title: "Answer 6-10 questions",
+    body: "Claude will interview you about features, user roles, data model, monetization, file uploads, email, and visual design. Answer honestly - vague answers produce vague output.",
   },
   {
     n: 4,
@@ -47,7 +47,7 @@ const steps = [
   {
     n: 5,
     title: "Run npx vibekit-framework init",
-    body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md and pre-design-review.md (the two audit prompts — embedded below), plus the rules file for your agent, so they auto-load every session. It also sets up the Playwright MCP so your agent can check its own UI in a real browser. It detects your agent, never overwrites your edits, and is safe to re-run.",
+    body: "One command installs everything: master_prompt.md (the coding constitution), jb-components.md (component registry reference), pre-deploy-review.md and pre-design-review.md (the two audit prompts - embedded below), plus the rules file for your agent, so they auto-load every session. It also sets up the Playwright MCP so your agent can check its own UI in a real browser. It detects your agent, never overwrites your edits, and is safe to re-run.",
   },
   {
     n: 6,
@@ -57,7 +57,7 @@ const steps = [
   {
     n: 7,
     title: "Run the design review",
-    body: "Once the UI is built, paste the pre-design-review prompt (embedded below). It compares your app against your own design-style-guide.md plus universal design principles — hierarchy, spacing, type, color/contrast, states, accessibility — and writes a Critical / High / Medium report. With the Playwright MCP (installed in step 5) the agent reviews the rendered pages in a real browser, not just the code.",
+    body: "Once the UI is built, paste the pre-design-review prompt (embedded below). It compares your app against your own design-style-guide.md plus universal design principles - hierarchy, spacing, type, color/contrast, states, accessibility - and writes a Critical / High / Medium report. With the Playwright MCP (installed in step 5) the agent reviews the rendered pages in a real browser, not just the code.",
   },
   {
     n: 8,
@@ -93,14 +93,14 @@ export default function Quickstart() {
               Quickstart
             </h1>
             <p className="mt-5 text-[18px] leading-relaxed text-[color:var(--text-secondary)]">
-              From a one-line idea to a deployed Next.js app, with an opinionated workflow that prevents the usual AI failure modes. <strong className="font-medium text-[color:var(--text-primary)]">No GitHub round-trip needed</strong> — every prompt is copyable right here.
+              From a one-line idea to a deployed Next.js app, with an opinionated workflow that prevents the usual AI failure modes. <strong className="font-medium text-[color:var(--text-primary)]">No GitHub round-trip needed</strong> - every prompt is copyable right here.
             </p>
           </header>
 
           {/* Prefer a linear read? The PDF guide covers the same path end to end. */}
           <GuideDownload variant="inline" className="mt-10" />
 
-          {/* Step 0 — environment pre-flight. Lives on its own page because it's
+          {/* Step 0 - environment pre-flight. Lives on its own page because it's
               OS-specific; linking it here stops people hitting step 6 with no pnpm. */}
           <Link
             href="/setup"
@@ -177,7 +177,7 @@ export default function Quickstart() {
                         >
                           vibekit-framework
                         </a>{" "}
-                        npm package — zero dependencies, runs offline, safe to re-run.
+                        npm package - zero dependencies, runs offline, safe to re-run.
                       </p>
 
                       <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-5">
@@ -199,7 +199,7 @@ export default function Quickstart() {
                           ))}
                         </ul>
                         <p className="mt-4 text-[12.5px] text-[color:var(--text-tertiary)]">
-                          It detects your agent — Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI, Aider, Continue, Cody or Junie. Pass <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--agent all</code> to write every rules file, or <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--global</code> to install the Claude skill for every project. Re-running never overwrites your edits.
+                          It detects your agent - Claude Code, Cursor, Codex, Cline, Windsurf, Gemini CLI, Aider, Continue, Cody or Junie. Pass <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--agent all</code> to write every rules file, or <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">--global</code> to install the Claude skill for every project. Re-running never overwrites your edits.
                         </p>
                       </div>
 
@@ -239,7 +239,7 @@ export default function Quickstart() {
                           This happens when your Windows username has a special character like{" "}
                           <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">&amp;</code>,{" "}
                           <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">^</code>, or a space (e.g.{" "}
-                          <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">C:\Users\I&amp;I</code>). The command prompt mis-parses that path — it breaks{" "}
+                          <code className="font-mono text-[12px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">C:\Users\I&amp;I</code>). The command prompt mis-parses that path - it breaks{" "}
                           <em>every</em> <code className="font-mono normal-case">npx</code> tool, not just this one. Two fixes:
                         </p>
                         <p className="mt-4 text-[13px] font-medium text-[color:var(--text-primary)]">
@@ -299,7 +299,7 @@ export default function Quickstart() {
               That's it
             </h3>
             <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--text-primary)]">
-              Seven steps from idea to production. Bookmark this page — you'll repeat the flow for every new project.
+              Seven steps from idea to production. Bookmark this page - you'll repeat the flow for every new project.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button href="/components" variant="accent" size="md">

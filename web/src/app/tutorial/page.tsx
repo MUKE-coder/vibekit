@@ -24,7 +24,7 @@ import { AgentInstallTabs } from "@/components/agent-install-tabs";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "VibeKit Crash Course — build a Hardware POS in one afternoon",
+  title: "VibeKit Crash Course - build a Hardware POS in one afternoon",
   description:
     "Step-by-step crash course: build HardwarePOS, a real point-of-sale system for a hardware shop, using VibeKit and any AI coding agent. From idea to deployed in ~3 hours. Every prompt copyable inline.",
   alternates: { canonical: "/tutorial" },
@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-const hardwarePosIdea = `I want to build HardwarePOS — a point-of-sale system for a small hardware shop in
+const hardwarePosIdea = `I want to build HardwarePOS - a point-of-sale system for a small hardware shop in
 Uganda. The shop owner uses it to ring up sales of items like nails, paint,
 plumbing fittings, electrical supplies, and hand tools. Single user (the shop
-owner / cashier) — no team features, no customer-facing storefront, no online
+owner / cashier) - no team features, no customer-facing storefront, no online
 ordering. Strictly in-shop POS.
 
 Core flows:
@@ -62,13 +62,13 @@ Core flows:
 Seed the database with these categories on first run: Tools, Hardware, Paint,
 Plumbing, Electrical, Other.
 
-No image uploads — text-only products (name + SKU + category is enough).
+No image uploads - text-only products (name + SKU + category is enough).
 No e-commerce / cart abandonment / online ordering / customer accounts.
 Currency: UGX (Ugandan Shillings) with comma-separated formatting and no decimals
 (e.g., 25,000 not 25,000.00).
 
 Single user, single device. Light + dark mode. Aesthetic: clean dashboard like
-Linear or Vercel — bold large numbers so the cashier can read totals at a glance.
+Linear or Vercel - bold large numbers so the cashier can read totals at a glance.
 Brand color: indigo (#4F46E5).`;
 
 const modules = [
@@ -96,28 +96,28 @@ const modules = [
   {
     Icon: ShieldCheck,
     eyebrow: "MODULE 04",
-    title: "Phase 1 — Foundation",
+    title: "Phase 1 - Foundation",
     time: "30 min",
     intro: "Auth, layout shell, design tokens, Prisma + Neon. By the end you can sign in to the empty dashboard.",
   },
   {
     Icon: Boxes,
     eyebrow: "MODULE 05",
-    title: "Phase 2 — Products & Inventory",
+    title: "Phase 2 - Products & Inventory",
     time: "30 min",
     intro: "Categories + Products schema, CRUD API routes, inventory list page with low-stock badges, add/edit forms.",
   },
   {
     Icon: Receipt,
     eyebrow: "MODULE 06",
-    title: "Phase 3 — POS Sale flow + Receipt PDF",
+    title: "Phase 3 - POS Sale flow + Receipt PDF",
     time: "45 min",
     intro: "The core feature. Product search, cart, checkout with payment method, sale persistence, downloadable receipt PDF using @react-pdf/renderer.",
   },
   {
     Icon: ChartLine,
     eyebrow: "MODULE 07",
-    title: "Phase 4 — Dashboard + Sales History",
+    title: "Phase 4 - Dashboard + Sales History",
     time: "25 min",
     intro: "Today's sales stat cards, weekly revenue chart, top-5 products, low-stock counter, full sales history with date-range filters.",
   },
@@ -164,7 +164,7 @@ export default function TutorialPage() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-[color:var(--text-secondary)]">
-              Follow this crash course and ship <strong className="font-medium text-[color:var(--text-primary)]">HardwarePOS</strong> — a point-of-sale system a hardware shop in Kampala could use today. Inventory, sales, payment methods, downloadable receipts, deployed to a custom domain. Powered by VibeKit + your favorite AI coding agent.
+              Follow this crash course and ship <strong className="font-medium text-[color:var(--text-primary)]">HardwarePOS</strong> - a point-of-sale system a hardware shop in Kampala could use today. Inventory, sales, payment methods, downloadable receipts, deployed to a custom domain. Powered by VibeKit + your favorite AI coding agent.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -185,12 +185,12 @@ export default function TutorialPage() {
             </div>
           </div>
 
-          {/* Video — full crash course companion */}
+          {/* Video - full crash course companion */}
           <div className="mx-auto mt-16 max-w-4xl px-4 sm:px-6">
             <VideoEmbed
               videoId="TvGu_Tu-6UI"
               thumbnail="https://14j7oh8kso.ufs.sh/f/HLxTbDBCDLwf0VdAvuLtvnF3cx4uPCTU9aqg2f0oY8klybGQ"
-              title="VibeKit Crash Course — full walkthrough"
+              title="VibeKit Crash Course - full walkthrough"
               caption="Watch the full crash course on YouTube as you follow the modules below"
             />
           </div>
@@ -199,7 +199,7 @@ export default function TutorialPage() {
         {/* What you'll build */}
         <Section
           eyebrow="WHAT YOU'LL BUILD"
-          title="HardwarePOS — a real shop POS."
+          title="HardwarePOS - a real shop POS."
           description="Not a tutorial toy. Real auth, real database, real transactions, real receipts. A hardware shop owner could install this Monday morning and start using it."
           containerClassName="max-w-5xl"
         >
@@ -284,7 +284,7 @@ export default function TutorialPage() {
         <Section
           eyebrow="THE 8 MODULES"
           title="The full path."
-          description="Click any module to jump in. They build on each other — follow them in order on your first run."
+          description="Click any module to jump in. They build on each other - follow them in order on your first run."
           containerClassName="max-w-4xl"
         >
           <ol className="grid gap-3 sm:grid-cols-2">
@@ -294,7 +294,7 @@ export default function TutorialPage() {
                 <li key={slug}>
                   <a
                     href={`#${slug}`}
-                    className="group flex items-start gap-4 rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]"
+                    className="group flex items-start gap-4 rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)]"
                   >
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-[color:var(--border)] bg-[color:var(--bg-subtle)] text-[color:var(--text-secondary)] transition-colors group-hover:text-[color:var(--accent)]">
                       <m.Icon className="h-4 w-4" />
@@ -320,10 +320,10 @@ export default function TutorialPage() {
           </ol>
         </Section>
 
-        {/* MODULE 00 — pre-flight environment check */}
+        {/* MODULE 00 - pre-flight environment check */}
         <ModuleSection slug="module-00" eyebrow="MODULE 00 · 2 min · OPTIONAL BUT RECOMMENDED" title="Check your environment first">
           <p>
-            Before signing up for accounts, make sure your machine has the four tools VibeKit needs: <strong>Node 20+</strong>, <strong>pnpm 9+</strong>, <strong>git</strong>, and <strong>gh CLI</strong>. The fastest way to check is to paste the OS-specific prompt at <a href="/setup">vibekit.desishub.com/setup</a> into your AI coding agent — it scans your machine, reports what's installed, and gives you one-line install commands for anything missing. Without installing anything itself.
+            Before signing up for accounts, make sure your machine has the four tools VibeKit needs: <strong>Node 20+</strong>, <strong>pnpm 9+</strong>, <strong>git</strong>, and <strong>gh CLI</strong>. The fastest way to check is to paste the OS-specific prompt at <a href="/setup">vibekit.desishub.com/setup</a> into your AI coding agent - it scans your machine, reports what's installed, and gives you one-line install commands for anything missing. Without installing anything itself.
           </p>
           <p>
             If you already have all four installed, skip to Module 01.
@@ -332,7 +332,7 @@ export default function TutorialPage() {
           <div className="not-prose mt-6 flex flex-wrap gap-3">
             <a
               href="/setup"
-              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent)] px-5 py-2.5 font-medium text-[color:var(--accent-fg)] transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent)] px-5 py-2.5 font-medium text-[color:var(--accent-fg)] transition hover:-translate-y-0.5"
             >
               Open the setup check →
             </a>
@@ -349,22 +349,22 @@ export default function TutorialPage() {
             items={[
               { name: "Anthropic Claude (chat)", url: "https://claude.ai", note: "Free tier works for the planning step" },
               { name: "Claude Code or Cursor", url: "https://www.anthropic.com/claude-code", note: "Pick whichever AI coding agent you prefer" },
-              { name: "Neon", url: "https://neon.tech", note: "Postgres database — free tier" },
-              { name: "Vercel", url: "https://vercel.com", note: "Deployment — free hobby tier" },
-              { name: "Resend", url: "https://resend.com", note: "Transactional email — free tier" },
+              { name: "Neon", url: "https://neon.tech", note: "Postgres database - free tier" },
+              { name: "Vercel", url: "https://vercel.com", note: "Deployment - free hobby tier" },
+              { name: "Resend", url: "https://resend.com", note: "Transactional email - free tier" },
               { name: "GitHub account", url: "https://github.com", note: "For pushing your code + Vercel auto-deploy" },
             ]}
           />
 
           <h3>Local tools</h3>
           <ul>
-            <li><strong>Node.js 20+</strong> (or 22+) — <code>node -v</code> to check</li>
-            <li><strong>pnpm</strong> — <code>npm i -g pnpm</code> if missing</li>
-            <li><strong>git</strong> — already installed on most systems</li>
+            <li><strong>Node.js 20+</strong> (or 22+) - <code>node -v</code> to check</li>
+            <li><strong>pnpm</strong> - <code>npm i -g pnpm</code> if missing</li>
+            <li><strong>git</strong> - already installed on most systems</li>
           </ul>
 
           <Tip>
-            Don't have a Resend account? You can skip it for now and add it during Module 04 — auth still works without email verification in dev.
+            Don't have a Resend account? You can skip it for now and add it during Module 04 - auth still works without email verification in dev.
           </Tip>
         </ModuleSection>
 
@@ -374,12 +374,12 @@ export default function TutorialPage() {
             VibeKit's planning step turns a one-line idea into 4 production-ready files. You paste a prompt, answer questions, and Claude does the rest.
           </p>
 
-          <h3>Step 1 — Open the planning prompt</h3>
+          <h3>Step 1 - Open the planning prompt</h3>
           <p>
             Go to <a href="/docs/quickstart">/docs/quickstart</a> and copy <code>CLAUDE_PROMPT.md</code> from the first code block (or grab it directly from <a href={`${SITE.github}/blob/main/CLAUDE_PROMPT.md`} target="_blank" rel="noopener noreferrer">the repo</a>).
           </p>
 
-          <h3>Step 2 — Open Claude</h3>
+          <h3>Step 2 - Open Claude</h3>
           <p>
             Go to <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">claude.ai/new</a>. Paste the entire <code>CLAUDE_PROMPT.md</code> as your first message. Then on a new line, paste the HardwarePOS brief:
           </p>
@@ -390,22 +390,22 @@ export default function TutorialPage() {
             code={hardwarePosIdea}
           />
 
-          <h3>Step 3 — Paste a Dribbble reference (mandatory)</h3>
+          <h3>Step 3 - Paste a Dribbble reference (mandatory)</h3>
           <p>
-            Claude will now ask for a UI reference image. This is non-skippable — even though the HardwarePOS brief is detailed, words like "clean dashboard" are too vague to design from. A real Dribbble shot tells Claude exactly which color palette, font weight, card style, and button shape to match.
+            Claude will now ask for a UI reference image. This is non-skippable - even though the HardwarePOS brief is detailed, words like "clean dashboard" are too vague to design from. A real Dribbble shot tells Claude exactly which color palette, font weight, card style, and button shape to match.
           </p>
           <ol>
-            <li>Claude will suggest 2–3 search terms (e.g. <code>"pos dashboard ui"</code>, <code>"retail point of sale"</code>).</li>
+            <li>Claude will suggest 2-3 search terms (e.g. <code>"pos dashboard ui"</code>, <code>"retail point of sale"</code>).</li>
             <li>Open <a href="https://dribbble.com/search" target="_blank" rel="noopener noreferrer">dribbble.com/search</a> and search one of them.</li>
             <li>Pick a shot whose aesthetic you'd want HardwarePOS to match. Open the shot in full size.</li>
-            <li><strong>Right-click → Copy Image</strong>, then paste it into the Claude chat. (Don't paste a Dribbble URL — paste the image itself.)</li>
+            <li><strong>Right-click → Copy Image</strong>, then paste it into the Claude chat. (Don't paste a Dribbble URL - paste the image itself.)</li>
             <li>Claude will analyze it and echo back the palette + typography + card spec it extracted. Confirm or correct.</li>
           </ol>
           <Tip>
-            For HardwarePOS specifically, look for shots with bold large numbers (cashier-readable totals), clean tables, soft cards. Avoid shots that are too "creative agency" — POS UIs need to be fast and legible, not editorial.
+            For HardwarePOS specifically, look for shots with bold large numbers (cashier-readable totals), clean tables, soft cards. Avoid shots that are too "creative agency" - POS UIs need to be fast and legible, not editorial.
           </Tip>
 
-          <h3>Step 4 — Wait for Claude's confirmation summary</h3>
+          <h3>Step 4 - Wait for Claude's confirmation summary</h3>
           <p>
             The HardwarePOS brief above is detailed, so Claude will probably skip the interview. Instead, it will write a structured summary like this:
           </p>
@@ -413,7 +413,7 @@ export default function TutorialPage() {
             label="What Claude will produce"
             code={`## What I understood
 
-App: HardwarePOS — a single-user POS for a hardware shop in Uganda
+App: HardwarePOS - a single-user POS for a hardware shop in Uganda
 Primary user: the shop owner / cashier
 Core features:
   - POS sale flow (search → cart → payment → receipt)
@@ -437,8 +437,8 @@ or tell me what to adjust.`}
             code={`Yes, generate the files`}
           />
 
-          <h3>Step 5 — Download the 4 files</h3>
-          <p>Claude will produce 4 downloadable Artifacts (one per file) in the right-side panel. Each has a download icon — click it to save the file.</p>
+          <h3>Step 5 - Download the 4 files</h3>
+          <p>Claude will produce 4 downloadable Artifacts (one per file) in the right-side panel. Each has a download icon - click it to save the file.</p>
 
           <CopyBlock
             filename="terminal"
@@ -452,7 +452,7 @@ or tell me what to adjust.`}
           />
 
           <Tip>
-            <em>Prefer one-shot creation?</em> At the end of Claude's message there's a single bash heredoc block that creates all 4 files at once — copy it, paste into your terminal inside <code>hardware-pos/</code>, hit enter. Done.
+            <em>Prefer one-shot creation?</em> At the end of Claude's message there's a single bash heredoc block that creates all 4 files at once - copy it, paste into your terminal inside <code>hardware-pos/</code>, hit enter. Done.
           </Tip>
 
           <Tip>
@@ -466,7 +466,7 @@ or tell me what to adjust.`}
             Scaffold the Next.js 16 project, copy the framework's coding constitution into it, open your coding agent.
           </p>
 
-          <h3>Step 1 — Scaffold Next.js</h3>
+          <h3>Step 1 - Scaffold Next.js</h3>
           <CopyBlock
             filename="terminal"
             label="From inside the hardware-pos folder"
@@ -474,7 +474,7 @@ or tell me what to adjust.`}
           />
           <p>Accept the prompts. When it finishes, you have a base Next.js 16 project.</p>
 
-          <h3>Step 2 — Copy the framework files</h3>
+          <h3>Step 2 - Copy the framework files</h3>
           <p>Clone the VibeKit repo to grab the framework files:</p>
           <CopyBlock
             filename="terminal"
@@ -486,30 +486,30 @@ cp /tmp/vibekit/jb-components.md ./jb-components.md
 cp /tmp/vibekit/pre-deploy-review.md ./pre-deploy-review.md`}
           />
 
-          <h3>Step 3 — Install the VibeKit rules for your AI agent</h3>
+          <h3>Step 3 - Install the VibeKit rules for your AI agent</h3>
           <p>
-            VibeKit ships rules for every major AI coding agent. Pick your agent below and run the one-line install. The rules auto-load whenever you open the agent in this project — no need to paste long prompts every session.
+            VibeKit ships rules for every major AI coding agent. Pick your agent below and run the one-line install. The rules auto-load whenever you open the agent in this project - no need to paste long prompts every session.
           </p>
 
           <AgentInstallTabs />
 
           <Tip>
-            <em>Switching between agents on the same project?</em> Install for all of them at once — see the "Multi-agent setup" section in <a href={`${SITE.github}/blob/main/skill/README.md`} target="_blank" rel="noopener noreferrer">skill/README.md</a>. One canonical file, symlinked to each agent's expected path.
+            <em>Switching between agents on the same project?</em> Install for all of them at once - see the "Multi-agent setup" section in <a href={`${SITE.github}/blob/main/skill/README.md`} target="_blank" rel="noopener noreferrer">skill/README.md</a>. One canonical file, symlinked to each agent's expected path.
           </Tip>
 
-          <h3>Step 4 — Verify your project root</h3>
+          <h3>Step 4 - Verify your project root</h3>
           <p>You should now have these 7 files in your project root:</p>
           <CopyBlock
             filename="ls -la"
             label="Expected files"
             code={`hardware-pos/
-├── master_prompt.md            # framework — coding rules
-├── jb-components.md            # framework — component registry
-├── pre-deploy-review.md        # framework — security audit prompt
+├── master_prompt.md            # framework - coding rules
+├── jb-components.md            # framework - component registry
+├── pre-deploy-review.md        # framework - security audit prompt
 ├── project-description.md      # generated by Claude
 ├── project-phases.md           # generated by Claude
 ├── design-style-guide.md       # generated by Claude
-├── prompt.md                   # generated by Claude — paste this next
+├── prompt.md                   # generated by Claude - paste this next
 │
 # ONE of these from Step 3 (depending on your agent):
 ├── .claude/skills/vibekit/SKILL.md   # Claude Code
@@ -521,26 +521,26 @@ cp /tmp/vibekit/pre-deploy-review.md ./pre-deploy-review.md`}
 └── package.json + Next.js scaffold`}
           />
 
-          <h3>Step 5 — Open in your coding agent</h3>
+          <h3>Step 5 - Open in your coding agent</h3>
           <p>
             Open the <code>hardware-pos</code> folder in Claude Code (<code>claude</code> in the project terminal), Cursor, Cline, or whichever agent you chose.
           </p>
         </ModuleSection>
 
         {/* MODULE 04 */}
-        <ModuleSection slug="module-04" eyebrow="MODULE 04 · 30 min" title="Phase 1 — Foundation">
+        <ModuleSection slug="module-04" eyebrow="MODULE 04 · 30 min" title="Phase 1 - Foundation">
           <p>
             First big build moment. Your agent reads all 7 files, then executes Phase 1: Prisma + Neon, Better Auth, layout shell, design tokens, custom 404/error pages.
           </p>
 
-          <h3>Step 1 — Get a Neon database URL</h3>
+          <h3>Step 1 - Get a Neon database URL</h3>
           <ol>
             <li>Go to <a href="https://console.neon.tech" target="_blank" rel="noopener noreferrer">console.neon.tech</a> and create a new project.</li>
             <li>Copy the connection string (starts with <code>postgres://</code>).</li>
-            <li>Use the direct (non-pooled) connection — Prisma migrations require it.</li>
+            <li>Use the direct (non-pooled) connection - Prisma migrations require it.</li>
           </ol>
 
-          <h3>Step 2 — Paste the build prompt</h3>
+          <h3>Step 2 - Paste the build prompt</h3>
           <p>In your coding agent, paste the entire contents of <code>prompt.md</code> as your first message. The agent will:</p>
           <ol>
             <li>Read <code>master_prompt.md</code>, <code>design-style-guide.md</code>, <code>jb-components.md</code>, <code>project-description.md</code>, <code>project-phases.md</code></li>
@@ -548,7 +548,7 @@ cp /tmp/vibekit/pre-deploy-review.md ./pre-deploy-review.md`}
             <li>Stop after Phase 1 for your confirmation</li>
           </ol>
 
-          <h3>Step 3 — Provide secrets when asked</h3>
+          <h3>Step 3 - Provide secrets when asked</h3>
           <p>The agent creates <code>.env.local</code> and asks for values. Provide:</p>
           <CopyBlock
             filename=".env.local"
@@ -566,7 +566,7 @@ GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""`}
           />
 
-          <h3>Step 4 — Push the schema + start dev</h3>
+          <h3>Step 4 - Push the schema + start dev</h3>
           <CopyBlock
             filename="terminal"
             label="Phase 1 verification"
@@ -588,15 +588,15 @@ pnpm dev`}
         </ModuleSection>
 
         {/* MODULE 05 */}
-        <ModuleSection slug="module-05" eyebrow="MODULE 05 · 30 min" title="Phase 2 — Products & Inventory">
+        <ModuleSection slug="module-05" eyebrow="MODULE 05 · 30 min" title="Phase 2 - Products & Inventory">
           <p>
-            Build the inventory side first — the cashier needs products to exist before they can sell. Categories + Products with full CRUD, plus low-stock badges.
+            Build the inventory side first - the cashier needs products to exist before they can sell. Categories + Products with full CRUD, plus low-stock badges.
           </p>
 
-          <h3>Step 1 — Confirm Phase 1 done, start Phase 2</h3>
+          <h3>Step 1 - Confirm Phase 1 done, start Phase 2</h3>
           <CopyBlock
             label="Prompt"
-            code={`Phase 1 is verified working. Proceed to Phase 2 — Products & Inventory.
+            code={`Phase 1 is verified working. Proceed to Phase 2 - Products & Inventory.
 
 Build:
 - Category and Product Prisma models (schema below)
@@ -609,7 +609,7 @@ Build:
 Stop after Phase 2 is complete and ask me to verify.`}
           />
 
-          <h3>Step 2 — Verify the schema</h3>
+          <h3>Step 2 - Verify the schema</h3>
           <p>The agent should produce a Prisma schema like this. If it differs, ask for these exact fields:</p>
           <CopyBlock
             filename="prisma/schema.prisma"
@@ -645,30 +645,30 @@ model Product {
 }`}
           />
 
-          <h3>Step 3 — Test inventory CRUD</h3>
+          <h3>Step 3 - Test inventory CRUD</h3>
           <ol>
             <li>Verify the 6 categories appear in the sidebar / category dropdown</li>
-            <li>Add 8–10 products across categories (e.g. <code>NAIL-3IN</code> 3-inch nails 800 UGX stock 200; <code>PAINT-WHT-4L</code> White paint 4L 45,000 UGX stock 12)</li>
-            <li>Edit a product's stock down to 2 — confirm the low-stock badge appears</li>
-            <li>Delete a product — confirm it's removed</li>
-            <li>Search by SKU and by name — both should work in the data table</li>
+            <li>Add 8-10 products across categories (e.g. <code>NAIL-3IN</code> 3-inch nails 800 UGX stock 200; <code>PAINT-WHT-4L</code> White paint 4L 45,000 UGX stock 12)</li>
+            <li>Edit a product's stock down to 2 - confirm the low-stock badge appears</li>
+            <li>Delete a product - confirm it's removed</li>
+            <li>Search by SKU and by name - both should work in the data table</li>
           </ol>
 
           <Tip>
-            UGX prices stored as integers (not decimals) avoids rounding bugs. The <code>formatUGX()</code> utility handles display. Tell your agent if it tries to use Decimal/Float for currency — that's a foot-gun.
+            UGX prices stored as integers (not decimals) avoids rounding bugs. The <code>formatUGX()</code> utility handles display. Tell your agent if it tries to use Decimal/Float for currency - that's a foot-gun.
           </Tip>
         </ModuleSection>
 
         {/* MODULE 06 */}
-        <ModuleSection slug="module-06" eyebrow="MODULE 06 · 45 min" title="Phase 3 — POS Sale flow + Receipt PDF">
+        <ModuleSection slug="module-06" eyebrow="MODULE 06 · 45 min" title="Phase 3 - POS Sale flow + Receipt PDF">
           <p>
             The core of the app. Cashier searches a product, adds to cart, sets quantity, picks payment, completes sale. Stock decrements atomically. PDF receipt downloads immediately.
           </p>
 
-          <h3>Step 1 — Add the Sale + SaleItem schema</h3>
+          <h3>Step 1 - Add the Sale + SaleItem schema</h3>
           <CopyBlock
             label="Prompt"
-            code={`Phase 2 is verified. Proceed to Phase 3 — POS Sale flow.
+            code={`Phase 2 is verified. Proceed to Phase 3 - POS Sale flow.
 
 Add to the Prisma schema:
 
@@ -706,20 +706,20 @@ Then run pnpm db:push and pnpm db:generate.`}
           />
 
           <Tip>
-            Why snapshot productName/productSku/unitPriceUgx on each SaleItem? Because product details change over time, but a historical sale receipt should reflect what was sold at that moment. This is a real-world pattern that AI agents often skip — make sure it's there.
+            Why snapshot productName/productSku/unitPriceUgx on each SaleItem? Because product details change over time, but a historical sale receipt should reflect what was sold at that moment. This is a real-world pattern that AI agents often skip - make sure it's there.
           </Tip>
 
-          <h3>Step 2 — Build the POS screen</h3>
+          <h3>Step 2 - Build the POS screen</h3>
           <CopyBlock
             label="Prompt"
             code={`Build /pos as the main POS screen with this layout:
 
-LEFT (60%) — Product search + grid:
+LEFT (60%) - Product search + grid:
 - Search input at top (search by SKU or product name)
 - Product grid below: each card shows SKU, name, price (UGX), stock. Click adds 1 to cart (or increments quantity if already in cart). Out-of-stock products are visually disabled.
 - Use React Query for product data with staleTime 30000.
 
-RIGHT (40%) — Cart:
+RIGHT (40%) - Cart:
 - "New Sale" header
 - List of cart items: product name, qty controls (+/-), unit price, line total, remove button
 - Optional customer name + phone fields
@@ -731,7 +731,7 @@ API:
 POST /api/sales accepts { items: [{ productId, quantity }], paymentMethod, customerName?, customerPhone? } and:
 1. Validates with Zod
 2. Wraps everything in db.$transaction:
-   a. Reads each product (FOR UPDATE not needed — Prisma handles this with the txn)
+   a. Reads each product (FOR UPDATE not needed - Prisma handles this with the txn)
    b. Verifies stock >= quantity for each item; throws 400 if not
    c. Creates the Sale with snapshot SaleItems (copy productName, sku, unitPriceUgx)
    d. Decrements product stockQuantity by quantity for each item
@@ -742,7 +742,7 @@ After successful sale, redirect to /sales/[id] which shows the sale detail + a "
 Use the existing JB Searchable Select for the payment method dropdown.`}
           />
 
-          <h3>Step 3 — Receipt PDF with @react-pdf/renderer</h3>
+          <h3>Step 3 - Receipt PDF with @react-pdf/renderer</h3>
           <CopyBlock
             label="Prompt"
             code={`Build /api/sales/[id]/receipt that returns a PDF response using @react-pdf/renderer.
@@ -753,14 +753,14 @@ The receipt should look like a real till receipt:
 - Line items table: SKU | Item | Qty | Unit Price | Line Total
 - Total row in bold
 - Footer: "Thank you for your purchase"
-- Use Helvetica or the closest equivalent in @react-pdf — small fonts (10–11pt)
+- Use Helvetica or the closest equivalent in @react-pdf - small fonts (10-11pt)
 - A4 portrait page size
 - Currency formatted via formatUGX()
 
 Wire the "Download Receipt" button on the sale detail page to fetch this endpoint and download the file as receipt-<saleId>.pdf.`}
           />
 
-          <h3>Step 4 — Test a real sale end-to-end</h3>
+          <h3>Step 4 - Test a real sale end-to-end</h3>
           <ol>
             <li>Open /pos, search "nail", add to cart</li>
             <li>Adjust quantity to 5, search "paint", add to cart</li>
@@ -769,26 +769,26 @@ Wire the "Download Receipt" button on the sale detail page to fetch this endpoin
             <li>Pick "Mobile Money" as payment method</li>
             <li>Click Complete Sale → you land on /sales/[id]</li>
             <li>Download the receipt PDF and open it</li>
-            <li>Go to /inventory — verify stock decremented for both products</li>
+            <li>Go to /inventory - verify stock decremented for both products</li>
           </ol>
         </ModuleSection>
 
         {/* MODULE 07 */}
-        <ModuleSection slug="module-07" eyebrow="MODULE 07 · 25 min" title="Phase 4 — Dashboard + Sales History">
+        <ModuleSection slug="module-07" eyebrow="MODULE 07 · 25 min" title="Phase 4 - Dashboard + Sales History">
           <p>
             With sales flowing, the dashboard becomes useful. Today's revenue, top products, low-stock counter, weekly chart. Plus the full sales history.
           </p>
 
-          <h3>Step 1 — Dashboard analytics</h3>
+          <h3>Step 1 - Dashboard analytics</h3>
           <CopyBlock
             label="Prompt"
             code={`Build /dashboard with these sections:
 
 STAT CARDS ROW (4 cards across):
-- Today's Revenue (UGX) — sum of Sale.totalUgx where DATE(createdAt) = today
-- Today's Transactions — count of sales today
-- Low-Stock Alerts — count of products where stockQuantity <= lowStockThreshold
-- This Week's Revenue — sum of Sale.totalUgx where createdAt >= start of current ISO week
+- Today's Revenue (UGX) - sum of Sale.totalUgx where DATE(createdAt) = today
+- Today's Transactions - count of sales today
+- Low-Stock Alerts - count of products where stockQuantity <= lowStockThreshold
+- This Week's Revenue - sum of Sale.totalUgx where createdAt >= start of current ISO week
 
 Each card: label (uppercase mono 11px), big number (28px semibold), small comparison vs yesterday/last week (12px secondary).
 
@@ -812,10 +812,10 @@ LOW-STOCK LIST:
 All queries should be in API routes, scoped to session.user.id, served via React Query.`}
           />
 
-          <h3>Step 2 — Sales history page</h3>
+          <h3>Step 2 - Sales history page</h3>
           <CopyBlock
             label="Prompt"
-            code={`Build /sales — full sales history list:
+            code={`Build /sales - full sales history list:
 
 - JB Data Table with columns: Date (formatted "Jan 15, 2024 14:30"), Sale ID (last 8 chars), Items count, Payment Method (badge), Total (UGX, right-aligned monospace), Customer (if any), Action (View)
 - Server-side pagination via /api/sales (page, limit, default 20)
@@ -823,20 +823,20 @@ All queries should be in API routes, scoped to session.user.id, served via React
   - Date range picker (default: last 30 days)
   - Payment method dropdown (All / Cash / Mobile Money / Card)
 - Filter state lives in URL query params so refresh preserves it
-- "Export today's sales as PDF" button at the top — generates a daily report PDF with a header summary + sales table
+- "Export today's sales as PDF" button at the top - generates a daily report PDF with a header summary + sales table
 
 Clicking a row goes to /sales/[id] (already exists from Phase 3) showing full line items and the receipt download button.`}
           />
 
-          <h3>Step 3 — Test the analytics</h3>
+          <h3>Step 3 - Test the analytics</h3>
           <ol>
-            <li>Make 3–5 sales of varying amounts and payment methods</li>
-            <li>Refresh /dashboard — verify the 4 stat cards reflect those sales</li>
-            <li>Check the weekly revenue chart — today's bar should be highlighted</li>
+            <li>Make 3-5 sales of varying amounts and payment methods</li>
+            <li>Refresh /dashboard - verify the 4 stat cards reflect those sales</li>
+            <li>Check the weekly revenue chart - today's bar should be highlighted</li>
             <li>Verify the top-5 products list orders correctly</li>
-            <li>Drop a product's stock to below threshold — verify it appears in low-stock list</li>
-            <li>On /sales, filter to "Mobile Money only" — verify the URL updates and the table filters</li>
-            <li>Export today's sales as PDF — open the file, verify totals match the dashboard</li>
+            <li>Drop a product's stock to below threshold - verify it appears in low-stock list</li>
+            <li>On /sales, filter to "Mobile Money only" - verify the URL updates and the table filters</li>
+            <li>Export today's sales as PDF - open the file, verify totals match the dashboard</li>
           </ol>
         </ModuleSection>
 
@@ -844,18 +844,18 @@ Clicking a row goes to /sales/[id] (already exists from Phase 3) showing full li
         <ModuleSection slug="module-08" eyebrow="MODULE 08 · 40 min" title="Pre-deploy review + Deploy">
           <p>The two highest-leverage steps: catch security holes before launch, then ship.</p>
 
-          <h3>Step 1 — Run the pre-deploy audit</h3>
+          <h3>Step 1 - Run the pre-deploy audit</h3>
           <p>
             Open <a href="/docs/quickstart#step-7">Step 7 of the quickstart</a> (or open <code>pre-deploy-review.md</code> in your project root). Paste the entire prompt into your coding agent.
           </p>
           <p>The agent writes findings to <code>pre-deploy-review-report.md</code>. Expected for HardwarePOS:</p>
           <ul>
-            <li><strong>Critical</strong> — missing rate limiting on auth, possibly missing transaction wrapping on the sale endpoint (this would let stock go negative under concurrent sales)</li>
-            <li><strong>High</strong> — missing index on Sale.createdAt for the dashboard date queries, N+1 on the sales history when fetching items count</li>
-            <li><strong>Medium</strong> — missing Zod refinements (e.g. quantity must be &gt; 0), verbose console.log on success paths</li>
+            <li><strong>Critical</strong> - missing rate limiting on auth, possibly missing transaction wrapping on the sale endpoint (this would let stock go negative under concurrent sales)</li>
+            <li><strong>High</strong> - missing index on Sale.createdAt for the dashboard date queries, N+1 on the sales history when fetching items count</li>
+            <li><strong>Medium</strong> - missing Zod refinements (e.g. quantity must be &gt; 0), verbose console.log on success paths</li>
           </ul>
 
-          <h3>Step 2 — Fix every Critical</h3>
+          <h3>Step 2 - Fix every Critical</h3>
           <p>For each Critical, paste back to the agent:</p>
           <CopyBlock
             label="Prompt"
@@ -863,25 +863,25 @@ Clicking a row goes to /sales/[id] (already exists from Phase 3) showing full li
           />
           <p>Re-run the audit until Critical count = 0. High and Medium can wait until after launch.</p>
 
-          <h3>Step 3 — Push to GitHub</h3>
+          <h3>Step 3 - Push to GitHub</h3>
           <CopyBlock
             filename="terminal"
             label="Initial commit + push"
             code={`git init
 git add .
-git commit -m "Initial commit — HardwarePOS built with VibeKit"
+git commit -m "Initial commit - HardwarePOS built with VibeKit"
 gh repo create hardware-pos --private --source=. --push
 # OR manually create on github.com and:
 # git remote add origin https://github.com/YOU/hardware-pos.git
 # git push -u origin main`}
           />
 
-          <h3>Step 4 — Import to Vercel + set env vars</h3>
+          <h3>Step 4 - Import to Vercel + set env vars</h3>
           <ol>
             <li>Go to <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer">vercel.com/new</a></li>
             <li>Import the <code>hardware-pos</code> repo. Framework auto-detects as Next.js.</li>
             <li>Build command: <code>prisma generate &amp;&amp; prisma migrate deploy &amp;&amp; next build</code></li>
-            <li>Don't deploy yet — set env vars first.</li>
+            <li>Don't deploy yet - set env vars first.</li>
           </ol>
           <CopyBlock
             filename="Vercel → Settings → Environment Variables"
@@ -896,14 +896,14 @@ GOOGLE_CLIENT_SECRET=<from Google Cloud Console>
 NEXT_PUBLIC_APP_URL=https://hardware-pos.vercel.app`}
           />
 
-          <h3>Step 5 — Add OAuth redirect URI</h3>
+          <h3>Step 5 - Add OAuth redirect URI</h3>
           <p>In Google Cloud Console → APIs & Services → Credentials → your OAuth client → Authorized redirect URIs, add:</p>
           <CopyBlock
             label="Production redirect"
             code={`https://hardware-pos.vercel.app/api/auth/callback/google`}
           />
 
-          <h3>Step 6 — Deploy + smoke test</h3>
+          <h3>Step 6 - Deploy + smoke test</h3>
           <p>Hit <strong>Deploy</strong>. Wait ~2 min. Visit the URL and run through the full flow:</p>
           <ul>
             <li>Sign up + verify welcome email</li>
@@ -914,7 +914,7 @@ NEXT_PUBLIC_APP_URL=https://hardware-pos.vercel.app`}
             <li>Toggle dark mode on a phone</li>
           </ul>
 
-          <h3>Step 7 — Custom domain (optional)</h3>
+          <h3>Step 7 - Custom domain (optional)</h3>
           <ol>
             <li>Buy a domain on Cloudflare Registrar (or your provider)</li>
             <li>Vercel → Settings → Domains → add your domain</li>
@@ -929,10 +929,10 @@ NEXT_PUBLIC_APP_URL=https://hardware-pos.vercel.app`}
               You shipped it.
             </h3>
             <p className="mt-3 text-[15px] text-[color:var(--text-primary)]">
-              That's a real POS — auth, transactions, atomic stock decrements, downloadable receipts, audited for security, deployed to a custom domain. A hardware shop owner could actually use this.
+              That's a real POS - auth, transactions, atomic stock decrements, downloadable receipts, audited for security, deployed to a custom domain. A hardware shop owner could actually use this.
             </p>
             <p className="mt-3 text-[14px] text-[color:var(--text-secondary)]">
-              Share what you built in the <a href={SITE.community} target="_blank" rel="noopener noreferrer" className="text-[color:var(--accent)] underline">community</a> — and tag it with <code>#shipped-with-vibekit</code>.
+              Share what you built in the <a href={SITE.community} target="_blank" rel="noopener noreferrer" className="text-[color:var(--accent)] underline">community</a> - and tag it with <code>#shipped-with-vibekit</code>.
             </p>
           </div>
         </ModuleSection>
@@ -948,7 +948,7 @@ NEXT_PUBLIC_APP_URL=https://hardware-pos.vercel.app`}
             {[
               { title: "Add real Mobile Money", body: "Install JB DGateway Shop and wire actual MoMo settlement to the sale flow. ~45 min." },
               { title: "Multi-cashier support", body: "Add a 'cashier' role + sale.cashierId so you can see who rang up which sales. ~30 min." },
-              { title: "Barcode scanner input", body: "Hook a USB scanner into the SKU search — it's just keyboard input. ~15 min." },
+              { title: "Barcode scanner input", body: "Hook a USB scanner into the SKU search - it's just keyboard input. ~15 min." },
               { title: "Stock-in / restock flow", body: "Track inventory deliveries with a separate StockMovement model. ~45 min." },
               { title: "Daily Z-report (end of day)", body: "Closing report with sales by payment method + cash drawer reconciliation. ~30 min." },
               { title: "Build something else", body: "Restart from Module 02 with a new app idea. The flow is fully repeatable." },
@@ -991,9 +991,9 @@ NEXT_PUBLIC_APP_URL=https://hardware-pos.vercel.app`}
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HowTo",
-            name: "Build HardwarePOS — a real point-of-sale system — with VibeKit",
+            name: "Build HardwarePOS - a real point-of-sale system - with VibeKit",
             description:
-              "Build and deploy HardwarePOS, a point-of-sale system for a small hardware shop, with auth, inventory, atomic sales transactions, receipt PDFs, and a dashboard — using VibeKit + any AI coding agent.",
+              "Build and deploy HardwarePOS, a point-of-sale system for a small hardware shop, with auth, inventory, atomic sales transactions, receipt PDFs, and a dashboard - using VibeKit + any AI coding agent.",
             totalTime: "PT3H",
             tool: [
               { "@type": "HowToTool", name: "Claude (claude.ai)" },

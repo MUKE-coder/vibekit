@@ -25,8 +25,8 @@ export function ThemeToggle({ className }: { className?: string }) {
         className
       )}
     >
-      <Sun className={cn("h-[18px] w-[18px] transition-all", isDark && "scale-0 -rotate-90 opacity-0")} aria-hidden />
-      <Moon className={cn("absolute h-[18px] w-[18px] transition-all", !isDark && "scale-0 rotate-90 opacity-0")} aria-hidden />
+      <Sun className={cn("h-[18px] w-[18px] transition", isDark && "scale-0 -rotate-90 opacity-0")} aria-hidden />
+      <Moon className={cn("absolute h-[18px] w-[18px] transition", !isDark && "scale-0 rotate-90 opacity-0")} aria-hidden />
     </button>
   );
 }

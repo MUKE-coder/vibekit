@@ -45,7 +45,7 @@ export const components: JBComponent[] = [
   {
     slug: "better-auth-ui",
     name: "JB Better Auth UI",
-    tagline: "Production-ready authentication — sign-in, sign-up, OAuth, password reset.",
+    tagline: "Production-ready authentication - sign-in, sign-up, OAuth, password reset.",
     category: "auth",
     categoryLabel: "Authentication",
     install: "pnpm dlx shadcn@latest add https://better-auth-ui.desishub.com/r/auth-components.json",
@@ -57,10 +57,10 @@ export const components: JBComponent[] = [
       { name: "DATABASE_URL", description: "PostgreSQL connection string" },
       { name: "RESEND_FROM_EMAIL", description: "Verified sender (e.g. noreply@yourdomain.com)" },
       { name: "RESEND_API_KEY", description: "From Resend dashboard" },
-      { name: "GOOGLE_CLIENT_ID", description: "Optional — Google OAuth" },
-      { name: "GOOGLE_CLIENT_SECRET", description: "Optional — Google OAuth" },
-      { name: "GITHUB_CLIENT_ID", description: "Optional — GitHub OAuth" },
-      { name: "GITHUB_CLIENT_SECRET", description: "Optional — GitHub OAuth" },
+      { name: "GOOGLE_CLIENT_ID", description: "Optional - Google OAuth" },
+      { name: "GOOGLE_CLIENT_SECRET", description: "Optional - Google OAuth" },
+      { name: "GITHUB_CLIENT_ID", description: "Optional - GitHub OAuth" },
+      { name: "GITHUB_CLIENT_SECRET", description: "Optional - GitHub OAuth" },
     ],
     features: [
       "8 auth components (SignIn, SignUp, VerifyEmail, ForgetPassword, ResetPassword, ChangePassword, Profile, LogoutButton)",
@@ -87,7 +87,7 @@ export const components: JBComponent[] = [
   {
     slug: "website-ui",
     name: "Website UI",
-    tagline: "Complete Next.js marketing scaffold — landing, pricing, docs, and more.",
+    tagline: "Complete Next.js marketing scaffold - landing, pricing, docs, and more.",
     category: "marketing",
     categoryLabel: "Marketing",
     install: "pnpm dlx shadcn@latest add https://ui-components.desishub.com/r/website-ui.json",
@@ -228,7 +228,7 @@ export const components: JBComponent[] = [
       "/blog, /blog/[slug]",
       "components/mdx.tsx, copy-button.tsx, post-item.tsx",
       "data/blog.ts, types/blog.ts",
-      "content/blog/ — 3 sample .mdx files",
+      "content/blog/ - 3 sample .mdx files",
     ],
   },
   {
@@ -252,14 +252,14 @@ export const components: JBComponent[] = [
     filesAdded: [
       "app/api-docs/route.ts (Scalar UI)",
       "app/api/openapi/route.ts (OpenAPI JSON)",
-      "app/api/products/, /categories/, /users/ — list + detail",
+      "app/api/products/, /categories/, /users/ - list + detail",
       "data/openapi.ts, data/dummy.ts",
     ],
   },
   {
     slug: "dgateway-shop",
     name: "DGateway Shop",
-    tagline: "E-commerce + Mobile Money + Stripe — built for African markets.",
+    tagline: "E-commerce + Mobile Money + Stripe - built for African markets.",
     category: "commerce",
     categoryLabel: "Commerce",
     install: "pnpm dlx shadcn@latest add https://ui-components.desishub.com/r/dgateway-shop.json",
@@ -303,16 +303,16 @@ export const components: JBComponent[] = [
       "Handles value selection and change callbacks",
     ],
     whenToUse: "Selects with 10+ options or where users benefit from type-to-filter (countries, tags, lookups).",
-    whenNotToUse: "Simple 2–3 item selects (use shadcn Select), or multi-select scenarios.",
+    whenNotToUse: "Simple 2-3 item selects (use shadcn Select), or multi-select scenarios.",
     filesAdded: ["searchable-select.tsx (location depends on install target)"],
   },
   /* ──────────────────────────────────────────────
-   * Hero sections — community-curated landing heroes
+   * Hero sections - community-curated landing heroes
    * ────────────────────────────────────────────── */
   {
     slug: "hero-spiral-background",
     name: "Spiral Background Hero",
-    tagline: "A hero section with a golden spiral background — eye-catching for landing pages.",
+    tagline: "A hero section with a golden spiral background - eye-catching for landing pages.",
     category: "hero",
     categoryLabel: "Hero section",
     install: "npx shadcn@latest add @ncdai/hero-01",
@@ -329,7 +329,7 @@ export const components: JBComponent[] = [
   },
   {
     slug: "hero-115-ring-backdrop",
-    name: "Hero 115 — Centered Ring Backdrop",
+    name: "Hero 115 - Centered Ring Backdrop",
     tagline: "Centered hero with concentric ring decoration, leading icon, headline, supporting text, CTA, byline, and capped hero image.",
     category: "hero",
     categoryLabel: "Hero section",
@@ -344,7 +344,7 @@ export const components: JBComponent[] = [
       "Capped hero image area below the copy",
     ],
     whenToUse: "Product launches, app landing pages, anywhere you need a clean centered hero with a single focused CTA.",
-    whenNotToUse: "Two-column hero layouts (with hero image on the right) — this one is centered.",
+    whenNotToUse: "Two-column hero layouts (with hero image on the right) - this one is centered.",
   },
   {
     slug: "hero-marketing-with-navbar",
@@ -357,17 +357,17 @@ export const components: JBComponent[] = [
     sourceLabel: "meschacirung · 21st.dev",
     features: [
       "Includes a matching navbar component",
-      "Modern marketing aesthetic — large headline + supporting copy",
+      "Modern marketing aesthetic - large headline + supporting copy",
       "Primary + secondary CTA pair",
       "Mobile responsive out of the box",
     ],
-    whenToUse: "Marketing sites that need both nav and hero in one consistent design — typically the public-facing landing page.",
-    whenNotToUse: "If your project already has a custom navbar — you'd want the standalone hero variant instead.",
+    whenToUse: "Marketing sites that need both nav and hero in one consistent design - typically the public-facing landing page.",
+    whenNotToUse: "If your project already has a custom navbar - you'd want the standalone hero variant instead.",
   },
   {
     slug: "hero-saas",
     name: "SaaS Hero",
-    tagline: "Modern SaaS hero section — built for startups launching a product.",
+    tagline: "Modern SaaS hero section - built for startups launching a product.",
     category: "hero",
     categoryLabel: "Hero section",
     install: "npx shadcn@latest add https://21st.dev/r/meschacirung/hero-section-1",
@@ -380,7 +380,7 @@ export const components: JBComponent[] = [
       "Light + dark mode aware",
     ],
     whenToUse: "SaaS product landing pages where the hero needs to communicate value fast and drive sign-ups.",
-    whenNotToUse: "Agency / portfolio sites — those have different conversion patterns.",
+    whenNotToUse: "Agency / portfolio sites - those have different conversion patterns.",
   },
   {
     slug: "hero-power-section",
@@ -392,17 +392,17 @@ export const components: JBComponent[] = [
     source: "21st.dev",
     sourceLabel: "mikolajdobrucki · 21st.dev",
     features: [
-      "Striking visual treatment — big type, generous whitespace",
+      "Striking visual treatment - big type, generous whitespace",
       "Designed to feel premium and editorial",
       "Single-column centered layout",
     ],
-    whenToUse: "When you want the hero to do most of the storytelling — product launches, brand pages, manifestos.",
+    whenToUse: "When you want the hero to do most of the storytelling - product launches, brand pages, manifestos.",
     whenNotToUse: "Information-dense pages where readers need to scan multiple sections quickly.",
   },
   {
     slug: "hero-agency",
     name: "Agency Hero",
-    tagline: "Clean agency hero designed for SaaS and startup websites — bold headline, gradient background, trust badges, client logos.",
+    tagline: "Clean agency hero designed for SaaS and startup websites - bold headline, gradient background, trust badges, client logos.",
     category: "hero",
     categoryLabel: "Hero section",
     install: "pnpm dlx shadcn@latest add @shadcn-space/hero-01",
@@ -524,7 +524,7 @@ export const components: JBComponent[] = [
     whenNotToUse: "Consumer apps without API access or token-based auth.",
   },
   /* ──────────────────────────────────────────────
-   * VibeKit in-house registry — productivity & cross-cutting UI
+   * VibeKit in-house registry - productivity & cross-cutting UI
    * Hosted at vibekit.desishub.com/r/{slug}.json
    * ────────────────────────────────────────────── */
   {
@@ -540,10 +540,10 @@ export const components: JBComponent[] = [
       "Add, rename, and delete columns inline",
       "Card creation dialog with title, description, and label",
       "Drag overlay preview with rotation feedback",
-      "Controlled component — columns and onColumnsChange handler",
+      "Controlled component - columns and onColumnsChange handler",
     ],
     whenToUse: "CRM pipelines, project management, content calendars, hiring boards, lightweight task trackers.",
-    whenNotToUse: "Linear-style nested tasks or Gantt-style timelines — use a dedicated project management library.",
+    whenNotToUse: "Linear-style nested tasks or Gantt-style timelines - use a dedicated project management library.",
   },
   {
     slug: "rich-text-editor",
@@ -557,7 +557,7 @@ export const components: JBComponent[] = [
       "Formatting toolbar (bold, italic, headings, lists, code block, quote)",
       "Image and link extensions out of the box",
       "Placeholder text and controlled HTML output",
-      "Built on Tiptap StarterKit — extend with any Tiptap extension",
+      "Built on Tiptap StarterKit - extend with any Tiptap extension",
     ],
     whenToUse: "Notes, blog post editors, messaging composers, internal docs, knowledge bases.",
     whenNotToUse: "Markdown-only contexts (use the MDX Blog) or collaborative real-time editors (use Yjs directly).",
@@ -594,7 +594,7 @@ export const components: JBComponent[] = [
       "Loading skeletons and empty states baked in",
     ],
     whenToUse: "Analytics dashboards, reporting screens, KPI overviews, admin metrics.",
-    whenNotToUse: "Single-chart pages — drop Recharts in directly instead of installing the full grid.",
+    whenNotToUse: "Single-chart pages - drop Recharts in directly instead of installing the full grid.",
   },
   {
     slug: "multi-step-form",
@@ -611,7 +611,7 @@ export const components: JBComponent[] = [
       "Skippable and required steps supported",
     ],
     whenToUse: "Onboarding wizards, checkout flows, surveys, complex sign-up forms.",
-    whenNotToUse: "Single-screen forms — just use a normal Form component.",
+    whenNotToUse: "Single-screen forms - just use a normal Form component.",
   },
   {
     slug: "command-palette",
@@ -662,7 +662,7 @@ export const components: JBComponent[] = [
       "Drop-in replacements inside React Hook Form",
     ],
     whenToUse: "Forms needing tag selection, phone numbers, or multi-value chip inputs.",
-    whenNotToUse: "Simple text fields — use the shadcn Input component instead.",
+    whenNotToUse: "Simple text fields - use the shadcn Input component instead.",
   },
   {
     slug: "file-manager",
@@ -679,7 +679,7 @@ export const components: JBComponent[] = [
       "Upload button placeholder (wire to JB File Storage or UploadThing)",
     ],
     whenToUse: "Asset management screens, CMS media tabs, anywhere users browse and manage files.",
-    whenNotToUse: "Apps that only need a single upload widget — install JB File Storage UI directly.",
+    whenNotToUse: "Apps that only need a single upload widget - install JB File Storage UI directly.",
   },
   {
     slug: "printable-templates",
@@ -696,7 +696,7 @@ export const components: JBComponent[] = [
       "Customizable issuer/customer/items props",
     ],
     whenToUse: "Anywhere the app needs invoices, receipts, or printable reports.",
-    whenNotToUse: "Interactive dashboards — these are layout-only and meant for print/PDF output.",
+    whenNotToUse: "Interactive dashboards - these are layout-only and meant for print/PDF output.",
   },
   /* ──────────────────────────────────────────────
    * Marketing primitives extracted from VibeKit public templates
@@ -713,10 +713,10 @@ export const components: JBComponent[] = [
       "Counts up only after scrolling into view (useInView)",
       "Configurable duration, prefix, and suffix",
       "Locale-formatted numbers (12,345 not 12345)",
-      "Single span — drops into any layout",
+      "Single span - drops into any layout",
     ],
     whenToUse: "Marketing stat bands, dashboards highlighting milestone numbers, About / Press sections.",
-    whenNotToUse: "Live counters that change after the initial reveal — use a state-driven number instead.",
+    whenNotToUse: "Live counters that change after the initial reveal - use a state-driven number instead.",
   },
   {
     slug: "logo-marquee",
@@ -733,7 +733,7 @@ export const components: JBComponent[] = [
       "Configurable speed (seconds per loop)",
     ],
     whenToUse: "Marketing landing pages, hero 'trusted by' strips, integrations sections, social-proof bands.",
-    whenNotToUse: "Static logo grids where movement would distract — use a plain flex layout.",
+    whenNotToUse: "Static logo grids where movement would distract - use a plain flex layout.",
   },
   {
     slug: "alternating-timeline",
@@ -751,12 +751,12 @@ export const components: JBComponent[] = [
       "Stacked single-column on mobile",
     ],
     whenToUse: "About pages, company history, roadmap timelines, product evolution stories.",
-    whenNotToUse: "Linear feed lists or comment threads — use a simple list instead.",
+    whenNotToUse: "Linear feed lists or comment threads - use a simple list instead.",
   },
   {
     slug: "text-gradient-scroll",
     name: "Text Gradient Scroll",
-    tagline: "Scroll-driven text reveal — paragraph fades word-by-word or letter-by-letter as the user scrolls.",
+    tagline: "Scroll-driven text reveal - paragraph fades word-by-word or letter-by-letter as the user scrolls.",
     category: "animation",
     categoryLabel: "Animation",
     install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/text-gradient-scroll.json",
@@ -765,15 +765,15 @@ export const components: JBComponent[] = [
       "Word-by-word OR letter-by-letter reveal granularity",
       "Three baseline opacity modes (none / soft / medium)",
       "Triggered by element's scroll position (useScroll)",
-      "Drop-in <TextGradientScroll text=... /> — no setup",
+      "Drop-in <TextGradientScroll text=... /> - no setup",
     ],
     whenToUse: "Hero mission statements, manifesto sections, editorial brand pages.",
-    whenNotToUse: "Critical product copy or anything that must be readable from the first frame — accessibility risk on slow scrolls.",
+    whenNotToUse: "Critical product copy or anything that must be readable from the first frame - accessibility risk on slow scrolls.",
   },
   {
     slug: "blurred-orb",
     name: "Blurred Orb",
-    tagline: "Gradient-blurred backdrop element — drop behind a hero or section for a soft glow accent.",
+    tagline: "Gradient-blurred backdrop element - drop behind a hero or section for a soft glow accent.",
     category: "marketing",
     categoryLabel: "Marketing",
     install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/blurred-orb.json",
@@ -781,15 +781,15 @@ export const components: JBComponent[] = [
       "Primary / accent / muted variants using shadcn tokens",
       "Configurable size via className",
       "Override gradient via style prop for custom radial-gradients",
-      "Aria-hidden + pointer-events-none — purely decorative",
+      "Aria-hidden + pointer-events-none - purely decorative",
     ],
-    whenToUse: "Hero backdrops, behind feature cards, beside CTAs — anywhere a flat hero needs subtle depth.",
+    whenToUse: "Hero backdrops, behind feature cards, beside CTAs - anywhere a flat hero needs subtle depth.",
     whenNotToUse: "Information-dense interfaces where the blur would compete with content.",
   },
   {
     slug: "custom-cursor",
     name: "Custom Cursor",
-    tagline: "Pointer-following animated cursor — dot + outline, hover grow, click squeeze, auto-hides on mobile.",
+    tagline: "Pointer-following animated cursor - dot + outline, hover grow, click squeeze, auto-hides on mobile.",
     category: "animation",
     categoryLabel: "Animation",
     install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/custom-cursor.json",
@@ -805,13 +805,13 @@ export const components: JBComponent[] = [
     whenNotToUse: "App-style products, mobile-first audiences, accessibility-sensitive contexts. Add as a polish, not a default.",
   },
   /* ──────────────────────────────────────────────
-   * shadcn fallback primitives — components removed from the upstream
+   * shadcn fallback primitives - components removed from the upstream
    * shadcn registry that the framework still depends on.
    * ────────────────────────────────────────────── */
   {
     slug: "form",
     name: "Form (shadcn fallback)",
-    tagline: "Canonical shadcn Form primitives (FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage) — install when `shadcn add form` returns 'not found'.",
+    tagline: "Canonical shadcn Form primitives (FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage) - install when `shadcn add form` returns 'not found'.",
     category: "forms",
     categoryLabel: "Forms",
     install: "pnpm dlx shadcn@latest add https://vibekit.desishub.com/r/form.json",
@@ -827,7 +827,7 @@ export const components: JBComponent[] = [
       "Works unchanged with every React Hook Form + Zod pattern in master_prompt.md → FORM RULES",
     ],
     whenToUse: "Every form in the project. The framework's FORM RULES assume these primitives exist; install this first when scaffolding any project that needs forms.",
-    whenNotToUse: "Never skip — the official shadcn registry stopped shipping `form` upstream. This is the supported fallback.",
+    whenNotToUse: "Never skip - the official shadcn registry stopped shipping `form` upstream. This is the supported fallback.",
   },
 ];
 

@@ -65,9 +65,9 @@ export const templates: Template[] = [
     whenToUse:
       "You're a developer, designer, or technical founder who wants a beautiful single-page portfolio that ships in one config-file edit. Includes a blog so you can publish without setting up a CMS.",
     whenNotToUse:
-      "You need a multi-page agency site with services pages, case studies, and a contact form pipeline — pick a different template or build with VibeKit's Website UI component instead.",
+      "You need a multi-page agency site with services pages, case studies, and a contact form pipeline - pick a different template or build with VibeKit's Website UI component instead.",
     features: [
-      "Single config file (`src/data/resume.tsx`) — your entire portfolio lives here",
+      "Single config file (`src/data/resume.tsx`) - your entire portfolio lives here",
       "Animated hero with avatar + intro",
       "Skills, work, education, projects, hackathons sections (each toggleable)",
       "MDX blog with syntax highlighting and SEO metadata",
@@ -92,7 +92,7 @@ export const templates: Template[] = [
         name: "About / Summary",
         description: "Short bio paragraph that appears below the hero.",
         customizationQuestions: [
-          "Write your bio in 3–5 sentences. What do you build? Who do you work with? What's your superpower?",
+          "Write your bio in 3-5 sentences. What do you build? Who do you work with? What's your superpower?",
         ],
       },
       {
@@ -100,7 +100,7 @@ export const templates: Template[] = [
         name: "Skills",
         description: "Tag-style list of your skills/technologies.",
         customizationQuestions: [
-          "List your top 8–15 skills (e.g. TypeScript, React, Next.js, PostgreSQL, AWS).",
+          "List your top 8-15 skills (e.g. TypeScript, React, Next.js, PostgreSQL, AWS).",
         ],
       },
       {
@@ -108,7 +108,7 @@ export const templates: Template[] = [
         name: "Work Experience",
         description: "Timeline of jobs with company, title, dates, logo, and one-paragraph description.",
         customizationQuestions: [
-          "List your work experience in reverse-chronological order. For each: company name, your title, start/end dates, location, and 2–3 sentences about what you did.",
+          "List your work experience in reverse-chronological order. For each: company name, your title, start/end dates, location, and 2-3 sentences about what you did.",
           "Do you have logos for each company? (URLs or local paths)",
         ],
       },
@@ -124,9 +124,9 @@ export const templates: Template[] = [
       {
         id: "projects",
         name: "Projects",
-        description: "Featured projects — title, description, tech stack, image/video, live + source links.",
+        description: "Featured projects - title, description, tech stack, image/video, live + source links.",
         customizationQuestions: [
-          "Pick your top 3–6 projects. For each: title, 1–2 sentence description, tech stack, image or video URL, live demo URL, source URL.",
+          "Pick your top 3-6 projects. For each: title, 1-2 sentence description, tech stack, image or video URL, live demo URL, source URL.",
           "Are any of these private? If so, leave the source URL out and only show the live demo.",
         ],
       },
@@ -144,7 +144,7 @@ export const templates: Template[] = [
         name: "Blog",
         description: "MDX-powered blog. Posts live in `content/blog/`.",
         customizationQuestions: [
-          "Do you want the blog enabled? If yes, do you have 1–3 starter posts to seed it, or should it start empty?",
+          "Do you want the blog enabled? If yes, do you have 1-3 starter posts to seed it, or should it start empty?",
           "Should the blog be in the nav, or only accessible via direct URL?",
         ],
       },
@@ -169,7 +169,7 @@ export const templates: Template[] = [
       },
     ],
     customizationGuide:
-      "When the user picks this template, walk them through the 10 sections IN ORDER. Ask the questions for each section, gather answers, then write the entire `src/data/resume.tsx` file based on their answers. Set the brand color in the Tailwind config + `globals.css`. Replace placeholder copy with their answers. Don't change file structure — only edit the config file and content/blog/.",
+      "When the user picks this template, walk them through the 10 sections IN ORDER. Ask the questions for each section, gather answers, then write the entire `src/data/resume.tsx` file based on their answers. Set the brand color in the Tailwind config + `globals.css`. Replace placeholder copy with their answers. Don't change file structure - only edit the config file and content/blog/.",
   },
 
   {
@@ -187,9 +187,9 @@ export const templates: Template[] = [
       "shadcn/ui",
     ],
     whenToUse:
-      "You want to publish technical posts, tutorials, or insights — and you want a clean reading experience without setting up a CMS or fighting with Wordpress.",
+      "You want to publish technical posts, tutorials, or insights - and you want a clean reading experience without setting up a CMS or fighting with Wordpress.",
     whenNotToUse:
-      "You need user accounts, comments, paid subscriptions, or multi-author workflows — use Substack, Ghost, or a real CMS.",
+      "You need user accounts, comments, paid subscriptions, or multi-author workflows - use Substack, Ghost, or a real CMS.",
     features: [
       "MDX-powered posts with full component support",
       "Dark / light theme toggle",
@@ -206,7 +206,7 @@ export const templates: Template[] = [
         description: "Site name, tagline, favicon, social card.",
         customizationQuestions: [
           "What's the blog's name and one-line tagline?",
-          "What's your brand color? (hex — used for accents, not the body)",
+          "What's your brand color? (hex - used for accents, not the body)",
           "Do you have a favicon and OG image, or should I generate placeholders?",
         ],
       },
@@ -224,9 +224,9 @@ export const templates: Template[] = [
         name: "Homepage",
         description: "Lead intro + featured posts grid + recent posts list.",
         customizationQuestions: [
-          "Write a 1–3 sentence intro for the homepage (about you / about the blog).",
-          "How many featured posts should appear at the top? (typically 1–3)",
-          "How many recent posts in the list below? (typically 6–10)",
+          "Write a 1-3 sentence intro for the homepage (about you / about the blog).",
+          "How many featured posts should appear at the top? (typically 1-3)",
+          "How many recent posts in the list below? (typically 6-10)",
         ],
       },
       {
@@ -252,7 +252,7 @@ export const templates: Template[] = [
         name: "Seed content",
         description: "Initial blog posts to ship with the template.",
         customizationQuestions: [
-          "Do you have 1–3 starter posts you want to seed into the blog, or should it ship empty with a sample 'Hello world' post?",
+          "Do you have 1-3 starter posts you want to seed into the blog, or should it ship empty with a sample 'Hello world' post?",
         ],
       },
       {
@@ -260,7 +260,7 @@ export const templates: Template[] = [
         name: "Deployment",
         description: "Where you'll host the blog.",
         customizationQuestions: [
-          "Will you deploy to Vercel? (recommended — works out of the box)",
+          "Will you deploy to Vercel? (recommended - works out of the box)",
           "Do you have a custom domain to point at it?",
         ],
       },
@@ -272,7 +272,7 @@ export const templates: Template[] = [
   {
     slug: "notio",
     name: "Notio",
-    tagline: "Call-transcription / note-taking SaaS landing — hero with phone mock, logo cloud, feature beam, stats, team, testimonials, pricing, login.",
+    tagline: "Call-transcription / note-taking SaaS landing - hero with phone mock, logo cloud, feature beam, stats, team, testimonials, pricing, login.",
     category: "saas",
     categoryLabel: "SaaS",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/notio",
@@ -288,7 +288,7 @@ export const templates: Template[] = [
     whenToUse:
       "AI-powered SaaS, productivity tools, recording or note-taking apps, anything that needs a polished marketing site with a single-product narrative and a clean pricing page.",
     whenNotToUse:
-      "Multi-product marketplaces, agency sites, or content-heavy publications — the layout assumes a single product story.",
+      "Multi-product marketplaces, agency sites, or content-heavy publications - the layout assumes a single product story.",
     features: [
       "Navbar + animated hero with phone mockup",
       "Trusted-by logo cloud (Loom, Notion, Slack, Coinbase, Webflow, Uber, etc.)",
@@ -306,7 +306,7 @@ export const templates: Template[] = [
         description: "Logo, brand color, typography, light/dark default.",
         customizationQuestions: [
           "What's the product name and one-line tagline?",
-          "What's your brand color? (hex — used for accents and CTAs)",
+          "What's your brand color? (hex - used for accents and CTAs)",
           "Do you have a logo, or want me to keep the Notio placeholder for now?",
           "Default theme: light, dark, or follow system?",
         ],
@@ -317,7 +317,7 @@ export const templates: Template[] = [
         description: "Headline + sub + primary CTA + product mock.",
         customizationQuestions: [
           "What's the hero headline? (one sentence, ideally with a verb)",
-          "What's the sub-headline? (1–2 sentences explaining the value)",
+          "What's the sub-headline? (1-2 sentences explaining the value)",
           "Primary CTA label + URL? (e.g. 'Start for free' → /auth/login)",
           "Want to keep the phone mockup or replace with a screenshot of your product?",
         ],
@@ -327,7 +327,7 @@ export const templates: Template[] = [
         name: "Logo cloud",
         description: "'Trusted by' / 'Works with' brand strip.",
         customizationQuestions: [
-          "Which logos should appear? (4–8 brands — yours or integrations)",
+          "Which logos should appear? (4-8 brands - yours or integrations)",
           "Is this 'Trusted by' or 'Integrates with'?",
         ],
       },
@@ -336,7 +336,7 @@ export const templates: Template[] = [
         name: "Features",
         description: "Beam-framed feature grid with icon + headline + body.",
         customizationQuestions: [
-          "List 4–6 features: short title + 1-sentence description each.",
+          "List 4-6 features: short title + 1-sentence description each.",
           "Want icons (Lucide) or screenshots in each feature card?",
         ],
       },
@@ -345,7 +345,7 @@ export const templates: Template[] = [
         name: "Stats",
         description: "Single-row metric band (e.g. 1M+ calls transcribed).",
         customizationQuestions: [
-          "What 3–4 stats best demonstrate traction or product power? (number + short label each)",
+          "What 3-4 stats best demonstrate traction or product power? (number + short label each)",
         ],
       },
       {
@@ -362,7 +362,7 @@ export const templates: Template[] = [
         name: "Testimonials",
         description: "Customer quotes with avatar + role + company logo.",
         customizationQuestions: [
-          "Do you have 3–6 real customer quotes? (otherwise we'll keep placeholders)",
+          "Do you have 3-6 real customer quotes? (otherwise we'll keep placeholders)",
           "For each: quote, author name, role, company logo or name.",
         ],
       },
@@ -371,15 +371,15 @@ export const templates: Template[] = [
         name: "Pricing",
         description: "Free + paid tiers with feature lists.",
         customizationQuestions: [
-          "Free tier feature list (5–8 items)?",
-          "Paid tier monthly price + feature list (5–8 items)?",
+          "Free tier feature list (5-8 items)?",
+          "Paid tier monthly price + feature list (5-8 items)?",
           "Where should the CTA link to? (Stripe checkout, /auth/signup, etc.)",
         ],
       },
       {
         id: "auth",
         name: "Login page",
-        description: "/auth/login — connect to Better Auth or skip if marketing-only.",
+        description: "/auth/login - connect to Better Auth or skip if marketing-only.",
         customizationQuestions: [
           "Are we wiring up auth (recommend: JB Better Auth UI) or keeping /auth/login as a static placeholder?",
           "If auth: Google? GitHub? Email-only?",
@@ -387,13 +387,13 @@ export const templates: Template[] = [
       },
     ],
     customizationGuide:
-      "This is a single-page SaaS landing. Walk the user through Branding → Hero → Logo cloud → Features → Stats → Team → Testimonials → Pricing → Auth. Edit `src/components/<section>.tsx` for each — every section is its own component. For brand color, edit `src/app/globals.css` Tailwind v4 tokens. To connect real auth, install JB Better Auth UI (see jb-components.md) and replace `/auth/login`. Do NOT change file structure — only the content of each section component.",
+      "This is a single-page SaaS landing. Walk the user through Branding → Hero → Logo cloud → Features → Stats → Team → Testimonials → Pricing → Auth. Edit `src/components/<section>.tsx` for each - every section is its own component. For brand color, edit `src/app/globals.css` Tailwind v4 tokens. To connect real auth, install JB Better Auth UI (see jb-components.md) and replace `/auth/login`. Do NOT change file structure - only the content of each section component.",
   },
 
   {
     slug: "axis",
     name: "Axis",
-    tagline: "CRM for consultants landing — blurred orb hero, companies strip, feature blocks, tool feature, stats, testimonials, pricing, auth.",
+    tagline: "CRM for consultants landing - blurred orb hero, companies strip, feature blocks, tool feature, stats, testimonials, pricing, auth.",
     category: "saas",
     categoryLabel: "SaaS",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/axis",
@@ -409,7 +409,7 @@ export const templates: Template[] = [
     whenToUse:
       "B2B SaaS, CRM, sales tools, professional-services software, anywhere you want an editorial 'serious product' aesthetic with bold sections and rich product screenshots.",
     whenNotToUse:
-      "Consumer or playful brands — Axis leans editorial/professional. For B2C launches use Notio or one of the v0 landing variants instead.",
+      "Consumer or playful brands - Axis leans editorial/professional. For B2C launches use Notio or one of the v0 landing variants instead.",
     features: [
       "Navbar with theme toggle",
       "Hero with blurred-orb gradient backdrop",
@@ -429,7 +429,7 @@ export const templates: Template[] = [
         description: "Logo, brand color, typography, light/dark default.",
         customizationQuestions: [
           "What's the product name and one-line tagline?",
-          "What's your brand color? (hex — used for accents and CTAs)",
+          "What's your brand color? (hex - used for accents and CTAs)",
           "Default theme: light, dark, or follow system?",
         ],
       },
@@ -439,7 +439,7 @@ export const templates: Template[] = [
         description: "Headline + sub + CTA pair + dashboard mock + blurred orb.",
         customizationQuestions: [
           "What's the hero headline? (e.g. 'The CRM built for how consultants actually work')",
-          "Sub-headline (1–2 sentences)?",
+          "Sub-headline (1-2 sentences)?",
           "Primary CTA label + URL?",
           "Secondary CTA label + URL? (e.g. 'Watch Demo')",
           "Keep the dashboard mock or replace with your product screenshot?",
@@ -450,7 +450,7 @@ export const templates: Template[] = [
         name: "Companies / trusted by",
         description: "Logo strip of customer or integration brands.",
         customizationQuestions: [
-          "Which logos? (4–8 brands — yours or integrations)",
+          "Which logos? (4-8 brands - yours or integrations)",
           "Is this 'Trusted by' or 'Integrates with'?",
         ],
       },
@@ -459,7 +459,7 @@ export const templates: Template[] = [
         name: "Feature blocks",
         description: "Stacked feature sections with product screenshots and copy.",
         customizationQuestions: [
-          "List 3–4 feature blocks: headline + 1-paragraph body + screenshot URL.",
+          "List 3-4 feature blocks: headline + 1-paragraph body + screenshot URL.",
           "Image-left or image-right preference? (current default alternates)",
         ],
       },
@@ -477,7 +477,7 @@ export const templates: Template[] = [
         name: "Stats",
         description: "Single-row metric band.",
         customizationQuestions: [
-          "What 3–4 stats best demonstrate traction? (number + short label each)",
+          "What 3-4 stats best demonstrate traction? (number + short label each)",
         ],
       },
       {
@@ -485,7 +485,7 @@ export const templates: Template[] = [
         name: "Testimonials",
         description: "Customer quotes grid.",
         customizationQuestions: [
-          "Do you have 3–6 real customer quotes?",
+          "Do you have 3-6 real customer quotes?",
           "For each: quote, author name, role, company.",
         ],
       },
@@ -494,14 +494,14 @@ export const templates: Template[] = [
         name: "Pricing",
         description: "Tier cards with feature lists and CTA.",
         customizationQuestions: [
-          "How many tiers? (typically 2–3)",
+          "How many tiers? (typically 2-3)",
           "Each tier: name, monthly price, feature list, CTA URL.",
         ],
       },
       {
         id: "auth",
         name: "Auth page",
-        description: "/auth — wire to Better Auth or keep as a placeholder.",
+        description: "/auth - wire to Better Auth or keep as a placeholder.",
         customizationQuestions: [
           "Wire to JB Better Auth UI, or keep /auth as a static placeholder for now?",
           "If auth: Google? GitHub? Email-only?",
@@ -509,11 +509,11 @@ export const templates: Template[] = [
       },
     ],
     customizationGuide:
-      "Single-page B2B SaaS landing. Walk through Branding → Hero → Companies → Feature blocks → Tool feature → Stats → Testimonials → Pricing → Auth. Each section is `src/components/<name>.tsx`. The blurred-orb backdrop uses Tailwind v4 CSS variables `--color-hero-start/mid/end` in `src/app/globals.css` — edit those to retune the gradient. To wire real auth, install JB Better Auth UI and replace `/auth`. Don't restructure files — only edit section contents and design tokens.",
+      "Single-page B2B SaaS landing. Walk through Branding → Hero → Companies → Feature blocks → Tool feature → Stats → Testimonials → Pricing → Auth. Each section is `src/components/<name>.tsx`. The blurred-orb backdrop uses Tailwind v4 CSS variables `--color-hero-start/mid/end` in `src/app/globals.css` - edit those to retune the gradient. To wire real auth, install JB Better Auth UI and replace `/auth`. Don't restructure files - only edit section contents and design tokens.",
   },
 
   /* ──────────────────────────────────────────────
-   * v0 community templates — curated and QA'd by the framework
+   * v0 community templates - curated and QA'd by the framework
    * ────────────────────────────────────────────── */
   {
     slug: "mindspace",
@@ -551,7 +551,7 @@ export const templates: Template[] = [
     whenToUse:
       "Dev tools, infrastructure platforms, AI/ML APIs, any technical product that benefits from a serious, animated, 'we ship real engineering' aesthetic.",
     whenNotToUse:
-      "Consumer apps or B2C products — Optimus leans technical/enterprise.",
+      "Consumer apps or B2C products - Optimus leans technical/enterprise.",
     features: [
       "Hero with animated sphere/wave/tetrahedron",
       "How-it-works, features, infrastructure, integrations, security sections",
@@ -575,7 +575,7 @@ export const templates: Template[] = [
     whenToUse:
       "Online stores backed by Shopify. Use this when the user already has products in Shopify and wants a custom front-end with full SSR/SSG performance.",
     whenNotToUse:
-      "Stripe-only or DGateway-only checkouts — install JB Stripe UI or DGateway Shop instead.",
+      "Stripe-only or DGateway-only checkouts - install JB Stripe UI or DGateway Shop instead.",
     features: [
       "Shopify Storefront API integration",
       "Sidebar layout with collections",
@@ -590,7 +590,7 @@ export const templates: Template[] = [
   {
     slug: "invoicely",
     name: "Invoicely",
-    tagline: "GitHub-Invoicely-style admin template — code-entry redirect flow, invoice management, dashboard layout.",
+    tagline: "GitHub-Invoicely-style admin template - code-entry redirect flow, invoice management, dashboard layout.",
     category: "admin",
     categoryLabel: "Admin",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/invoicely",
@@ -613,7 +613,7 @@ export const templates: Template[] = [
   {
     slug: "cursor-animate-portfolio",
     name: "Cursor-Animate Portfolio",
-    tagline: "Portfolio with custom cursor, smooth-scroll, and Framer Motion section transitions — hero, work, about, contact.",
+    tagline: "Portfolio with custom cursor, smooth-scroll, and Framer Motion section transitions - hero, work, about, contact.",
     category: "portfolio",
     categoryLabel: "Portfolio",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/cursor-animate-portfolio",
@@ -646,7 +646,7 @@ export const templates: Template[] = [
     whenToUse:
       "Design studios, fashion / lifestyle brands, craft shops, anyone selling a curated set of products with a strong editorial brand voice.",
     whenNotToUse:
-      "Catalog-heavy stores (50+ products) — use the Commerce template with Shopify instead.",
+      "Catalog-heavy stores (50+ products) - use the Commerce template with Shopify instead.",
     features: [
       "Editorial header + hero",
       "Featured products grid",
@@ -662,7 +662,7 @@ export const templates: Template[] = [
   {
     slug: "wadada-hero",
     name: "Wadada Hero",
-    tagline: "Editorial scroll-driven landing — text-gradient scroll, timeline, stagger testimonials, smooth-scroll hero, embedded chatbot.",
+    tagline: "Editorial scroll-driven landing - text-gradient scroll, timeline, stagger testimonials, smooth-scroll hero, embedded chatbot.",
     category: "landing",
     categoryLabel: "Landing",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/wadada-hero",
@@ -671,7 +671,7 @@ export const templates: Template[] = [
     whenToUse:
       "Mission-driven brands, run clubs, fitness, lifestyle communities, anywhere you want long-scroll storytelling with photography and emotion.",
     whenNotToUse:
-      "Information-dense product pages — Wadada is narrative, not feature-list.",
+      "Information-dense product pages - Wadada is narrative, not feature-list.",
     features: [
       "Smooth-scroll hero with motion blur photography",
       "Text-gradient-scroll mission statement",
@@ -686,7 +686,7 @@ export const templates: Template[] = [
   {
     slug: "infinite-3d-gallery",
     name: "Infinite 3D Gallery",
-    tagline: "React Three Fiber infinite-scroll image gallery — fixed-center hero text over a depth-faded 3D scene.",
+    tagline: "React Three Fiber infinite-scroll image gallery - fixed-center hero text over a depth-faded 3D scene.",
     category: "portfolio",
     categoryLabel: "Portfolio",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/infinite-3d-gallery",
@@ -695,7 +695,7 @@ export const templates: Template[] = [
     whenToUse:
       "Photography portfolios, design studios, art galleries, brand sites that need a memorable interactive landing.",
     whenNotToUse:
-      "Performance-sensitive marketing pages targeting low-end devices — WebGL is heavy. Provide a non-3D fallback hero.",
+      "Performance-sensitive marketing pages targeting low-end devices - WebGL is heavy. Provide a non-3D fallback hero.",
     features: [
       "Infinite-scroll 3D gallery (R3F + drei)",
       "Configurable speed, z-spacing, visible count, falloff",
@@ -718,7 +718,7 @@ export const templates: Template[] = [
     whenToUse:
       "Auth-first apps that need a polished split-screen sign-in experience before installing JB Better Auth UI. Good visual reference for your auth flow.",
     whenNotToUse:
-      "Production auth — this template is UI-only with no backend wiring. Install JB Better Auth UI to make it real.",
+      "Production auth - this template is UI-only with no backend wiring. Install JB Better Auth UI to make it real.",
     features: [
       "Login / register / forgot-password views in a single page",
       "Split-screen brand panel + form layout",
@@ -733,7 +733,7 @@ export const templates: Template[] = [
   {
     slug: "apple-watch-landing",
     name: "Apple Watch Landing",
-    tagline: "Hardware / device product landing — photo gallery, color picker, spec sections, reviews, multi-language support.",
+    tagline: "Hardware / device product landing - photo gallery, color picker, spec sections, reviews, multi-language support.",
     category: "landing",
     categoryLabel: "Landing",
     cloneUrl: "https://github.com/MUKE-coder/vibekit/tree/main/public-templates/apple-watch-landing",
@@ -742,7 +742,7 @@ export const templates: Template[] = [
     whenToUse:
       "Hardware launches, physical products, device marketing, anywhere you need a polished product detail / launch page with image carousel and variant picker.",
     whenNotToUse:
-      "Multi-product catalogs — use the Commerce template with Shopify instead.",
+      "Multi-product catalogs - use the Commerce template with Shopify instead.",
     features: [
       "Product image carousel (5 photos)",
       "Color / variant picker with named swatches",

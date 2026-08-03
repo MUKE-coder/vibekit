@@ -20,12 +20,12 @@ import { readPrompt } from "@/lib/read-prompt";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Step 0 — check your environment for VibeKit",
+  title: "Step 0 - check your environment for VibeKit",
   description:
-    "Pre-flight environment check. Copy the OS-specific prompt into your AI coding agent — it scans for Node, pnpm, git, and gh, then tells you what (if anything) to install before starting VibeKit.",
+    "Pre-flight environment check. Copy the OS-specific prompt into your AI coding agent - it scans for Node, pnpm, git, and gh, then tells you what (if anything) to install before starting VibeKit.",
   alternates: { canonical: "/setup" },
   openGraph: {
-    title: "VibeKit Setup — pre-flight environment check",
+    title: "VibeKit Setup - pre-flight environment check",
     description: "Make sure your machine has Node, pnpm, git, and gh before starting.",
     url: `${SITE.url}/setup`,
     images: ["/og.png"],
@@ -73,7 +73,7 @@ export default function SetupPage() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-              Most "why isn't this working?" moments come from a missing tool. Copy the prompt for your OS, paste it into Claude Code (or Cursor / Cline / any agent), and let it tell you exactly what's installed and what to fix — without touching your system.
+              Most "why isn't this working?" moments come from a missing tool. Copy the prompt for your OS, paste it into Claude Code (or Cursor / Cline / any agent), and let it tell you exactly what's installed and what to fix - without touching your system.
             </p>
           </div>
         </section>
@@ -140,11 +140,11 @@ export default function SetupPage() {
           </div>
         </Section>
 
-        {/* Step 0.5 — Agent superpowers */}
+        {/* Step 0.5 - Agent superpowers */}
         <Section
           eyebrow="STEP 0.5 · AGENT TOOLING"
           title={<>Give your agent <em className="not-italic gradient-text">superpowers</em> before you build.</>}
-          description="Two tools compound the framework's value: a UI/UX skill that locks senior-designer instincts into every conversation, and a Playwright MCP that gives the agent a real browser to verify its own work. You don't set these up by hand — npx vibekit-framework init installs both for you. The commands below are the manual fallback."
+          description="Two tools compound the framework's value: a UI/UX skill that locks senior-designer instincts into every conversation, and a Playwright MCP that gives the agent a real browser to verify its own work. You don't set these up by hand - npx vibekit-framework init installs both for you. The commands below are the manual fallback."
           containerClassName="max-w-4xl"
         >
           <div className="grid gap-5 md:grid-cols-2">
@@ -158,7 +158,7 @@ export default function SetupPage() {
                   <div className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">Claude skill</div>
                   <h3 className="mt-1 font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">ui-ux-pro-max-skill</h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                    Senior-designer rules (type rhythm, spacing, motion, contrast, anti-AI-slop) auto-loaded on every Claude Code conversation. <span className="text-[color:var(--text-primary)]">Installed for you by <code className="font-mono text-[12px]">vibekit-framework init</code></span> — the command below is the manual fallback.
+                    Senior-designer rules (type rhythm, spacing, motion, contrast, anti-AI-slop) auto-loaded on every Claude Code conversation. <span className="text-[color:var(--text-primary)]">Installed for you by <code className="font-mono text-[12px]">vibekit-framework init</code></span> - the command below is the manual fallback.
                   </p>
                 </div>
               </div>
@@ -191,7 +191,7 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
                   <div className="font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">MCP server</div>
                   <h3 className="mt-1 font-mono text-[15px] uppercase tracking-tight text-[color:var(--text-primary)]">Playwright MCP</h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
-                    A real browser the agent drives over MCP — navigate, click, fill forms, read the page's accessibility tree as structured snapshots. It <span className="text-[color:var(--text-primary)]">verifies its own UI work</span> instead of you checking by hand.
+                    A real browser the agent drives over MCP - navigate, click, fill forms, read the page's accessibility tree as structured snapshots. It <span className="text-[color:var(--text-primary)]">verifies its own UI work</span> instead of you checking by hand.
                   </p>
                 </div>
               </div>
@@ -218,7 +218,7 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
               />
 
               <p className="text-[12.5px] leading-relaxed text-[color:var(--text-tertiary)]">
-                Other agents (Cursor, Windsurf, VS Code) read the same standard config — a <code className="font-mono text-[12px]">playwright</code> server in <code className="font-mono text-[12px]">.mcp.json</code> running <code className="font-mono text-[12px]">npx @playwright/mcp@latest</code>.
+                Other agents (Cursor, Windsurf, VS Code) read the same standard config - a <code className="font-mono text-[12px]">playwright</code> server in <code className="font-mono text-[12px]">.mcp.json</code> running <code className="font-mono text-[12px]">npx @playwright/mcp@latest</code>.
               </p>
 
               <a
@@ -238,7 +238,7 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
             <div className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[color:var(--accent)]" />
               <div className="text-[14px] leading-relaxed text-[color:var(--text-secondary)]">
-                <strong className="font-medium text-[color:var(--text-primary)]">Using Cursor / Cline / Windsurf / Codex?</strong> The skill is markdown — copy its content into your agent's rules file (e.g. <code className="font-mono text-[12px]">.cursor/rules/ui-ux-pro-max.mdc</code>). The Playwright MCP is open protocol — every modern agent reads the same standard config (Cursor uses <code className="font-mono text-[12px]">.cursor/mcp.json</code>). See the per-agent install paths in{" "}
+                <strong className="font-medium text-[color:var(--text-primary)]">Using Cursor / Cline / Windsurf / Codex?</strong> The skill is markdown - copy its content into your agent's rules file (e.g. <code className="font-mono text-[12px]">.cursor/rules/ui-ux-pro-max.mdc</code>). The Playwright MCP is open protocol - every modern agent reads the same standard config (Cursor uses <code className="font-mono text-[12px]">.cursor/mcp.json</code>). See the per-agent install paths in{" "}
                 <Link href={`${SITE.github}/blob/main/agent-tooling.md`} className="text-[color:var(--text-primary)] underline-offset-2 hover:underline">
                   agent-tooling.md
                 </Link>
@@ -256,13 +256,13 @@ git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill ~/.claude/skil
         >
           <div className="reveal space-y-5 text-[15.5px] leading-[1.75] text-[color:var(--text-secondary)]">
             <p>
-              The #1 reason VibeKit (or any modern Node project) breaks isn't the framework — it's the user's machine. Wrong Node version. Apple Git instead of real git. pnpm not on PATH. Missing gh CLI when the deploy step needs it.
+              The #1 reason VibeKit (or any modern Node project) breaks isn't the framework - it's the user's machine. Wrong Node version. Apple Git instead of real git. pnpm not on PATH. Missing gh CLI when the deploy step needs it.
             </p>
             <p>
               These prompts are <strong className="font-medium text-[color:var(--text-primary)]">explicitly defensive</strong>: they don't trust <code className="font-mono text-[13px] rounded border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-1.5 py-0.5">$PATH</code>, they probe common install locations directly, they invoke executables by absolute path. On macOS they avoid zsh's tied parameters (<code>path</code>, <code>status</code>) so they never accidentally clobber your shell. On Windows they account for PowerShell 5.1's quirks. On Linux they auto-detect the distro before suggesting a package manager.
             </p>
             <p>
-              And critically — they <strong className="font-medium text-[color:var(--text-primary)]">never install anything</strong> without your explicit follow-up. You see the report, then you decide.
+              And critically - they <strong className="font-medium text-[color:var(--text-primary)]">never install anything</strong> without your explicit follow-up. You see the report, then you decide.
             </p>
           </div>
 

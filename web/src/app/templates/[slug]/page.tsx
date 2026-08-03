@@ -27,7 +27,7 @@ export async function generateMetadata({
   const t = getTemplateBySlug(slug);
   if (!t) return { title: "Template not found" };
 
-  const title = `${t.name} — VibeKit template`;
+  const title = `${t.name} - VibeKit template`;
   return {
     title,
     description: t.tagline,
@@ -59,13 +59,13 @@ export default async function TemplateDetailPage({
 
 Walk me through the ${t.sections.length} sections one at a time. For each section, ask the questions defined in the guide below, wait for my answers, then move on.
 
-After all sections are answered, edit ONLY the files needed to apply my answers — config files, content, branding. Don't restructure the project.
+After all sections are answered, edit ONLY the files needed to apply my answers - config files, content, branding. Don't restructure the project.
 
 CUSTOMIZATION GUIDE:
 ${t.customizationGuide}
 
 SECTIONS:
-${t.sections.map((s, i) => `${i + 1}. ${s.name} — ${s.description}\n   Questions: ${s.customizationQuestions.map((q) => `\n     - ${q}`).join("")}`).join("\n\n")}
+${t.sections.map((s, i) => `${i + 1}. ${s.name} - ${s.description}\n   Questions: ${s.customizationQuestions.map((q) => `\n     - ${q}`).join("")}`).join("\n\n")}
 
 Begin with section 1 now.`;
 
@@ -178,7 +178,7 @@ pnpm dev`}
           {/* Sections */}
           <Block title={`The ${t.sections.length} customization sections`}>
             <p className="mb-5 text-[14.5px] leading-relaxed text-[color:var(--text-secondary)]">
-              When you ask your AI agent to customize this template, it will walk through these sections in order, asking you the questions for each. The agent only edits the files needed to apply your answers — no restructuring.
+              When you ask your AI agent to customize this template, it will walk through these sections in order, asking you the questions for each. The agent only edits the files needed to apply your answers - no restructuring.
             </p>
             <ol className="space-y-3">
               {t.sections.map((s, i) => (
@@ -214,7 +214,7 @@ pnpm dev`}
           </Block>
 
           {/* Customization prompt to paste */}
-          <Block title="Customization prompt — paste into your AI agent">
+          <Block title="Customization prompt - paste into your AI agent">
             <p className="mb-4 text-[14.5px] leading-relaxed text-[color:var(--text-secondary)]">
               After you clone, open the project in Claude Code, Cursor, Cline, or any agent that reads files. Paste this prompt to start the section-by-section interview:
             </p>
@@ -233,13 +233,13 @@ pnpm dev`}
                   <Link
                     key={r.slug}
                     href={`/templates/${r.slug}`}
-                    className="group rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition-all hover:border-[color:var(--border-strong)]"
+                    className="group rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-4 transition hover:border-[color:var(--border-strong)]"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                         {r.categoryLabel}
                       </span>
-                      <ArrowUpRight className="h-3.5 w-3.5 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                      <ArrowUpRight className="h-3.5 w-3.5 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
                     </div>
                     <h4 className="mt-2 font-mono text-[13px] uppercase text-[color:var(--text-primary)]">
                       {r.name}

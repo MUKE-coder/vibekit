@@ -3,7 +3,7 @@ import { Section } from "./section";
 const problems = [
   {
     pain: "Slow page loads",
-    looks: "API routes hit the database on every request — no cache layer between React Query and Postgres. 1,000 users = 1,000 identical queries.",
+    looks: "API routes hit the database on every request - no cache layer between React Query and Postgres. 1,000 users = 1,000 identical queries.",
     solution: "Upstash Redis caches hot API queries in memory (sub-5ms). React Query on the client + Redis on the server = dual-layer caching.",
   },
   {
@@ -13,7 +13,7 @@ const problems = [
   },
   {
     pain: "AI slop design",
-    looks: "Every app looks the same — purple gradients, generic shadcn defaults, no brand identity.",
+    looks: "Every app looks the same - purple gradients, generic shadcn defaults, no brand identity.",
     solution: "design-style-guide.md is customized per project (colors, typography, spacing) and Claude Code follows it exactly.",
   },
   {
@@ -24,12 +24,12 @@ const problems = [
   {
     pain: "Shipping broken auth",
     looks: "AI writes insecure login flows, missing password reset, no OAuth, session bugs.",
-    solution: "jb-components.md points Claude to install JB Better Auth UI — battle-tested auth in one command.",
+    solution: "jb-components.md points Claude to install JB Better Auth UI - battle-tested auth in one command.",
   },
   {
     pain: "Burning tokens",
-    looks: "$100–$200 per project because AI rewrites boilerplate every time (auth, tables, forms, uploads).",
-    solution: "JB Component Registry covers the big primitives — AI installs and wires up instead of writing from scratch (60–80% token savings).",
+    looks: "$100-$200 per project because AI rewrites boilerplate every time (auth, tables, forms, uploads).",
+    solution: "JB Component Registry covers the big primitives - AI installs and wires up instead of writing from scratch (60-80% token savings).",
   },
   {
     pain: "Getting stuck in loops",
@@ -39,12 +39,12 @@ const problems = [
   {
     pain: "No plan, no clarity",
     looks: "Starting with “build me a SaaS” and hoping for the best.",
-    solution: "Claude interviews you first, generates project-description.md + project-phases.md — a clear blueprint before a single line of code.",
+    solution: "Claude interviews you first, generates project-description.md + project-phases.md - a clear blueprint before a single line of code.",
   },
   {
     pain: "Tech stack chaos",
-    looks: "AI picks a different stack every project — jsPDF here, Drizzle there, useEffect for data.",
-    solution: "Master prompt locks the stack: Next.js 16 + Prisma v7 + React Query + Zod + @react-pdf/renderer + xlsx — always.",
+    looks: "AI picks a different stack every project - jsPDF here, Drizzle there, useEffect for data.",
+    solution: "Master prompt locks the stack: Next.js 16 + Prisma v7 + React Query + Zod + @react-pdf/renderer + xlsx - always.",
   },
   {
     pain: "Prisma version drift",
@@ -53,7 +53,7 @@ const problems = [
   },
   {
     pain: "Deployment confusion",
-    looks: "App works locally, breaks in production — env vars, DNS, SSL, email spam.",
+    looks: "App works locally, breaks in production - env vars, DNS, SSL, email spam.",
     solution: "deployment.md + environment-variables.md walk through every step with checklists.",
   },
   {
@@ -63,13 +63,13 @@ const problems = [
   },
   {
     pain: "Payment setup hell",
-    looks: "Stripe keys, webhooks, feature gating, billing pages — most builds never ship monetization.",
+    looks: "Stripe keys, webhooks, feature gating, billing pages - most builds never ship monetization.",
     solution: "monetization-guide.md + JB Stripe UI component handle the full flow.",
   },
   {
     pain: "Losing track of progress",
     looks: "Mid-build, no idea what’s done vs. what’s left.",
-    solution: "Phase tasks in project-phases.md are checkboxes — Claude Code checks them off as it goes.",
+    solution: "Phase tasks in project-phases.md are checkboxes - Claude Code checks them off as it goes.",
   },
   {
     pain: "No rescue plan when AI breaks",
@@ -84,13 +84,13 @@ export function Problems() {
       id="problems"
       eyebrow="The problems we solve"
       title={<>Every vibe coder hits the<br className="hidden sm:block" /> same walls. We remove each one.</>}
-      description="Thirteen specific pains that derail AI-built apps — and how VibeKit makes each one disappear."
+      description="Thirteen specific pains that derail AI-built apps - and how VibeKit makes each one disappear."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {problems.map((p) => (
           <article
             key={p.pain}
-            className="reveal group relative overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-all hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
+            className="reveal group relative overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
           >
             <div className="text-[11px] font-mono uppercase tracking-wider text-[color:var(--text-tertiary)]">
               Pain

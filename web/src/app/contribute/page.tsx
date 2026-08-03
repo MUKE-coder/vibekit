@@ -10,7 +10,7 @@ import { CopyBlock } from "@/components/copy-block";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Contribute — add your component to VibeKit",
+  title: "Contribute - add your component to VibeKit",
   description:
     "Add a production-ready component to VibeKit. Open a pull request with the install command, env vars, files it creates, and when to use it. We review and merge contributions weekly.",
   alternates: { canonical: "/contribute" },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const componentTemplate = `{
   slug: "my-component",
   name: "My Component",
-  tagline: "One sentence — what it does, who it's for.",
+  tagline: "One sentence - what it does, who it's for.",
   category: "data", // auth | marketing | data | commerce | files | content | api | forms | hero | saas | productivity | team | documents | animation
   categoryLabel: "Data",
   install: "pnpm dlx shadcn@latest add https://your-registry.com/r/my-component.json",
@@ -38,9 +38,9 @@ const componentTemplate = `{
   ],
 
   features: [
-    "Bullet point — what it does (a feature, not marketing fluff)",
+    "Bullet point - what it does (a feature, not marketing fluff)",
     "Another bullet",
-    "3–6 bullets total is the sweet spot",
+    "3-6 bullets total is the sweet spot",
   ],
 
   whenToUse: "One sentence describing the project type or use case where this is the right tool.",
@@ -59,7 +59,7 @@ const checklistItems = [
   "Component is production-ready and documented (not a half-built prototype).",
   "Install command works end-to-end on a fresh Next.js 16 project.",
   "Schema entry includes every required field (see template below).",
-  "Files-added list is accurate — every route, API, component, schema change.",
+  "Files-added list is accurate - every route, API, component, schema change.",
   "Env vars are enumerated with where to obtain them.",
   "Component category fits one of the existing categories OR you propose a new one in the PR.",
   "Component does not duplicate an existing JB component (check /components first).",
@@ -71,7 +71,7 @@ const steps = [
     body: (
       <>
         Build a working component and publish it to a shadcn-compatible registry (your own
-        domain works — e.g. <code>https://yourdomain.com/r/your-component.json</code>).
+        domain works - e.g. <code>https://yourdomain.com/r/your-component.json</code>).
         Verify <code>pnpm dlx shadcn@latest add &lt;url&gt;</code> works on a fresh Next.js 16
         project.
       </>
@@ -82,7 +82,7 @@ const steps = [
     body: (
       <>
         Document what the component does. A blog post on your own site or a markdown file
-        in the PR description both work — but it has to exist. Link it via the
+        in the PR description both work - but it has to exist. Link it via the
         <code>blogUrl</code> field. This becomes the "Read full guide" button on the
         component's detail page.
       </>
@@ -122,7 +122,7 @@ export default function ContributePage() {
               Got a component? <em className="not-italic gradient-text">Add it to the registry.</em>
             </>
           }
-          description="VibeKit is community-driven. If you've built a production-grade component for auth, payments, file uploads, search, dashboards — anything reusable across projects — open a PR. We merge weekly."
+          description="VibeKit is community-driven. If you've built a production-grade component for auth, payments, file uploads, search, dashboards - anything reusable across projects - open a PR. We merge weekly."
           containerClassName="max-w-4xl"
         >
           {/* CTA buttons */}
@@ -151,7 +151,7 @@ export default function ContributePage() {
         <Section
           eyebrow="WHY CONTRIBUTE"
           title="Build once. Ship in every project."
-          description="A merged component is loaded by every developer using VibeKit — not just yours."
+          description="A merged component is loaded by every developer using VibeKit - not just yours."
           containerClassName="max-w-4xl"
         >
           <div className="grid gap-4 sm:grid-cols-3">
@@ -162,7 +162,7 @@ export default function ContributePage() {
               },
               {
                 title: "Credibility",
-                body: "VibeKit is opinionated — making the cut signals your component is production-ready, not a weekend hack.",
+                body: "VibeKit is opinionated - making the cut signals your component is production-ready, not a weekend hack.",
               },
               {
                 title: "Compounds",
@@ -238,7 +238,7 @@ export default function ContributePage() {
             <dl className="mt-4 divide-y divide-[color:var(--border)] rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)]">
               {[
                 ["slug", "URL-safe identifier. Becomes /components/<slug>. Lowercase, hyphens, no spaces."],
-                ["name", "Display name. Title case. Brief — 'JB Better Auth UI' beats 'The JB Better Auth UI Component System'."],
+                ["name", "Display name. Title case. Brief - 'JB Better Auth UI' beats 'The JB Better Auth UI Component System'."],
                 ["tagline", "One sentence under 100 characters. What it does + who it's for."],
                 ["category", "One of: auth | marketing | data | commerce | files | content | api | forms. Propose a new one in the PR if none fit."],
                 ["categoryLabel", "Display label for the category tag."],
@@ -246,9 +246,9 @@ export default function ContributePage() {
                 ["blogUrl", "URL to a doc page explaining the component (your own blog, GitHub README, anywhere accessible)."],
                 ["prerequisites", "Things that must exist before installing (database, other components, accounts). Optional."],
                 ["envVars", "Each env var with name + description of where to obtain it. Omit field if none."],
-                ["features", "3–6 bullet points describing capabilities. No marketing fluff."],
-                ["whenToUse / whenNotToUse", "One sentence each. Honest about tradeoffs — readers respect that."],
-                ["filesAdded", "Every route, API endpoint, component, and schema change the install creates. This is the most-checked field — be exhaustive."],
+                ["features", "3-6 bullet points describing capabilities. No marketing fluff."],
+                ["whenToUse / whenNotToUse", "One sentence each. Honest about tradeoffs - readers respect that."],
+                ["filesAdded", "Every route, API endpoint, component, and schema change the install creates. This is the most-checked field - be exhaustive."],
               ].map(([key, desc]) => (
                 <div key={key} className="grid grid-cols-1 gap-2 px-5 py-4 sm:grid-cols-[180px_1fr]">
                   <code className="font-mono text-[13px] text-[color:var(--accent)]">{key}</code>

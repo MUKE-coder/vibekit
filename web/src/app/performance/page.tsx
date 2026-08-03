@@ -9,11 +9,11 @@ import { SITE } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Performance by default",
   description:
-    "VibeKit ships hard performance budgets, dual-layer caching (React Query + Redis), single animation library, automatic code splitting, and pre-deploy bundle analysis — so every AI-built app is fast by default, not by accident.",
+    "VibeKit ships hard performance budgets, dual-layer caching (React Query + Redis), single animation library, automatic code splitting, and pre-deploy bundle analysis - so every AI-built app is fast by default, not by accident.",
   alternates: { canonical: "/performance" },
   openGraph: {
     url: `${SITE.url}/performance`,
-    title: "Performance by default — VibeKit",
+    title: "Performance by default - VibeKit",
     description:
       "Hard performance budgets, Redis caching, single animation library, automatic code splitting. No performance fixes needed after shipping.",
     images: ["/og.png"],
@@ -32,7 +32,7 @@ const perfFeatures = [
   {
     icon: Database,
     title: "Dual-Layer Caching",
-    desc: "React Query on the client + Redis on the server. Client cache gives instant back-nav and optimistic updates. Redis offloads the database and shares cached results across all users — so 1,000 users viewing the same dashboard don't run 1,000 queries.",
+    desc: "React Query on the client + Redis on the server. Client cache gives instant back-nav and optimistic updates. Redis offloads the database and shares cached results across all users - so 1,000 users viewing the same dashboard don't run 1,000 queries.",
     bad: "Every page load hits the database. No cache = slow responses under load.",
     good: "Redis serves cached API responses in <5ms. Database only queried when cache expires or data changes.",
   },
@@ -46,7 +46,7 @@ const perfFeatures = [
   {
     icon: Layers,
     title: "Automatic Code Splitting",
-    desc: "Every import over 15KB gzipped must use next/dynamic. PDF renderer, spreadsheet parser, chart libraries, Stripe checkout — none of them load until the user actually needs them.",
+    desc: "Every import over 15KB gzipped must use next/dynamic. PDF renderer, spreadsheet parser, chart libraries, Stripe checkout - none of them load until the user actually needs them.",
     bad: "@react-pdf/renderer (85KB) loads on every page even if only one page exports invoices. xlsx (65KB) loads on the home page.",
     good: "Heavy libraries load on-demand. First Load JS stays under 100KB per page. Invoice export button triggers dynamic import only when clicked.",
   },
@@ -74,11 +74,11 @@ const perfFeatures = [
 ];
 
 const comparisonRows = [
-  { feature: "First Load JS", vanilla: "200–500KB per page (eager PDF, xlsx, animation libs)", vibekit: "< 100KB per page (next/dynamic + single animation lib)" },
-  { feature: "API Latency", vanilla: "50–200ms per request (database every time)", vibekit: "< 5ms cached (Redis hot paths)" },
+  { feature: "First Load JS", vanilla: "200-500KB per page (eager PDF, xlsx, animation libs)", vibekit: "< 100KB per page (next/dynamic + single animation lib)" },
+  { feature: "API Latency", vanilla: "50-200ms per request (database every time)", vibekit: "< 5ms cached (Redis hot paths)" },
   { feature: "Animation Bundle", vanilla: "75KB+ (GSAP + Framer Motion, both mostly unused)", vibekit: "35KB (Framer Motion only, fully utilized)" },
   { feature: "Page Render", vanilla: "Blocking waterfall (sequential awaits)", vibekit: "Streaming (parallel Suspense boundaries)" },
-  { feature: "Layout Stability (CLS)", vanilla: "0.15–0.5 (unconstrained images, font swap)", vibekit: "< 0.1 (aspect-ratio, preloaded fonts)" },
+  { feature: "Layout Stability (CLS)", vanilla: "0.15-0.5 (unconstrained images, font swap)", vibekit: "< 0.1 (aspect-ratio, preloaded fonts)" },
   { feature: "DB Query Load", vanilla: "N+1 problems, no query caching, same query repeated per user", vibekit: "Redis cache absorbs 90%+ of reads, cache invalidation on writes" },
   { feature: "Bundle Awareness", vanilla: "Never checked. Bloated bundles discovered in production.", vibekit: "Pre-deploy ANALYZE=true next build. Chunks >50KB flagged." },
   { feature: "Animation Performance", vanilla: "Animations on top/left/width/height = layout thrashing", vibekit: "Transform + opacity only, will-change on heavy elements" },
@@ -105,7 +105,7 @@ export default function PerformancePage() {
               <span className="gradient-text">Not by accident.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-[18px] leading-relaxed text-[color:var(--text-secondary)]">
-              AI-built apps are slow by default — bloated bundles, uncached queries, dual animation frameworks, and layout-shifting images. VibeKit encodes performance as hard rules that the agent cannot skip.
+              AI-built apps are slow by default - bloated bundles, uncached queries, dual animation frameworks, and layout-shifting images. VibeKit encodes performance as hard rules that the agent cannot skip.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Button href="/docs/quickstart" variant="accent" size="lg">
@@ -155,14 +155,14 @@ export default function PerformancePage() {
           <Section
             eyebrow="Six performance layers"
             title={<>How VibeKit makes AI <em className="not-italic gradient-text">write fast code</em>.</>}
-            description="Each layer targets a specific perf killer that AI-built apps suffer from — and enforces the fix with a rule the agent cannot override."
+            description="Each layer targets a specific perf killer that AI-built apps suffer from - and enforces the fix with a rule the agent cannot override."
             containerClassName="max-w-6xl"
           >
             <div className="grid gap-6 sm:grid-cols-2">
               {perfFeatures.map((f) => (
                 <article
                   key={f.title}
-                  className="reveal group rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-all hover:border-[color:var(--border-strong)] sm:p-8"
+                  className="reveal group rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition hover:border-[color:var(--border-strong)] sm:p-8"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius)] bg-[color:var(--accent)]/10">
@@ -210,7 +210,7 @@ export default function PerformancePage() {
                     <tr>
                       <th className="px-5 py-3 font-medium">Dimension</th>
                       <th className="px-5 py-3 font-medium text-[color:var(--text-tertiary)]">AI without VibeKit</th>
-                      <th className="px-5 py-3 font-medium text-[color:var(--accent)]">VibeKit — by default</th>
+                      <th className="px-5 py-3 font-medium text-[color:var(--accent)]">VibeKit - by default</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -226,7 +226,7 @@ export default function PerformancePage() {
               </div>
             </div>
             <p className="reveal mt-6 text-center text-[13px] text-[color:var(--text-tertiary)]">
-              These aren't aspirational targets — they're hard rules encoded in the master prompt. The agent cannot skip them.
+              These aren't aspirational targets - they're hard rules encoded in the master prompt. The agent cannot skip them.
             </p>
           </Section>
         </section>

@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 /**
- * VibeKit logo mark — a self-contained rounded badge: an accent-tinted tile with
+ * VibeKit logo mark - a self-contained rounded badge: an accent-tinted tile with
  * a bold "V" and a spark, nodding to the constellation/orbital motif in the hero.
- * Reads cleanly at 24–32px and works on both light and dark backgrounds because
+ * Reads cleanly at 24-32px and works on both light and dark backgrounds because
  * the badge supplies its own contrast.
  */
 export function LogoMark({ className, size = 30 }: { className?: string; size?: number }) {
@@ -22,7 +22,7 @@ export function LogoMark({ className, size = 30 }: { className?: string; size?: 
         </clipPath>
       </defs>
 
-      {/* Badge — solid accent with light/shade overlays for depth (no color-mix,
+      {/* Badge - solid accent with light/shade overlays for depth (no color-mix,
           so it can never fail to render). Overlays clipped to the rounded shape. */}
       <g clipPath="url(#vk-clip)">
         <rect x="1" y="1" width="30" height="30" fill="var(--accent)" />
@@ -38,7 +38,7 @@ export function LogoMark({ className, size = 30 }: { className?: string; size?: 
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* Spark — the "vibe" */}
+      {/* Spark - the "vibe" */}
       <path
         d="M23.4 6.6 l0.75 1.75 1.75 0.75 -1.75 0.75 -0.75 1.75 -0.75 -1.75 -1.75 -0.75 1.75 -0.75 z"
         fill="#ffffff"
@@ -47,7 +47,7 @@ export function LogoMark({ className, size = 30 }: { className?: string; size?: 
   );
 }
 
-/** The mark with a soft accent glow — used in the nav. */
+/** The mark with a soft accent glow - used in the nav. */
 export function LogoBadge({ className }: { className?: string }) {
   return (
     <span

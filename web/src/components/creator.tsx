@@ -181,7 +181,7 @@ export function Creator() {
                 I'm <strong className="font-medium text-[color:var(--text-primary)]">Muke Johnbaptist</strong>, founder of <a href="https://desishub.com" target="_blank" rel="noopener noreferrer" className="text-[color:var(--accent)] underline underline-offset-4">Desishub Technologies</a> in Kampala, Uganda. I specialize in <strong className="font-medium text-[color:var(--text-primary)]">AI engineering</strong>, <strong className="font-medium text-[color:var(--text-primary)]">Go (Golang) backend development</strong>, and designing systems across mobile, desktop, and web. I'm also the creator of the <a href="https://gritframework.dev/" target="_blank" rel="noopener noreferrer" className="text-[color:var(--accent)] underline underline-offset-4">Grit Framework</a>.
               </p>
               <p>
-                VibeKit is what I wished existed when I started using AI to build real apps. I was burning tokens, getting a different stack every project, and watching agents ship code with unauthenticated routes. So I built the framework that fixes all of it — and put it in front of every coding agent I use.
+                VibeKit is what I wished existed when I started using AI to build real apps. I was burning tokens, getting a different stack every project, and watching agents ship code with unauthenticated routes. So I built the framework that fixes all of it - and put it in front of every coding agent I use.
               </p>
               <p>
                 Everything in here is battle-tested in real client projects and my own apps. If it ships from my laptop, it goes into the framework.
@@ -225,7 +225,7 @@ export function Creator() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="creator-link inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-4 py-2 font-mono text-[12px] uppercase tracking-wider text-[color:var(--text-secondary)] transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-primary)]"
+                  className="creator-link inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-4 py-2 font-mono text-[12px] uppercase tracking-wider text-[color:var(--text-secondary)] transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-primary)]"
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {label}

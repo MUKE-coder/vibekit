@@ -32,37 +32,37 @@ curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/SKILL
     note: "Restart Claude Code. Type /vibekit to invoke, or it auto-loads when framework files are detected.",
   },
   cursor: {
-    label: "Cursor — .cursor/rules/vibekit.mdc",
+    label: "Cursor - .cursor/rules/vibekit.mdc",
     code: `mkdir -p .cursor/rules
 curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o .cursor/rules/vibekit.mdc`,
     note: "Restart Cursor or reload rules from Settings → Cursor Settings → Rules.",
   },
   codex: {
-    label: "OpenAI Codex CLI — AGENTS.md (auto-loaded)",
+    label: "OpenAI Codex CLI - AGENTS.md (auto-loaded)",
     code: `curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o AGENTS.md`,
     note: "Auto-loads on next codex run. If you already have AGENTS.md, append instead of overwriting.",
   },
   cline: {
-    label: "Cline — .clinerules (auto-loaded)",
+    label: "Cline - .clinerules (auto-loaded)",
     code: `curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o .clinerules`,
     note: "Reload Cline.",
   },
   windsurf: {
-    label: "Windsurf — .windsurfrules (auto-loaded)",
+    label: "Windsurf - .windsurfrules (auto-loaded)",
     code: `curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o .windsurfrules`,
     note: "Restart Windsurf.",
   },
   gemini: {
-    label: "Gemini CLI — GEMINI.md (auto-loaded)",
+    label: "Gemini CLI - GEMINI.md (auto-loaded)",
     code: `curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o GEMINI.md`,
   },
   aider: {
-    label: "Aider — add to .aider.conf.yml read: list",
+    label: "Aider - add to .aider.conf.yml read: list",
     code: `# 1. Download the rules
 curl -fsSL https://raw.githubusercontent.com/MUKE-coder/vibekit/main/skill/AGENTS.md \\
   -o AGENTS.md
@@ -74,7 +74,7 @@ read:
   - master_prompt.md
   - jb-components.md
 EOF`,
-    note: "Aider doesn't auto-load — the read: config tells it which files are always in context.",
+    note: "Aider doesn't auto-load - the read: config tells it which files are always in context.",
   },
 };
 
@@ -124,7 +124,7 @@ export function AgentInstallTabs() {
         >
           skill/README.md
         </a>
-        {" "}for the full install table — same one-line curl, just a different filename.
+        {" "}for the full install table - same one-line curl, just a different filename.
       </p>
     </div>
   );

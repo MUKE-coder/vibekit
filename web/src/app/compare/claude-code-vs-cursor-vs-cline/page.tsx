@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Claude Code vs Cursor vs Cline — which AI coding agent should you use?",
+  title: "Claude Code vs Cursor vs Cline - which AI coding agent should you use?",
   description:
-    "Honest comparison of Claude Code, Cursor, and Cline — features, pricing, model access, terminal-vs-IDE workflow, and which one fits VibeKit's project structure best.",
+    "Honest comparison of Claude Code, Cursor, and Cline - features, pricing, model access, terminal-vs-IDE workflow, and which one fits VibeKit's project structure best.",
   alternates: { canonical: "/compare/claude-code-vs-cursor-vs-cline" },
   openGraph: {
     url: `${SITE.url}/compare/claude-code-vs-cursor-vs-cline`,
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 type Row = { feature: string; claudeCode: string | boolean; cursor: string | boolean; cline: string | boolean };
 
 const rows: Row[] = [
-  { feature: "Pricing", claudeCode: "Subscription ($20–200/mo) or pay-as-you-go", cursor: "Free / Pro $20/mo / Business $40/mo", cline: "Free OSS — pay your own model API costs" },
-  { feature: "Default model", claudeCode: "Claude Sonnet/Opus (Anthropic)", cursor: "GPT-4 / Claude / Gemini (your choice)", cline: "BYOM — Anthropic, OpenAI, OpenRouter, Ollama" },
+  { feature: "Pricing", claudeCode: "Subscription ($20-200/mo) or pay-as-you-go", cursor: "Free / Pro $20/mo / Business $40/mo", cline: "Free OSS - pay your own model API costs" },
+  { feature: "Default model", claudeCode: "Claude Sonnet/Opus (Anthropic)", cursor: "GPT-4 / Claude / Gemini (your choice)", cline: "BYOM - Anthropic, OpenAI, OpenRouter, Ollama" },
   { feature: "IDE integration", claudeCode: "Terminal + VS Code extension", cursor: "Standalone IDE (VS Code fork)", cline: "VS Code extension" },
   { feature: "Terminal-first workflow", claudeCode: true, cursor: false, cline: false },
   { feature: "Reads project context files", claudeCode: true, cursor: true, cline: true },
@@ -163,7 +163,7 @@ export default function CompareClaudeCursorCline() {
               Using VibeKit with each
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--text-secondary)]">
-              VibeKit doesn't care which agent you use — the four files (<code className="font-mono text-[13px]">project-description.md</code>, <code className="font-mono text-[13px]">project-phases.md</code>, <code className="font-mono text-[13px]">design-style-guide.md</code>, <code className="font-mono text-[13px]">prompt.md</code>) are agent-agnostic markdown.
+              VibeKit doesn't care which agent you use - the four files (<code className="font-mono text-[13px]">project-description.md</code>, <code className="font-mono text-[13px]">project-phases.md</code>, <code className="font-mono text-[13px]">design-style-guide.md</code>, <code className="font-mono text-[13px]">prompt.md</code>) are agent-agnostic markdown.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -188,7 +188,7 @@ export default function CompareClaudeCursorCline() {
               Our take
             </h2>
             <p className="mt-3 text-[15.5px] leading-relaxed text-[color:var(--text-secondary)]">
-              For most VibeKit users we recommend <strong className="font-medium text-[color:var(--text-primary)]">Claude Code</strong> — the auto-loaded CLAUDE.md + Skills system fits VibeKit's "lock the rules at the start of every session" philosophy perfectly, and Claude's planning quality on multi-phase work is currently best-in-class.
+              For most VibeKit users we recommend <strong className="font-medium text-[color:var(--text-primary)]">Claude Code</strong> - the auto-loaded CLAUDE.md + Skills system fits VibeKit's "lock the rules at the start of every session" philosophy perfectly, and Claude's planning quality on multi-phase work is currently best-in-class.
             </p>
             <p className="mt-3 text-[15.5px] leading-relaxed text-[color:var(--text-secondary)]">
               Pick <strong className="font-medium text-[color:var(--text-primary)]">Cursor</strong> if you do most of your work in an IDE and want pair-programming-style collaboration. Pick <strong className="font-medium text-[color:var(--text-primary)]">Cline</strong> if you want full control and are willing to manage your own model + API costs. All three will produce excellent VibeKit projects.
@@ -215,7 +215,7 @@ export default function CompareClaudeCursorCline() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: "Claude Code vs Cursor vs Cline — which AI coding agent should you use?",
+            headline: "Claude Code vs Cursor vs Cline - which AI coding agent should you use?",
             description: "Honest comparison of Claude Code, Cursor, and Cline.",
             author: { "@type": "Person", name: "JB (Muke Johnbaptist)", url: SITE.authorUrl },
             publisher: { "@type": "Organization", name: "Desishub Technologies", url: "https://desishub.com" },

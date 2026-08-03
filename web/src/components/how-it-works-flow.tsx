@@ -33,7 +33,7 @@ const steps: Step[] = [
     n: "01",
     eyebrow: "PLAN",
     title: "Tell Claude your idea.",
-    body: "Paste the planning prompt into Claude.ai with one paragraph about your app. Claude either interviews you or jumps straight to a structured summary if your brief is detailed — then asks for your consent before generating.",
+    body: "Paste the planning prompt into Claude.ai with one paragraph about your app. Claude either interviews you or jumps straight to a structured summary if your brief is detailed - then asks for your consent before generating.",
     icons: [
       { Icon: FileText, label: "project-description" },
       { Icon: ListTodo, label: "project-phases" },
@@ -46,7 +46,7 @@ const steps: Step[] = [
     n: "02",
     eyebrow: "BUILD",
     title: "Drop them into your agent.",
-    body: "Add the 4 files plus the master prompt and component registry to your project. Open Claude Code, Cursor, Cline, Windsurf — any agent that reads files. It reads everything, plans Phase 1, and starts building. Stops between phases for your sign-off.",
+    body: "Add the 4 files plus the master prompt and component registry to your project. Open Claude Code, Cursor, Cline, Windsurf - any agent that reads files. It reads everything, plans Phase 1, and starts building. Stops between phases for your sign-off.",
     icons: [
       { Icon: PenLine, label: "Phase 1 · Auth" },
       { Icon: PenLine, label: "Phase 2 · CRUD" },
@@ -130,7 +130,7 @@ export function HowItWorksFlow() {
             Three steps from idea to <em className="not-italic gradient-text">production</em>.
           </h2>
           <p className="flow-sub mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-            Plan with Claude. Build with any agent. Audit and ship. The whole flow takes an afternoon — and the patterns repeat for every project after.
+            Plan with Claude. Build with any agent. Audit and ship. The whole flow takes an afternoon - and the patterns repeat for every project after.
           </p>
         </div>
 

@@ -8,12 +8,12 @@ import { components } from "@/lib/components-data";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Components — production-ready primitives for VibeKit projects",
+  title: "Components - production-ready primitives for VibeKit projects",
   description:
     "Browse the JB Component Registry: production-ready shadcn components for auth, file uploads, Stripe checkout, data tables, blogs, e-commerce, and more. Install with one command.",
   alternates: { canonical: "/components" },
   openGraph: {
-    title: "VibeKit Components — production-ready primitives",
+    title: "VibeKit Components - production-ready primitives",
     description:
       "Production-ready shadcn components for auth, payments, data tables, file uploads, e-commerce, and more.",
     url: `${SITE.url}/components`,

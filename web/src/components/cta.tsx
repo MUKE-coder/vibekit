@@ -59,7 +59,7 @@ export function CTA() {
               <em className="not-italic gradient-text">Start shipping.</em>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-              Open the planning prompt, describe your idea, and let Claude Code build it phase by phase — with a stack that's locked, audited, and production-ready.
+              Open the planning prompt, describe your idea, and let Claude Code build it phase by phase - with a stack that's locked, audited, and production-ready.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Button href="/docs/quickstart" variant="accent" size="lg">

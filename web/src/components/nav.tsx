@@ -10,7 +10,7 @@ import { LogoBadge } from "./graphics/logo-mark";
 import { SITE } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
-// Kept lean on purpose — the most important destinations only. Everything else
+// Kept lean on purpose - the most important destinations only. Everything else
 // (Setup, Performance, Resources) lives in the footer.
 const navLinks = [
   { href: "/docs", label: "Docs" },
@@ -57,7 +57,7 @@ export function Nav() {
     <>
       <header
         className={cn(
-          "fixed top-0 inset-x-0 z-50 transition-all duration-300",
+          "fixed top-0 inset-x-0 z-50 transition duration-300",
           scrolled ? "py-2 sm:py-3" : "py-3 sm:py-5",
         )}
       >
@@ -86,7 +86,7 @@ export function Nav() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "rounded-[var(--radius-full)] px-4 py-1.5 text-[14px] font-medium transition-all",
+                      "rounded-[var(--radius-full)] px-4 py-1.5 text-[14px] font-medium transition",
                       active
                         ? "bg-[color:var(--text-primary)] text-[color:var(--text-inverse)] shadow-[var(--shadow-sm)]"
                         : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
@@ -134,7 +134,7 @@ export function Nav() {
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((v) => !v)}
-                className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-full)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] text-[color:var(--text-primary)]"
+                className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-full)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] text-[color:var(--text-primary)]"
               >
                 {menuOpen ? <X className="h-[18px] w-[18px]" /> : <Menu className="h-[18px] w-[18px]" />}
               </button>

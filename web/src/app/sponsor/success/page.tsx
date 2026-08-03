@@ -24,7 +24,7 @@ export default function SponsorSuccessPage() {
             Thank you. <em className="not-italic gradient-text">Truly.</em>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-[color:var(--text-secondary)]">
-            Your support goes straight into VibeKit — new primitives, better docs, and keeping the
+            Your support goes straight into VibeKit - new primitives, better docs, and keeping the
             whole thing free and MIT-licensed. A receipt is on its way to your email from Stripe.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

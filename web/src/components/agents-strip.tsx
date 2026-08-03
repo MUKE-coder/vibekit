@@ -83,11 +83,11 @@ export function AgentsStrip() {
             Works with any agent that <em className="not-italic gradient-text">reads files</em>.
           </h2>
           <p className="agents-sub mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-            VibeKit's 4 generated files plus the master prompt are plain markdown — drop them into <strong className="font-medium text-[color:var(--text-primary)]">CLAUDE.md</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.cursorrules</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.kiro</strong>, or any other context format. The framework moves with you.
+            VibeKit's 4 generated files plus the master prompt are plain markdown - drop them into <strong className="font-medium text-[color:var(--text-primary)]">CLAUDE.md</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.cursorrules</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.kiro</strong>, or any other context format. The framework moves with you.
           </p>
         </div>
 
-        {/* Agent grid — single column on phones, 2 cols on small, then 3, 4 */}
+        {/* Agent grid - single column on phones, 2 cols on small, then 3, 4 */}
         <div className="mt-12 sm:mt-14 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px overflow-hidden rounded-md border border-[color:var(--border)] bg-[color:var(--border)]">
           {agents.map((a) => (
             <div

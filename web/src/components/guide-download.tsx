@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * internal hrefs through next/link, which tries to client-navigate to a static
  * asset. A direct anchor lets the browser download the file cleanly.
  *
- * Server component — a download link needs no client JS.
+ * Server component - a download link needs no client JS.
  */
 
 const PDF_PATH = "/vibekit-beginners-guide.pdf";
@@ -42,12 +42,12 @@ export function GuideDownload({ variant = "inline", className }: GuideDownloadPr
                 Free PDF guide
               </div>
               <h2 className="font-display mt-6 text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.1] tracking-tight text-[color:var(--text-primary)]">
-                {TITLE} —{" "}
+                {TITLE} -{" "}
                 <em className="not-italic gradient-text">start here</em>.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
                 A beginner-friendly walkthrough that takes you from an idea to a
-                deployed Next.js app with VibeKit — no prior framework experience
+                deployed Next.js app with VibeKit - no prior framework experience
                 needed. Download it, keep it beside your editor, and build along.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -78,7 +78,7 @@ export function GuideDownload({ variant = "inline", className }: GuideDownloadPr
     );
   }
 
-  // Inline callout — compact horizontal card for the top of docs/learning pages.
+  // Inline callout - compact horizontal card for the top of docs/learning pages.
   return (
     <div
       className={cn(
@@ -95,7 +95,7 @@ export function GuideDownload({ variant = "inline", className }: GuideDownloadPr
             Free PDF guide
           </div>
           <h3 className="mt-1 text-[15px] font-medium text-[color:var(--text-primary)]">
-            {TITLE} — {SUBTITLE}
+            {TITLE} - {SUBTITLE}
           </h3>
           <p className="mt-1 text-[13.5px] leading-relaxed text-[color:var(--text-secondary)]">
             New to VibeKit? This walks you from idea to a deployed app, step by step.

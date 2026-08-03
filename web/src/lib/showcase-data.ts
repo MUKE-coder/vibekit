@@ -1,8 +1,8 @@
-// Community showcase — real apps built with VibeKit.
+// Community showcase - real apps built with VibeKit.
 //
 // New entries are added by users via the GitHub issue template
 // (.github/ISSUE_TEMPLATE/showcase-submission.yml); a maintainer then appends
-// the approved project here. Keep entries HONEST — only list projects that were
+// the approved project here. Keep entries HONEST - only list projects that were
 // genuinely built with VibeKit, and never invent metrics or testimonials.
 
 export type ShowcaseProject = {
@@ -17,7 +17,7 @@ export type ShowcaseProject = {
   author: string;
   /** Optional link to the builder (portfolio, GitHub, X). */
   authorUrl?: string;
-  /** Optional screenshot — a path under /public, or a remote URL. Falls back to
+  /** Optional screenshot - a path under /public, or a remote URL. Falls back to
    *  a branded placeholder when omitted. */
   image?: string;
   /** Stack / notable features, shown as chips. */
@@ -31,7 +31,7 @@ export const showcaseProjects: ShowcaseProject[] = [
     slug: "vibekit",
     name: "VibeKit",
     tagline:
-      "The VibeKit framework's own site and docs — built with VibeKit, Next.js 16, Tailwind v4 and shadcn/ui.",
+      "The VibeKit framework's own site and docs - built with VibeKit, Next.js 16, Tailwind v4 and shadcn/ui.",
     url: "https://vibekit.desishub.com",
     author: "JB (Muke Johnbaptist)",
     authorUrl: "https://jb.desishub.com",
@@ -44,7 +44,7 @@ export const showcaseProjects: ShowcaseProject[] = [
     slug: "elaundrymart",
     name: "eLaundryMart",
     tagline:
-      "A multi-vendor laundry marketplace — real-time 9-stage order tracking, weight-based pricing, mobile-money & card checkout, and an installable PWA.",
+      "A multi-vendor laundry marketplace - real-time 9-stage order tracking, weight-based pricing, mobile-money & card checkout, and an installable PWA.",
     url: "https://www.elaundrymart.com",
     author: "Solomon A. Mutagaya",
     authorUrl: "https://github.com/solomonmutagaya",

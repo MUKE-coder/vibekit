@@ -19,7 +19,7 @@ const baseProps = {
   strokeLinejoin: "round" as const,
 };
 
-/** Stack of cubes — represents components / building blocks. Animates on hover. */
+/** Stack of cubes - represents components / building blocks. Animates on hover. */
 export function CubeStack({ className, size = 56 }: IconProps) {
   return (
     <svg width={size} height={size} {...baseProps} className={cn("transition-transform duration-500 group-hover:-translate-y-0.5", className)} aria-hidden>
@@ -35,7 +35,7 @@ export function CubeStack({ className, size = 56 }: IconProps) {
         <path d="M18 32 L18 27 L32 21 L46 27 L46 32" />
         <path d="M32 26 L32 21" />
       </g>
-      {/* Top cube — accent */}
+      {/* Top cube - accent */}
       <g className="text-[color:var(--accent)]" stroke="currentColor">
         <path d="M22 22 L32 27 L42 22 L32 17 Z" />
         <path d="M22 22 L22 18 L32 13 L42 18 L42 22" />
@@ -45,7 +45,7 @@ export function CubeStack({ className, size = 56 }: IconProps) {
   );
 }
 
-/** Layered files — represents the 4-file output. */
+/** Layered files - represents the 4-file output. */
 export function FileStack({ className, size = 56 }: IconProps) {
   return (
     <svg width={size} height={size} {...baseProps} className={cn(className)} aria-hidden>
@@ -66,7 +66,7 @@ export function FileStack({ className, size = 56 }: IconProps) {
   );
 }
 
-/** Orbiting rings around a core — used as the hero / "framework" mark.
+/** Orbiting rings around a core - used as the hero / "framework" mark.
  *  Sizing rule: if `className` provides explicit width/height (e.g.
  *  `h-[110px] w-[110px] sm:h-[140px] sm:w-[140px]`), those win and the
  *  rings + core scale via 100% width/height. Otherwise `size` is used.
@@ -105,7 +105,7 @@ export function OrbitalCore({ className, size = 96, animate = true }: IconProps 
       >
         <ellipse cx="48" cy="48" rx="32" ry="10" stroke="currentColor" strokeWidth="0.75" fill="none" opacity="0.6" />
       </svg>
-      {/* Core icosahedron — viewBox comes from baseProps (0 0 64 64). h/w=50% scales with parent */}
+      {/* Core icosahedron - viewBox comes from baseProps (0 0 64 64). h/w=50% scales with parent */}
       <svg
         {...baseProps}
         className={cn("relative h-1/2 w-1/2 text-[color:var(--accent)]", animate && "animate-pulse-glow")}
@@ -127,7 +127,7 @@ export function OrbitalCore({ className, size = 96, animate = true }: IconProps 
   );
 }
 
-/** Phase / steps icon — three stacked horizontal bars. */
+/** Phase / steps icon - three stacked horizontal bars. */
 export function PhaseLines({ className, size = 56 }: IconProps) {
   return (
     <svg width={size} height={size} {...baseProps} className={cn(className)} aria-hidden>
@@ -139,7 +139,7 @@ export function PhaseLines({ className, size = 56 }: IconProps) {
   );
 }
 
-/** Shield with checkmark — pre-deploy review. */
+/** Shield with checkmark - pre-deploy review. */
 export function ShieldCheck3D({ className, size = 56 }: IconProps) {
   return (
     <svg width={size} height={size} {...baseProps} className={cn(className)} aria-hidden>
@@ -163,7 +163,7 @@ export function StackRings({ className, size = 56 }: IconProps) {
   );
 }
 
-/** Code brackets — the master prompt / coding standards. */
+/** Code brackets - the master prompt / coding standards. */
 export function CodeBrackets({ className, size = 56 }: IconProps) {
   return (
     <svg width={size} height={size} {...baseProps} className={cn(className)} aria-hidden>

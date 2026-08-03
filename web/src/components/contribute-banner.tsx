@@ -70,7 +70,7 @@ export function ContributeBanner() {
               </h2>
 
               <p className="contrib-body mt-5 max-w-xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
-                Built something reusable — auth flow, payment widget, AI feature, dashboard
+                Built something reusable - auth flow, payment widget, AI feature, dashboard
                 primitive? Open a pull request. Once merged, your component gets a permanent
                 doc page and is loaded by every Claude Code agent reading the registry.
               </p>
@@ -114,7 +114,7 @@ export function ContributeBanner() {
               </div>
             </div>
 
-            {/* Right column — what you contribute */}
+            {/* Right column - what you contribute */}
             <div className="hidden md:block">
               <div className="rounded-md border border-[color:var(--border)] bg-[color:var(--bg)] p-5 font-mono text-[12px] text-[color:var(--text-secondary)] max-w-xs">
                 <div className="flex items-center justify-between border-b border-[color:var(--border)] pb-3">

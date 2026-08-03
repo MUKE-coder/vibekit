@@ -56,14 +56,11 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
         {/* Eyebrow */}
         <div className="hero-eyebrow inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)]/60 backdrop-blur px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-secondary)]">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--accent)] opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
-          </span>
-          The framework for vibe coders · v1.0
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
+          The framework for vibe coders
         </div>
 
-        {/* Orbital mark — scales down on mobile */}
+        {/* Orbital mark - scales down on mobile */}
         <div className="hero-orbital mt-8 sm:mt-10 flex justify-center">
           <OrbitalCore className="h-[110px] w-[110px] sm:h-[140px] sm:w-[140px]" size={140} />
         </div>
@@ -73,8 +70,8 @@ export function Hero() {
           <span className="block">VIBEKIT</span>
         </h1>
 
-        <p className="hero-sub mx-auto mt-6 max-w-2xl text-[15px] sm:text-base leading-relaxed text-[color:var(--text-secondary)]">
-          The framework for shipping production-grade Next.js apps with <strong className="text-[color:var(--text-primary)] font-medium">any coding agent</strong> — Claude Code, Cursor, Kiro, Antigravity, Windsurf, Cline, Aider. Generate 4 files. Build phase by phase. Ship without burning tokens.
+        <p className="hero-sub mx-auto mt-6 max-w-xl text-[15px] sm:text-base leading-relaxed text-[color:var(--text-secondary)]">
+          Ship production-grade Next.js apps with <strong className="text-[color:var(--text-primary)] font-medium">any coding agent</strong>. Generate 4 files, build phase by phase, without burning tokens.
         </p>
 
         <div className="hero-cta mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -93,11 +90,8 @@ export function Hero() {
           <div className="hero-cta flex items-center gap-2 sm:gap-3 rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-3 sm:px-4 py-2.5 sm:py-3 text-left font-mono text-[12px] sm:text-[13px] min-w-0">
             <span className="text-[color:var(--text-tertiary)] shrink-0">$</span>
             <code className="flex-1 truncate text-[color:var(--text-primary)]">
-              git clone github.com/MUKE-coder/vibekit
+              npx vibekit-framework init
             </code>
-            <span className="hidden sm:inline text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)] shrink-0">
-              copy
-            </span>
           </div>
         </div>
 

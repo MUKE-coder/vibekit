@@ -10,13 +10,13 @@ import Stripe from "stripe";
  * Prices are built inline with `price_data` rather than pre-created Stripe
  * Prices, so changing the ladder in config/sponsors.ts needs no dashboard work.
  * Stripe is instantiated INSIDE the handler so a missing key never breaks the
- * build — only a live request returns a graceful 500.
+ * build - only a live request returns a graceful 500.
  */
 
 export const dynamic = "force-dynamic";
 
 const MIN_AMOUNT = 100; // $1.00
-const MAX_AMOUNT = 99900; // $999.00 — mirrors SPONSOR_MAX_USD
+const MAX_AMOUNT = 99900; // $999.00 - mirrors SPONSOR_MAX_USD
 
 export async function POST(req: NextRequest) {
   if (!process.env.STRIPE_SECRET_KEY) {
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
             product_data: {
               name: label,
               description: recurring
-                ? "Recurring sponsorship — cancel any time."
+                ? "Recurring sponsorship - cancel any time."
                 : "Thank you for supporting VibeKit ☕",
             },
             unit_amount: amount,

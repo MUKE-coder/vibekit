@@ -12,7 +12,7 @@ export default function NotFound() {
           Page not found
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-[color:var(--text-secondary)]">
-          The page you're looking for doesn't exist — or it never did.
+          The page you're looking for doesn't exist - or it never did.
         </p>
         <div className="mt-8 flex justify-center">
           <Link href="/">

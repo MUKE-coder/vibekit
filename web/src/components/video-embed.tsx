@@ -20,7 +20,7 @@ type VideoEmbedProps = {
 
 /**
  * Click-to-play YouTube facade.
- * Renders only a thumbnail + play button until the user clicks — then swaps to
+ * Renders only a thumbnail + play button until the user clicks - then swaps to
  * the real iframe with autoplay. Saves ~500KB of YouTube JS on initial load.
  */
 export function VideoEmbed({
@@ -86,7 +86,7 @@ export function VideoEmbed({
               aria-hidden
             />
 
-            {/* Play button — pulsing ring + indigo core */}
+            {/* Play button - pulsing ring + indigo core */}
             <span className="absolute inset-0 grid place-items-center">
               <span className="relative flex h-20 w-20 items-center justify-center sm:h-24 sm:w-24">
                 <span className="absolute h-full w-full rounded-full bg-[color:var(--accent)]/30 animate-ping" />

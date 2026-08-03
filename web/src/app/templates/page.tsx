@@ -10,13 +10,13 @@ import { templates } from "@/lib/templates-data";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Templates — clone, customize, ship",
+  title: "Templates - clone, customize, ship",
   description:
     "Public template repos for VibeKit users. Clone a portfolio, blog, or SaaS starter, then let your AI agent walk you through a customization interview.",
   alternates: { canonical: "/templates" },
   openGraph: {
-    title: "VibeKit Templates — clone, customize, ship",
-    description: "Production templates for portfolios, blogs, SaaS — with built-in customization guides.",
+    title: "VibeKit Templates - clone, customize, ship",
+    description: "Production templates for portfolios, blogs, SaaS - with built-in customization guides.",
     url: `${SITE.url}/templates`,
     images: ["/og.png"],
   },
@@ -42,13 +42,13 @@ export default function TemplatesPage() {
               <Link
                 key={t.slug}
                 href={`/templates/${t.slug}`}
-                className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
+                className="group flex flex-col rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
                     {t.categoryLabel}
                   </span>
-                  <ArrowUpRight className="h-4 w-4 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                  <ArrowUpRight className="h-4 w-4 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
                 </div>
                 <h2 className="mt-3 font-mono text-[18px] uppercase tracking-tight text-[color:var(--text-primary)]">
                   {t.name}
@@ -90,7 +90,7 @@ export default function TemplatesPage() {
               <li>2. Clone it: <code>git clone &lt;cloneUrl&gt;</code></li>
               <li>3. Tell your AI agent: <em className="not-italic">"I want to customize this template using the customization guide. Walk me through the sections."</em></li>
               <li>4. The agent asks you the section-by-section questions defined in the template, then edits only what changes between projects (config files, copy, branding).</li>
-              <li>5. <code>pnpm install &amp;&amp; pnpm dev</code> — yours.</li>
+              <li>5. <code>pnpm install &amp;&amp; pnpm dev</code> - yours.</li>
             </ol>
           </div>
 

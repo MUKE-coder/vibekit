@@ -11,7 +11,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://vibekit.desishub.com",
   tagline: "Ship production apps with Claude Code",
   description:
-    "VibeKit is a structured framework for vibe coders building production-grade Next.js apps with Claude Code or any agent — without burning tokens, shipping broken auth, or getting stuck.",
+    "VibeKit is a structured framework for vibe coders building production-grade Next.js apps with Claude Code or any agent - without burning tokens, shipping broken auth, or getting stuck.",
   twitter: "@jbwebdeveloper",
   github: "https://github.com/MUKE-coder/vibekit",
   community: "https://chat.whatsapp.com/LKQUiM0dExJ60EiBDgoqRq",

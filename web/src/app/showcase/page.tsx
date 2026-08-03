@@ -8,12 +8,12 @@ import { showcaseProjects } from "@/lib/showcase-data";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Showcase — apps built with VibeKit",
+  title: "Showcase - apps built with VibeKit",
   description:
     "A gallery of real applications built with the VibeKit framework. Browse what the community has shipped, then submit your own project.",
   alternates: { canonical: "/showcase" },
   openGraph: {
-    title: "VibeKit Showcase — apps built with VibeKit",
+    title: "VibeKit Showcase - apps built with VibeKit",
     description: "Real apps shipped with VibeKit. Browse the community gallery and submit yours.",
     url: `${SITE.url}/showcase`,
     images: ["/og.png"],
@@ -39,7 +39,7 @@ export default function ShowcasePage() {
               Shipped with <em className="not-italic gradient-text">VibeKit</em>.
             </>
           }
-          description="Real applications built with the framework. Browse what the community has shipped for inspiration — then add your own. New here? Start with the quickstart and come back when you've launched."
+          description="Real applications built with the framework. Browse what the community has shipped for inspiration - then add your own. New here? Start with the quickstart and come back when you've launched."
           containerClassName="max-w-6xl"
         >
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -49,7 +49,7 @@ export default function ShowcasePage() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] transition-all hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
+                className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)] transition hover:-translate-y-0.5 hover:border-[color:var(--border-strong)] hover:shadow-[var(--shadow-md)]"
               >
                 {/* Preview */}
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-[color:var(--border)] bg-[color:var(--bg-subtle)]">
@@ -87,7 +87,7 @@ export default function ShowcasePage() {
                     <h2 className="font-mono text-[16px] uppercase tracking-tight text-[color:var(--text-primary)]">
                       {p.name}
                     </h2>
-                    <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
+                    <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--text-tertiary)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-primary)]" />
                   </div>
                   <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[color:var(--text-secondary)]">
                     {p.tagline}
@@ -109,7 +109,7 @@ export default function ShowcasePage() {
               </a>
             ))}
 
-            {/* Submit-your-project card — always the last cell */}
+            {/* Submit-your-project card - always the last cell */}
             <a
               href={SUBMIT_URL}
               target="_blank"
@@ -139,7 +139,7 @@ export default function ShowcasePage() {
               </h3>
               <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-[color:var(--text-secondary)]">
                 Get it featured here. Submissions go through a short GitHub issue
-                form — name, link, a screenshot, and the stack. No account tricks,
+                form - name, link, a screenshot, and the stack. No account tricks,
                 no fees.
               </p>
             </div>

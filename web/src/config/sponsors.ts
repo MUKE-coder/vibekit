@@ -1,9 +1,9 @@
 /**
- * Single source of truth for sponsorship — the tier ladder and the one-time
+ * Single source of truth for sponsorship - the tier ladder and the one-time
  * amounts. Both the /sponsor page and the /api/checkout route read from here,
  * so a price is never hardcoded in two places.
  *
- * Perks are PROMISES — only list one that will actually be honoured.
+ * Perks are PROMISES - only list one that will actually be honoured.
  */
 
 export type SponsorTierId = "supporter" | "backer" | "sponsor" | "partner";
@@ -49,7 +49,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     id: "sponsor",
     name: "Sponsor",
     price: 100,
-    blurb: "Top billing across the project — the sweet spot for companies.",
+    blurb: "Top billing across the project - the sweet spot for companies.",
     perks: [
       "Everything in Backer",
       "Your logo on the VibeKit site",

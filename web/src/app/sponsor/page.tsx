@@ -67,7 +67,7 @@ export default function SponsorPage() {
   }
 
   const cardBase =
-    "rounded-[var(--radius-lg)] border p-5 text-left transition-all";
+    "rounded-[var(--radius-lg)] border p-5 text-left transition";
   const cardSelected =
     "border-[color:var(--accent)] bg-[color:var(--bg-subtle)] ring-1 ring-[color:var(--accent)]";
   const cardIdle =
@@ -90,7 +90,7 @@ export default function SponsorPage() {
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[17px] leading-relaxed text-[color:var(--text-secondary)]">
             VibeKit is free, open source, and built in the open by one developer. A one-time tip or
-            a monthly sponsorship funds the primitives, the docs, and the next release — and keeps
+            a monthly sponsorship funds the primitives, the docs, and the next release - and keeps
             it free for everyone.
           </p>
         </section>
@@ -119,7 +119,7 @@ export default function SponsorPage() {
                     setError("");
                   }}
                   className={cn(
-                    "rounded-[var(--radius-full)] px-6 py-2 text-sm font-medium transition-all",
+                    "rounded-[var(--radius-full)] px-6 py-2 text-sm font-medium transition",
                     interval === opt.id
                       ? "bg-[color:var(--accent)] text-[color:var(--accent-fg)]"
                       : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
@@ -261,8 +261,8 @@ export default function SponsorPage() {
             </button>
             <p className="mt-4 text-center text-[12px] text-[color:var(--text-tertiary)]">
               {interval === "month"
-                ? "Cancel any time. Payments processed securely by Stripe — no card details touch our servers."
-                : "Payments processed securely by Stripe — no card details touch our servers."}
+                ? "Cancel any time. Payments processed securely by Stripe - no card details touch our servers."
+                : "Payments processed securely by Stripe - no card details touch our servers."}
             </p>
           </div>
         </section>

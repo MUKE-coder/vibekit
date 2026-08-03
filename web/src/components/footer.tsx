@@ -6,7 +6,7 @@ const cols = [
     label: "Framework",
     links: [
       { name: "Beginner's guide (PDF)", href: "/vibekit-beginners-guide.pdf", download: true },
-      { name: "Tutorial — TaskFlow course", href: "/tutorial" },
+      { name: "Tutorial - TaskFlow course", href: "/tutorial" },
       { name: "Quickstart", href: "/docs/quickstart" },
       { name: "Components", href: "/components" },
       { name: "GitHub", href: SITE.github },
@@ -27,7 +27,7 @@ const cols = [
   {
     label: "Community",
     links: [
-      { name: "Showcase — built with VibeKit", href: "/showcase" },
+      { name: "Showcase - built with VibeKit", href: "/showcase" },
       { name: "Buy me a coffee", href: "/sponsor" },
       { name: "Join WhatsApp community", href: SITE.community },
       { name: "GitHub Discussions", href: `${SITE.github}/discussions` },
@@ -65,7 +65,7 @@ export function Footer() {
                   return (
                     <li key={link.name}>
                       {"download" in link && link.download ? (
-                        // Static asset — a plain anchor with download, not next/link.
+                        // Static asset - a plain anchor with download, not next/link.
                         <a href={link.href} download className={linkClass}>
                           {link.name}
                         </a>

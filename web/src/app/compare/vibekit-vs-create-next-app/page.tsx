@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "VibeKit vs create-next-app — when to use each",
+  title: "VibeKit vs create-next-app - when to use each",
   description:
     "create-next-app gives you a blank Next.js project. VibeKit gives you a planned project: design system, build phases, coding rules, and components. See which fits your project.",
   alternates: { canonical: "/compare/vibekit-vs-create-next-app" },
@@ -31,7 +31,7 @@ const rows: Row[] = [
   { feature: "Pre-built components for common needs", cna: false, vibekit: "30+ in the JB + VibeKit registry (auth, files, Stripe, tables, kanban, charts, org UI, command palette)" },
   { feature: "Pre-deploy security audit", cna: false, vibekit: true },
   { feature: "Works with any AI coding agent", cna: "Yes, but agent has to figure out everything", vibekit: "Yes, with framework rules locked in" },
-  { feature: "Time to first feature", cna: "Hours of setup before you can build", vibekit: "Phase 1 done in ~1–2 hours" },
+  { feature: "Time to first feature", cna: "Hours of setup before you can build", vibekit: "Phase 1 done in ~1-2 hours" },
   { feature: "Maintenance across projects", cna: "Each project drifts in its own direction", vibekit: "Same stack + patterns across every project" },
   { feature: "MIT licensed", cna: true, vibekit: true },
   { feature: "Free to use", cna: true, vibekit: true },
@@ -77,7 +77,7 @@ export default function CompareVibeKitCNA() {
               VibeKit vs create-next-app
             </h1>
             <p className="mt-5 max-w-2xl text-[18px] leading-relaxed text-[color:var(--text-secondary)]">
-              <code className="font-mono text-[15px] rounded border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-1.5 py-0.5">create-next-app</code> gives you a blank Next.js project — every decision is still ahead of you. <strong className="font-medium text-[color:var(--text-primary)]">VibeKit</strong> gives you a <em className="not-italic font-medium text-[color:var(--text-primary)]">planned</em> project: stack locked, auth ready, design system customized, components installed, security audited.
+              <code className="font-mono text-[15px] rounded border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-1.5 py-0.5">create-next-app</code> gives you a blank Next.js project - every decision is still ahead of you. <strong className="font-medium text-[color:var(--text-primary)]">VibeKit</strong> gives you a <em className="not-italic font-medium text-[color:var(--text-primary)]">planned</em> project: stack locked, auth ready, design system customized, components installed, security audited.
             </p>
           </header>
 
@@ -153,7 +153,7 @@ export default function CompareVibeKitCNA() {
               They're not mutually exclusive
             </h2>
             <p className="mt-3 text-[15.5px] leading-relaxed text-[color:var(--text-secondary)]">
-              VibeKit doesn't replace <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">create-next-app</code> — it sits on top of it. Phase 1 of every VibeKit build literally starts with <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">npx create-next-app@latest</code>. The difference is what happens next: instead of an empty <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">app/page.tsx</code> staring at you, you have a phase-by-phase plan and an agent that knows exactly what to build.
+              VibeKit doesn't replace <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">create-next-app</code> - it sits on top of it. Phase 1 of every VibeKit build literally starts with <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">npx create-next-app@latest</code>. The difference is what happens next: instead of an empty <code className="font-mono text-[13.5px] rounded border border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-1.5 py-0.5">app/page.tsx</code> staring at you, you have a phase-by-phase plan and an agent that knows exactly what to build.
             </p>
           </section>
 

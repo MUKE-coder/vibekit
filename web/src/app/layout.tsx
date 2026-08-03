@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
+    default: `${SITE.name} - ${SITE.tagline}`,
     template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE.url,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} - ${SITE.tagline}`,
     description: SITE.description,
     siteName: SITE.name,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: SITE.name }],
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} - ${SITE.tagline}`,
     description: SITE.description,
     images: ["/og.png"],
     creator: SITE.twitter,
@@ -130,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>{children}</ThemeProvider>
         {/* Server-rendered so the ~1KB tracker snippet is inlined into the HTML.
-            Receives ZENITH_PUBLIC (backendUrl + siteKey only) — never
+            Receives ZENITH_PUBLIC (backendUrl + siteKey only) - never
             ZENITH_CONFIG, which holds the secrets. Do not move into a client
             component or lazy-load it: the snippet finds its config via
             document.currentScript, which only works for server-inlined script. */}

@@ -7,7 +7,7 @@ const tree = `vibekit/
 ├── master_prompt.md             ← Coding standards for Claude Code (copy to your project)
 ├── design-style-guide.md        ← Design style guide template
 ├── jb-components.md             ← JB component registry reference (copy to your project)
-├── pre-deploy-review.md         ← Paste into Claude Code before deploying — security/perf audit
+├── pre-deploy-review.md         ← Paste into Claude Code before deploying - security/perf audit
 │
 ├── prompt-engineering.md        ← Token economy, 5-part formula, rescue system
 ├── deployment.md                ← Vercel, Netlify, Cloudflare, SSL
@@ -21,15 +21,15 @@ const tree = `vibekit/
 ├── audit-log.md                 ← Hash-chained tamper-evident log (SOC2)
 ├── ai-guide.md                  ← Vercel AI SDK + pgvector RAG + credit packs
 ├── agent-tooling.md             ← ui-ux-pro-max-skill + Playwright MCP (installed by init)
-├── vibekit-primitives.md        ← Roadmap: 150 primitives — 100% complete ✨ (144 GitHub + 6 JB legacy)
+├── vibekit-primitives.md        ← Roadmap: 150 primitives - 100% complete ✨ (144 GitHub + 6 JB legacy)
 ├── registry.json                ← Root index for the GitHub registry
 ├── registry/                    ← Source for 144 installable primitives (auth, hooks, ...)
-│   └── INDEX.md                 ← Searchable index with TRIGGERS — agents grep this before writing code
-├── skill/                       ← Agent rules (SKILL.md, AGENTS.md) — auto-discover primitives
+│   └── INDEX.md                 ← Searchable index with TRIGGERS - agents grep this before writing code
+├── skill/                       ← Agent rules (SKILL.md, AGENTS.md) - auto-discover primitives
 └── demo/                        ← Smoke-test app: installs + exercises every primitive`;
 
 const copyFiles = [
-  { file: "master_prompt.md", purpose: "Claude Code reads this first — tech stack + coding rules" },
+  { file: "master_prompt.md", purpose: "Claude Code reads this first - tech stack + coding rules" },
   { file: "jb-components.md", purpose: "Reference for when to install which JB component" },
   { file: "pre-deploy-review.md", purpose: "Paste into Claude Code before deploying for an audit" },
 ];
@@ -40,7 +40,7 @@ export function FrameworkFiles() {
       id="files-tree"
       eyebrow="The repo at a glance"
       title="One repo. Everything you need."
-      description="Reference guides for every layer of the stack — database, deployment, design, monetization, troubleshooting — plus the core prompts Claude Code reads while building."
+      description="Reference guides for every layer of the stack - database, deployment, design, monetization, troubleshooting - plus the core prompts Claude Code reads while building."
     >
       <div className="reveal overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--bg-elevated)]">
         <div className="flex items-center gap-2 border-b border-[color:var(--border)] bg-[color:var(--bg-subtle)] px-4 py-2.5">

@@ -67,7 +67,7 @@ export function LaptopMockup() {
       })
         // Pause to read
         .to({}, { duration: 0.5 })
-        // 2) "Submit" — input clears, conversation appears
+        // 2) "Submit" - input clears, conversation appears
         .to(".sim-input-text", { width: 0, duration: 0.15 })
         .to(".sim-greeting", { opacity: 0, y: -16, duration: 0.4 })
         .set(".sim-greeting", { display: "none" })
@@ -131,7 +131,7 @@ export function LaptopMockup() {
           </p>
         </div>
 
-        {/* Laptop — completely static, no float */}
+        {/* Laptop - completely static, no float */}
         <div className="relative mx-auto mt-16 max-w-5xl">
           {/* Glow under laptop */}
           <div
@@ -164,9 +164,9 @@ export function LaptopMockup() {
               <div className="w-12" />
             </div>
 
-            {/* Claude UI body — chat takes full width on phones, sidebar appears at sm */}
+            {/* Claude UI body - chat takes full width on phones, sidebar appears at sm */}
             <div className="relative grid grid-cols-1 sm:grid-cols-[56px_1fr] md:grid-cols-[64px_1fr] h-[480px] sm:h-[520px] md:h-[560px] bg-[#262624]">
-              {/* Sidebar — hidden on phones to give chat more room */}
+              {/* Sidebar - hidden on phones to give chat more room */}
               <aside className="hidden sm:flex flex-col items-center justify-between border-r border-white/5 bg-[#1f1f1d] py-4">
                 <div className="flex flex-col items-center gap-3">
                   {sidebarIcons.map((Icon, i) => (
@@ -206,7 +206,7 @@ export function LaptopMockup() {
                     </h3>
                   </div>
 
-                  {/* Input box — visible immediately, only the text inside types */}
+                  {/* Input box - visible immediately, only the text inside types */}
                   <div className="mt-6 sm:mt-8 w-full max-w-2xl rounded-xl sm:rounded-2xl border border-white/8 bg-[#1f1f1d] shadow-2xl">
                     <div className="px-4 sm:px-5 pt-3 sm:pt-4 pb-2 sm:pb-3 min-h-[44px]">
                       <div className="overflow-hidden">
@@ -236,7 +236,7 @@ export function LaptopMockup() {
                     </div>
                   </div>
 
-                  {/* Action chips — fewer chips visible on tiny screens to avoid overflow */}
+                  {/* Action chips - fewer chips visible on tiny screens to avoid overflow */}
                   <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
                     {["Write", "Learn", "Code", "Life stuff", "Claude's choice"].map((label, i) => (
                       <span
@@ -387,7 +387,7 @@ export function LaptopMockup() {
   );
 }
 
-/** Claude's star/asterisk symbol — peach orange */
+/** Claude's star/asterisk symbol - peach orange */
 function ClaudeStar({ small = false }: { small?: boolean }) {
   const size = small ? 16 : 28;
   return (
