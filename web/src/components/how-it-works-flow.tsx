@@ -123,7 +123,7 @@ export function HowItWorksFlow() {
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="flow-headline font-display text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.05] tracking-tight text-[color:var(--text-primary)]">
-            Three steps from idea to <em className="not-italic gradient-text">production</em>.
+            Three steps from idea to <em className="not-italic text-[color:var(--accent)]">production</em>.
           </h2>
           <p className="flow-sub mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
             Plan with Claude. Build with any agent. Audit and ship. The whole flow takes an afternoon - and the patterns repeat for every project after.

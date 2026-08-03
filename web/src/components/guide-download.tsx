@@ -43,7 +43,7 @@ export function GuideDownload({ variant = "inline", className }: GuideDownloadPr
               </div>
               <h2 className="font-display mt-6 text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.1] tracking-tight text-[color:var(--text-primary)]">
                 {TITLE} -{" "}
-                <em className="not-italic gradient-text">start here</em>.
+                <em className="not-italic text-[color:var(--accent)]">start here</em>.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
                 A beginner-friendly walkthrough that takes you from an idea to a

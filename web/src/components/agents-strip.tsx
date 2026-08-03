@@ -76,7 +76,7 @@ export function AgentsStrip() {
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="agents-headline font-display text-[clamp(2rem,4.5vw,3rem)] leading-[1.1] tracking-tight text-[color:var(--text-primary)]">
-            Works with any agent that <em className="not-italic gradient-text">reads files</em>.
+            Works with any agent that <em className="not-italic text-[color:var(--accent)]">reads files</em>.
           </h2>
           <p className="agents-sub mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
             VibeKit's 4 generated files plus the master prompt are plain markdown - drop them into <strong className="font-medium text-[color:var(--text-primary)]">CLAUDE.md</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.cursorrules</strong>, <strong className="font-medium text-[color:var(--text-primary)]">.kiro</strong>, or any other context format. The framework moves with you.

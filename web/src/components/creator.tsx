@@ -166,7 +166,7 @@ export function Creator() {
           {/* Content */}
           <div>
             <h2 className="creator-headline font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-tight text-[color:var(--text-primary)]">
-              Hi, I'm <em className="not-italic gradient-text">JB</em>.
+              Hi, I'm <em className="not-italic text-[color:var(--accent)]">JB</em>.
               <br />
               <span className="text-[color:var(--text-secondary)]">I built VibeKit</span>
             </h2>

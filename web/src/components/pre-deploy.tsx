@@ -29,7 +29,7 @@ export function PreDeploy() {
     <Section
       id="pre-deploy"
       eyebrow="Pre-deploy code review"
-      title={<>A senior-level audit before you <em className="not-italic gradient-text">go live</em>.</>}
+      title={<>A senior-level audit before you <em className="not-italic text-[color:var(--accent)]">go live</em>.</>}
       description="Run pre-deploy-review.md inside Claude Code as the final task. It writes a full report - Critical / High / Medium - straight into your repo. Address the Criticals before deploying."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

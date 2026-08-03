@@ -143,6 +143,20 @@ html, body { overflow-x: clip; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* GSAP animates via inline styles (opacity/transform), which the rule above
+     does NOT cover. Force every GSAP entrance/reveal target to its end state so
+     reduced-motion users see the finished layout, not a stuck opacity:0. The
+     !important overrides GSAP's per-frame inline styles. */
+  .reveal,
+  .hero-orbital, .hero-headline span,
+  [class*="-eyebrow"], [class*="-headline"], [class*="-sub"], [class*="-bio"],
+  [class*="-photo"], [class*="-orbit"], [class*="-stat"], [class*="-link"],
+  [class*="-step"], [class*="-arrow"], [class*="-cell"], [class*="-chip"],
+  [class*="hero-cta"], [class*="testimonials-header"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Utility classes */

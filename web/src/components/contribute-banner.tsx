@@ -66,7 +66,7 @@ export function ContributeBanner() {
 
               <h2 className="contrib-headline font-display mt-6 text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.05] tracking-tight text-[color:var(--text-primary)]">
                 Got a component?{" "}
-                <em className="not-italic gradient-text">Add it to the registry.</em>
+                <em className="not-italic text-[color:var(--accent)]">Add it to the registry.</em>
               </h2>
 
               <p className="contrib-body mt-5 max-w-xl text-[16px] leading-relaxed text-[color:var(--text-secondary)]">

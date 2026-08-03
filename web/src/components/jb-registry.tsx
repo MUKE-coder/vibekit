@@ -29,7 +29,7 @@ export function JBRegistry() {
   return (
     <Section
       id="features"
-      title={<>Don't write what already exists. <em className="not-italic gradient-text">Install it.</em></>}
+      title={<>Don't write what already exists. <em className="not-italic text-[color:var(--accent)]">Install it.</em></>}
       description="Production-ready shadcn components for every primitive - auth, tables, forms, file uploads, e-commerce, kanban, charts, org/team UI. Claude Code (and Cursor, Cline, Codex) checks the registry before writing from scratch, so it installs and wires components up instead of re-generating them, saving tokens."
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
