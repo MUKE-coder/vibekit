@@ -60,10 +60,7 @@ export function FourFiles() {
       <div className="reveal mt-12 overflow-hidden rounded-md border border-[color:var(--border)] bg-[color:var(--bg-elevated)] p-6 sm:p-8">
         <div className="mb-4 flex items-center justify-between gap-4 border-b border-[color:var(--border)] pb-4">
           <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
-            DATA FLOW · 4 files → agent → production app
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[color:var(--accent)]">
-            Live
+            4 files → agent → production app
           </span>
         </div>
         <div className="aspect-[2/1] w-full">

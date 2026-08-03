@@ -26,7 +26,6 @@ export function Stack() {
   return (
     <Section
       id="stack"
-      eyebrow="The standard stack"
       title="Locked stack. Zero decisions. Maximum velocity."
       description="Every project ships with the same opinionated stack so AI never has to invent - and you never have to debug a dependency mismatch."
     >

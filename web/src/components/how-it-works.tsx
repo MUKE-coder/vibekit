@@ -96,7 +96,6 @@ export function HowItWorks() {
   return (
     <Section
       id="how"
-      eyebrow="THE WORKFLOW"
       title={<>Plan once. Build with <em className="not-italic gradient-text">any agent</em>.</>}
       description="VibeKit generates 4 universal files that work with every coding agent that reads files - Claude Code, Cursor, Kiro Code, Antigravity, Windsurf, Cline, Aider, or anything else with a CLAUDE.md / .rules / project context."
       containerClassName="max-w-6xl"

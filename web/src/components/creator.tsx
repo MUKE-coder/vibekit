@@ -16,7 +16,7 @@ const stats = [
   { value: "6yrs", label: "Coding" },
   { value: "15.2K", label: "YouTube subs" },
   { value: "100+", label: "Apps shipped" },
-  { value: "30+", label: "Components in JB Registry" },
+  { value: "144", label: "VibeKit primitives" },
 ];
 
 const skills = [
@@ -155,22 +155,17 @@ export function Creator() {
                 />
               </div>
 
-              {/* Status badge */}
+              {/* Name badge */}
               <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[color:var(--text-secondary)] shadow-[var(--shadow-md)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Building
+                <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
+                Desishub
               </div>
             </div>
           </div>
 
           {/* Content */}
           <div>
-            <div className="creator-eyebrow inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-secondary)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
-              Built by JB · Desishub
-            </div>
-
-            <h2 className="creator-headline font-display mt-6 text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-tight text-[color:var(--text-primary)]">
+            <h2 className="creator-headline font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-tight text-[color:var(--text-primary)]">
               Hi, I'm <em className="not-italic gradient-text">JB</em>.
               <br />
               <span className="text-[color:var(--text-secondary)]">I built VibeKit</span>

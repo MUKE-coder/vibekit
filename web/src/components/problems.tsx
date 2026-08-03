@@ -28,8 +28,8 @@ const problems = [
   },
   {
     pain: "Burning tokens",
-    looks: "$100-$200 per project because AI rewrites boilerplate every time (auth, tables, forms, uploads).",
-    solution: "JB Component Registry covers the big primitives - AI installs and wires up instead of writing from scratch (60-80% token savings).",
+    looks: "You re-generate auth, tables, forms, and uploads from scratch every session, burning tokens each time.",
+    solution: "JB Component Registry covers the big primitives, so the AI installs and wires them up instead of writing from scratch.",
   },
   {
     pain: "Getting stuck in loops",

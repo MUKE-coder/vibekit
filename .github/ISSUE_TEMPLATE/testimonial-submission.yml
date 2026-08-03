@@ -1,0 +1,65 @@
+name: "💬 Testimonial"
+description: "Share how VibeKit worked for you — approved testimonials get featured on the site."
+title: "[Testimonial]: <your name>"
+labels: ["testimonial"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for building with VibeKit! Tell us how it went. Once approved, your
+        testimonial appears on [vibekit.desishub.com](https://vibekit.desishub.com).
+
+        Please only submit a testimonial for a project you **genuinely built with
+        VibeKit**, in your own words.
+
+  - type: textarea
+    id: quote
+    attributes:
+      label: Your testimonial
+      description: "A sentence or two, in your own words. What did VibeKit help you do?"
+      placeholder: "I shipped my first real SaaS solo — auth, payments, and emails all worked the first time."
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Your name
+      placeholder: "Jane Doe"
+    validations:
+      required: true
+
+  - type: input
+    id: role
+    attributes:
+      label: Role / title
+      placeholder: "Indie hacker · Kampala"
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Your link (optional)
+      description: "Portfolio, GitHub, X, or the project you built."
+      placeholder: "https://github.com/janedoe"
+    validations:
+      required: false
+
+  - type: input
+    id: project
+    attributes:
+      label: What did you build? (optional)
+      placeholder: "A multi-vendor marketplace"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I genuinely built this with VibeKit, and these are my own words.
+          required: true
+        - label: I'm happy for this testimonial to be shown publicly on the VibeKit site.
+          required: true

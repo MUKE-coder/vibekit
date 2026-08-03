@@ -38,7 +38,6 @@ export function FrameworkFiles() {
   return (
     <Section
       id="files-tree"
-      eyebrow="The repo at a glance"
       title="One repo. Everything you need."
       description="Reference guides for every layer of the stack - database, deployment, design, monetization, troubleshooting - plus the core prompts Claude Code reads while building."
     >

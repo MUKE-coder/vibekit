@@ -75,11 +75,7 @@ export function AgentsStrip() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
-          <div className="agents-eyebrow inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--bg-elevated)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-secondary)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
-            12+ agents · Agent-agnostic
-          </div>
-          <h2 className="agents-headline font-display mt-6 text-[clamp(2rem,4.5vw,3rem)] leading-[1.1] tracking-tight text-[color:var(--text-primary)]">
+          <h2 className="agents-headline font-display text-[clamp(2rem,4.5vw,3rem)] leading-[1.1] tracking-tight text-[color:var(--text-primary)]">
             Works with any agent that <em className="not-italic gradient-text">reads files</em>.
           </h2>
           <p className="agents-sub mt-5 text-[16px] leading-relaxed text-[color:var(--text-secondary)]">
@@ -110,20 +106,13 @@ export function AgentsStrip() {
                   {a.tagline}
                 </div>
               </div>
-
-              {/* Status pip */}
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(34,197,94,0.6)] shrink-0"
-                title="Compatible"
-                aria-hidden
-              />
             </div>
           ))}
         </div>
 
         {/* Footnote */}
         <p className="mt-8 text-center font-mono text-[11px] uppercase tracking-wider text-[color:var(--text-tertiary)]">
-          Tested with all 12 agents listed · Compatible with any agent that ingests project files
+          Works with any agent that reads project files
         </p>
       </div>
     </section>
